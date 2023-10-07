@@ -39,6 +39,17 @@ struct ContentView: View {
                     }
                 }
                 
+                // 履歴の全削除ボタン
+                if input.isEmpty {
+                    Button {
+                        vm.removeAllHistorys()
+                    } label: {
+                        Text("履歴を全て削除")
+                    }
+                    .buttonStyle(.borderedProminent).tint(.red).padding(.top)
+                    .disabled(vm.historys.isEmpty)
+                }
+                
                 Spacer()
             }
             

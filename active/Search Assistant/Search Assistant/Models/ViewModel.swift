@@ -51,4 +51,9 @@ extension ViewModel {
     func addHistory(input: String, platform: Platform) {
         historyModel.add(input: input, platform: platform)
     }
+    
+    // 履歴を全て削除
+    func removeAllHistorys() {
+        historyModel.removeAll()
+    }
 }
