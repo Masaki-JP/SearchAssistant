@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct Search_AssistantApp: App {
+    @StateObject private var vm = ViewModel.shared
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(vm: vm)
+            /// アプリのカラースキームをダークに設定
+            .preferredColorScheme(.dark)
         }
     }
 }

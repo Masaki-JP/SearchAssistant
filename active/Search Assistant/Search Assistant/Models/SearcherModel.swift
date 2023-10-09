@@ -9,6 +9,8 @@ import UIKit // UIApplicationを使用するため
 
 
 final class SearcherModel {
+    
+    
     // 外部から呼ばれるのはこのメソッドのみ。プラットフォーム別の検索処理を行う。
     func Search(_ input: String, platform: Platform = .google) throws {
         switch platform {
@@ -23,6 +25,8 @@ final class SearcherModel {
         case .paypayFleaMarket: try searchOnPayPayFleaMarket(input)
         }
     }
+    
+    
 }
 
 

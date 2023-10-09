@@ -1,12 +1,20 @@
 
+
+やること
+URLが入力された場合、それがhttp通信ならば警告を表示する。
+
+
+
+
+
 おそらくスレッドの問題は非同期処理を行うと起こる
 協調スレッドを使用するため。MainActorなどを用いて解決する
 
-SuggestionModel, HistoryModelの遅延
-スプラッシュ画面の実装、左利き
-は後回し
 
-まずはUI
+スプラッシュ画面の実装
+inputをViewModelに持たせる
+
+
 
 
 
@@ -14,4 +22,83 @@ SuggestionModel, HistoryModelの遅延
 https://www.youtube.com/watch?v=zRZ2cjZY-1c
 ビュー、ビューモデル、モデル、この三者での値の共有がいまいち
 さらに言えば、値の更新からのビューの際描画で、スレッドの問題が生じている
+
+
+
+.onChangeを新しいものに変更する
+
+
+
+
+@FocusStateをViewModelに持たせることができない
+ViewとViewModel間では問題なく動作するが、子Viewから@FocusStateを変更することができなかった。（コンパイルエラーが出ないところまでは持っていけた）
+
+
+
+
+
+
+
+
+2023年10月8日時点でキーボードツールバーの問題がある模様。
+なぜかアプリを起動して最初の一回のみ、ツールバーのボタンのフォントが大きくなってしまう。
+→ fontモディファイアでbodyを指定し、一応は解決した
+
+デバックエリアの黄色で表示される文章(Report NavigatorのConsole)
+
+Unable to simultaneously satisfy constraints.
+    Probably at least one of the constraints in the following list is one you don't want.
+    Try this:
+        (1) look at each constraint and try to figure out which you don't expect;
+        (2) find the code that added the unwanted constraint or constraints and fix it.
+    (Note: If you're seeing NSAutoresizingMaskLayoutConstraints that you don't understand, refer to the documentation for the UIView property translatesAutoresizingMaskIntoConstraints)
+(
+    "<NSAutoresizingMaskLayoutConstraint:0x280526df0 h=--& v=--& _UIToolbarContentView:0x1059b46a0.width == 0   (active)>",
+    "<NSLayoutConstraint:0x280555860 H:|-(16)-[_UIButtonBarStackView:0x1059abf20]   (active, names: '|':_UIToolbarContentView:0x1059b46a0 )>",
+    "<NSLayoutConstraint:0x2805558b0 H:[_UIButtonBarStackView:0x1059abf20]-(16)-|   (active, names: '|':_UIToolbarContentView:0x1059b46a0 )>"
+)
+
+Will attempt to recover by breaking constraint
+<NSLayoutConstraint:0x2805558b0 H:[_UIButtonBarStackView:0x1059abf20]-(16)-|   (active, names: '|':_UIToolbarContentView:0x1059b46a0 )>
+
+Make a symbolic breakpoint at UIViewAlertForUnsatisfiableConstraints to catch this in the debugger.
+The methods in the UIConstraintBasedLayoutDebugging category on UIView listed in <UIKitCore/UIView.h> may also be helpful.
+
+下のようなシンプルなコードでも警告が表示された。
+
+TextField("", text: $text)
+    .toolbar {
+        ToolbarItemGroup(placement: .keyboard) {
+            Button("Button", action: {})
+            Button("Button", action: {})
+            Button("Button", action: {})
+        }
+    }
+
+
+
+
+
+
+
+
+2023年10月9日
+今後UserDefaultsを使用する際は、プライバシーマニフェストに使用する理由を記載する必要がある。後日対応する
+https://qiita.com/4q_sano/items/f9a00097724d1327dbc0
+https://developer.apple.com/documentation/foundation/userdefaults#2926902
+https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api
+
+
+
+
+————————————————————————————————————————
+
+備忘録
+
+2023年10月9日
+「Search Assistant」ターゲットと「SAWidgetExtension」ターゲットの「Supported Destinations」を「iPhone, iPad, Mac(Designed for iPad)」から「iPhone」のみに変更した。
+「iPhone Orientation」を「Portrait, Landscape Left, Landscape right」から「Portrait」のみに変更した。
+
+
+————————————————————————————————————————
 

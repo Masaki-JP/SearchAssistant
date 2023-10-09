@@ -8,7 +8,6 @@
 import Foundation
 
 // サジェスションモデル
-//final class SuggestionModel {
 struct SuggestionModel {
     
     var suggestions: [String] = []

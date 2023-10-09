@@ -5,7 +5,7 @@
 //  Created by Masaki Doi on 2023/10/04.
 //
 
-import Foundation
+import SwiftUI // Colorを使用するため
 
 enum Platform: String, Codable {
     case google = "Google"
@@ -29,6 +29,43 @@ enum Platform: String, Codable {
         case .mercari: "https://jp.mercari.com/search?keyword="
         case .rakuma: "https://fril.jp/s?query="
         case .paypayFleaMarket: "https://paypayfleamarket.yahoo.co.jp/search/"
+        }
+    }
+    
+    var iconCharacter: String {
+        switch self {
+        case .google: "G"
+        case .twitter: "X"
+        case .instagram: "I"
+        case .amazon: "A"
+        case .youtube: "Y"
+        case .facebook: "F"
+        case .mercari: "M"
+        case .rakuma: "R"
+        case .paypayFleaMarket: "P"
+        }
+    }
+    
+    var imageColor: Color {
+        switch self {
+        case .google:
+                .blue
+        case .twitter:
+            Color(red: 0.25, green: 0.25, blue: 0.25)
+        case .instagram:
+                .pink
+        case .amazon:
+                .orange
+        case .youtube:
+            Color(red: 1.0, green: 0.0, blue: 0.0)
+        case .facebook:
+                .cyan
+        case .mercari:
+                .green
+        case .rakuma:
+                .green
+        case .paypayFleaMarket:
+                .green
         }
     }
 }

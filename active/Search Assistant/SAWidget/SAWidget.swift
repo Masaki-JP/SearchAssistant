@@ -37,6 +37,19 @@ struct SAWidgetEntryView : View {
             .resizable()
             .scaledToFit()
             .privacySensitive(false)
+            .modifier(ContainerBackgroundToiOS17AndLater())
+    }
+}
+
+struct ContainerBackgroundToiOS17AndLater: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(iOS 17, *) {
+            return content.containerBackground(for: .widget) {
+                Color.clear
+            }
+        } else {
+            return content
+        }
     }
 }
 
@@ -60,8 +73,17 @@ struct SAWidget: Widget {
     }
 }
 
-#Preview(as: .accessoryCircular) {
-    SAWidget()
-} timeline: {
-    SimpleEntry(date: .now)
+
+//// Previewがうまくいかない。原因は不明
+//#Preview(as: .accessoryCircular) {
+//    SAWidget()
+//} timeline: {
+//    SimpleEntry(date: .now)
+//}
+
+struct SA_Widget_Previews: PreviewProvider {
+    static var previews: some View {
+        SAWidgetEntryView(entry: SimpleEntry(date: Date()))
+            .previewContext(WidgetPreviewContext(family: .accessoryCircular))
+    }
 }

@@ -5,13 +5,22 @@
 //  Created by Masaki Doi on 2023/10/03.
 //
 
-import Foundation
+import SwiftUI
 
 
 // ビューモデル
 class ViewModel: ObservableObject {
     static let shared = ViewModel()
     private init() {}
+    
+    // SettingsViewで使用
+    @AppStorage("autoFocus") var settingAutoFocus = false
+    @AppStorage("searchButton_Left") var settingLeftSearchButton = false // 未実装
+    
+    // ビュープロパティ
+    @Published var isPresesntedSettingsView = false
+    @Published var isShowInstagramErrorAlert = false
+    @Published var isShowPromptToConfirmDeletionOFAllHistorys = false
     
     // 検索機能
     private let searcher = SearcherModel()
@@ -23,15 +32,33 @@ class ViewModel: ObservableObject {
     // 履歴管理
     @Published var historyModel = HistorysModel()
     var historys: [History] { historyModel.historys }
+    
+    // 日付管理
+    private let dateFormatter = SADateFormatter.shared
+    func getStringDate(from date: Date) -> String {
+        let stringDate = dateFormatter.string(from: date)
+        return stringDate
+    }
 }
 
 
 // 検索機能
 extension ViewModel {
     // 入力から検索 or Suggestionから検索 or 履歴から検索 or ツールバーボタンから検索
-    func Search(_ input: String, platform: Platform = .google) throws {
-        try searcher.Search(input, platform: platform)
-        addHistory(input: input, platform: platform)
+    func Search(_ input: String, platform: Platform = .google) {
+        do {
+            try searcher.Search(input, platform: platform)
+            addHistory(input: input, platform: platform)
+        } catch {
+            switch error {
+            case HumanError.noInput:
+                break
+            case HumanError.whiteSpace:
+                isShowInstagramErrorAlert = true
+            default:
+                fatalError()
+            }
+        }
     }
 }
 
@@ -47,8 +74,8 @@ extension ViewModel {
 
 // 履歴管理
 extension ViewModel {
-    // 履歴を追加（ViewModel内でしか呼ぶことはないので、後でプライベートにする
-    func addHistory(input: String, platform: Platform) {
+    // 履歴を追加
+    private func addHistory(input: String, platform: Platform) {
         historyModel.add(input: input, platform: platform)
     }
     
@@ -57,3 +84,4 @@ extension ViewModel {
         historyModel.removeAll()
     }
 }
+
