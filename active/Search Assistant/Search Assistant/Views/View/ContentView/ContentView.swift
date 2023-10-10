@@ -5,16 +5,14 @@
 //  Created by Masaki Doi on 2023/10/03.
 //
 
-#warning("""
 
-作業終了後の流れ
-1. topicブランチにてコミット
-2. mainブランチにチェックアウト
-3. topicブランチをマージ
-4. origin/mainにプッシュ
-5. topicブランチにチェックアウト
+// 作業終了後の流れ
+// 1. topicブランチにてコミット
+// 2. mainブランチにチェックアウト
+// 3. topicブランチをマージ
+// 4. origin/mainにプッシュ
+// 5. topicブランチにチェックアウト
 
-""")
 
 import SwiftUI
 
@@ -75,6 +73,8 @@ struct ContentView: View {
        
         
         /// オートフォーカスが有効化されていた場合の処理
+        
+        
         .onChange(of: scenePhase) { newValue in
             guard case .active = newValue,
                   vm.settingAutoFocus == true,
@@ -85,7 +85,25 @@ struct ContentView: View {
             DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
                 isFocused = true
             }
+            print("オートフォーカス制御 by onChange")
         }
+        
+        
+        .onAppear {
+            guard vm.settingAutoFocus == true,
+                  vm.isPresesntedSettingsView == false,
+                  vm.isShowInstagramErrorAlert == false,
+                  vm.isShowPromptToConfirmDeletionOFAllHistorys == false
+            else { return }
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
+                isFocused = true
+            }
+            print("オートフォーカス制御 by onAppear")
+        }
+        
+        
+        
+        
         
         
         /// Instagramエラーのアラート

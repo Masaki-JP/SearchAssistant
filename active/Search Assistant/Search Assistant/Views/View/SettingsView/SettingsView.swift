@@ -15,6 +15,17 @@ struct SettingsView: View {
         NavigationStack {
             List {
                 
+//                // スプラッシュスクリーンセクション
+//                Section {
+//                    Toggle(isOn: $xxx) {
+//                        Text("スプラッシュスクリーン")
+//                    }.tint(.green)
+//                } header: {
+//                    Text("起動時設定")
+//                } footer: {
+//                    Text("アプリ起動時にスプラッシュスクリーンを表示します。")
+//                }
+                
                 // フォーカス制御セクション
                 Section {
                     Toggle(isOn: vm.$settingAutoFocus) {
@@ -23,7 +34,7 @@ struct SettingsView: View {
                 } header: {
                     Text("フォーカス制御")
                 } footer: {
-                    Text("Search Assistantが開かれたときに、検索フォームに自動でフォーカスします。")
+                    Text("検索画面が表示された時に、検索フォームに自動でフォーカスします。")
                 }
                 
                 // 検索ボタンセクション

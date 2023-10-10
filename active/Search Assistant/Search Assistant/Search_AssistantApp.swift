@@ -9,13 +9,17 @@ import SwiftUI
 
 @main
 struct Search_AssistantApp: App {
+    @StateObject var viewRouter = ViewRouter.shared
     @StateObject private var vm = ViewModel.shared
     
     var body: some Scene {
         WindowGroup {
-            ContentView(vm: vm)
-            /// アプリのカラースキームをダークに設定
-            .preferredColorScheme(.dark)
+            switch viewRouter.selected {
+            case .splashScreenView:
+                SplashScreenView().preferredColorScheme(.dark)
+            case .contentView:
+                ContentView(vm: vm).preferredColorScheme(.dark)
+            }
         }
     }
 }
