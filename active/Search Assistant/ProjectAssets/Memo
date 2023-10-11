@@ -26,7 +26,7 @@ https://www.youtube.com/watch?v=zRZ2cjZY-1c
 
 
 
-.onChangeを新しいものに変更する
+引数にnewValueをとるonChangeメソッドはiOS17以降では非推奨になったためを新しいものに変更する
 
 
 
@@ -36,7 +36,15 @@ ViewとViewModel間では問題なく動作するが、子Viewから@FocusState�
 
 
 
+Google検索について
+https://so-zou.jp/web-app/tech/search-engine/google/search/
+https://webrandum.net/google-search-parameter/
+http://www13.plala.or.jp/bigdata/google.html
+https://dev.classmethod.jp/articles/check-url-structure-of-google/
 
+
+I'm feeling lucky
+「https://www.google.com/search?btnI=I%27m+Feeling+Lucky&lr=lang_ja&ie=UTF-8&oe=UTF-8&q=」
  
 
 
@@ -74,6 +82,26 @@ TextField("", text: $text)
             Button("Button", action: {})
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+-----------------
+日本語化の設定をする。App Storeで言語が「EN」となっている。以下の方法でたぶんできる。（下のやつは旧バージョンにあったメモ）
+
+「Search Assistant.xcodeproj」をVSCodeで開き、「developmentRegion」(2023年1月24日現在218行目)を「en」から「ja」に変更し、日本語化。
+（同時に「PROJECT」→「Info」の「Locarizations」→「Locarization」から「English」を削除。Use Base Internationalizationのチェックも外した。）
+
+-----------------
+
+
 
 
 
@@ -125,3 +153,20 @@ https://placeit.net/c/mockups/stages/mockup-featuring-two-iphones-x-floating-aga
 
 ————————————————————————————————————————
 
+【☆☆☆】
+外観モードの設定
+historys 100個を超えるのであれば、100個になるように削除
+
+
+【☆☆】
+履歴の個別削除機能を追加
+検索履歴を残さない設定
+空文字のときは灰色で無効化の状態にする（2023年10月11日時点ではSwiftUIだけでは無理）
+
+
+【☆】
+Googleマップを追加
+
+
+(設定、Face IDとパスコード、ロック中にアクセスを許可のロック画面のウィジェットをオンにする。しかし、これがオフの時でも、普通にPayPayとかは表示されている。なぜかわからない。)
+→ .privacySensitive(false)が変なとこについてたのが原因
