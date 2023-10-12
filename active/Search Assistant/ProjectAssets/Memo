@@ -12,7 +12,7 @@ private(set)に書き換えられるものがあるならば書き換える
 協調スレッドを使用するため。MainActorなどを用いて解決する
 
 
-スプラッシュ画面の実装
+
 inputをViewModelに持たせる
 
 
@@ -21,6 +21,8 @@ inputをViewModelに持たせる
 
 
 https://www.youtube.com/watch?v=zRZ2cjZY-1c
+
+
 ビュー、ビューモデル、モデル、この三者での値の共有がいまいち
 さらに言えば、値の更新からのビューの際描画で、スレッドの問題が生じている
 
@@ -94,13 +96,19 @@ TextField("", text: $text)
 
 
 -----------------
-日本語化の設定をする。App Storeで言語が「EN」となっている。以下の方法でたぶんできる。（下のやつは旧バージョンにあったメモ）
 
-「Search Assistant.xcodeproj」をVSCodeで開き、「developmentRegion」(2023年1月24日現在218行目)を「en」から「ja」に変更し、日本語化。
-（同時に「PROJECT」→「Info」の「Locarizations」→「Locarization」から「English」を削除。Use Base Internationalizationのチェックも外した。）
+
+備忘録 2023年10月12日
+
+日本語化の設定
+App Storeで言語が「EN」となっている。これを「JA」に変更する。
+
+「Search Assistant.xcodeproj」をVSCodeで開き、「developmentRegion」を「en」から「ja」に変更
+「PROJECT」→「Info」の「Locarizations」→「Locarization」から「English」と「Base」を削除
+※ 「Base」は「Use Base Internationalization」のチェックを外した時点で消えるかも
+
 
 -----------------
-
 
 
 
@@ -163,10 +171,18 @@ historys 100個を超えるのであれば、100個になるように削除
 検索履歴を残さない設定
 空文字のときは灰色で無効化の状態にする（2023年10月11日時点ではSwiftUIだけでは無理）
 
-
 【☆】
 Googleマップを追加
 
 
+
+
 (設定、Face IDとパスコード、ロック中にアクセスを許可のロック画面のウィジェットをオンにする。しかし、これがオフの時でも、普通にPayPayとかは表示されている。なぜかわからない。)
 → .privacySensitive(false)が変なとこについてたのが原因
+
+
+
+
+
+備忘録　2023年10月12日
+Search Assistantターゲットの「Identity>App Category」を「Utilities」に変更

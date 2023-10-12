@@ -27,7 +27,11 @@ struct SuggestionModel {
 
         // API通信データを取得
         var data = Data()
-        (data, _) = try await URLSession.shared.data(from: url)
+        do {
+            (data, _) = try await URLSession.shared.data(from: url)
+        } catch {
+            await updateSuggestion(with: [])
+        }
         
         // Data型をString型に変換
         let dataText = String(data: data, encoding: .shiftJIS)!

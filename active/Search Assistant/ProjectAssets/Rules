@@ -1,8 +1,21 @@
 
-バージョン管理は「Semantic Versioning」を参考にする。
+————————————————————
 
+バージョン管理は「Semantic Versioning」を参考にする。
 例) 1.2.3
 メジャーアップデート → 2.0.0
 マイナーアップデート → 1.3.0
 パッチアップデート → 1.2.4
+
+————————————————————
+
+UserDefaults(AppStorage)
+historys, autoFocus, searchButton_Left
+※ 1.2から2.0.0にした際、「searchHistorysData」を「historys」に変更した。
+
+————————————————————
+
+
+
+
 

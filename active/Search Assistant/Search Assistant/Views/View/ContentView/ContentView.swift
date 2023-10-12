@@ -6,12 +6,26 @@
 //
 
 
-// 作業終了後の流れ
-// 1. topicブランチにてコミット
-// 2. mainブランチにチェックアウト
-// 3. topicブランチをマージ
-// 4. origin/mainにプッシュ
-// 5. topicブランチにチェックアウト
+
+#warning("""
+
+作業終了後の流れ
+1. topicブランチにてコミット
+2. mainブランチにチェックアウト
+3. topicブランチをマージ
+4. origin/mainにプッシュ
+5. topicブランチにチェックアウト
+※ メジャーアップデート、マイナーアップデートの際はタグをつける
+
+以下変更内容
+言語の設定
+カテゴリの設定
+ライトモードの対応
+強制終了問題の解決
+通信ができない時にsuggestionを取得を試みると強制終了する問題を解決
+
+""")
+
 
 
 import SwiftUI
@@ -34,7 +48,7 @@ struct ContentView: View {
                 SearchTextField(vm: vm, input: $input, isFocused: _isFocused)
                 .padding(.horizontal)
                 
-                Divider()
+                Divider().padding(.horizontal)
                 
                 // 検索履歴 or 検索候補
                 if input.isEmpty {
@@ -54,8 +68,10 @@ struct ContentView: View {
         } // ZStack
         
         
+        
         /// ツールバーに検索ボタンを実装
         .modifier(toolbarWithSearchButtons(vm: vm, input: $input, isFocused: _isFocused))
+        
         
         
         /// 入力時にSuggestionを取得
@@ -66,15 +82,26 @@ struct ContentView: View {
         }
         
         
+        
         /// SettingsViewの表示設定
         .sheet(isPresented: $vm.isPresesntedSettingsView) {
             SettingsView(vm: vm)
         }
        
         
-        /// オートフォーカスが有効化されていた場合の処理
         
-        
+        /// オートフォーカス有効 & アプリが開かれた
+        .onAppear {
+            guard vm.settingAutoFocus == true,
+                  vm.isPresesntedSettingsView == false,
+                  vm.isShowInstagramErrorAlert == false,
+                  vm.isShowPromptToConfirmDeletionOFAllHistorys == false
+            else { return }
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
+                isFocused = true
+            }
+        }
+        /// オートフォーカスが有効 & アプリがアクティブになった
         .onChange(of: scenePhase) { newValue in
             guard case .active = newValue,
                   vm.settingAutoFocus == true,
@@ -85,29 +112,13 @@ struct ContentView: View {
             DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
                 isFocused = true
             }
-            print("オートフォーカス制御 by onChange")
         }
-        
-        
-        .onAppear {
-            guard vm.settingAutoFocus == true,
-                  vm.isPresesntedSettingsView == false,
-                  vm.isShowInstagramErrorAlert == false,
-                  vm.isShowPromptToConfirmDeletionOFAllHistorys == false
-            else { return }
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
-                isFocused = true
-            }
-            print("オートフォーカス制御 by onAppear")
-        }
-        
-        
-        
         
         
         
         /// Instagramエラーのアラート
         .alert("Instagram検索ではスペースを使用できません。", isPresented: $vm.isShowInstagramErrorAlert) {}
+        
         
         
         /// 履歴を全削除する際の確認のアラート
@@ -121,6 +132,7 @@ struct ContentView: View {
         }
         
 
+        
     } // body
 }
 

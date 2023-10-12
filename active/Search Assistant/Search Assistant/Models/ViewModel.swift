@@ -14,8 +14,8 @@ class ViewModel: ObservableObject {
     private init() {}
     
     // SettingsViewで使用
-    @AppStorage("autoFocus") var settingAutoFocus = false
-    @AppStorage("searchButton_Left") var settingLeftSearchButton = false // 未実装
+    @AppStorage("autoFocus") var settingAutoFocus = true
+    @AppStorage("searchButton_Left") var settingLeftSearchButton = false
     
     // ビュープロパティ
     @Published var isPresesntedSettingsView = false

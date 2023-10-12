@@ -16,9 +16,9 @@ struct Search_AssistantApp: App {
         WindowGroup {
             switch viewRouter.selected {
             case .splashScreenView:
-                SplashScreenView().preferredColorScheme(.dark)
+                SplashScreenView()
             case .contentView:
-                ContentView(vm: vm).preferredColorScheme(.dark)
+                ContentView(vm: vm)
             }
         }
     }
