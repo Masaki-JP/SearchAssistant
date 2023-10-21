@@ -16,7 +16,6 @@ struct HistorysList: View {
                 ForEach(vm.historys.indices, id: \.self) { i in
                     HStack {
                         Text(vm.historys[i].platform.iconCharacter)
-//                            .font(.title2)
                             .font(.title3)
                             .bold()
                             .foregroundStyle(.white)
@@ -25,9 +24,8 @@ struct HistorysList: View {
                             .clipShape(RoundedRectangle(cornerRadius: 7))
                         
                         Button(vm.historys[i].input) {
-                           vm.Search(vm.historys[i].input)
+                            vm.Search(vm.historys[i].input, platform: vm.historys[i].platform)
                         }
-//                            .font(.title3)
                         .font(.body)
                             .foregroundStyle(.primary)
                             .padding(.leading, 4)
@@ -35,7 +33,6 @@ struct HistorysList: View {
                         Spacer()
                        
                         Text(vm.getStringDate(from: vm.historys[i].date)) // TODO: 日付を表示
-//                            .font(.caption)
                             .font(.caption2)
                             .foregroundStyle(.secondary)
                             .padding(.vertical, 4)
