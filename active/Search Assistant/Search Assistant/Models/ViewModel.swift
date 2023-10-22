@@ -79,7 +79,12 @@ extension ViewModel {
         historyModel.add(input: input, platform: platform)
     }
     
-    // 履歴を全て削除
+    // 任意の履歴を削除
+    func removeHistory(at index: Int) {
+        historyModel.remove(at: index)
+    }
+
+    // 全ての履歴を削除
     func removeAllHistorys() {
         historyModel.removeAll()
     }

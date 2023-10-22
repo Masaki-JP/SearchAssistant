@@ -18,28 +18,42 @@ struct History: Codable, Identifiable {
 
 // ヒストリーズモデル
 struct HistorysModel {
-    var historys: [History]
     
+    var historys: [History]
     
     // 履歴を追加
     mutating func add(input: String, platform: Platform) {
         let history = History(input: input, platform: platform)
         historys.insert(history, at: 0)
-        // UserDefaultsにも反映
-        let json = try! JSONEncoder().encode(historys) // FIXME: try!
-        UserDefaults.standard.set(json, forKey: "historys")
+        
+        //        let json = try! JSONEncoder().encode(historys) // FIXME: try!
+        //        UserDefaults.standard.set(json, forKey: "historys")
+        updateUserDefaults()
     }
     
+    // 任意の履歴を削除
+    mutating func remove(at index: Int) {
+        historys.remove(at: index)
+        
+        //        let json = try! JSONEncoder().encode(historys) // FIXME: try!
+        //        UserDefaults.standard.set(json, forKey: "historys")
+        updateUserDefaults()
+    }
     
-    // 履歴を全て削除
+    // 全ての履歴を削除
     mutating func removeAll() {
         historys.removeAll()
         UserDefaults.standard.removeObject(forKey: "historys")
     }
     
-    
+    // 履歴の更新をUserDefaultsに反映
+    mutating private func updateUserDefaults() {
+        let json = try! JSONEncoder().encode(historys) // FIXME: try!
+        UserDefaults.standard.set(json, forKey: "historys")
+    }
     
     init() {
+        
         // historysの初期化
         guard let data = UserDefaults.standard.data(forKey: "historys"),
               let historys = try? JSONDecoder().decode([History].self, from: data)

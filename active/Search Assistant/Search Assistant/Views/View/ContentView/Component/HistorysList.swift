@@ -32,11 +32,21 @@ struct HistorysList: View {
                         
                         Spacer()
                        
-                        Text(vm.getStringDate(from: vm.historys[i].date)) // TODO: 日付を表示
+                        Text(vm.getStringDate(from: vm.historys[i].date))
                             .font(.caption2)
                             .foregroundStyle(.secondary)
                             .padding(.vertical, 4)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }
+                    .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                        Button {
+                            withAnimation {
+                                vm.removeHistory(at: i)
+                            }
+                        } label: {
+                            Label("Delete", systemImage: "trash")
+                        }
+                        .tint(.red)
                     }
                 }
             } header: {
