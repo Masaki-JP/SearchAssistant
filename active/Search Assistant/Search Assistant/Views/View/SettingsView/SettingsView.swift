@@ -7,7 +7,14 @@
 
 import SwiftUI
 
+enum ColorScheme: String {
+    case light = "Light"
+    case dark = "Dark"
+    case system = "System"
+}
+
 struct SettingsView: View {
+    @AppStorage("colorScheme") var colorScheme = ColorScheme.dark.rawValue
     @ObservedObject var vm: ViewModel
     @Environment(\.scenePhase) private var scenePhase
     
@@ -49,33 +56,35 @@ struct SettingsView: View {
                 }
                 
                 
-//                // 外観モードセクション(未実装)
-//                Section {
-//                    Text("ライト")
-//                    Text("ダーク")
-//                    Text("システム")
-//                } header: {
-//                    Text("外観モード(未実装)")
-//                } footer: {
-//                    Text("iPhoneの外観モードと同じものにするにはシステムを選択してください。")
-//                }
+                // 外観モードセクション(未実装)
+                Section {
+                    Picker("Color Scheme", selection: $colorScheme) {
+                        Text("Light").tag(ColorScheme.light.rawValue)
+                        Text("Dark").tag(ColorScheme.dark.rawValue)
+                        Text("System").tag(ColorScheme.system.rawValue)
+                    }
+                } header: {
+                    Text("外観モード")
+                } footer: {
+                    Text("iPhoneの外観モードと同じものにするにはSystemを選択してください。")
+                }
                 
                 
-//                // キーボードツールバーセクション(未実装)
-//                Section {
-//                    Text("Twitter")
-//                    Text("Instagram")
-//                    Text("Amazon")
-//                    Text("YouTube")
-//                    Text("Facebook")
-//                    Text("メルカリ")
-//                    Text("ラクマ")
-//                    Text("PayPayフリマ")
-//                } header: {
-//                    Text("キーボードツールバー(未実装)")
-//                } footer: {
-//                    Text("ツールバーに表示する検索ボタンを設定できます。設定できるのは最大で3種類までです。")
-//                }
+                // キーボードツールバーセクション(未実装)
+                Section {
+                    Text("Twitter")
+                    Text("Instagram")
+                    Text("Amazon")
+                    Text("YouTube")
+                    Text("Facebook")
+                    Text("メルカリ")
+                    Text("ラクマ")
+                    Text("PayPayフリマ")
+                } header: {
+                    Text("キーボードツールバー(未実装)")
+                } footer: {
+                    Text("ツールバーに表示する検索ボタンを設定できます。設定できるのは最大で3種類までです。")
+                }
                 
                 
             } // List
@@ -89,6 +98,12 @@ struct SettingsView: View {
             guard case .inactive = newScene else { return }
             vm.isPresesntedSettingsView = false
         }
+        ///
+        ///
+        /// カラースキームを変更しても、SettingsViewのカラースキームが切り替わらないことがあるので、対策として付与する
+        .preferredColorScheme(
+            colorScheme == "System" ? .none : colorScheme == "Light" ? .light : .dark
+        )
         ///
         ///
         ///
