@@ -9,8 +9,8 @@ import Foundation
 
 // サジェスションモデル
 struct SuggestionModel {
-    
     var suggestions: [String] = []
+    var fetchFailure = false
     
     // suggestionを更新する
     @MainActor mutating func updateSuggestion(with newSuggestions: [String]) {
@@ -18,7 +18,9 @@ struct SuggestionModel {
     }
     
     // Suggestionを取得する
-    mutating func getSuggestions(from input: String) async throws {
+    mutating func fetchSuggestions(from input: String) async throws {
+//        suggestions = []
+        fetchFailure = false
         
         // URLを作成
         let suggestionAPIURL = "https://www.google.com/complete/search?hl=ja&output=toolbar&q="
@@ -30,6 +32,7 @@ struct SuggestionModel {
         do {
             (data, _) = try await URLSession.shared.data(from: url)
         } catch {
+            fetchFailure = true
             await updateSuggestion(with: [])
         }
         

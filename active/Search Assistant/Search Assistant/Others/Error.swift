@@ -9,7 +9,7 @@ import Foundation
 
 // FIXME: もう少しうまい感じにまとめる
 
-// たしか検索のときに投げられるかもしれないエラー。
+
 enum HumanError: Error {
     case noInput
     case whiteSpace

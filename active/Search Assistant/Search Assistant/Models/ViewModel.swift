@@ -68,7 +68,7 @@ extension ViewModel {
 extension ViewModel {
     // 検索候補を取得
     @MainActor func getSuggestion(from input: String) async throws {
-        try await suggestionModel.getSuggestions(from: input)
+        try await suggestionModel.fetchSuggestions(from: input)
     }
 }
 
