@@ -21,18 +21,6 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             List {
-                
-//                // スプラッシュスクリーンセクション
-//                Section {
-//                    Toggle(isOn: $xxx) {
-//                        Text("スプラッシュスクリーン")
-//                    }.tint(.green)
-//                } header: {
-//                    Text("起動時設定")
-//                } footer: {
-//                    Text("アプリ起動時にスプラッシュスクリーンを表示します。")
-//                }
-                
                 // フォーカス制御セクション
                 Section {
                     Toggle(isOn: vm.$settingAutoFocus) {
@@ -56,7 +44,7 @@ struct SettingsView: View {
                 }
                 
                 
-                // 外観モードセクション(未実装)
+                // 外観モードセクション
                 Section {
                     Picker("Color Scheme", selection: $colorScheme) {
                         Text("Light").tag(ColorScheme.light.rawValue)
@@ -70,20 +58,41 @@ struct SettingsView: View {
                 }
                 
                 
-                // キーボードツールバーセクション(未実装)
+                // キーボードツールバーボタンセクション
+//                Section {
+//                    Text("Twitter")
+//                    Text("Instagram")
+//                    Text("Amazon")
+//                    Text("YouTube")
+//                    Text("Facebook")
+//                    Text("メルカリ")
+//                    Text("ラクマ")
+//                    Text("PayPayフリマ")
+//                } header: {
+//                    Text("キーボードツールバー(未実装)")
+//                } footer: {
+//                    Text("ツールバーに表示する検索ボタンを設定できます。設定できるのは最大で3種類までです。")
+//                }
+                
                 Section {
-                    Text("Twitter")
-                    Text("Instagram")
-                    Text("Amazon")
-                    Text("YouTube")
-                    Text("Facebook")
-                    Text("メルカリ")
-                    Text("ラクマ")
-                    Text("PayPayフリマ")
+                    ForEach(Platform.allCases, id: \.self) { platform in
+                        Button(action: {
+                            vm.keyboardToolbarButtons.validationToggle(platform: platform)
+                        }, label: {
+                            HStack {
+                                Text(platform.rawValue)
+                                Spacer()
+                                Image(systemName: "checkmark")
+                                    .bold()
+                                    .foregroundStyle(vm.keyboardToolbarButtons.validButtons.contains(platform) ? .green : .clear)
+                            }
+                        })
+                    }
+                    .foregroundStyle(.primary)
                 } header: {
-                    Text("キーボードツールバー(未実装)")
+                    Text("ツールバーボタン")
                 } footer: {
-                    Text("ツールバーに表示する検索ボタンを設定できます。設定できるのは最大で3種類までです。")
+                    Text("ツールバーに表示する検索ボタンを設定できます。")
                 }
                 
                 

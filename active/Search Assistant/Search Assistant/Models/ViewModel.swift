@@ -16,6 +16,7 @@ class ViewModel: ObservableObject {
     // SettingsViewで使用
     @AppStorage("autoFocus") var settingAutoFocus = true
     @AppStorage("searchButton_Left") var settingLeftSearchButton = false
+    @Published var keyboardToolbarButtons = KeyboardToolbarButtonsModel()
     
     // ビュープロパティ
     @Published var isPresesntedSettingsView = false

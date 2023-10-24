@@ -10,7 +10,8 @@
 ————————————————————
 
 UserDefaults(AppStorage)
-historys, autoFocus, searchButton_Left
+historys, autoFocus, searchButton_Left, colorScheme, keyboardToolbarButtons
+
 ※ 1.2から2.0.0にした際、「searchHistorysData」を「historys」に変更した。
 
 ————————————————————

@@ -33,6 +33,7 @@
 		4CB14D292AD433D300854078 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB14D282AD433D300854078 /* SplashScreenView.swift */; };
 		4CB68C622ACD3041004C9E43 /* praceAtAppropriatePositionIfInZStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB68C612ACD3041004C9E43 /* praceAtAppropriatePositionIfInZStack.swift */; };
 		4CB68C642ACD37EC004C9E43 /* SuggestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB68C632ACD37EC004C9E43 /* SuggestionModel.swift */; };
+		4CBF86672AE76AF700B73BAB /* KeyboardToolbarButtonsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBF86662AE76AF700B73BAB /* KeyboardToolbarButtonsModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,7 @@
 		4CB14D282AD433D300854078 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		4CB68C612ACD3041004C9E43 /* praceAtAppropriatePositionIfInZStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = praceAtAppropriatePositionIfInZStack.swift; sourceTree = "<group>"; };
 		4CB68C632ACD37EC004C9E43 /* SuggestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionModel.swift; sourceTree = "<group>"; };
+		4CBF86662AE76AF700B73BAB /* KeyboardToolbarButtonsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardToolbarButtonsModel.swift; sourceTree = "<group>"; };
 		4CD455F22AD3C8790092E95A /* Search-Assistant-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Search-Assistant-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -218,6 +220,7 @@
 				4C0872452ACC150F00033787 /* HistoryModel.swift */,
 				4CB68C632ACD37EC004C9E43 /* SuggestionModel.swift */,
 				4C36B6A72AD2AFEE00875FDC /* DateFormatterModel.swift */,
+				4CBF86662AE76AF700B73BAB /* KeyboardToolbarButtonsModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 				4C0872442ACC14F400033787 /* ViewModel.swift in Sources */,
 				4C0871ED2ACC043D00033787 /* Search_AssistantApp.swift in Sources */,
 				4C6AE3F62AD2A5B500863115 /* SearchTextField.swift in Sources */,
+				4CBF86672AE76AF700B73BAB /* KeyboardToolbarButtonsModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

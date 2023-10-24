@@ -25,18 +25,12 @@ struct HistorysModel {
     mutating func add(input: String, platform: Platform) {
         let history = History(input: input, platform: platform)
         historys.insert(history, at: 0)
-        
-        //        let json = try! JSONEncoder().encode(historys) // FIXME: try!
-        //        UserDefaults.standard.set(json, forKey: "historys")
         updateUserDefaults()
     }
     
     // 任意の履歴を削除
     mutating func remove(at index: Int) {
         historys.remove(at: index)
-        
-        //        let json = try! JSONEncoder().encode(historys) // FIXME: try!
-        //        UserDefaults.standard.set(json, forKey: "historys")
         updateUserDefaults()
     }
     

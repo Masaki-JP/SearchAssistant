@@ -7,7 +7,7 @@
 
 import SwiftUI // Colorを使用するため
 
-enum Platform: String, Codable {
+enum Platform: String, Codable, CaseIterable {
     case google = "Google"
     case twitter = "Twitter"
     case instagram = "Instagram"
