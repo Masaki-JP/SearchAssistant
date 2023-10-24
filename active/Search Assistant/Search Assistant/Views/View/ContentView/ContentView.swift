@@ -5,7 +5,6 @@
 //  Created by Masaki Doi on 2023/10/03.
 //
 
-#warning("次回アプデ時にはキーワードにSmoozを追加")
 
 #warning("""
 
