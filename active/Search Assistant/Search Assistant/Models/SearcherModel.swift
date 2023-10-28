@@ -5,16 +5,34 @@
 //  Created by Masaki Doi on 2023/10/05.
 //
 
-import UIKit // UIApplicationを使用するため
+import SwiftUI
 
+struct SearchDataForSafariView: Identifiable {
+    let id = UUID()
+    let url: URL
+    
+    init(_ input: String) {
+        let encodedInput = input.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let url = URL(string: Platform.google.prefixURL + encodedInput)
+        self.url = url!
+    }
+}
 
 final class SearcherModel {
-    
+    @AppStorage("openInSafariView") var openInSafariView = true
+    var searchDataForSafariView: SearchDataForSafariView? = nil
     
     // 外部から呼ばれるのはこのメソッドのみ。プラットフォーム別の検索処理を行う。
     func Search(_ input: String, platform: Platform = .google) throws {
         switch platform {
-        case .google: try searchOnGoogle(input)
+            
+        case .google where openInSafariView == true:
+            searchDataForSafariView = .init(input)
+        case .google where openInSafariView == false:
+            try searchOnGoogle(input)
+        case .google:
+            fatalError()
+            
         case .twitter: try searchOnTwitter(input)
         case .instagram: try searchOnInstagram(input)
         case .amazon: try searchOnAmazon(input)
@@ -71,7 +89,7 @@ extension SearcherModel {
         guard !input.contains(" ") && !input.contains("　") else {
             throw HumanError.whiteSpace
         }
-                
+        
         // 空文字でないことを確認
         guard !input.isEmpty else { throw HumanError.noInput }
         // Instagram検索用URLを作成
@@ -94,7 +112,7 @@ extension SearcherModel {
         // 作成したURLを開く
         UIApplication.shared.open(url)
     }
-        
+    
     
     // YouTube検索
     private func searchOnYouTube(_ input: String) throws {
@@ -107,7 +125,7 @@ extension SearcherModel {
         // 作成したURLを開く
         UIApplication.shared.open(url)
     }
-      
+    
     
     // Facebook検索
     private func searchOnFacebook(_ input: String) throws {
@@ -133,7 +151,7 @@ extension SearcherModel {
         // 作成したURLを開く
         UIApplication.shared.open(url)
     }
-       
+    
     
     // ラクマ検索
     private func searchOnRakuma(_ input: String) throws {

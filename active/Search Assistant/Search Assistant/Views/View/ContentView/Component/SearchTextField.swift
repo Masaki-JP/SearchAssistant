@@ -20,12 +20,12 @@ struct SearchTextField: View {
                 .frame(height: 20)
                 
             TextField("What do you search for?", text: $input)
-//                .font(.title)
                 .font(.title2)
                 .submitLabel(.search)
                 .focused($isFocused)
                 .onSubmit {
                     vm.Search(input) 
+//                    vm.Search(input, withSafariView: true)
                     input.removeAll()
                 }
             

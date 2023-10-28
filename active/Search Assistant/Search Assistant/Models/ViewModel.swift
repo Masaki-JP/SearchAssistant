@@ -24,7 +24,7 @@ class ViewModel: ObservableObject {
     @Published var isShowPromptToConfirmDeletionOFAllHistorys = false
     
     // 検索機能
-    private let searcher = SearcherModel()
+    var searcher = SearcherModel()
     
     // 検索候補
     @Published var suggestionModel = SuggestionModel()

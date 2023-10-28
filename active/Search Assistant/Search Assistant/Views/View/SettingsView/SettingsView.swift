@@ -15,6 +15,8 @@ enum ColorScheme: String {
 
 struct SettingsView: View {
     @AppStorage("colorScheme") var colorScheme = ColorScheme.dark.rawValue
+    @AppStorage("openInSafariView") var openInSafariView = true
+    
     @ObservedObject var vm: ViewModel
     @Environment(\.scenePhase) private var scenePhase
     
@@ -58,22 +60,17 @@ struct SettingsView: View {
                 }
                 
                 
-                // キーボードツールバーボタンセクション
-//                Section {
-//                    Text("Twitter")
-//                    Text("Instagram")
-//                    Text("Amazon")
-//                    Text("YouTube")
-//                    Text("Facebook")
-//                    Text("メルカリ")
-//                    Text("ラクマ")
-//                    Text("PayPayフリマ")
-//                } header: {
-//                    Text("キーボードツールバー(未実装)")
-//                } footer: {
-//                    Text("ツールバーに表示する検索ボタンを設定できます。設定できるのは最大で3種類までです。")
-//                }
+                // ブラウザセクション
+                Section {
+                    Toggle("アプリ内ブラウザで開く", isOn: $openInSafariView)
+                } header: {
+                    Text("ブラウザ")
+                } footer: {
+                    Text("上記の設定をオフにした場合、検索はSafariで行われます。")
+                }
                 
+                
+                // キーボードツールバーボタンセクション
                 Section {
                     ForEach(Platform.allCases, id: \.self) { platform in
                         Button(action: {

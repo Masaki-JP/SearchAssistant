@@ -21,6 +21,7 @@
 
 
 import SwiftUI
+import SafariServices
 
 struct ContentView: View {
     // ビューモデル
@@ -61,6 +62,13 @@ struct ContentView: View {
         
         
         
+        /// SafariView
+        .fullScreenCover(item: $vm.searcher.searchDataForSafariView) { data in
+            SafariView(url: data.url)
+                .ignoresSafeArea()
+        }
+        
+        
         /// ツールバーに検索ボタンを実装
         .modifier(toolbarWithSearchButtons(vm: vm, input: $input, isFocused: _isFocused))
         
@@ -99,7 +107,8 @@ struct ContentView: View {
                   vm.settingAutoFocus == true,
                   vm.isPresesntedSettingsView == false,
                   vm.isShowInstagramErrorAlert == false,
-                  vm.isShowPromptToConfirmDeletionOFAllHistorys == false
+                  vm.isShowPromptToConfirmDeletionOFAllHistorys == false,
+                  vm.searcher.searchDataForSafariView == nil
             else { return }
             DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
                 isFocused = true
@@ -130,4 +139,26 @@ struct ContentView: View {
 
 #Preview {
     ContentView(vm: ViewModel.shared)
+}
+
+
+
+/// Appにおけるウェブビューを実現するには、WKWebViewとSFSafariViewControllerのどちらを使うべきですか
+/// https://developer.apple.com/jp/news/?id=trjs0tcd
+/// ASWebAuthenticationSession
+/// https://developer.apple.com/documentation/authenticationservices/aswebauthenticationsession
+/// SFSafariViewController
+/// https://developer.apple.com/documentation/safariservices/sfsafariviewcontroller
+
+struct SafariView: UIViewControllerRepresentable {
+    let url: URL
+
+    func makeUIViewController(context: UIViewControllerRepresentableContext<SafariView>) -> SFSafariViewController {
+        print("urlは\(url)")
+        return SFSafariViewController(url: url)
+    }
+
+    func updateUIViewController(_ uiViewController: SFSafariViewController, context: UIViewControllerRepresentableContext<SafariView>) {
+    }
+
 }
