@@ -19,7 +19,7 @@
 		4C08720A2ACC059E00033787 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C0872092ACC059E00033787 /* Assets.xcassets */; };
 		4C08720E2ACC059E00033787 /* SAWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4C0871FE2ACC059B00033787 /* SAWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4C0872442ACC14F400033787 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0872432ACC14F400033787 /* ViewModel.swift */; };
-		4C0872462ACC150F00033787 /* HistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0872452ACC150F00033787 /* HistoryModel.swift */; };
+		4C0872462ACC150F00033787 /* HistoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0872452ACC150F00033787 /* HistoryStore.swift */; };
 		4C24C0AF2ACD2740000A604E /* SearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C24C0AE2ACD2740000A604E /* SearchButton.swift */; };
 		4C24C0B22ACD28A9000A604E /* toolbarWithSearchButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C24C0B12ACD28A9000A604E /* toolbarWithSearchButtons.swift */; };
 		4C24C0B42ACD2A5B000A604E /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C24C0B32ACD2A5B000A604E /* Platform.swift */; };
@@ -32,7 +32,7 @@
 		4C6B127E2ACE339600324302 /* SearcherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6B127D2ACE339600324302 /* SearcherModel.swift */; };
 		4CB14D292AD433D300854078 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB14D282AD433D300854078 /* SplashScreenView.swift */; };
 		4CB68C622ACD3041004C9E43 /* praceAtAppropriatePositionIfInZStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB68C612ACD3041004C9E43 /* praceAtAppropriatePositionIfInZStack.swift */; };
-		4CB68C642ACD37EC004C9E43 /* SuggestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB68C632ACD37EC004C9E43 /* SuggestionModel.swift */; };
+		4CB68C642ACD37EC004C9E43 /* SuggestionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB68C632ACD37EC004C9E43 /* SuggestionStore.swift */; };
 		4CBF86672AE76AF700B73BAB /* KeyboardToolbarButtonsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBF86662AE76AF700B73BAB /* KeyboardToolbarButtonsModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -77,7 +77,7 @@
 		4C0872412ACC10C700033787 /* Rules */ = {isa = PBXFileReference; lastKnownFileType = text; path = Rules; sourceTree = "<group>"; };
 		4C0872422ACC10D900033787 /* Memo */ = {isa = PBXFileReference; lastKnownFileType = text; path = Memo; sourceTree = "<group>"; };
 		4C0872432ACC14F400033787 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
-		4C0872452ACC150F00033787 /* HistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModel.swift; sourceTree = "<group>"; };
+		4C0872452ACC150F00033787 /* HistoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStore.swift; sourceTree = "<group>"; };
 		4C24C0AE2ACD2740000A604E /* SearchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchButton.swift; sourceTree = "<group>"; };
 		4C24C0B12ACD28A9000A604E /* toolbarWithSearchButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = toolbarWithSearchButtons.swift; sourceTree = "<group>"; };
 		4C24C0B32ACD2A5B000A604E /* Platform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
@@ -90,7 +90,7 @@
 		4C6B127D2ACE339600324302 /* SearcherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearcherModel.swift; sourceTree = "<group>"; };
 		4CB14D282AD433D300854078 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		4CB68C612ACD3041004C9E43 /* praceAtAppropriatePositionIfInZStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = praceAtAppropriatePositionIfInZStack.swift; sourceTree = "<group>"; };
-		4CB68C632ACD37EC004C9E43 /* SuggestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionModel.swift; sourceTree = "<group>"; };
+		4CB68C632ACD37EC004C9E43 /* SuggestionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionStore.swift; sourceTree = "<group>"; };
 		4CBF86662AE76AF700B73BAB /* KeyboardToolbarButtonsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardToolbarButtonsModel.swift; sourceTree = "<group>"; };
 		4CD455F22AD3C8790092E95A /* Search-Assistant-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Search-Assistant-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -217,8 +217,8 @@
 			children = (
 				4C0872432ACC14F400033787 /* ViewModel.swift */,
 				4C6B127D2ACE339600324302 /* SearcherModel.swift */,
-				4C0872452ACC150F00033787 /* HistoryModel.swift */,
-				4CB68C632ACD37EC004C9E43 /* SuggestionModel.swift */,
+				4C0872452ACC150F00033787 /* HistoryStore.swift */,
+				4CB68C632ACD37EC004C9E43 /* SuggestionStore.swift */,
 				4C36B6A72AD2AFEE00875FDC /* DateFormatterModel.swift */,
 				4CBF86662AE76AF700B73BAB /* KeyboardToolbarButtonsModel.swift */,
 			);
@@ -383,10 +383,10 @@
 				4C24C0B22ACD28A9000A604E /* toolbarWithSearchButtons.swift in Sources */,
 				4C42169C2AD2C850000AF20A /* SuggestionsList.swift in Sources */,
 				4C446F032AD4F6270023C4F1 /* ViewRouter.swift in Sources */,
-				4C0872462ACC150F00033787 /* HistoryModel.swift in Sources */,
+				4C0872462ACC150F00033787 /* HistoryStore.swift in Sources */,
 				4C0871EF2ACC043D00033787 /* ContentView.swift in Sources */,
 				4C42169A2AD2C844000AF20A /* HistorysList.swift in Sources */,
-				4CB68C642ACD37EC004C9E43 /* SuggestionModel.swift in Sources */,
+				4CB68C642ACD37EC004C9E43 /* SuggestionStore.swift in Sources */,
 				4C072E852AD264A000477675 /* SettingsView.swift in Sources */,
 				4C0872442ACC14F400033787 /* ViewModel.swift in Sources */,
 				4C0871ED2ACC043D00033787 /* Search_AssistantApp.swift in Sources */,

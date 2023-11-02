@@ -7,19 +7,20 @@
 
 import Foundation
 
-// サジェスションモデル
-struct SuggestionModel {
-    var suggestions: [String] = []
-    var fetchFailure = false
+final class SuggestionStore {
+    static let shared = SuggestionStore()
+    private init() {}
+    
+    @Published var suggestions: [String] = []
+    @Published var fetchFailure = false
     
     // suggestionを更新する
-    @MainActor mutating func updateSuggestion(with newSuggestions: [String]) {
+    func update(with newSuggestions: [String]) {
         self.suggestions = newSuggestions
     }
     
     // Suggestionを取得する
-    mutating func fetchSuggestions(from input: String) async throws {
-//        suggestions = []
+    func fetchSuggestions(from input: String) async throws {
         fetchFailure = false
         
         // URLを作成
@@ -33,7 +34,7 @@ struct SuggestionModel {
             (data, _) = try await URLSession.shared.data(from: url)
         } catch {
             fetchFailure = true
-            await updateSuggestion(with: [])
+            update(with: []) // FIXME: 重複
         }
         
         // Data型をString型に変換
@@ -53,7 +54,7 @@ struct SuggestionModel {
         }
 
         // suggestionsを反映
-        await updateSuggestion(with: suggestions)
+        update(with: suggestions) // FIXME: 重複
     }
     
     

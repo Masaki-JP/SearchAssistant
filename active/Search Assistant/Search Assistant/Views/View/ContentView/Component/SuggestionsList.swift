@@ -18,7 +18,7 @@ struct SuggestionsList: View {
     @Binding var input: String
     
     var body: some View {
-        if vm.suggestionModel.fetchFailure {
+        if vm.suggestionStore.fetchFailure {
             Text("データ取得に失敗しました。")
                 .frame(maxHeight: .infinity)
         } else {

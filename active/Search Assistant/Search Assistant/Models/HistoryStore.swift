@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-// ヒストリー構造体
 struct History: Codable, Identifiable {
     let input: String
     let platform: Platform
@@ -15,53 +14,56 @@ struct History: Codable, Identifiable {
     var id = UUID()
 }
 
-
-// ヒストリーズモデル
-struct HistorysModel {
+final class HistoryStore {
+    static let shared = HistoryStore()
+    private init() {
+        // historysの初期化
+        guard let data = UserDefaults.standard.data(forKey: "historys"),
+              let historys = try? JSONDecoder().decode([History].self, from: data)
+        else { self.historys = []; return;}
+        self.historys = historys
+    }
     
-    var historys: [History]
+    @Published var historys: [History]
     
     // 履歴を追加
-    mutating func add(input: String, platform: Platform) {
+    func add(input: String, platform: Platform) {
         let history = History(input: input, platform: platform)
         historys.insert(history, at: 0)
         updateUserDefaults()
     }
     
     // 任意の履歴を削除
-    mutating func remove(at index: Int) {
+    func remove(at index: Int) {
         historys.remove(at: index)
         updateUserDefaults()
     }
     
     // 全ての履歴を削除
-    mutating func removeAll() {
+    func removeAll() {
         historys.removeAll()
         UserDefaults.standard.removeObject(forKey: "historys")
     }
     
     // 履歴の更新をUserDefaultsに反映
-    mutating private func updateUserDefaults() {
+    private func updateUserDefaults() {
         let json = try! JSONEncoder().encode(historys) // FIXME: try!
         UserDefaults.standard.set(json, forKey: "historys")
     }
-    
-    init() {
-        
-        // historysの初期化
-        guard let data = UserDefaults.standard.data(forKey: "historys"),
-              let historys = try? JSONDecoder().decode([History].self, from: data)
-        else { self.historys = []; return;}
-        self.historys = historys
-        
-        
+}
+
+
+
+
+
+
 //        // スクリーンショットを撮った時に使ったデータ
 //        let dateFormatter = DateFormatter()
 //        dateFormatter.dateFormat = "yyyy年MM月dd日"
 //        let october15th = dateFormatter.date(from: "2023年10月15日")!
 //        let october14th = dateFormatter.date(from: "2023年10月14日")!
 //        let october13th = dateFormatter.date(from: "2023年10月13日")!
-//        
+//
 //        let sampleHistorys: [History] = [
 //            History(input: "iPhone 15 Pro", platform: .google, date: october15th),
 //            History(input: "iPad Air 第6世代", platform: .mercari, date: october15th),
@@ -75,8 +77,6 @@ struct HistorysModel {
 //            History(input: "サーキュレーター 静音", platform: .amazon, date: october13th),
 //            History(input: "DVDプレイヤー ブラック", platform: .paypayFleaMarket, date: october13th),
 //            History(input: "ホワイトキャニオン", platform: .instagram, date: october13th),
-//            
+//
 //        ]
 //        self.historys = sampleHistorys
-    }
-}
