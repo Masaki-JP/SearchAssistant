@@ -42,7 +42,7 @@ final class ViewModel: ObservableObject {
     
     
     // 検索機能
-    let searcher = SearcherModel()
+    var searcher = Searcher()
     
     
     

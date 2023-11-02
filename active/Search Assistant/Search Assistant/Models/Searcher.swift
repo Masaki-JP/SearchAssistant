@@ -18,7 +18,7 @@ struct SearchDataForSafariView: Identifiable {
     }
 }
 
-final class SearcherModel {
+final class Searcher {
     @AppStorage("openInSafariView") var openInSafariView = true
     var searchDataForSafariView: SearchDataForSafariView? = nil
     
@@ -49,7 +49,7 @@ final class SearcherModel {
 
 
 // プラットフォームごとの検索処理。現在ではGoogle、Instagramのみが少し処理が異なる。
-extension SearcherModel {
+extension Searcher {
     
     
     // Google検索
