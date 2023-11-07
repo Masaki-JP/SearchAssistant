@@ -11,16 +11,16 @@ final class SuggestionStore {
     static let shared = SuggestionStore()
     private init() {}
     
-    @Published var suggestions: [String] = []
-    @Published var fetchFailure = false
+    @Published private(set) var suggestions: [String] = []
+    @Published private(set) var fetchFailure = false
     
     // suggestionを更新する
-    func update(with newSuggestions: [String]) {
+    internal func update(with newSuggestions: [String]) {
         self.suggestions = newSuggestions
     }
     
     // Suggestionを取得する
-    func fetchSuggestions(from input: String) async throws {
+    internal func fetchSuggestions(from input: String) async throws {
         fetchFailure = false
         
         // URLを作成

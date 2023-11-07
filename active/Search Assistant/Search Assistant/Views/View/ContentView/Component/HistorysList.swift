@@ -40,9 +40,7 @@ struct HistorysList: View {
                     }
                     .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                         Button {
-                            withAnimation {
-                                vm.removeHistory(at: i)
-                            }
+                            vm.removeHistory(at: i)
                         } label: {
                             Label("Delete", systemImage: "trash")
                         }

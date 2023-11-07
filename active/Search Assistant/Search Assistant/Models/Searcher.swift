@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct SearchDataForSafariView: Identifiable {
-    let id = UUID()
-    let url: URL
+    internal let id = UUID()
+    internal let url: URL
     
     init(_ input: String) {
         let encodedInput = input.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
@@ -20,10 +20,10 @@ struct SearchDataForSafariView: Identifiable {
 
 final class Searcher {
     @AppStorage("openInSafariView") var openInSafariView = true
-    var searchDataForSafariView: SearchDataForSafariView? = nil
+    internal var searchDataForSafariView: SearchDataForSafariView? = nil
     
     // 外部から呼ばれるのはこのメソッドのみ。プラットフォーム別の検索処理を行う。
-    func Search(_ input: String, platform: Platform = .google) throws {
+    internal func Search(_ input: String, platform: Platform = .google) throws {
         switch platform {
             
         case .google where openInSafariView == true:
