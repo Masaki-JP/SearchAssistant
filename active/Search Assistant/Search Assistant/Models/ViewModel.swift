@@ -106,8 +106,11 @@ extension ViewModel {
     private func addHistory(input: String, platform: Platform) {
         historyStore.add(input: input, platform: platform)
     }
-    func removeHistory(at index: Int) {
-        historyStore.remove(at: index)
+//    func removeHistory(at index: Int) {
+//        historyStore.remove(at: index)
+//    }
+    func removeHistory(atOffsets indexSet: IndexSet) {
+        historyStore.remove(atOffsets: indexSet)
     }
     func removeAllHistorys() {
         historyStore.removeAll()

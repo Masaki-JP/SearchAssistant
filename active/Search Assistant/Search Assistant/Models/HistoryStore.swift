@@ -34,8 +34,12 @@ final class HistoryStore {
     }
     
     // 任意の履歴を削除
-    func remove(at index: Int) {
-        historys.remove(at: index)
+//    func remove(at index: Int) {
+//        historys.remove(at: index)
+//        updateUserDefaults()
+//    }
+    func remove(atOffsets indexSet: IndexSet) {
+        historys.remove(atOffsets: indexSet)
         updateUserDefaults()
     }
     
