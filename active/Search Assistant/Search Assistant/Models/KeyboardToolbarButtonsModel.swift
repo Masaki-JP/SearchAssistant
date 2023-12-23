@@ -1,10 +1,3 @@
-//
-//  KeyboardToolbarButtonsModel.swift
-//  Search Assistant
-//
-//  Created by Masaki Doi on 2023/10/24.
-//
-
 import Foundation
 
 struct KeyboardToolbarButtonsModel {

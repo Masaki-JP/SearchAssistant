@@ -1,10 +1,3 @@
-//
-//  SplashScreenView.swift
-//  Search Assistant
-//
-//  Created by Masaki Doi on 2023/10/09.
-//
-
 import SwiftUI
 
 struct SplashScreenView: View {

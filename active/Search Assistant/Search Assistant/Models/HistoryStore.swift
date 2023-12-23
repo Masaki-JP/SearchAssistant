@@ -1,10 +1,3 @@
-//
-//  HistoryModel.swift
-//  Search Assistant
-//
-//  Created by Masaki Doi on 2023/10/03.
-//
-
 import SwiftUI
 
 struct History: Codable, Identifiable {

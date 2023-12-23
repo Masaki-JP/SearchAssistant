@@ -1,10 +1,3 @@
-//
-//  DateFormatterModel.swift
-//  Search Assistant
-//
-//  Created by Masaki Doi on 2023/10/08.
-//
-
 import Foundation
 
 final class SADateFormatter {

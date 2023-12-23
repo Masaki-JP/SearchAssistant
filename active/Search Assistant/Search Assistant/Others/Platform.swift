@@ -1,11 +1,4 @@
-//
-//  Platform.swift
-//  Search Assistant
-//
-//  Created by Masaki Doi on 2023/10/04.
-//
-
-import SwiftUI // Colorを使用するため
+import SwiftUI
 
 enum Platform: String, Codable, CaseIterable {
     case google = "Google"
@@ -17,7 +10,7 @@ enum Platform: String, Codable, CaseIterable {
     case mercari = "メルカリ"
     case rakuma = "ラクマ"
     case paypayFleaMarket = "PayPayフリマ"
-    
+
     var prefixURL: String {
         switch self {
         case .google: "https://www.google.co.jp/search?q="
@@ -31,7 +24,7 @@ enum Platform: String, Codable, CaseIterable {
         case .paypayFleaMarket: "https://paypayfleamarket.yahoo.co.jp/search/"
         }
     }
-    
+
     var iconCharacter: String {
         switch self {
         case .google: "G"
@@ -45,7 +38,7 @@ enum Platform: String, Codable, CaseIterable {
         case .paypayFleaMarket: "P"
         }
     }
-    
+
     var imageColor: Color {
         switch self {
         case .google:

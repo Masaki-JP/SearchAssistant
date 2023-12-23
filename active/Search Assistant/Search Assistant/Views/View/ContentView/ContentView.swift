@@ -1,23 +1,13 @@
-//
-//  ContentView.swift
-//  Search Assistant
-//
-//  Created by Masaki Doi on 2023/10/03.
-//
-
 
 #warning("""
 作業終了後の流れ
 1. topicブランチにてコミット
 2. mainブランチにチェックアウト
 3. topicブランチをマージ
+(メジャーアップデート、マイナーアップデートの場合はタグをつける。"git tag v2.2.0"の実行後、"git push origin v2.2.0"を実行する。)
 4. origin/mainにプッシュ
 5. topicブランチにチェックアウト
-※ メジャーアップデート、マイナーアップデートの際はタグをつける
-
 """)
-
-
 
 import SwiftUI
 import SafariServices

@@ -1,10 +1,3 @@
-//
-//  SearchButton.swift
-//  Search Assistant
-//
-//  Created by Masaki Doi on 2023/10/04.
-//
-
 import SwiftUI
 
 struct SearchButton: View {

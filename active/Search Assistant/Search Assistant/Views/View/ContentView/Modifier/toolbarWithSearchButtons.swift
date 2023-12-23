@@ -1,10 +1,3 @@
-//
-//  toolbarWithSearchButtons.swift
-//  Search Assistant
-//
-//  Created by Masaki Doi on 2023/10/04.
-//
-
 import SwiftUI
 
 // キーボードツールバーにプラットフォーム別検索ボタンを追加

@@ -1,10 +1,3 @@
-//
-//  SearcherModel.swift
-//  Search Assistant
-//
-//  Created by Masaki Doi on 2023/10/05.
-//
-
 import SwiftUI
 
 struct SearchDataForSafariView: Identifiable {

@@ -1,10 +1,3 @@
-//
-//  SuggestionModel.swift
-//  Search Assistant
-//
-//  Created by Masaki Doi on 2023/10/04.
-//
-
 import Foundation
 
 final class SuggestionStore {

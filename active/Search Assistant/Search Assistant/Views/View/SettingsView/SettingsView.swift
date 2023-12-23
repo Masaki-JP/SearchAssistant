@@ -1,10 +1,3 @@
-//
-//  SettingsView.swift
-//  Search Assistant
-//
-//  Created by Masaki Doi on 2023/10/08.
-//
-
 import SwiftUI
 
 enum ColorScheme: String {
