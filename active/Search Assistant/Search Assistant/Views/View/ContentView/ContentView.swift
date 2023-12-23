@@ -15,13 +15,11 @@ import SafariServices
 struct ContentView: View {
     // ビューモデル
     @ObservedObject var vm: ViewModel
-    
     // ビュープロパティ
-    @State var input = ""
-    @FocusState var isFocused
+    @State private var input = ""
+    @FocusState private var isFocused
     @Environment(\.scenePhase) private var scenePhase
-    
-    
+
     var body: some View {
         ZStack {
             // メインコンテンツエリア
@@ -29,57 +27,38 @@ struct ContentView: View {
                 // テキストフィールド
                 SearchTextField(vm: vm, input: $input, isFocused: _isFocused)
                 .padding(.horizontal)
-                
                 Divider().padding(.horizontal)
-                
                 // 検索履歴 or 検索候補
                 if input.isEmpty {
                     HistorysList(vm: vm)
                 } else {
                     SuggestionsList(vm: vm, input: $input)
                 }
-                
             } // メインコンテンツエリア
-            
             // 検索ボタン
             if !isFocused {
                 SearchButton { isFocused = true }
                     .modifier(praceAtAppropriatePositionIfInZStack(vm: vm))
             }
-            
         } // ZStack
-        
-        
-        
-        /// SafariView
+        // SafariView
         .fullScreenCover(item: $vm.searcher.searchDataForSafariView) { data in
             SafariView(url: data.url)
                 .ignoresSafeArea()
         }
-        
-        
-        /// ツールバーに検索ボタンを実装
+        // ツールバーに検索ボタンを実装
         .modifier(toolbarWithSearchButtons(vm: vm, input: $input, isFocused: _isFocused))
-        
-        
-        
-        /// 入力時にSuggestionを取得
+        // 入力時にSuggestionを取得
         .onChange(of: input) { _ in
             // Taskは協調スレッドを利用するため、不必要な場合はここで早期リターンする
             guard !input.isEmpty else { return }
             Task { try! await vm.getSuggestion(from: input) } // FIXME: try!
         }
-        
-        
-        
-        /// SettingsViewの表示設定
+        // SettingsViewの表示設定
         .sheet(isPresented: $vm.isPresesntedSettingsView) {
             SettingsView(vm: vm)
         }
-       
-        
-        
-        /// オートフォーカス有効 & アプリが開かれた
+        // オートフォーカス有効 & アプリが開かれた
         .onAppear {
             guard vm.settingAutoFocus == true,
                   vm.isPresesntedSettingsView == false,
@@ -90,7 +69,7 @@ struct ContentView: View {
                 isFocused = true
             }
         }
-        /// オートフォーカスが有効 & アプリがアクティブになった
+        // オートフォーカスが有効 & アプリがアクティブになった
         .onChange(of: scenePhase) { newValue in
             guard case .active = newValue,
                   vm.settingAutoFocus == true,
@@ -103,15 +82,9 @@ struct ContentView: View {
                 isFocused = true
             }
         }
-        
-        
-        
-        /// Instagramエラーのアラート
+        // Instagramエラーのアラート
         .alert("Instagram検索ではスペースを使用できません。", isPresented: $vm.isShowInstagramErrorAlert) {}
-        
-        
-        
-        /// 履歴を全削除する際の確認のアラート
+        // 履歴を全削除する際の確認のアラート
         .alert("確認", isPresented: $vm.isShowPromptToConfirmDeletionOFAllHistorys) {
             Button("実行する", role: .destructive) {
                 vm.removeAllHistorys()
@@ -120,9 +93,6 @@ struct ContentView: View {
         } message: {
             Text("全履歴を削除しますか？")
         }
-        
-
-        
     } // body
 }
 
@@ -142,10 +112,13 @@ struct ContentView: View {
 struct SafariView: UIViewControllerRepresentable {
     let url: URL
 
-    func makeUIViewController(context: UIViewControllerRepresentableContext<SafariView>) -> SFSafariViewController {
+    func makeUIViewController(
+        context: UIViewControllerRepresentableContext<SafariView>
+    ) -> SFSafariViewController {
         return SFSafariViewController(url: url)
     }
-
-    func updateUIViewController(_ uiViewController: SFSafariViewController, context: UIViewControllerRepresentableContext<SafariView>) {
-    }
+    func updateUIViewController(
+        _ uiViewController: SFSafariViewController,
+        context: UIViewControllerRepresentableContext<SafariView>
+    ) {}
 }
