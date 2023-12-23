@@ -13,34 +13,28 @@ import SwiftUI
 import SafariServices
 
 struct ContentView: View {
-    // ビューモデル
     @ObservedObject var vm: ViewModel
-    // ビュープロパティ
     @State private var input = ""
     @FocusState private var isFocused
     @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         ZStack {
-            // メインコンテンツエリア
             VStack {
-                // テキストフィールド
                 SearchTextField(vm: vm, input: $input, isFocused: _isFocused)
                     .padding(.horizontal)
                 Divider().padding(.horizontal)
-                // 検索履歴 or 検索候補
                 if input.isEmpty {
                     HistorysList(vm: vm)
                 } else {
                     SuggestionsList(vm: vm, input: $input)
                 }
-            } // メインコンテンツエリア
-            // 検索ボタン
+            }
             if !isFocused {
                 SearchButton { isFocused = true }
                     .modifier(praceAtAppropriatePositionIfInZStack(vm: vm))
             }
-        } // ZStack
+        }
         // SafariView
         .fullScreenCover(item: $vm.searcher.searchDataForSafariView) { data in
             SafariView(url: data.url)
@@ -50,8 +44,7 @@ struct ContentView: View {
         .modifier(toolbarWithSearchButtons(vm: vm, input: $input, isFocused: _isFocused))
         // 入力時にSuggestionを取得
         .onChange(of: input) { _ in
-            // Taskは協調スレッドを利用するため、不必要な場合はここで早期リターンする
-            guard !input.isEmpty else { return }
+            guard !input.isEmpty else { return } // 協調スレッドの無駄遣い防止
             Task { try! await vm.getSuggestion(from: input) } // FIXME: try!
         }
         // SettingsViewの表示設定
@@ -70,8 +63,8 @@ struct ContentView: View {
             }
         }
         // オートフォーカスが有効 & アプリがアクティブになった
-        .onChange(of: scenePhase) { newValue in
-            guard case .active = newValue,
+        .onChange(of: scenePhase) { newScenePhase in
+            guard case .active = newScenePhase,
                   vm.settingAutoFocus == true,
                   vm.isPresesntedSettingsView == false,
                   vm.isShowInstagramErrorAlert == false,
@@ -93,7 +86,7 @@ struct ContentView: View {
         } message: {
             Text("全履歴を削除しますか？")
         }
-    } // body
+    } 
 }
 
 #Preview {
