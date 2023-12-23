@@ -17,11 +17,10 @@ struct SearchButton: View {
                 .resizable()
                 .frame(width: diameter, height: diameter)
                 .background(.white)
-                .clipShape(Circle())
+                .clipShape(Circle().scale(0.95))
         }
     }
 }
-
 
 #Preview {
     SearchButton(action: {})

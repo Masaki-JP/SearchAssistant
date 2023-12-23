@@ -1,15 +1,13 @@
 import SwiftUI
 
 /*
- 
  SuggestionListの表示条件は、テキストフィールドに何か入力があること
- 
  */
 
 struct SuggestionsList: View {
     @ObservedObject var vm: ViewModel
     @Binding var input: String
-    
+
     var body: some View {
         if vm.suggestionStore.fetchFailure {
             Text("データ取得に失敗しました。")
@@ -23,7 +21,6 @@ struct SuggestionsList: View {
                                 input.removeAll()
                                 vm.Search(vm.suggestions[i])
                             }
-                            
                             .font(.body)
                             .foregroundStyle(.primary)
                             .padding(.leading, 4)

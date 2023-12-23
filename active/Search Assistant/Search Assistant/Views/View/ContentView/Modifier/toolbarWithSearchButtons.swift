@@ -4,7 +4,6 @@ import SwiftUI
 struct toolbarWithSearchButtons: ViewModifier {
     // ビューモデル
     @ObservedObject var vm: ViewModel
-
     // ビュープロパティ
     @Binding var input: String
     @FocusState var isFocused
@@ -18,7 +17,6 @@ struct toolbarWithSearchButtons: ViewModifier {
                         ScrollViewReader { reader in
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack { // Second HStack
-                                    
                                     ForEach(Platform.allCases, id: \.self) { platform in
                                         if vm.keyboardToolbarButtons.validButtons.contains(platform) {
                                             Button(platform.rawValue) {
@@ -28,7 +26,6 @@ struct toolbarWithSearchButtons: ViewModifier {
                                             .id(platform.rawValue)
                                         }
                                     }
-                                    
                                 } // Second HStack
                                 .font(.body)
                             } // ScrollView

@@ -12,9 +12,8 @@ struct praceAtAppropriatePositionIfInZStack: ViewModifier {
                 content
                     .padding(.bottom)
                     .padding(!vm.settingLeftSearchButton ? .trailing : .leading)
-                if vm.settingLeftSearchButton { Spacer()}
+                if vm.settingLeftSearchButton { Spacer() }
             }
         }
     }
 }
-

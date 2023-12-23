@@ -17,8 +17,7 @@ struct SearchTextField: View {
                 .submitLabel(.search)
                 .focused($isFocused)
                 .onSubmit {
-                    vm.Search(input) 
-//                    vm.Search(input, withSafariView: true)
+                    vm.Search(input)
                     input.removeAll()
                 }
             
@@ -50,5 +49,4 @@ struct SearchTextField: View {
 
 #Preview {
     SearchTextField(vm: ViewModel.shared, input: Binding.constant(""))
-        .padding(.horizontal)
 }
