@@ -26,7 +26,7 @@ struct ContentView: View {
             VStack {
                 // テキストフィールド
                 SearchTextField(vm: vm, input: $input, isFocused: _isFocused)
-                .padding(.horizontal)
+                    .padding(.horizontal)
                 Divider().padding(.horizontal)
                 // 検索履歴 or 検索候補
                 if input.isEmpty {
@@ -56,7 +56,7 @@ struct ContentView: View {
         }
         // SettingsViewの表示設定
         .sheet(isPresented: $vm.isPresesntedSettingsView) {
-            SettingsView(vm: vm)
+            SettingView(vm: vm)
         }
         // オートフォーカス有効 & アプリが開かれた
         .onAppear {
@@ -99,8 +99,6 @@ struct ContentView: View {
 #Preview {
     ContentView(vm: ViewModel.shared)
 }
-
-
 
 /// Appにおけるウェブビューを実現するには、WKWebViewとSFSafariViewControllerのどちらを使うべきですか
 /// https://developer.apple.com/jp/news/?id=trjs0tcd

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4C072E852AD264A000477675 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C072E842AD264A000477675 /* SettingsView.swift */; };
+		4C072E852AD264A000477675 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C072E842AD264A000477675 /* SettingView.swift */; };
 		4C0871ED2ACC043D00033787 /* Search_AssistantApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0871EC2ACC043D00033787 /* Search_AssistantApp.swift */; };
 		4C0871EF2ACC043D00033787 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0871EE2ACC043D00033787 /* ContentView.swift */; };
 		4C0871F12ACC043E00033787 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C0871F02ACC043E00033787 /* Assets.xcassets */; };
@@ -61,7 +61,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4C072E842AD264A000477675 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		4C072E842AD264A000477675 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		4C0871E92ACC043D00033787 /* Search Assistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Search Assistant.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C0871EC2ACC043D00033787 /* Search_AssistantApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search_AssistantApp.swift; sourceTree = "<group>"; };
 		4C0871EE2ACC043D00033787 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -128,7 +128,7 @@
 		4C072E832AD2647400477675 /* SettingsView */ = {
 			isa = PBXGroup;
 			children = (
-				4C072E842AD264A000477675 /* SettingsView.swift */,
+				4C072E842AD264A000477675 /* SettingView.swift */,
 			);
 			path = SettingsView;
 			sourceTree = "<group>";
@@ -336,6 +336,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				ja,
+				Base,
 			);
 			mainGroup = 4C0871E02ACC043D00033787;
 			productRefGroup = 4C0871EA2ACC043D00033787 /* Products */;
@@ -387,7 +388,7 @@
 				4C0871EF2ACC043D00033787 /* ContentView.swift in Sources */,
 				4C42169A2AD2C844000AF20A /* HistorysList.swift in Sources */,
 				4CB68C642ACD37EC004C9E43 /* SuggestionStore.swift in Sources */,
-				4C072E852AD264A000477675 /* SettingsView.swift in Sources */,
+				4C072E852AD264A000477675 /* SettingView.swift in Sources */,
 				4C0872442ACC14F400033787 /* ViewModel.swift in Sources */,
 				4C0871ED2ACC043D00033787 /* Search_AssistantApp.swift in Sources */,
 				4C6AE3F62AD2A5B500863115 /* SearchTextField.swift in Sources */,

@@ -8,6 +8,7 @@ struct History: Codable, Identifiable {
 }
 
 final class HistoryStore {
+    @Published var historys: [History]
     static let shared = HistoryStore()
     private init() {
         // historysの初期化
@@ -16,32 +17,23 @@ final class HistoryStore {
         else { self.historys = []; return;}
         self.historys = historys
     }
-    
-    @Published var historys: [History]
-    
+
     // 履歴を追加
     func add(input: String, platform: Platform) {
         let history = History(input: input, platform: platform)
         historys.insert(history, at: 0)
         updateUserDefaults()
     }
-    
     // 任意の履歴を削除
-//    func remove(at index: Int) {
-//        historys.remove(at: index)
-//        updateUserDefaults()
-//    }
     func remove(atOffsets indexSet: IndexSet) {
         historys.remove(atOffsets: indexSet)
         updateUserDefaults()
     }
-    
     // 全ての履歴を削除
     func removeAll() {
         historys.removeAll()
         UserDefaults.standard.removeObject(forKey: "historys")
     }
-    
     // 履歴の更新をUserDefaultsに反映
     private func updateUserDefaults() {
         let json = try! JSONEncoder().encode(historys) // FIXME: try!
@@ -49,12 +41,7 @@ final class HistoryStore {
     }
 }
 
-
-
-
-
-
-//        // スクリーンショットを撮った時に使ったデータ
+//        // スクリーンショットを撮った時に使ったモックデータ
 //        let dateFormatter = DateFormatter()
 //        dateFormatter.dateFormat = "yyyy年MM月dd日"
 //        let october15th = dateFormatter.date(from: "2023年10月15日")!

@@ -6,10 +6,9 @@ enum ColorScheme: String {
     case system = "System"
 }
 
-struct SettingsView: View {
-    @AppStorage("colorScheme") var colorScheme = ColorScheme.dark.rawValue
-    @AppStorage("openInSafariView") var openInSafariView = true
-    
+struct SettingView: View {
+    @AppStorage("colorScheme") private var colorScheme = ColorScheme.dark.rawValue
+    @AppStorage("openInSafariView") private var openInSafariView = true
     @ObservedObject var vm: ViewModel
     @Environment(\.scenePhase) private var scenePhase
     
@@ -26,7 +25,6 @@ struct SettingsView: View {
                 } footer: {
                     Text("検索画面が表示された時に、検索フォームに自動でフォーカスします。")
                 }
-                
                 // 検索ボタンセクション
                 Section {
                     Toggle(isOn: vm.$settingLeftSearchButton) {
@@ -37,8 +35,6 @@ struct SettingsView: View {
                 } footer: {
                     Text("検索ボタンを画面左下に配置します。")
                 }
-                
-                
                 // 外観モードセクション
                 Section {
                     Picker("Color Scheme", selection: $colorScheme) {
@@ -51,8 +47,6 @@ struct SettingsView: View {
                 } footer: {
                     Text("iPhoneの外観モードと同じものにするにはSystemを選択してください。")
                 }
-                
-                
                 // ブラウザセクション
                 Section {
                     Toggle("アプリ内ブラウザで開く", isOn: $openInSafariView)
@@ -61,8 +55,6 @@ struct SettingsView: View {
                 } footer: {
                     Text("上記の設定をオフにした場合、検索はSafariで行われます。")
                 }
-                
-                
                 // キーボードツールバーボタンセクション
                 Section {
                     ForEach(Platform.allCases, id: \.self) { platform in
@@ -84,31 +76,22 @@ struct SettingsView: View {
                 } footer: {
                     Text("ツールバーに表示する検索ボタンを設定できます。")
                 }
-                
-                
             } // List
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
         } // NabigationStack
-        ///
-        ///
-        /// SettigsViewが表示された状態でscenePhaseが.inactiveに切り替わった場合、自動的に閉じるようにする
+        // SettigsViewが表示された状態でscenePhaseが.inactiveに切り替わった場合、自動的に閉じるようにする
         .onChange(of: scenePhase) { newScene in
             guard case .inactive = newScene else { return }
             vm.isPresesntedSettingsView = false
         }
-        ///
-        ///
-        /// カラースキームを変更しても、SettingsViewのカラースキームが切り替わらないことがあるので、対策として付与する
+        // カラースキームを変更しても、SettingsViewのカラースキームが切り替わらないことがあるので、対策として付与する
         .preferredColorScheme(
             colorScheme == "System" ? .none : colorScheme == "Light" ? .light : .dark
         )
-        ///
-        ///
-        ///
     } // body
 }
 
 #Preview {
-    SettingsView(vm: ViewModel.shared)
+    SettingView(vm: ViewModel.shared)
 }
