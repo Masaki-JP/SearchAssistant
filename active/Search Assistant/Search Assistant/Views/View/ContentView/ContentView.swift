@@ -14,20 +14,20 @@ import SafariServices
 
 struct ContentView: View {
     @ObservedObject var vm: ViewModel
-    @State private var input = ""
+    @State private var userInput = ""
     @FocusState private var isFocused
     @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         ZStack {
             VStack {
-                SearchTextField(vm: vm, input: $input, isFocused: _isFocused)
+                SearchTextField(vm: vm, userInput: $userInput, isFocused: _isFocused)
                     .padding(.horizontal)
                 Divider().padding(.horizontal)
-                if input.isEmpty {
+                if userInput.isEmpty {
                     HistorysList(vm: vm)
                 } else {
-                    SuggestionsList(vm: vm, input: $input)
+                    SuggestionsList(vm: vm, userInput: $userInput)
                 }
             }
             if !isFocused {
@@ -41,11 +41,11 @@ struct ContentView: View {
                 .ignoresSafeArea()
         }
         // ツールバーに検索ボタンを実装
-        .modifier(toolbarWithSearchButtons(vm: vm, input: $input, isFocused: _isFocused))
+        .modifier(toolbarWithSearchButtons(vm: vm, userInput: $userInput, isFocused: _isFocused))
         // 入力時にSuggestionを取得
-        .onChange(of: input) { _ in
-            guard !input.isEmpty else { return } // 協調スレッドの無駄遣い防止
-            Task { try! await vm.getSuggestion(from: input) } // FIXME: try!
+        .onChange(of: userInput) { _ in
+            guard !userInput.isEmpty else { return } // 協調スレッドの無駄遣い防止
+            Task { await vm.getSuggestion(from: userInput) }
         }
         // SettingsViewの表示設定
         .sheet(isPresented: $vm.isPresesntedSettingsView) {

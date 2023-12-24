@@ -17,7 +17,7 @@ private(set)に書き換えられるものがあるならば書き換える
 
 
 
-inputをViewModelに持たせる
+userInputをViewModelに持たせる
 
 
 

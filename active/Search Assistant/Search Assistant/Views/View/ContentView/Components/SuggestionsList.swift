@@ -6,20 +6,17 @@ import SwiftUI
 
 struct SuggestionsList: View {
     @ObservedObject var vm: ViewModel
-    @Binding var input: String
+    @Binding var userInput: String
 
     var body: some View {
-        if vm.suggestionStore.fetchFailure {
-            Text("データ取得に失敗しました。")
-                .frame(maxHeight: .infinity)
-        } else {
+        if let suggestions = vm.suggestions {
             List {
                 Section {
-                    ForEach(vm.suggestions.indices, id: \.self) { i in
+                    ForEach(suggestions.indices, id: \.self) { i in
                         HStack {
-                            Button(vm.suggestions[i]) {
-                                input.removeAll()
-                                vm.Search(vm.suggestions[i])
+                            Button(suggestions[i]) {
+                                userInput.removeAll()
+                                vm.Search(suggestions[i])
                             }
                             .font(.body)
                             .foregroundStyle(.primary)
@@ -36,10 +33,13 @@ struct SuggestionsList: View {
                     Text("Suggestions")
                 }
             }
+        } else {
+            Text("データ取得に失敗しました。")
+                .frame(maxHeight: .infinity)
         }
     }
 }
 
 #Preview {
-    SuggestionsList(vm: ViewModel.shared, input: Binding.constant(""))
+    SuggestionsList(vm: ViewModel.shared, userInput: Binding.constant(""))
 }

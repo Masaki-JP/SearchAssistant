@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SearchTextField: View {
     @ObservedObject var vm: ViewModel
-    @Binding var input: String
+    @Binding var userInput: String
     @FocusState var isFocused
     
     var body: some View {
@@ -11,15 +11,15 @@ struct SearchTextField: View {
                 .resizable()
                 .scaledToFit()
                 .frame(height: 20)
-            TextField("What do you search for?", text: $input)
+            TextField("What do you search for?", text: $userInput)
                 .font(.title2)
                 .submitLabel(.search)
                 .focused($isFocused)
                 .onSubmit {
-                    vm.Search(input)
-                    input.removeAll()
+                    vm.Search(userInput)
+                    userInput.removeAll()
                 }
-            if input.isEmpty {
+            if userInput.isEmpty {
                 Button(action: {
                     vm.isPresesntedSettingsView = true
                 }, label: {
@@ -31,7 +31,7 @@ struct SearchTextField: View {
                 })
             } else {
                 Button(action: {
-                    input.removeAll()
+                    userInput.removeAll()
                 }, label: {
                     Image(systemName: "x.circle")
                         .resizable()
@@ -46,13 +46,13 @@ struct SearchTextField: View {
 }
 
 //#Preview {
-//    SearchTextField(vm: ViewModel.shared, input: Binding.constant(""))
+//    SearchTextField(vm: ViewModel.shared, userInput: Binding.constant(""))
 //        .padding(.horizontal)
 //}
 
 struct SearchTextField_Previews: PreviewProvider {
     static var previews: some View {
-        SearchTextField(vm: ViewModel.shared, input: Binding.constant(""))
+        SearchTextField(vm: ViewModel.shared, userInput: Binding.constant(""))
             .previewLayout(.sizeThatFits)
     }
 }

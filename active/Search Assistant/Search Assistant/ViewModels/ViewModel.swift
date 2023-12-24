@@ -6,12 +6,6 @@ final class ViewModel: ObservableObject {
         historyStore.$historys
             .receive(on: DispatchQueue.main)
             .assign(to: &self.$historys)
-        suggestionStore.$suggestions
-            .receive(on: DispatchQueue.main)
-            .assign(to: &self.$suggestions)
-        suggestionStore.$fetchFailure
-            .receive(on: DispatchQueue.main)
-            .assign(to: &self.$fetchFailure)
     }
     // SettingsViewで使用
     @AppStorage("autoFocus") var settingAutoFocus = true
@@ -23,10 +17,11 @@ final class ViewModel: ObservableObject {
     @Published var isShowPromptToConfirmDeletionOFAllHistorys = false
     // 検索機能
     var searcher = Searcher()
+
     // 検索候補
-    let suggestionStore = SuggestionStore.shared
-    @Published var suggestions: [String] = []
-    @Published var fetchFailure = false
+    let suggestionFetcher = SuggestionFetcher.shared
+    @Published var suggestions: [String]? = []
+
     // 履歴管理
     let historyStore = HistoryStore.shared
     @Published var historys: [History] = []
@@ -40,10 +35,10 @@ final class ViewModel: ObservableObject {
 
 extension ViewModel {
     // With Searcher
-    func Search(_ input: String, platform: Platform = .google) {
+    func Search(_ userInput: String, platform: Platform = .google) {
         do {
-            try searcher.Search(input, platform: platform)
-            addHistory(input: input, platform: platform)
+            try searcher.Search(userInput, platform: platform)
+            addHistory(userInput: userInput, platform: platform)
         } catch {
             switch error {
             case HumanError.noInput:
@@ -56,12 +51,17 @@ extension ViewModel {
         }
     }
     // With SuggestionStore
-    func getSuggestion(from input: String) async throws {
-        try await suggestionStore.fetchSuggestions(from: input)
+    @MainActor
+    func getSuggestion(from userInput: String) async {
+        do {
+            try await suggestions = suggestionFetcher.fetch(from: userInput)
+        } catch {
+            suggestions = nil
+        }
     }
     // With HistoryStore
-    private func addHistory(input: String, platform: Platform) {
-        historyStore.add(input: input, platform: platform)
+    private func addHistory(userInput: String, platform: Platform) {
+        historyStore.add(userInput: userInput, platform: platform)
     }
     func removeHistory(atOffsets indexSet: IndexSet) {
         historyStore.remove(atOffsets: indexSet)

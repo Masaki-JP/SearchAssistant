@@ -5,7 +5,7 @@ struct toolbarWithSearchButtons: ViewModifier {
     // ビューモデル
     @ObservedObject var vm: ViewModel
     // ビュープロパティ
-    @Binding var input: String
+    @Binding var userInput: String
     @FocusState var isFocused
     @Environment(\.scenePhase) private var scenePhase
     
@@ -20,8 +20,8 @@ struct toolbarWithSearchButtons: ViewModifier {
                                     ForEach(Platform.allCases, id: \.self) { platform in
                                         if vm.keyboardToolbarButtons.validButtons.contains(platform) {
                                             Button(platform.rawValue) {
-                                                vm.Search(input, platform: platform)
-                                                input.removeAll()
+                                                vm.Search(userInput, platform: platform)
+                                                userInput.removeAll()
                                             }
                                             .id(platform.rawValue)
                                         }
