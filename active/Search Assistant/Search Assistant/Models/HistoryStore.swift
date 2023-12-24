@@ -3,7 +3,7 @@ import SwiftUI
 final class HistoryStore {
     @Published var historys: [History] {
         didSet {
-            // Update action
+            // Update Process
         }
     }
     static let shared = HistoryStore()

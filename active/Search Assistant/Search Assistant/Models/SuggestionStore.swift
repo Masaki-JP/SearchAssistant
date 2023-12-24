@@ -1,17 +1,20 @@
 import Foundation
 
 final class SuggestionStore {
-    @Published private(set) var suggestions: [String] = []
+    @Published private(set) var suggestions: [String] = [] {
+        didSet {
+            // Update Process
+        }
+    }
     @Published private(set) var fetchFailure = false
     static let shared = SuggestionStore()
     private init() {}
 
-    // suggestionを更新する
-    internal func update(with newSuggestions: [String]) {
+    func update(with newSuggestions: [String]) {
         self.suggestions = newSuggestions
     }
-    // Suggestionを取得する
-    internal func fetchSuggestions(from input: String) async throws {
+
+    func fetchSuggestions(from input: String) async throws {
         fetchFailure = false
         // URLを作成
         let suggestionAPIURL = "https://www.google.com/complete/search?hl=ja&output=toolbar&q="
@@ -25,21 +28,32 @@ final class SuggestionStore {
             fetchFailure = true
             update(with: []) // FIXME: 重複
         }
-        // Data型をString型に変換
-        let dataText = String(data: data, encoding: .shiftJIS)!
-        // suggestionsの作成
-        let store = dataText.components(separatedBy: "<CompleteSuggestion><suggestion data=\"")
-        var suggestions = [String]()
-        for (index, element) in store.enumerated() {
-            if index == 0 {
-                continue
-            } else if index == store.count-1 {
-                suggestions.append(element.replacingOccurrences(of: "\"/></CompleteSuggestion></toplevel>", with: ""))
-            } else {
-                suggestions.append(element.replacingOccurrences(of: "\"/></CompleteSuggestion>", with: ""))
-            }
-        }
+
+        let xmlString = String(data: data, encoding: .shiftJIS)!
+        let suggestions = convertXMLStringToArray(xmlString: xmlString)
+
         // suggestionsを反映
         update(with: suggestions) // FIXME: 重複
+    }
+}
+
+extension SuggestionStore {
+    private func convertXMLStringToArray(xmlString: String) -> [String] {
+        var suggestions: [String] = .init()
+        let unfinishedXmlElements = xmlString.components(separatedBy: "<CompleteSuggestion><suggestion data=\"")
+        for (index, element) in xmlString.components(separatedBy: "<CompleteSuggestion><suggestion data=\"").enumerated() {
+            if index == 0 {
+                continue
+            } else if index == unfinishedXmlElements.count-1 {
+                suggestions.append(
+                    element.replacingOccurrences(of: "\"/></CompleteSuggestion></toplevel>", with: "")
+                )
+            } else {
+                suggestions.append(
+                    element.replacingOccurrences(of: "\"/></CompleteSuggestion>", with: "")
+                )
+            }
+        }
+        return suggestions
     }
 }
