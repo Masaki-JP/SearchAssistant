@@ -1,11 +1,7 @@
 import Foundation
 
 final class SuggestionStore {
-    @Published private(set) var suggestions: [String] = [] {
-        didSet {
-            // Update Process
-        }
-    }
+    @Published private(set) var suggestions: [String] = []
     @Published private(set) var fetchFailure = false
     static let shared = SuggestionStore()
     private init() {}
