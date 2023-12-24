@@ -11,7 +11,6 @@ struct SearchTextField: View {
                 .resizable()
                 .scaledToFit()
                 .frame(height: 20)
-                
             TextField("What do you search for?", text: $input)
                 .font(.title2)
                 .submitLabel(.search)
@@ -20,7 +19,6 @@ struct SearchTextField: View {
                     vm.Search(input)
                     input.removeAll()
                 }
-            
             if input.isEmpty {
                 Button(action: {
                     vm.isPresesntedSettingsView = true
@@ -47,6 +45,14 @@ struct SearchTextField: View {
     }
 }
 
-#Preview {
-    SearchTextField(vm: ViewModel.shared, input: Binding.constant(""))
+//#Preview {
+//    SearchTextField(vm: ViewModel.shared, input: Binding.constant(""))
+//        .padding(.horizontal)
+//}
+
+struct SearchTextField_Previews: PreviewProvider {
+    static var previews: some View {
+        SearchTextField(vm: ViewModel.shared, input: Binding.constant(""))
+            .previewLayout(.sizeThatFits)
+    }
 }

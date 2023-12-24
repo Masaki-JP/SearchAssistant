@@ -94,52 +94,63 @@ TextField("", text: $text)
 
 
 
-
-
-
-
-
------------------
-
-
-備忘録 2023年10月12日
-
-日本語化の設定
-App Storeで言語が「EN」となっている。これを「JA」に変更する。
-
-「Search Assistant.xcodeproj」をVSCodeで開き、「developmentRegion」を「en」から「ja」に変更
-「PROJECT」→「Info」の「Locarizations」→「Locarization」から「English」と「Base」を削除
-※ 「Base」は「Use Base Internationalization」のチェックを外した時点で消えるかも
-
-
------------------
-
-
-
-
-
-
-
-
+————————————————————
 
 2023年10月9日
+
 今後UserDefaultsを使用する際は、プライバシーマニフェストに使用する理由を記載する必要がある。後日対応する
 https://qiita.com/4q_sano/items/f9a00097724d1327dbc0
 https://developer.apple.com/documentation/foundation/userdefaults#2926902
 https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api
 
-
-
-
-————————————————————————————————————————
-
-備忘録
+————————————————————
 
 2023年10月9日
+
 「Search Assistant」ターゲットと「SAWidgetExtension」ターゲットの「Supported Destinations」を「iPhone, iPad, Mac(Designed for iPad)」から「iPhone」のみに変更した。
 「iPhone Orientation」を「Portrait, Landscape Left, Landscape right」から「Portrait」のみに変更した。
 
-- - - - - - - - - - -
+————————————————————
+
+2023年10月12日
+Search Assistantターゲットの「Identity>App Category」を「Utilities」に変更
+
+日本語化の設定
+App Storeで言語が「EN」となっている。これを「JA」に変更する。
+
+————————————————————
+
+2023年10月12日
+
+「Search Assistant.xcodeproj」をVSCodeで開き、「developmentRegion」を「en」から「ja」に変更
+「PROJECT」→「Info」の「Locarizations」→「Locarization」から「English」と「Base」を削除
+※ 「Base」は「Use Base Internationalization」のチェックを外した時点で消えるかも
+
+————————————————————
+
+2023年12月24日
+
+以下の警告が出て「Enable」を押したところ「Use Base Internationalization」にチェックがついた。
+
+Enable Base Internationalization
+Enabling Base internationalization is recommended for all projects.
+
+————————————————————
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+————————————————————
 
 モックアップの作成に便利
 https://mockuphone.com
@@ -148,31 +159,9 @@ https://mockuphone.com/device/apple-iphone14pro-spaceblack/
 使ってないけど良さげ↓
 https://placeit.net/c/mockups/stages/mockup-featuring-two-iphones-x-floating-against-a-solid-color-background-28764?colorFolder_Background=transparent
 
-
-- - - - - - - - - - -
-
-- - - - - - - - - - -
-
-- - - - - - - - - - -
-
-- - - - - - - - - - -
-
-- - - - - - - - - - -
-
-- - - - - - - - - - -
-
-- - - - - - - - - - -
-
-————————————————————————————————————————
-
-
+————————————————————
 
 (設定、Face IDとパスコード、ロック中にアクセスを許可のロック画面のウィジェットをオンにする。しかし、これがオフの時でも、普通にPayPayとかは表示されている。なぜかわからない。)
 → .privacySensitive(false)が変なとこについてたのが原因
 
-
-
-
-
-備忘録　2023年10月12日
-Search Assistantターゲットの「Identity>App Category」を「Utilities」に変更
+————————————————————
