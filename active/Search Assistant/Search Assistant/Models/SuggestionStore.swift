@@ -16,19 +16,16 @@ final class SuggestionStore {
         let suggestionAPIURL = "https://www.google.com/complete/search?hl=ja&output=toolbar&q="
         let encodedInput = input.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let url = URL(string: suggestionAPIURL + encodedInput)!
-        
-        var data = Data()
+
         do {
-            (data, _) = try await URLSession.shared.data(from: url)
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let xmlString = String(data: data, encoding: .shiftJIS)!
+            let suggestions = convertXMLStringToArray(xmlString: xmlString)
+            self.suggestions = suggestions
         } catch {
             fetchFailure = true
             self.suggestions = []
         }
-
-        let xmlString = String(data: data, encoding: .shiftJIS)!
-        let suggestions = convertXMLStringToArray(xmlString: xmlString)
-
-        self.suggestions = suggestions
     }
 }
 
