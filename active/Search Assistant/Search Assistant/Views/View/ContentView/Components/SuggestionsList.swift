@@ -16,7 +16,7 @@ struct SuggestionsList: View {
                         HStack {
                             Button(suggestions[i]) {
                                 userInput.removeAll()
-                                vm.Search(suggestions[i])
+                                vm.search(suggestions[i])
                             }
                             .font(.body)
                             .foregroundStyle(.primary)

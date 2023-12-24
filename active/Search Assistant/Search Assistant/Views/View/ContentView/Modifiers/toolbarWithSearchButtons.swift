@@ -20,7 +20,7 @@ struct toolbarWithSearchButtons: ViewModifier {
                                     ForEach(Platform.allCases, id: \.self) { platform in
                                         if vm.keyboardToolbarButtons.validButtons.contains(platform) {
                                             Button(platform.rawValue) {
-                                                vm.Search(userInput, platform: platform)
+                                                vm.search(userInput, platform: platform)
                                                 userInput.removeAll()
                                             }
                                             .id(platform.rawValue)

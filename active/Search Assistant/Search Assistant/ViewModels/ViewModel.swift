@@ -35,13 +35,13 @@ final class ViewModel: ObservableObject {
 
 extension ViewModel {
     // With Searcher
-    func Search(_ userInput: String, platform: Platform = .google) {
+    func search(_ userInput: String, platform: Platform = .google) {
         do {
             try searcher.Search(userInput, platform: platform)
             addHistory(userInput: userInput, platform: platform)
         } catch {
             switch error {
-            case HumanError.noInput:
+            case HumanError.noUserInput:
                 break
             case HumanError.whiteSpace:
                 isShowInstagramErrorAlert = true

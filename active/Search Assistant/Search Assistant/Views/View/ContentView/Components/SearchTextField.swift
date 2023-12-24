@@ -16,7 +16,7 @@ struct SearchTextField: View {
                 .submitLabel(.search)
                 .focused($isFocused)
                 .onSubmit {
-                    vm.Search(userInput)
+                    vm.search(userInput)
                     userInput.removeAll()
                 }
             if userInput.isEmpty {

@@ -42,7 +42,7 @@ extension Searcher {
     // Google検索
     private func searchOnGoogle(_ userInput: String) throws {
         // 空文字はエラーを投げる
-        guard !userInput.isEmpty else { throw HumanError.noInput }
+        guard !userInput.isEmpty else { throw HumanError.noUserInput }
 
         if let url = URL(string: userInput), UIApplication.shared.canOpenURL(url) {
             // URLを開く
@@ -59,7 +59,7 @@ extension Searcher {
     // Twitter検索
     private func searchOnTwitter(_ userInput: String) throws {
         // 空文字でないことを確認
-        guard !userInput.isEmpty else { throw HumanError.noInput }
+        guard !userInput.isEmpty else { throw HumanError.noUserInput }
         // Twitter検索用URLを作成
         guard let encodedWord = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: Platform.twitter.prefixURL + encodedWord)
@@ -74,7 +74,7 @@ extension Searcher {
             throw HumanError.whiteSpace
         }
         // 空文字でないことを確認
-        guard !userInput.isEmpty else { throw HumanError.noInput }
+        guard !userInput.isEmpty else { throw HumanError.noUserInput }
         // Instagram検索用URLを作成
         guard let encodedWord = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: Platform.instagram.prefixURL + encodedWord)
@@ -85,7 +85,7 @@ extension Searcher {
     // Amazon検索
     private func searchOnAmazon(_ userInput: String) throws {
         // 空文字でないことを確認
-        guard !userInput.isEmpty else { throw HumanError.noInput }
+        guard !userInput.isEmpty else { throw HumanError.noUserInput }
         // Amazon検索用URLを作成
         guard let encodedWord = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: Platform.amazon.prefixURL + encodedWord)
@@ -96,7 +96,7 @@ extension Searcher {
     // YouTube検索
     private func searchOnYouTube(_ userInput: String) throws {
         // 空文字でないことを確認
-        guard !userInput.isEmpty else { throw HumanError.noInput }
+        guard !userInput.isEmpty else { throw HumanError.noUserInput }
         // YouTube検索用URLを作成
         guard let encodedWord = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: Platform.youtube.prefixURL + encodedWord)
@@ -107,7 +107,7 @@ extension Searcher {
     // Facebook検索
     private func searchOnFacebook(_ userInput: String) throws {
         // 空文字でないことを確認
-        guard !userInput.isEmpty else { throw HumanError.noInput }
+        guard !userInput.isEmpty else { throw HumanError.noUserInput }
         // Facebook検索用URLを作成
         guard let encodedWord = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: Platform.facebook.prefixURL + encodedWord)
@@ -118,7 +118,7 @@ extension Searcher {
     // メルカリ検索
     private func searchOnMercari(_ userInput: String) throws {
         // 空文字でないことを確認
-        guard !userInput.isEmpty else { throw HumanError.noInput }
+        guard !userInput.isEmpty else { throw HumanError.noUserInput }
         // メルカリ検索用URLを作成
         guard let encodedWord = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: Platform.mercari.prefixURL + encodedWord)
@@ -129,7 +129,7 @@ extension Searcher {
     // ラクマ検索
     private func searchOnRakuma(_ userInput: String) throws {
         // 空文字でないことを確認
-        guard !userInput.isEmpty else { throw HumanError.noInput }
+        guard !userInput.isEmpty else { throw HumanError.noUserInput }
         // ラクマ検索用URLを作成
         guard let encodedWord = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: Platform.rakuma.prefixURL + encodedWord)
@@ -140,7 +140,7 @@ extension Searcher {
     // PayPayフリマ検索
     private func searchOnPayPayFleaMarket(_ userInput: String) throws {
         // 空文字でないことを確認
-        guard !userInput.isEmpty else { throw HumanError.noInput }
+        guard !userInput.isEmpty else { throw HumanError.noUserInput }
         // PayPayフリマ検索用URLを作成
         guard let encodedWord = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: Platform.paypayFleaMarket.prefixURL + encodedWord)
