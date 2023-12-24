@@ -4,10 +4,10 @@ struct SearchDataForSafariView: Identifiable {
     let id = UUID()
     let url: URL
 
-    init(_ input: String) {
-        let encodedInput = input.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        let url = URL(string: Platform.google.prefixURL + encodedInput)
-        self.url = url!
+    init(_ userInput: String) {
+        let query = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let url = URL(string: Platform.google.prefixURL + query)!
+        self.url = url
     }
 }
 
@@ -16,22 +16,22 @@ final class Searcher {
     var searchDataForSafariView: SearchDataForSafariView? = nil
 
     // 外部から呼ばれるのはこのメソッドのみ。プラットフォーム別の検索処理を行う。
-    func Search(_ input: String, platform: Platform = .google) throws {
+    func Search(_ userInput: String, platform: Platform = .google) throws {
         switch platform {
         case .google where openInSafariView == true:
-            searchDataForSafariView = .init(input)
+            searchDataForSafariView = .init(userInput)
         case .google where openInSafariView == false:
-            try searchOnGoogle(input)
+            try searchOnGoogle(userInput)
         case .google:
             fatalError()
-        case .twitter: try searchOnTwitter(input)
-        case .instagram: try searchOnInstagram(input)
-        case .amazon: try searchOnAmazon(input)
-        case .youtube: try searchOnYouTube(input)
-        case .facebook: try searchOnFacebook(input)
-        case .mercari: try searchOnMercari(input)
-        case .rakuma: try searchOnRakuma(input)
-        case .paypayFleaMarket: try searchOnPayPayFleaMarket(input)
+        case .twitter: try searchOnTwitter(userInput)
+        case .instagram: try searchOnInstagram(userInput)
+        case .amazon: try searchOnAmazon(userInput)
+        case .youtube: try searchOnYouTube(userInput)
+        case .facebook: try searchOnFacebook(userInput)
+        case .mercari: try searchOnMercari(userInput)
+        case .rakuma: try searchOnRakuma(userInput)
+        case .paypayFleaMarket: try searchOnPayPayFleaMarket(userInput)
         }
     }
 }
