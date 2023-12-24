@@ -10,30 +10,25 @@ final class SuggestionStore {
     static let shared = SuggestionStore()
     private init() {}
 
-    func update(with newSuggestions: [String]) {
-        self.suggestions = newSuggestions
-    }
-
     func fetchSuggestions(from input: String) async throws {
         fetchFailure = false
-        // URLを作成
+
         let suggestionAPIURL = "https://www.google.com/complete/search?hl=ja&output=toolbar&q="
         let encodedInput = input.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let url = URL(string: suggestionAPIURL + encodedInput)!
-        // API通信データを取得
+        
         var data = Data()
         do {
             (data, _) = try await URLSession.shared.data(from: url)
         } catch {
             fetchFailure = true
-            update(with: []) // FIXME: 重複
+            self.suggestions = []
         }
 
         let xmlString = String(data: data, encoding: .shiftJIS)!
         let suggestions = convertXMLStringToArray(xmlString: xmlString)
 
-        // suggestionsを反映
-        update(with: suggestions) // FIXME: 重複
+        self.suggestions = suggestions
     }
 }
 
