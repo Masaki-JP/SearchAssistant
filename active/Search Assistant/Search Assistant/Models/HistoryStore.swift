@@ -1,20 +1,16 @@
 import SwiftUI
 
-struct History: Codable, Identifiable {
-    let input: String
-    let platform: Platform
-    var date = Date()
-    var id = UUID()
-}
-
 final class HistoryStore {
-    @Published var historys: [History]
+    @Published var historys: [History] {
+        didSet {
+            // Update action
+        }
+    }
     static let shared = HistoryStore()
     private init() {
-        // historysの初期化
         guard let data = UserDefaults.standard.data(forKey: "historys"),
               let historys = try? JSONDecoder().decode([History].self, from: data)
-        else { self.historys = []; return;}
+        else { self.historys = []; return; }
         self.historys = historys
     }
 

@@ -30,6 +30,7 @@
 		4C446F032AD4F6270023C4F1 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C446F022AD4F6270023C4F1 /* ViewRouter.swift */; };
 		4C6AE3F62AD2A5B500863115 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6AE3F52AD2A5B500863115 /* SearchTextField.swift */; };
 		4C6B127E2ACE339600324302 /* Searcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6B127D2ACE339600324302 /* Searcher.swift */; };
+		4C951F552B37BE9F0064A2F9 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C951F542B37BE9F0064A2F9 /* History.swift */; };
 		4CB14D292AD433D300854078 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB14D282AD433D300854078 /* SplashScreenView.swift */; };
 		4CB68C622ACD3041004C9E43 /* praceAtAppropriatePositionIfInZStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB68C612ACD3041004C9E43 /* praceAtAppropriatePositionIfInZStack.swift */; };
 		4CB68C642ACD37EC004C9E43 /* SuggestionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB68C632ACD37EC004C9E43 /* SuggestionStore.swift */; };
@@ -88,6 +89,7 @@
 		4C446F022AD4F6270023C4F1 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
 		4C6AE3F52AD2A5B500863115 /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		4C6B127D2ACE339600324302 /* Searcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searcher.swift; sourceTree = "<group>"; };
+		4C951F542B37BE9F0064A2F9 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		4CB14D282AD433D300854078 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		4CB68C612ACD3041004C9E43 /* praceAtAppropriatePositionIfInZStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = praceAtAppropriatePositionIfInZStack.swift; sourceTree = "<group>"; };
 		4CB68C632ACD37EC004C9E43 /* SuggestionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionStore.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 			children = (
 				4C0872432ACC14F400033787 /* ViewModel.swift */,
 				4C6B127D2ACE339600324302 /* Searcher.swift */,
+				4C951F542B37BE9F0064A2F9 /* History.swift */,
 				4C0872452ACC150F00033787 /* HistoryStore.swift */,
 				4CB68C632ACD37EC004C9E43 /* SuggestionStore.swift */,
 				4C36B6A72AD2AFEE00875FDC /* DateFormatterModel.swift */,
@@ -388,6 +391,7 @@
 				4C0871EF2ACC043D00033787 /* ContentView.swift in Sources */,
 				4C42169A2AD2C844000AF20A /* HistorysList.swift in Sources */,
 				4CB68C642ACD37EC004C9E43 /* SuggestionStore.swift in Sources */,
+				4C951F552B37BE9F0064A2F9 /* History.swift in Sources */,
 				4C072E852AD264A000477675 /* SettingView.swift in Sources */,
 				4C0872442ACC14F400033787 /* ViewModel.swift in Sources */,
 				4C0871ED2ACC043D00033787 /* Search_AssistantApp.swift in Sources */,
