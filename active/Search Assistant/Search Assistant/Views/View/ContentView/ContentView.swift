@@ -1,13 +1,12 @@
-
-#warning("""
+/*
 作業終了後の流れ
 1. topicブランチにてコミット
 2. mainブランチにチェックアウト
 3. topicブランチをマージ
-(メジャーアップデート、マイナーアップデートの場合はタグをつける。"git tag v2.2.0"の実行後、"git push origin v2.2.0"を実行する。)
+   (メジャーアップデート、マイナーアップデートの場合はタグをつける。例えば"v2.2.0"のタグをつける場合、"git tag v2.2.0"の実行後、"git push origin v2.2.0"を実行する。)
 4. origin/mainにプッシュ
 5. topicブランチにチェックアウト
-""")
+*/
 
 import SwiftUI
 import SafariServices
@@ -21,9 +20,14 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             VStack {
-                SearchTextField(vm: vm, userInput: $userInput, isFocused: _isFocused)
+                SearchTextField(
+                    vm: vm,
+                    userInput: $userInput,
+                    isFocused: _isFocused
+                )
+                .padding(.horizontal)
+                Divider()
                     .padding(.horizontal)
-                Divider().padding(.horizontal)
                 if userInput.isEmpty {
                     HistorysList(vm: vm)
                 } else {
@@ -32,7 +36,9 @@ struct ContentView: View {
             }
             if !isFocused {
                 SearchButton { isFocused = true }
-                    .modifier(praceAtAppropriatePositionIfInZStack(vm: vm))
+                    .modifier(
+                        praceAtAppropriatePositionIfInZStack(vm: vm)
+                    )
             }
         }
         // SafariView
@@ -41,7 +47,13 @@ struct ContentView: View {
                 .ignoresSafeArea()
         }
         // ツールバーに検索ボタンを実装
-        .modifier(toolbarWithSearchButtons(vm: vm, userInput: $userInput, isFocused: _isFocused))
+        .modifier(
+            toolbarWithSearchButtons(
+                vm: vm,
+                userInput: $userInput,
+                isFocused: _isFocused
+            )
+        )
         // 入力時にSuggestionを取得
         .onChange(of: userInput) { _ in
             guard !userInput.isEmpty else { return } // 協調スレッドの無駄遣い防止

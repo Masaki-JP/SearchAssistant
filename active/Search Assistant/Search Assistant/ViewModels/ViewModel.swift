@@ -15,6 +15,7 @@ final class ViewModel: ObservableObject {
     @Published var isPresesntedSettingsView = false
     @Published var isShowInstagramErrorAlert = false
     @Published var isShowPromptToConfirmDeletionOFAllHistorys = false
+
     // 検索機能
     var searcher = Searcher()
 
