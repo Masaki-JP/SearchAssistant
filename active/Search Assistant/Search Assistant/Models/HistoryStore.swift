@@ -1,6 +1,7 @@
 import SwiftUI
 
 final class HistoryStore {
+    private let userDefaultsKey = "historys"
     @Published var historys: [History] {
         didSet {
             // Update Process
@@ -8,7 +9,7 @@ final class HistoryStore {
     }
     static let shared = HistoryStore()
     private init() {
-        guard let data = UserDefaults.standard.data(forKey: "historys"),
+        guard let data = UserDefaults.standard.data(forKey: userDefaultsKey),
               let historys = try? JSONDecoder().decode([History].self, from: data)
         else { self.historys = []; return; }
         self.historys = historys
@@ -28,12 +29,12 @@ final class HistoryStore {
     // 全ての履歴を削除
     func removeAll() {
         historys.removeAll()
-        UserDefaults.standard.removeObject(forKey: "historys")
+        UserDefaults.standard.removeObject(forKey: userDefaultsKey)
     }
     // 履歴の更新をUserDefaultsに反映
     private func updateUserDefaults() {
-        let json = try! JSONEncoder().encode(historys) // FIXME: try!
-        UserDefaults.standard.set(json, forKey: "historys")
+        let json = try! JSONEncoder().encode(historys)
+        UserDefaults.standard.set(json, forKey: userDefaultsKey)
     }
 }
 
