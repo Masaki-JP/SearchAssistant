@@ -2,7 +2,7 @@ import SwiftUI
 
 @main
 struct Search_AssistantApp: App {
-    @AppStorage("colorScheme") var colorScheme = ColorScheme.dark.rawValue
+    @AppStorage("colorScheme") private var colorScheme = ColorScheme.dark.rawValue
     @StateObject private var viewRouter = ViewRouter.shared
     @StateObject private var vm = ViewModel.shared
     
