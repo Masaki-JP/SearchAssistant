@@ -19,12 +19,12 @@ final class HistoryStore {
     func add(userInput: String, platform: Platform) {
         let history = History(userInput: userInput, platform: platform)
         historys.insert(history, at: 0)
-        updateUserDefaults()
+        saveHistorysToUserDefaults()
     }
     // 任意の履歴を削除
     func remove(atOffsets indexSet: IndexSet) {
         historys.remove(atOffsets: indexSet)
-        updateUserDefaults()
+        saveHistorysToUserDefaults()
     }
     // 全ての履歴を削除
     func removeAll() {
@@ -32,7 +32,7 @@ final class HistoryStore {
         UserDefaults.standard.removeObject(forKey: userDefaultsKey)
     }
     // 履歴の更新をUserDefaultsに反映
-    private func updateUserDefaults() {
+    private func saveHistorysToUserDefaults() {
         let json = try! JSONEncoder().encode(historys)
         UserDefaults.standard.set(json, forKey: userDefaultsKey)
     }
