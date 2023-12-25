@@ -18,7 +18,7 @@ struct SettingView: View {
                 // フォーカス制御セクション
                 Section {
                     Toggle(isOn: vm.$settingAutoFocus) {
-                        Text("オートフォーカス")
+                        Text("キーボードの自動表示")
                     }.tint(.green)
                 } header: {
                     Text("フォーカス制御")
