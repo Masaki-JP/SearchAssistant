@@ -4,7 +4,7 @@ final class HistoryStore {
     private let userDefaultsKey = "historys"
     @Published var historys: [History] {
         didSet {
-            // Update Process
+            saveHistorysToUserDefaults()
         }
     }
     static let shared = HistoryStore()
@@ -19,17 +19,14 @@ final class HistoryStore {
     func add(userInput: String, platform: Platform) {
         let history = History(userInput: userInput, platform: platform)
         historys.insert(history, at: 0)
-        saveHistorysToUserDefaults()
     }
     // 任意の履歴を削除
     func remove(atOffsets indexSet: IndexSet) {
         historys.remove(atOffsets: indexSet)
-        saveHistorysToUserDefaults()
     }
     // 全ての履歴を削除
     func removeAll() {
         historys.removeAll()
-        UserDefaults.standard.removeObject(forKey: userDefaultsKey)
     }
     // 履歴の更新をUserDefaultsに反映
     private func saveHistorysToUserDefaults() {
