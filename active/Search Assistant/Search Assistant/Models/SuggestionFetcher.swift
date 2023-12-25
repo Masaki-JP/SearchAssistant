@@ -1,6 +1,6 @@
 import Foundation
 
-/// `SuggestionFetcher` は、ユーザー入力に基づいて提案をフェッチするためのクラスです。
+/// ユーザー入力に基づいてGoogleの検索候補をフェッチするためのクラスです。
 final class SuggestionFetcher {
     /// シングルトンインスタンスを提供します。
     static let shared = SuggestionFetcher()
@@ -13,6 +13,25 @@ final class SuggestionFetcher {
     ///   - userInput: 検索クエリとして使用するユーザー入力文字列。
     /// - Returns: 検索提案の文字列配列。
     /// - Throws: ネットワークリクエストに関連するエラー。
+    ///
+    /// 使用例：
+    /// ```
+    /// let userInput = "apple"
+    /// let suggestionFetcher = SuggestionFetcher.shared
+    ///
+    /// Task {
+    ///     do {
+    ///         let suggestions = try await suggestionFetcher.fetch(from: userInput)
+    ///         print(suggestions)
+    ///     } catch {
+    ///         print(error)
+    ///     }
+    /// }
+    /// ```
+    /// 出力例：
+    /// ```
+    /// ["apple", "apple watch", "apple store", "apple music", "apple 初売り 2024", "apple id", "apple watch バンド", "apple 初売り", "apple pay", "appleギフトカード"]
+    /// ```
     func fetch(from userInput: String) async throws -> [String] {
         let url = createURL(from: userInput)
         let (data, _) = try await URLSession.shared.data(from: url)
@@ -55,3 +74,38 @@ private func convertXMLStringToArray(xmlString: String) -> [String] {
     }
     return suggestions
 }
+
+
+//// About XML
+//// https://softmoco.com/swift/swift-how-to-parse-xml.php
+//// https://zenn.dev/toaster/articles/2510da8c704d63
+//// https://k-icegreen.com/?p=4032
+//// https://qiita.com/eito_2/items/8dc0c5ed48a353c2a1b2
+//// https://jp-seemore.com/app/16108/
+//
+//class XMLParserManager: NSObject, XMLParserDelegate {
+//    var suggestions: [String] = []
+//    private var currentElement = ""
+//
+//    func parse(data: Data) -> [String] {
+//        let parser = XMLParser(data: data)
+//        parser.delegate = self
+//        parser.parse()
+//        return suggestions
+//    }
+//
+//    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+//        currentElement = elementName
+//        if elementName == "suggestion", let suggestion = attributeDict["data"] {
+//            suggestions.append(suggestion)
+//        }
+//    }
+//}
+//
+//let xmlString = "<?xml version=\"1.0\"?><toplevel><CompleteSuggestion><suggestion data=\"apple\"/></CompleteSuggestion><CompleteSuggestion><suggestion data=\"apple watch\"/></CompleteSuggestion><CompleteSuggestion><suggestion data=\"apple store\"/></CompleteSuggestion><CompleteSuggestion><suggestion data=\"apple music\"/></CompleteSuggestion></toplevel>"
+//
+//if let data = xmlString.data(using: .utf8) {
+//    let parserManager = XMLParserManager()
+//    let suggestions = parserManager.parse(data: data)
+//    print(suggestions) // ["apple", "apple watch", "apple store", "apple music"]
+//}
