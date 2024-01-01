@@ -29,7 +29,7 @@ struct ContentView: View {
                 Divider()
                     .padding(.horizontal)
                 if userInput.isEmpty {
-                    HistorysList(vm: vm)
+                    HistoryList(vm: vm)
                 } else {
                     SuggestionsList(vm: vm, userInput: $userInput)
                 }

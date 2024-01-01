@@ -4,7 +4,7 @@ struct SearchTextField: View {
     @ObservedObject private(set) var vm: ViewModel
     @Binding private(set) var userInput: String
     @FocusState private(set) var isFocused
-    
+
     var body: some View {
         HStack {
             Image(systemName: "magnifyingglass")

@@ -1,8 +1,8 @@
 import SwiftUI
 
-struct HistorysList: View {
+struct HistoryList: View {
     @ObservedObject private(set) var vm: ViewModel
-    
+
     var body: some View {
         List {
             Section {
@@ -54,5 +54,5 @@ struct HistorysList: View {
 }
 
 #Preview {
-    HistorysList(vm: ViewModel.shared)
+    HistoryList(vm: ViewModel.shared)
 }
