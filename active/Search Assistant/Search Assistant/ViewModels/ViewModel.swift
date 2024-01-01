@@ -8,8 +8,8 @@ final class ViewModel: ObservableObject {
             .assign(to: &self.$historys)
     }
     // SettingsViewで使用
-    @AppStorage("autoFocus") var settingAutoFocus = true
-    @AppStorage("searchButton_Left") var settingLeftSearchButton = false
+    @AppStorage("autoFocus") private(set) var settingAutoFocus = true
+    @AppStorage("searchButton_Left") private(set) var settingLeftSearchButton = false
     @Published var keyboardToolbarButtons = KeyboardToolbarButtonsModel()
     // ビュープロパティ
     @Published var isPresesntedSettingsView = false

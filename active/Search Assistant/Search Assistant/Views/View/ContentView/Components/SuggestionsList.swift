@@ -5,8 +5,8 @@ import SwiftUI
  */
 
 struct SuggestionsList: View {
-    @ObservedObject var vm: ViewModel
-    @Binding var userInput: String
+    @ObservedObject private(set) var vm: ViewModel
+    @Binding private(set) var userInput: String
 
     var body: some View {
         if let suggestions = vm.suggestions {

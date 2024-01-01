@@ -12,7 +12,7 @@ import SwiftUI
 import SafariServices
 
 struct ContentView: View {
-    @ObservedObject var vm: ViewModel
+    @ObservedObject private(set) var vm: ViewModel
     @State private var userInput = ""
     @FocusState private var isFocused
     @Environment(\.scenePhase) private var scenePhase

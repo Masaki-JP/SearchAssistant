@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct HistorysList: View {
-    @ObservedObject var vm: ViewModel
+    @ObservedObject private(set) var vm: ViewModel
     
     var body: some View {
         List {

@@ -3,7 +3,7 @@ import SwiftUI
 // キーボードツールバーにプラットフォーム別検索ボタンを追加
 struct toolbarWithSearchButtons: ViewModifier {
     // ビューモデル
-    @ObservedObject var vm: ViewModel
+    @ObservedObject private(set) var vm: ViewModel
     // ビュープロパティ
     @Binding var userInput: String
     @FocusState var isFocused
