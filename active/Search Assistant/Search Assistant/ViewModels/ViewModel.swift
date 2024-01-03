@@ -36,7 +36,7 @@ final class ViewModel: ObservableObject {
 
 extension ViewModel {
     // With Searcher
-    func search(_ userInput: String, platform: Platform = .google) {
+    func search(_ userInput: String, on platform: Platform = .google) {
         do {
             try searcher.Search(userInput, on: platform)
             addHistory(userInput: userInput, platform: platform)

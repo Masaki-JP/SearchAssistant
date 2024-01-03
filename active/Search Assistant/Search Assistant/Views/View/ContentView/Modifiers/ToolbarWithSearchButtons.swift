@@ -33,7 +33,7 @@ fileprivate struct SearchButtonsForToolbar: View {
                     ForEach(Platform.allCases, id: \.self) { platform in
                         if vm.keyboardToolbarButtons.validButtons.contains(platform) {
                             Button(platform.rawValue) {
-                                vm.search(userInput, platform: platform)
+                                vm.search(userInput, on: platform)
                                 userInput.removeAll()
                             }
                             .id(platform.rawValue)

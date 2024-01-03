@@ -16,7 +16,7 @@ struct HistoryList: View {
                             .background(history.platform.imageColor)
                             .clipShape(RoundedRectangle(cornerRadius: 7))
                         Button(history.userInput) {
-                            vm.search(history.userInput, platform: history.platform)
+                            vm.search(history.userInput, on: history.platform)
                         }
                         .font(.body)
                         .foregroundStyle(.primary)
