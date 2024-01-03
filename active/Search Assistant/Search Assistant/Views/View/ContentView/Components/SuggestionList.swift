@@ -1,10 +1,6 @@
 import SwiftUI
 
-/*
- SuggestionListの表示条件は、テキストフィールドに何か入力があること
- */
-
-struct SuggestionsList: View {
+struct SuggestionList: View {
     @ObservedObject private(set) var vm: ViewModel
     @Binding private(set) var userInput: String
 
@@ -42,5 +38,5 @@ struct SuggestionsList: View {
 }
 
 #Preview {
-    SuggestionsList(vm: ViewModel.shared, userInput: Binding.constant(""))
+    SuggestionList(vm: ViewModel.shared, userInput: Binding.constant(""))
 }

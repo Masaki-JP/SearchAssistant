@@ -31,7 +31,7 @@ struct ContentView: View {
                 if userInput.isEmpty {
                     HistoryList(vm: vm)
                 } else {
-                    SuggestionsList(vm: vm, userInput: $userInput)
+                    SuggestionList(vm: vm, userInput: $userInput)
                 }
             }
             .overlay(
