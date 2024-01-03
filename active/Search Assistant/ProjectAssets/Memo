@@ -165,3 +165,14 @@ https://placeit.net/c/mockups/stages/mockup-featuring-two-iphones-x-floating-aga
 → .privacySensitive(false)が変なとこについてたのが原因
 
 ————————————————————
+
+SafariViewについて
+
+Appにおけるウェブビューを実現するには、WKWebViewとSFSafariViewControllerのどちらを使うべきですか
+https://developer.apple.com/jp/news/?id=trjs0tcd
+ASWebAuthenticationSession
+https://developer.apple.com/documentation/authenticationservices/aswebauthenticationsession
+SFSafariViewController
+https://developer.apple.com/documentation/safariservices/sfsafariviewcontroller
+
+————————————————————

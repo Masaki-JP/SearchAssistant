@@ -34,11 +34,15 @@ struct ContentView: View {
                     SuggestionsList(vm: vm, userInput: $userInput)
                 }
             }
-            if !isFocused {
-                SearchButton { isFocused = true }
-                    .modifier(
-                        praceAtAppropriatePositionIfInZStack(vm: vm)
-                    )
+            .overlay(
+                alignment: vm.settingLeftSearchButton == false ? .bottomTrailing : .bottomLeading
+            ) {
+                if isFocused == false {
+                    SearchButton { isFocused = true }
+                        .padding(
+                            vm.settingLeftSearchButton == false ? .trailing : .leading
+                        )
+                }
             }
         }
         // SafariView
@@ -91,7 +95,7 @@ struct ContentView: View {
         .alert("Instagram検索ではスペースを使用できません。", isPresented: $vm.isShowInstagramErrorAlert) {}
         // 履歴を全削除する際の確認のアラート
         .alert("確認", isPresented: $vm.isShowPromptToConfirmDeletionOFAllHistorys) {
-            Button("実行する", role: .destructive) {
+            Button("実行", role: .destructive) {
                 vm.removeAllHistorys()
             }
             Button("キャンセル", role: .cancel) {}
@@ -105,14 +109,7 @@ struct ContentView: View {
     ContentView(vm: ViewModel.shared)
 }
 
-/// Appにおけるウェブビューを実現するには、WKWebViewとSFSafariViewControllerのどちらを使うべきですか
-/// https://developer.apple.com/jp/news/?id=trjs0tcd
-/// ASWebAuthenticationSession
-/// https://developer.apple.com/documentation/authenticationservices/aswebauthenticationsession
-/// SFSafariViewController
-/// https://developer.apple.com/documentation/safariservices/sfsafariviewcontroller
-
-struct SafariView: UIViewControllerRepresentable {
+fileprivate struct SafariView: UIViewControllerRepresentable {
     let url: URL
 
     func makeUIViewController(

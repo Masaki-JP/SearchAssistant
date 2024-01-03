@@ -33,7 +33,6 @@
 		4C906C1D2B37E61400E1E50E /* SuggestionFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C906C1C2B37E61400E1E50E /* SuggestionFetcher.swift */; };
 		4C951F552B37BE9F0064A2F9 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C951F542B37BE9F0064A2F9 /* History.swift */; };
 		4CB14D292AD433D300854078 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB14D282AD433D300854078 /* SplashScreenView.swift */; };
-		4CB68C622ACD3041004C9E43 /* praceAtAppropriatePositionIfInZStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB68C612ACD3041004C9E43 /* praceAtAppropriatePositionIfInZStack.swift */; };
 		4CBF86672AE76AF700B73BAB /* KeyboardToolbarButtonsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBF86662AE76AF700B73BAB /* KeyboardToolbarButtonsModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -92,7 +91,6 @@
 		4C906C1C2B37E61400E1E50E /* SuggestionFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionFetcher.swift; sourceTree = "<group>"; };
 		4C951F542B37BE9F0064A2F9 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		4CB14D282AD433D300854078 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
-		4CB68C612ACD3041004C9E43 /* praceAtAppropriatePositionIfInZStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = praceAtAppropriatePositionIfInZStack.swift; sourceTree = "<group>"; };
 		4CBF86662AE76AF700B73BAB /* KeyboardToolbarButtonsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardToolbarButtonsModel.swift; sourceTree = "<group>"; };
 		4CD455F22AD3C8790092E95A /* Search-Assistant-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Search-Assistant-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -263,7 +261,6 @@
 			isa = PBXGroup;
 			children = (
 				4C24C0B12ACD28A9000A604E /* toolbarWithSearchButtons.swift */,
-				4CB68C612ACD3041004C9E43 /* praceAtAppropriatePositionIfInZStack.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -387,7 +384,6 @@
 			files = (
 				4CB14D292AD433D300854078 /* SplashScreenView.swift in Sources */,
 				4C36B6A82AD2AFEE00875FDC /* DateFormatterModel.swift in Sources */,
-				4CB68C622ACD3041004C9E43 /* praceAtAppropriatePositionIfInZStack.swift in Sources */,
 				4C906C1D2B37E61400E1E50E /* SuggestionFetcher.swift in Sources */,
 				4C24C0B62ACD2A66000A604E /* Error.swift in Sources */,
 				4C24C0B42ACD2A5B000A604E /* Platform.swift in Sources */,
