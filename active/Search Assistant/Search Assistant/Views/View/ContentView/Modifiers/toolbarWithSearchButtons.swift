@@ -25,7 +25,6 @@ struct toolbarWithSearchButtons: ViewModifier {
                                         }
                                     }
                                 } // Second HStack
-                                .font(.body)
                             } // ScrollView
                             .onChange(of: scenePhase) { newScene in
                                 guard case .active = newScene else { return }
@@ -42,7 +41,7 @@ struct toolbarWithSearchButtons: ViewModifier {
                         } // ScrollViewReader
                         Button("完了") {
                             isFocused = false
-                        }.font(.body)
+                        }
                     } // First HStack
                 } //ToolbarItemGroup
             } // toolbar
