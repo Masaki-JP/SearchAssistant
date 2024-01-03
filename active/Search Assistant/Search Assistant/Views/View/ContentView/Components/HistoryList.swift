@@ -18,7 +18,6 @@ struct HistoryList: View {
                         Button(history.userInput) {
                             vm.search(history.userInput, on: history.platform)
                         }
-                        .font(.body)
                         .foregroundStyle(.primary)
                         .padding(.leading, 4)
                         Spacer()

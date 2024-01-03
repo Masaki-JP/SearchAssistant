@@ -14,7 +14,6 @@ struct SuggestionList: View {
                                 userInput.removeAll()
                                 vm.search(suggestions[i])
                             }
-                            .font(.body)
                             .foregroundStyle(.primary)
                             .padding(.leading, 4)
                             Spacer()
