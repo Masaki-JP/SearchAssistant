@@ -9,20 +9,22 @@ struct SuggestionList: View {
             List {
                 Section {
                     ForEach(suggestions.indices, id: \.self) { i in
-                        HStack {
-                            Button(suggestions[i]) {
-                                userInput.removeAll()
-                                vm.search(suggestions[i])
+                        Button(action: {
+                            vm.search(suggestions[i])
+                            userInput.removeAll()
+                        }, label: {
+                            HStack {
+                                Text(suggestions[i])
+                                    .padding(.leading, 4)
+                                Spacer()
+                                Text("on Google")
+                                    .font(.caption2)
+                                    .foregroundStyle(.secondary)
+                                    .padding(.vertical, 4)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
                             }
-                            .foregroundStyle(.primary)
-                            .padding(.leading, 4)
-                            Spacer()
-                            Text("on Google")
-                                .font(.caption2)
-                                .foregroundStyle(.secondary)
-                                .padding(.vertical, 4)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                        }
+                        })
+                        .foregroundStyle(.primary)
                     }
                 } header: {
                     Text("Suggestions")
