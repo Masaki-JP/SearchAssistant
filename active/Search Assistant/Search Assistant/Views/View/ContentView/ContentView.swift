@@ -52,7 +52,7 @@ struct ContentView: View {
         }
         // ツールバーに検索ボタンを実装
         .modifier(
-            toolbarWithSearchButtons(
+            ToolbarWithSearchButtons(
                 vm: vm,
                 userInput: $userInput,
                 isFocused: _isFocused
