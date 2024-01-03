@@ -37,18 +37,12 @@ struct HistoryList: View {
                 Text("Historys")
                     .textCase(.none)
             } footer: {
-                HStack {
-                    Spacer()
-                    Button {
-                        vm.isShowPromptToConfirmDeletionOFAllHistorys = true
-                    } label: {
-                        Text("全履歴を削除")
-                            .foregroundStyle(vm.historys.isEmpty ? .gray : .red)
-                            .font(.title3)
-                    }
-                    .disabled(vm.historys.isEmpty)
-                    Spacer()
+                Button("全履歴を削除", role: .destructive) {
+                    vm.isShowPromptToConfirmDeletionOFAllHistorys = true
                 }
+                .font(.title3)
+                .disabled(vm.historys.isEmpty)
+                .frame(maxWidth: .infinity)
                 .padding(.top, 5)
             }
         }
