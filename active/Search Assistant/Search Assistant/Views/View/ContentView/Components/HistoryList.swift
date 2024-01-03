@@ -28,6 +28,7 @@ struct HistoryList: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                         }
                     })
+                    .foregroundStyle(.primary)
                 }
                 .onDelete { indexSet in
                     vm.removeHistory(atOffsets: indexSet)
