@@ -34,6 +34,7 @@ struct HistoryList: View {
                 }
             } header: {
                 Text("Historys")
+                    .textCase(.none)
             } footer: {
                 HStack {
                     Spacer()

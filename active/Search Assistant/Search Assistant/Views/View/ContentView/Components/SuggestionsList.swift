@@ -31,6 +31,7 @@ struct SuggestionsList: View {
                     }
                 } header: {
                     Text("Suggestions")
+                        .textCase(.none)
                 }
             }
         } else {
