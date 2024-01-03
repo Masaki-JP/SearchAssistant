@@ -21,7 +21,7 @@ struct HistoryList: View {
                         .foregroundStyle(.primary)
                         .padding(.leading, 4)
                         Spacer()
-                        Text(vm.getStringDate(from: history.date))
+                        Text(vm.getDateString(from: history.date))
                             .font(.caption2)
                             .foregroundStyle(.secondary)
                             .padding(.vertical, 4)

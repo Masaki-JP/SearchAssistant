@@ -28,9 +28,9 @@ final class ViewModel: ObservableObject {
     @Published var historys: [History] = []
     // 日付管理
     private let dateFormatter = SADateFormatter.shared
-    func getStringDate(from date: Date) -> String {
-        let stringDate = dateFormatter.string(from: date)
-        return stringDate
+    func getDateString(from date: Date) -> String {
+        let dateString = dateFormatter.string(from: date)
+        return dateString
     }
 }
 
