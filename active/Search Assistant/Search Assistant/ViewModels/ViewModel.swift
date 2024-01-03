@@ -38,7 +38,7 @@ extension ViewModel {
     // With Searcher
     func search(_ userInput: String, platform: Platform = .google) {
         do {
-            try searcher.Search(userInput, platform: platform)
+            try searcher.Search(userInput, on: platform)
             addHistory(userInput: userInput, platform: platform)
         } catch {
             switch error {
