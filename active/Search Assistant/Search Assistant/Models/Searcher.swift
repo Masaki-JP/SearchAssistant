@@ -16,7 +16,7 @@ final class Searcher {
     var searchDataForSafariView: SearchDataForSafariView? = nil
 
     // 外部から呼ばれるのはこのメソッドのみ。プラットフォーム別の検索処理を行う。
-    func Search(_ userInput: String, on platform: Platform = .google) throws {
+    func Search(_ userInput: String, on platform: Platform) throws {
         switch platform {
         case .google where openInSafariView == true:
             searchDataForSafariView = .init(userInput)

@@ -39,7 +39,7 @@ final class ViewModel: ViewModelProtocol {
 
 extension ViewModel {
     // With Searcher
-    func search(_ userInput: String, on platform: Platform = .google) {
+    func search(_ userInput: String, on platform: Platform) {
         do {
             try searcher.Search(userInput, on: platform)
             addHistory(userInput: userInput, platform: platform)

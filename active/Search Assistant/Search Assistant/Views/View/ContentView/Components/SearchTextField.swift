@@ -15,7 +15,7 @@ struct SearchTextField: View {
                 .submitLabel(.search)
                 .focused($isFocused)
                 .onSubmit {
-                    vm.search(vm.userInput)
+                    vm.search(vm.userInput, on: .google)
                 }
             if vm.userInput.isEmpty {
                 Button(action: {
