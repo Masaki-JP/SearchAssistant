@@ -4,10 +4,6 @@ protocol SuggestionStore {
     var suggestions: [String]? { get }
 }
 
-protocol Searchable {
-    func search(_ userInput: String, on: Platform)
-}
-
 struct SuggestionList<VM>: View where VM: ObservableObject & SuggestionStore & Searchable {
     @ObservedObject private(set) var vm: VM
 
