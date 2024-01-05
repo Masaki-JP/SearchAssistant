@@ -1,5 +1,9 @@
 import SwiftUI
 
+protocol HistoryStoreProtocol {
+    var historys: [History] { get }
+}
+
 struct HistoryList: View {
     @ObservedObject private(set) var vm: ViewModel
 
