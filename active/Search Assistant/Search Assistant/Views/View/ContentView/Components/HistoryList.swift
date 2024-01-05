@@ -50,22 +50,12 @@ struct HistoryList: View {
                 }
             }
         } else {
-            VStack(spacing: 5) {
-                Spacer()
-                Image(systemName: "doc.text.magnifyingglass")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 100)
-                    .foregroundStyle(.secondary)
-                Text("I am Search Assistant!")
-                    .fontWeight(.bold)
-                    .font(.title2)
-                Text("Google, Twitter, Instagram, Amazon,  YouTubeなどの\n検索をこのアプリひとつで行うことができます。")
-                    .multilineTextAlignment(.leading)
-                    .foregroundStyle(.secondary)
-                    .font(.footnote)
-                Spacer()
-            }
+            NoContentsView(
+                title: "I am Search Assistant!",
+                description: "Google, Twitter, Instagram, Amazon,  YouTubeなどの\n検索をこのアプリひとつで行うことができます。",
+                imageSystemName: "doc.text.magnifyingglass"
+            )
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 }
