@@ -39,8 +39,9 @@ fileprivate struct SearchButtonsForToolbar: View {
                 }
             }
             .onChange(of: scenePhase) { newScenePhase in
-                guard case .active = newScenePhase else { return }
-                guard !vm.keyboardToolbarButtons.validButtons.isEmpty else { return }
+                guard case .active = newScenePhase,
+                      vm.keyboardToolbarButtons.validButtons.isEmpty == false
+                else { return }
                 var completed = false
                 Platform.allCases.forEach { platform in
                     if completed == false,
