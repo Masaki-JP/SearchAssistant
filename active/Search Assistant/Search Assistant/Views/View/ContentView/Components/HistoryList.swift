@@ -68,6 +68,63 @@ struct HistoryList<VM>: View where VM: ViewModelForHistoryList {
     }
 }
 
+fileprivate class MockViewModel1: ViewModelForHistoryList {
+    var historys: [History] = [
+        .init(userInput: "iPhone", platform: .google),
+        .init(userInput: "iPad", platform: .twitter),
+        .init(userInput: "Macbook", platform: .instagram),
+        .init(userInput: "Apple Watch", platform: .amazon),
+        .init(userInput: "AirPods", platform: .youtube),
+        .init(userInput: "iPhone", platform: .facebook),
+        .init(userInput: "iPad", platform: .mercari),
+        .init(userInput: "Macbook", platform: .rakuma),
+        .init(userInput: "Apple Watch", platform: .paypayFleaMarket),
+        .init(userInput: "AirPods", platform: .google),
+        .init(userInput: "iPhone", platform: .twitter),
+        .init(userInput: "iPad", platform: .instagram),
+        .init(userInput: "Macbook", platform: .amazon),
+    ]
+
+    func search(_ userInput: String, on: Platform) {
+        print("Called search function.")
+    }
+
+    func getDateString(from: Date) -> String {
+        return "20xx/xx/xx"
+    }
+
+    func removeHistory(atOffsets: IndexSet) {
+        print("Called removeHistory function.")
+    }
+
+    var isShowPromptToConfirmDeletionOFAllHistorys: Bool = false
+}
+
+fileprivate class MockViewModel2: ViewModelForHistoryList {
+    var historys: [History] = []
+
+    func search(_ userInput: String, on: Platform) {
+        print("Called search function.")
+    }
+
+    func getDateString(from: Date) -> String {
+        return "20xx/xx/xx"
+    }
+
+    func removeHistory(atOffsets: IndexSet) {
+        print("Called removeHistory function.")
+    }
+
+    var isShowPromptToConfirmDeletionOFAllHistorys: Bool = false
+}
+
 #Preview {
-    HistoryList(vm: ViewModel.shared)
+//    // 実際のViewModel
+//    HistoryList(vm: ViewModel.shared)
+
+//    // 検索履歴がある場合
+//    HistoryList(vm: MockViewModel1())
+
+    // 検索履歴がない場合
+    HistoryList(vm: MockViewModel2())
 }
