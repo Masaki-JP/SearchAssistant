@@ -1,7 +1,15 @@
 import SwiftUI
 
-struct SuggestionList: View {
-    @ObservedObject private(set) var vm: ViewModel
+protocol SuggestionStore {
+    var suggestions: [String]? { get }
+}
+
+protocol Searchable {
+    func search(_ userInput: String, on: Platform)
+}
+
+struct SuggestionList<VM>: View where VM: ObservableObject & SuggestionStore & Searchable {
+    @ObservedObject private(set) var vm: VM
 
     var body: some View {
         if let suggestions = vm.suggestions {
@@ -9,7 +17,7 @@ struct SuggestionList: View {
                 Section {
                     ForEach(suggestions, id: \.self) { suggestion in
                         Button(action: {
-                            vm.search(suggestion)
+                            vm.search(suggestion, on: .google)
                         }, label: {
                             HStack {
                                 Text(suggestion)
@@ -40,6 +48,39 @@ struct SuggestionList: View {
     }
 }
 
+fileprivate class MockViewModel1: ObservableObject, SuggestionStore, Searchable {
+    var suggestions: [String]? = [
+        "macbook", "macbook air", "macbook air m2", "macbook スクショ", "macbook air m1", "macbook 初期化", "macbook pro m3", "macbook air m3", "macbook 中古", "macbook 学割"
+    ]
+
+    func search(_ userInput: String, on: Platform) {
+        print("Called search function.")
+    }
+}
+
+fileprivate class MockViewModel2: ObservableObject, SuggestionStore, Searchable {
+    var suggestions: [String]? = []
+
+    func search(_ userInput: String, on: Platform) {
+        print("Called search function.")
+    }
+}
+
+fileprivate class MockViewModel3: ObservableObject, SuggestionStore, Searchable {
+    var suggestions: [String]? = nil
+
+    func search(_ userInput: String, on: Platform) {
+        print("Called search function.")
+    }
+}
+
 #Preview {
-    SuggestionList(vm: ViewModel.shared)
+    // 正常に検索候補を取得できた場合
+    SuggestionList(vm: MockViewModel1())
+
+//    // 検索候補を取得できたが、それが空だった場合
+//    SuggestionList(vm: MockViewModel2())
+    
+//    // 検索候補の取得に失敗した場合
+//    SuggestionList(vm: MockViewModel3())
 }

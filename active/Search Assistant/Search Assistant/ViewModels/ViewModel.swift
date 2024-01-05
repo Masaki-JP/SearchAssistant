@@ -1,6 +1,8 @@
 import SwiftUI
 
-final class ViewModel: ObservableObject {
+fileprivate typealias ViewModelProtocol = ObservableObject & SuggestionStore & Searchable
+
+final class ViewModel: ViewModelProtocol {
     static let shared = ViewModel()
     private init() {
         historyStore.$historys
