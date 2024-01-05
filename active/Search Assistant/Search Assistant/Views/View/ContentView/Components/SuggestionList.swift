@@ -1,10 +1,11 @@
 import SwiftUI
 
-protocol SuggestionStore {
+protocol ViewModelForSuggestionList: ObservableObject {
     var suggestions: [String]? { get }
+    func search(_ userInput: String, on: Platform)
 }
 
-struct SuggestionList<VM>: View where VM: ObservableObject & SuggestionStore & Searchable {
+struct SuggestionList<VM>: View where VM: ViewModelForSuggestionList {
     @ObservedObject private(set) var vm: VM
 
     var body: some View {
@@ -44,7 +45,7 @@ struct SuggestionList<VM>: View where VM: ObservableObject & SuggestionStore & S
     }
 }
 
-fileprivate class MockViewModel1: ObservableObject, SuggestionStore, Searchable {
+fileprivate class MockViewModel1: ViewModelForSuggestionList {
     var suggestions: [String]? = [
         "macbook", "macbook air", "macbook air m2", "macbook スクショ", "macbook air m1", "macbook 初期化", "macbook pro m3", "macbook air m3", "macbook 中古", "macbook 学割"
     ]
@@ -54,7 +55,7 @@ fileprivate class MockViewModel1: ObservableObject, SuggestionStore, Searchable 
     }
 }
 
-fileprivate class MockViewModel2: ObservableObject, SuggestionStore, Searchable {
+fileprivate class MockViewModel2: ViewModelForSuggestionList {
     var suggestions: [String]? = []
 
     func search(_ userInput: String, on: Platform) {
@@ -62,7 +63,7 @@ fileprivate class MockViewModel2: ObservableObject, SuggestionStore, Searchable 
     }
 }
 
-fileprivate class MockViewModel3: ObservableObject, SuggestionStore, Searchable {
+fileprivate class MockViewModel3: ViewModelForSuggestionList {
     var suggestions: [String]? = nil
 
     func search(_ userInput: String, on: Platform) {
