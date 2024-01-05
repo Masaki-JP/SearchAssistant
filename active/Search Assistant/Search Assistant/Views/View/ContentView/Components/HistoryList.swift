@@ -119,12 +119,14 @@ fileprivate class MockViewModel2: ViewModelForHistoryList {
 }
 
 #Preview {
-//    // 実際のViewModel
-//    HistoryList(vm: ViewModel.shared)
-
-//    // 検索履歴がある場合
-//    HistoryList(vm: MockViewModel1())
-
-    // 検索履歴がない場合
-    HistoryList(vm: MockViewModel2())
+    TabView {
+        // 実際のViewModel
+        HistoryList(vm: ViewModel.shared)
+        // 検索履歴がある場合
+        HistoryList(vm: MockViewModel1())
+        // 検索履歴がない場合
+        HistoryList(vm: MockViewModel2())
+    }
+    .tabViewStyle(.page)
+    .ignoresSafeArea()
 }
