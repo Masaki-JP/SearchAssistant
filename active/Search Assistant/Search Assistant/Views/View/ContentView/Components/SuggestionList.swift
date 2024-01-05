@@ -32,8 +32,12 @@ struct SuggestionList: View {
                 }
             }
         } else {
-            Text("データ取得に失敗しました。")
-                .frame(maxHeight: .infinity)
+            NoContentsView(
+                title: "Sorry! Network Error!",
+                description: "検索候補の取得に失敗しました。モバイル通信、Wi-Fi、機内モードなどの設定をご確認ください。",
+                imageSystemName: "network.slash"
+            )
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 }
