@@ -1,11 +1,14 @@
 import SwiftUI
 
-protocol HistoryStoreProtocol {
+protocol ViewModelForHistoryList: ObservableObject, Searchable {
     var historys: [History] { get }
+    func getDateString(from: Date) -> String
+    func removeHistory(atOffsets: IndexSet)
+    var isShowPromptToConfirmDeletionOFAllHistorys: Bool { get set }
 }
 
-struct HistoryList: View {
-    @ObservedObject private(set) var vm: ViewModel
+struct HistoryList<VM>: View where VM: ViewModelForHistoryList {
+    @ObservedObject private(set) var vm: VM
 
     var body: some View {
         if vm.historys.isEmpty == false {
