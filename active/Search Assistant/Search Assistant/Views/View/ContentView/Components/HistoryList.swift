@@ -1,7 +1,8 @@
 import SwiftUI
 
-protocol ViewModelForHistoryList: ObservableObject, Searchable {
+protocol ViewModelForHistoryList: ObservableObject {
     var historys: [History] { get }
+    func search(_ userInput: String, on: Platform)
     func getDateString(from: Date) -> String
     func removeHistory(atOffsets: IndexSet)
     var isShowPromptToConfirmDeletionOFAllHistorys: Bool { get set }

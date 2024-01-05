@@ -11,10 +11,6 @@ struct SearchDataForSafariView: Identifiable {
     }
 }
 
-protocol Searchable {
-    func search(_ userInput: String, on: Platform)
-}
-
 final class Searcher {
     @AppStorage("openInSafariView") var openInSafariView = true
     var searchDataForSafariView: SearchDataForSafariView? = nil

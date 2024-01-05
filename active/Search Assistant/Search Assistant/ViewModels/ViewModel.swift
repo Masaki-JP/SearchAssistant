@@ -1,6 +1,6 @@
 import SwiftUI
 
-fileprivate typealias ViewModelProtocol = ObservableObject & ViewModelForSuggestionList & Searchable &  ViewModelForHistoryList
+fileprivate typealias ViewModelProtocol = ObservableObject & ViewModelForSuggestionList &  ViewModelForHistoryList
 
 final class ViewModel: ViewModelProtocol {
     static let shared = ViewModel()
