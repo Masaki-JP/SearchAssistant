@@ -9,7 +9,7 @@
 
 ※1
 メジャーアップデート、マイナーアップデートの場合はタグをつける。例えば"v2.2.0"のタグをつける場合、"git tag v2.2.0"の実行後、"git push origin v2.2.0"を実行する。見た目の変更だけであれば、パッチアップデートのみとする。
- 
+
 */
 
 import SwiftUI
@@ -17,25 +17,20 @@ import SafariServices
 
 struct ContentView: View {
     @ObservedObject private(set) var vm: ViewModel
-    @State private var userInput = ""
     @FocusState private var isFocused
     @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         ZStack {
             VStack {
-                SearchTextField(
-                    vm: vm,
-                    userInput: $userInput,
-                    isFocused: _isFocused
-                )
+                SearchTextField( vm: vm, isFocused: _isFocused )
                 .padding(.horizontal)
                 Divider()
                     .padding(.horizontal)
-                if userInput.isEmpty {
+                if vm.userInput.isEmpty {
                     HistoryList(vm: vm)
                 } else {
-                    SuggestionList(vm: vm, userInput: $userInput)
+                    SuggestionList(vm: vm)
                 }
             }
             .overlay(
@@ -56,16 +51,13 @@ struct ContentView: View {
         }
         // ツールバーに検索ボタンを実装
         .modifier(
-            ToolbarWithSearchButtons(
-                vm: vm,
-                userInput: $userInput,
-                isFocused: _isFocused
-            )
+            ToolbarWithSearchButtons(vm: vm, isFocused: _isFocused )
         )
         // 入力時にSuggestionを取得
-        .onChange(of: userInput) { _ in
-            guard !userInput.isEmpty else { return } // 協調スレッドの無駄遣い防止
-            Task { await vm.getSuggestion(from: userInput) }
+        .onChange(of: vm.userInput) { _ in
+            // 協調スレッドの無駄遣い防止
+            guard vm.userInput.isEmpty == false else { return }
+            Task { await vm.getSuggestion(from: vm.userInput) }
         }
         // SettingsViewの表示設定
         .sheet(isPresented: $vm.isPresesntedSettingsView) {

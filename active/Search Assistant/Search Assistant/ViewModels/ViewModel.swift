@@ -12,6 +12,7 @@ final class ViewModel: ObservableObject {
     @AppStorage("searchButton_Left") private(set) var settingLeftSearchButton = false
     @Published var keyboardToolbarButtons = KeyboardToolbarButtonsModel()
     // ビュープロパティ
+    @Published var userInput = ""
     @Published var isPresesntedSettingsView = false
     @Published var isShowInstagramErrorAlert = false
     @Published var isShowPromptToConfirmDeletionOFAllHistorys = false
@@ -40,6 +41,7 @@ extension ViewModel {
         do {
             try searcher.Search(userInput, on: platform)
             addHistory(userInput: userInput, platform: platform)
+            self.userInput.removeAll()
         } catch {
             switch error {
             case HumanError.noUserInput:

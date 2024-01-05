@@ -3,7 +3,6 @@ import SwiftUI
 // キーボードツールバーにプラットフォーム別検索ボタンを追加
 struct ToolbarWithSearchButtons: ViewModifier {
     @ObservedObject private(set) var vm: ViewModel
-    @Binding private(set) var userInput: String
     @FocusState private(set) var isFocused
 
     func body(content: Content) -> some View {
@@ -11,7 +10,7 @@ struct ToolbarWithSearchButtons: ViewModifier {
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
                     HStack {
-                        SearchButtonsForToolbar(vm: vm, userInput: $userInput)
+                        SearchButtonsForToolbar(vm: vm)
                         Button("完了") {
                             isFocused = false
                         }
@@ -23,7 +22,6 @@ struct ToolbarWithSearchButtons: ViewModifier {
 
 fileprivate struct SearchButtonsForToolbar: View {
     @ObservedObject private(set) var vm: ViewModel
-    @Binding private(set) var userInput: String
     @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
@@ -33,8 +31,7 @@ fileprivate struct SearchButtonsForToolbar: View {
                     ForEach(Platform.allCases, id: \.self) { platform in
                         if vm.keyboardToolbarButtons.validButtons.contains(platform) {
                             Button(platform.rawValue) {
-                                vm.search(userInput, on: platform)
-                                userInput.removeAll()
+                                vm.search(vm.userInput, on: platform)
                             }
                             .id(platform.rawValue)
                         }

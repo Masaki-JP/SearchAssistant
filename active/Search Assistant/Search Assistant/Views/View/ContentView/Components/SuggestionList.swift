@@ -2,7 +2,6 @@ import SwiftUI
 
 struct SuggestionList: View {
     @ObservedObject private(set) var vm: ViewModel
-    @Binding private(set) var userInput: String
 
     var body: some View {
         if let suggestions = vm.suggestions {
@@ -11,7 +10,6 @@ struct SuggestionList: View {
                     ForEach(suggestions.indices, id: \.self) { i in
                         Button(action: {
                             vm.search(suggestions[i])
-                            userInput.removeAll()
                         }, label: {
                             HStack {
                                 Text(suggestions[i])
@@ -43,5 +41,5 @@ struct SuggestionList: View {
 }
 
 #Preview {
-    SuggestionList(vm: ViewModel.shared, userInput: Binding.constant(""))
+    SuggestionList(vm: ViewModel.shared)
 }
