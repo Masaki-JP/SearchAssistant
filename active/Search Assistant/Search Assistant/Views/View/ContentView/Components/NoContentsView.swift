@@ -29,7 +29,7 @@ struct NoContentsView: View {
                     .font(.footnote)
             }
         }
-        .frame(minWidth: 350)
+        .frame(width: 350)
     }
 }
 
