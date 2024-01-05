@@ -21,7 +21,7 @@ struct SettingView: View {
                         Text("キーボードの自動表示")
                     }.tint(.green)
                 } header: {
-                    Text("フォーカス制御")
+                    Text("キーボード")
                 } footer: {
                     Text("検索画面が表示された時に、検索フォームに自動でフォーカスします。")
                 }
