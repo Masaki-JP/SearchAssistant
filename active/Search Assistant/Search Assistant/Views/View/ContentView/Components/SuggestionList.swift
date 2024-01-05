@@ -7,12 +7,12 @@ struct SuggestionList: View {
         if let suggestions = vm.suggestions {
             List {
                 Section {
-                    ForEach(suggestions.indices, id: \.self) { i in
+                    ForEach(suggestions, id: \.self) { suggestion in
                         Button(action: {
-                            vm.search(suggestions[i])
+                            vm.search(suggestion)
                         }, label: {
                             HStack {
-                                Text(suggestions[i])
+                                Text(suggestion)
                                     .padding(.leading, 4)
                                 Spacer()
                                 Text("on Google")
