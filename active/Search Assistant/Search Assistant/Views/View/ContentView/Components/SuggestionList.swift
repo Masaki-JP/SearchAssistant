@@ -72,15 +72,16 @@ fileprivate class MockViewModel3: ViewModelForSuggestionList {
 }
 
 #Preview {
-//    // 実際のViewModel
-//    SuggestionList(vm: ViewModel.shared)
-
-    // 正常に検索候補を取得できた場合
-    SuggestionList(vm: MockViewModel1())
-
-//    // 検索候補を取得できたが、それが空だった場合
-//    SuggestionList(vm: MockViewModel2())
-    
-//    // 検索候補の取得に失敗した場合
-//    SuggestionList(vm: MockViewModel3())
+    TabView {
+        // 実際のViewModel
+        SuggestionList(vm: ViewModel.shared)
+        // 正常に検索候補を取得できた場合
+        SuggestionList(vm: MockViewModel1())
+        // 検索候補を取得できたが、それが空だった場合
+        SuggestionList(vm: MockViewModel2())
+        // 検索候補の取得に失敗した場合
+        SuggestionList(vm: MockViewModel3())
+    }
+    .tabViewStyle(.page)
+    .ignoresSafeArea()
 }
