@@ -39,16 +39,13 @@ fileprivate struct SearchButtonsForToolbar: View {
                 }
             }
             .onChange(of: scenePhase) { newScenePhase in
-                guard case .active = newScenePhase,
+                guard newScenePhase == .active,
                       vm.keyboardToolbarButtons.validButtons.isEmpty == false
                 else { return }
-                var completed = false
-                Platform.allCases.forEach { platform in
-                    if completed == false,
-                       vm.keyboardToolbarButtons.validButtons.contains(platform) {
-                        reader.scrollTo(platform.rawValue)
-                        completed = true
-                    }
+                for platform in Platform.allCases where
+                vm.keyboardToolbarButtons.validButtons.contains(platform) {
+                    reader.scrollTo(platform.rawValue)
+                    return
                 }
             }
         }
