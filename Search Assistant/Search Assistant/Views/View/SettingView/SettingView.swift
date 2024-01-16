@@ -57,7 +57,7 @@ struct SettingView: View {
                 }
                 // キーボードツールバーボタンセクション
                 Section {
-                    ForEach(Platform.allCases, id: \.self) { platform in
+                    ForEach(SASerchPlatform.allCases, id: \.self) { platform in
                         Button(action: {
                             vm.keyboardToolbarButtons.validationToggle(platform: platform)
                         }, label: {

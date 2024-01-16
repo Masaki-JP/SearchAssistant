@@ -6,7 +6,7 @@ struct SearchDataForSafariView: Identifiable {
 
     init(_ userInput: String) {
         let query = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        let url = URL(string: Platform.google.prefixURL + query)!
+        let url = URL(string: SASerchPlatform.google.prefixURL + query)!
         self.url = url
     }
 }
@@ -16,7 +16,7 @@ final class Searcher {
     var searchDataForSafariView: SearchDataForSafariView? = nil
 
     // 外部から呼ばれるのはこのメソッドのみ。プラットフォーム別の検索処理を行う。
-    func Search(_ userInput: String, on platform: Platform) throws {
+    func Search(_ userInput: String, on platform: SASerchPlatform) throws {
         switch platform {
         case .google where openInSafariView == true:
             searchDataForSafariView = .init(userInput)
@@ -51,7 +51,7 @@ extension Searcher {
             // 通常の検索
             let encodedWord = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
             guard let encodedWord = encodedWord,
-                  let url = URL(string: Platform.google.prefixURL + encodedWord)
+                  let url = URL(string: SASerchPlatform.google.prefixURL + encodedWord)
             else { throw SearchError() }
             UIApplication.shared.open(url)
         }
@@ -62,7 +62,7 @@ extension Searcher {
         guard !userInput.isEmpty else { throw HumanError.noUserInput }
         // Twitter検索用URLを作成
         guard let encodedWord = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let url = URL(string: Platform.twitter.prefixURL + encodedWord)
+              let url = URL(string: SASerchPlatform.twitter.prefixURL + encodedWord)
         else { throw SearchError() }
         // 作成したURLを開く
         UIApplication.shared.open(url)
@@ -77,7 +77,7 @@ extension Searcher {
         guard !userInput.isEmpty else { throw HumanError.noUserInput }
         // Instagram検索用URLを作成
         guard let encodedWord = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let url = URL(string: Platform.instagram.prefixURL + encodedWord)
+              let url = URL(string: SASerchPlatform.instagram.prefixURL + encodedWord)
         else { throw SearchError() }
         // 作成したURLを開く
         UIApplication.shared.open(url)
@@ -88,7 +88,7 @@ extension Searcher {
         guard !userInput.isEmpty else { throw HumanError.noUserInput }
         // Amazon検索用URLを作成
         guard let encodedWord = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let url = URL(string: Platform.amazon.prefixURL + encodedWord)
+              let url = URL(string: SASerchPlatform.amazon.prefixURL + encodedWord)
         else { throw SearchError() }
         // 作成したURLを開く
         UIApplication.shared.open(url)
@@ -99,7 +99,7 @@ extension Searcher {
         guard !userInput.isEmpty else { throw HumanError.noUserInput }
         // YouTube検索用URLを作成
         guard let encodedWord = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let url = URL(string: Platform.youtube.prefixURL + encodedWord)
+              let url = URL(string: SASerchPlatform.youtube.prefixURL + encodedWord)
         else { throw SearchError() }
         // 作成したURLを開く
         UIApplication.shared.open(url)
@@ -110,7 +110,7 @@ extension Searcher {
         guard !userInput.isEmpty else { throw HumanError.noUserInput }
         // Facebook検索用URLを作成
         guard let encodedWord = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let url = URL(string: Platform.facebook.prefixURL + encodedWord)
+              let url = URL(string: SASerchPlatform.facebook.prefixURL + encodedWord)
         else { throw SearchError() }
         // 作成したURLを開く
         UIApplication.shared.open(url)
@@ -121,7 +121,7 @@ extension Searcher {
         guard !userInput.isEmpty else { throw HumanError.noUserInput }
         // メルカリ検索用URLを作成
         guard let encodedWord = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let url = URL(string: Platform.mercari.prefixURL + encodedWord)
+              let url = URL(string: SASerchPlatform.mercari.prefixURL + encodedWord)
         else { throw SearchError() }
         // 作成したURLを開く
         UIApplication.shared.open(url)
@@ -132,7 +132,7 @@ extension Searcher {
         guard !userInput.isEmpty else { throw HumanError.noUserInput }
         // ラクマ検索用URLを作成
         guard let encodedWord = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let url = URL(string: Platform.rakuma.prefixURL + encodedWord)
+              let url = URL(string: SASerchPlatform.rakuma.prefixURL + encodedWord)
         else { throw SearchError() }
         // 作成したURLを開く
         UIApplication.shared.open(url)
@@ -143,7 +143,7 @@ extension Searcher {
         guard !userInput.isEmpty else { throw HumanError.noUserInput }
         // PayPayフリマ検索用URLを作成
         guard let encodedWord = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let url = URL(string: Platform.paypayFleaMarket.prefixURL + encodedWord)
+              let url = URL(string: SASerchPlatform.paypayFleaMarket.prefixURL + encodedWord)
         else { throw SearchError() }
         // 作成したURLを開く
         UIApplication.shared.open(url)

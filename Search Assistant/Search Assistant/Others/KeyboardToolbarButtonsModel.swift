@@ -1,18 +1,18 @@
 import Foundation
 
 struct KeyboardToolbarButtonsModel {
-    var validButtons: Set<Platform> = [
+    var validButtons: Set<SASerchPlatform> = [
         .google, .twitter, .instagram, .amazon, .youtube, .facebook, .mercari, .rakuma, .paypayFleaMarket
     ]
 
     init() {
         guard let decodedData = UserDefaults.standard.data(forKey: "keyboardToolbarButtons"),
-              let keyboardToolbarButtons = try? JSONDecoder().decode(Set<Platform>.self, from: decodedData)
+              let keyboardToolbarButtons = try? JSONDecoder().decode(Set<SASerchPlatform>.self, from: decodedData)
         else { return }
         self.validButtons = keyboardToolbarButtons
     }
 
-    mutating func validationToggle(platform: Platform) {
+    mutating func validationToggle(platform: SASerchPlatform) {
         if validButtons.contains(platform) {
             validButtons.remove(platform)
         } else {

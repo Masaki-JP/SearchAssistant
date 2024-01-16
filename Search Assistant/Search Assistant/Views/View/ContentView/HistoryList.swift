@@ -2,7 +2,7 @@ import SwiftUI
 
 protocol ViewModelForHistoryList: ObservableObject {
     var historys: [SASerachHistory] { get }
-    func search(_ userInput: String, on: Platform)
+    func search(_ userInput: String, on: SASerchPlatform)
     func getDateString(from: Date) -> String
     func removeHistory(atOffsets: IndexSet)
     var isShowPromptToConfirmDeletionOFAllHistorys: Bool { get set }
@@ -92,7 +92,7 @@ fileprivate class MockViewModel1: ViewModelForHistoryList {
         .init(userInput: "Apple Music", platform: .google),
     ]
 
-    func search(_ userInput: String, on: Platform) {
+    func search(_ userInput: String, on: SASerchPlatform) {
         print("Called search function.")
     }
 
@@ -110,7 +110,7 @@ fileprivate class MockViewModel1: ViewModelForHistoryList {
 fileprivate class MockViewModel2: ViewModelForHistoryList {
     var historys: [SASerachHistory] = []
 
-    func search(_ userInput: String, on: Platform) {
+    func search(_ userInput: String, on: SASerchPlatform) {
         print("Called search function.")
     }
 

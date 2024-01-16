@@ -39,7 +39,7 @@ final class ViewModel: ViewModelProtocol {
 
 extension ViewModel {
     // With Searcher
-    func search(_ userInput: String, on platform: Platform) {
+    func search(_ userInput: String, on platform: SASerchPlatform) {
         do {
             try searcher.Search(userInput, on: platform)
             addHistory(userInput: userInput, platform: platform)
@@ -65,7 +65,7 @@ extension ViewModel {
         }
     }
     // With HistoryStore
-    private func addHistory(userInput: String, platform: Platform) {
+    private func addHistory(userInput: String, platform: SASerchPlatform) {
         historyStore.add(userInput: userInput, platform: platform)
     }
     func removeHistory(atOffsets indexSet: IndexSet) {

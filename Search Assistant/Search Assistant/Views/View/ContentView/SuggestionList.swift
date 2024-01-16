@@ -2,7 +2,7 @@ import SwiftUI
 
 protocol ViewModelForSuggestionList: ObservableObject {
     var suggestions: [String]? { get }
-    func search(_ userInput: String, on: Platform)
+    func search(_ userInput: String, on: SASerchPlatform)
 }
 
 struct SuggestionList<VM>: View where VM: ViewModelForSuggestionList {
@@ -50,7 +50,7 @@ fileprivate class MockViewModel1: ViewModelForSuggestionList {
         "macbook", "macbook air", "macbook air m2", "macbook スクショ", "macbook air m1", "macbook 初期化", "macbook pro m3", "macbook air m3", "macbook 中古", "macbook 学割"
     ]
 
-    func search(_ userInput: String, on: Platform) {
+    func search(_ userInput: String, on: SASerchPlatform) {
         print("Called search function.")
     }
 }
@@ -58,7 +58,7 @@ fileprivate class MockViewModel1: ViewModelForSuggestionList {
 fileprivate class MockViewModel2: ViewModelForSuggestionList {
     var suggestions: [String]? = []
 
-    func search(_ userInput: String, on: Platform) {
+    func search(_ userInput: String, on: SASerchPlatform) {
         print("Called search function.")
     }
 }
@@ -66,7 +66,7 @@ fileprivate class MockViewModel2: ViewModelForSuggestionList {
 fileprivate class MockViewModel3: ViewModelForSuggestionList {
     var suggestions: [String]? = nil
 
-    func search(_ userInput: String, on: Platform) {
+    func search(_ userInput: String, on: SASerchPlatform) {
         print("Called search function.")
     }
 }
