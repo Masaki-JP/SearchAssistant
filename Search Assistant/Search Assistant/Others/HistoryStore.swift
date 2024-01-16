@@ -34,27 +34,3 @@ final class HistoryStore {
         UserDefaults.standard.set(json, forKey: userDefaultsKey)
     }
 }
-
-//        // スクリーンショットを撮った時に使ったモックデータ
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy年MM月dd日"
-//        let october15th = dateFormatter.date(from: "2023年10月15日")!
-//        let october14th = dateFormatter.date(from: "2023年10月14日")!
-//        let october13th = dateFormatter.date(from: "2023年10月13日")!
-//
-//        let sampleHistorys: [History] = [
-//            History(userInput: "iPhone 15 Pro", platform: .google, date: october15th),
-//            History(userInput: "iPad Air 第6世代", platform: .mercari, date: october15th),
-//            History(userInput: "Macbook 新型", platform: .youtube, date: october15th),
-//            History(userInput: "プレミアリーグ 順位", platform: .twitter, date: october15th),
-//            History(userInput: "名古屋港水族館", platform: .instagram, date: october14th),
-//            History(userInput: "パソコン 計量 薄型", platform: .amazon, date: october14th),
-//            History(userInput: "一人暮らし 費用 平均", platform: .google, date: october14th),
-//            History(userInput: "Xcode 最新バージョン", platform: .twitter, date: october13th),
-//            History(userInput: "スマートホーム 初心者", platform: .google, date: october13th),
-//            History(userInput: "サーキュレーター 静音", platform: .amazon, date: october13th),
-//            History(userInput: "DVDプレイヤー ブラック", platform: .paypayFleaMarket, date: october13th),
-//            History(userInput: "ホワイトキャニオン", platform: .instagram, date: october13th),
-//
-//        ]
-//        self.historys = sampleHistorys
