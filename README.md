@@ -3,6 +3,7 @@
 **概要** 「Search Assistant」は、いつでもどこでも素早く検索を開始できるiOSアプリです。ロック画面からワンタップで始まるスマートな検索を提供します。
 
 ![スクリーンショット](README_Images/230116.png)
+<small>この画像の作成に使用したサイト https://photocombine.net/cb/</small>
 
 **主な機能**
 
