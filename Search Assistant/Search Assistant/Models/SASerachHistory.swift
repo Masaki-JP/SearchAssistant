@@ -1,6 +1,6 @@
 import Foundation
 
-struct History: Codable, Identifiable {
+struct SASerachHistory: Codable, Identifiable {
     let userInput: String
     let platform: Platform
     let date: Date

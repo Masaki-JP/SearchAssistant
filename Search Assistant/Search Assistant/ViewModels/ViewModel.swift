@@ -28,7 +28,7 @@ final class ViewModel: ViewModelProtocol {
 
     // 履歴管理
     let historyStore = HistoryStore.shared
-    @Published var historys: [History] = []
+    @Published var historys: [SASerachHistory] = []
     // 日付管理
     private let dateFormatter = SADateFormatter.shared
     func getDateString(from date: Date) -> String {

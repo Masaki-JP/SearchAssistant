@@ -31,7 +31,7 @@
 		4C6AE3F62AD2A5B500863115 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6AE3F52AD2A5B500863115 /* SearchTextField.swift */; };
 		4C6B127E2ACE339600324302 /* Searcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6B127D2ACE339600324302 /* Searcher.swift */; };
 		4C906C1D2B37E61400E1E50E /* SuggestionFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C906C1C2B37E61400E1E50E /* SuggestionFetcher.swift */; };
-		4C951F552B37BE9F0064A2F9 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C951F542B37BE9F0064A2F9 /* History.swift */; };
+		4C951F552B37BE9F0064A2F9 /* SASerachHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C951F542B37BE9F0064A2F9 /* SASerachHistory.swift */; };
 		4CB14D292AD433D300854078 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB14D282AD433D300854078 /* SplashScreenView.swift */; };
 		4CBF86672AE76AF700B73BAB /* KeyboardToolbarButtonsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBF86662AE76AF700B73BAB /* KeyboardToolbarButtonsModel.swift */; };
 		4CD2FB2D2B47C4EF00778310 /* NoContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2FB2C2B47C4EF00778310 /* NoContentsView.swift */; };
@@ -91,7 +91,7 @@
 		4C6AE3F52AD2A5B500863115 /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		4C6B127D2ACE339600324302 /* Searcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searcher.swift; sourceTree = "<group>"; };
 		4C906C1C2B37E61400E1E50E /* SuggestionFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionFetcher.swift; sourceTree = "<group>"; };
-		4C951F542B37BE9F0064A2F9 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		4C951F542B37BE9F0064A2F9 /* SASerachHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SASerachHistory.swift; sourceTree = "<group>"; };
 		4CB14D282AD433D300854078 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		4CBF86662AE76AF700B73BAB /* KeyboardToolbarButtonsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardToolbarButtonsModel.swift; sourceTree = "<group>"; };
 		4CD2FB2C2B47C4EF00778310 /* NoContentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoContentsView.swift; sourceTree = "<group>"; };
@@ -225,7 +225,7 @@
 		4C24C0AA2ACD267D000A604E /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				4C951F542B37BE9F0064A2F9 /* History.swift */,
+				4C951F542B37BE9F0064A2F9 /* SASerachHistory.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -387,7 +387,7 @@
 				4C0872462ACC150F00033787 /* HistoryStore.swift in Sources */,
 				4C0871EF2ACC043D00033787 /* ContentView.swift in Sources */,
 				4C42169A2AD2C844000AF20A /* HistoryList.swift in Sources */,
-				4C951F552B37BE9F0064A2F9 /* History.swift in Sources */,
+				4C951F552B37BE9F0064A2F9 /* SASerachHistory.swift in Sources */,
 				4C072E852AD264A000477675 /* SettingView.swift in Sources */,
 				4C0872442ACC14F400033787 /* ViewModel.swift in Sources */,
 				4C0871ED2ACC043D00033787 /* Search_AssistantApp.swift in Sources */,

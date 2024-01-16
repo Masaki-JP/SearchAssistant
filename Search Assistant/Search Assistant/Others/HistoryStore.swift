@@ -2,7 +2,7 @@ import SwiftUI
 
 final class HistoryStore {
     private let userDefaultsKey = "historys"
-    @Published var historys: [History] {
+    @Published var historys: [SASerachHistory] {
         didSet {
             saveHistorysToUserDefaults()
         }
@@ -10,14 +10,14 @@ final class HistoryStore {
     static let shared = HistoryStore()
     private init() {
         guard let data = UserDefaults.standard.data(forKey: userDefaultsKey),
-              let historys = try? JSONDecoder().decode([History].self, from: data)
+              let historys = try? JSONDecoder().decode([SASerachHistory].self, from: data)
         else { self.historys = []; return; }
         self.historys = historys
     }
 
     // 履歴を追加
     func add(userInput: String, platform: Platform) {
-        let history = History(userInput: userInput, platform: platform)
+        let history = SASerachHistory(userInput: userInput, platform: platform)
         historys.insert(history, at: 0)
     }
     // 任意の履歴を削除
