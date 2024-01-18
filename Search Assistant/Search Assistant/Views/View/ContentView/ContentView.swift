@@ -1,17 +1,3 @@
-/*
-
- 作業終了後の流れ
- 1. topicブランチにてコミット
- 2. mainブランチにチェックアウト
- 3. topicブランチをマージ(※1)
- 4. origin/mainにプッシュ
- 5. topicブランチにチェックアウト
-
- ※1
- メジャーアップデート、マイナーアップデートの場合はタグをつける。例えば"v2.2.0"のタグをつける場合、"git tag v2.2.0"の実行後、"git push origin v2.2.0"を実行する。見た目の変更だけであれば、パッチアップデートのみとする。
-
- */
-
 import SwiftUI
 import SafariServices
 
@@ -105,7 +91,7 @@ struct ContentView: View {
 
 fileprivate struct SafariView: UIViewControllerRepresentable {
     let url: URL
-    
+
     func makeUIViewController(
         context: UIViewControllerRepresentableContext<SafariView>
     ) -> SFSafariViewController {
