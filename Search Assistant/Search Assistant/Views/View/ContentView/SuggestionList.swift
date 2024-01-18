@@ -36,8 +36,8 @@ struct SuggestionList<ViewModel>: View where ViewModel: ViewModelForSuggestionLi
 }
 
 fileprivate struct SuggestionButton: View {
-    var suggestion: String
-    var action: () -> Void
+    let suggestion: String
+    let action: () -> Void
 
     var body: some View {
         Button(action: {

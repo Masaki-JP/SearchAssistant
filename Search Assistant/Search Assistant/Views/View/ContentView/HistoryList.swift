@@ -55,9 +55,9 @@ struct HistoryList<VM>: View where VM: ViewModelForHistoryList {
 }
 
 struct SearchHistoryButton: View {
-    var history: SASerachHistory
+    let history: SASerachHistory
     let dateString: String
-    var action: () -> Void
+    let action: () -> Void
 
     var body: some View {
         Button(action: {
