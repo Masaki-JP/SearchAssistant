@@ -9,7 +9,8 @@ struct SuggestionList<VM>: View where VM: ViewModelForSuggestionList {
     @ObservedObject private(set) var vm: VM
 
     var body: some View {
-        if let suggestions = vm.suggestions {
+        switch vm.suggestions {
+        case .some(let suggestions):
             List {
                 Section {
                     ForEach(suggestions, id: \.self) { suggestion in
@@ -34,7 +35,7 @@ struct SuggestionList<VM>: View where VM: ViewModelForSuggestionList {
                         .textCase(.none)
                 }
             }
-        } else {
+        case .none:
             NoContentsView(
                 title: "Sorry! Network Error!",
                 description: "入力内容に基づく検索候補の取得に失敗しました。モバイル通信、Wi-Fi、機内モードなどの設定をご確認ください。",
