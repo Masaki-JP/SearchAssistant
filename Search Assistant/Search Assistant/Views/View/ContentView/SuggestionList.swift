@@ -14,21 +14,9 @@ struct SuggestionList<ViewModel>: View where ViewModel: ViewModelForSuggestionLi
             List {
                 Section {
                     ForEach(suggestions, id: \.self) { suggestion in
-                        Button(action: {
+                        SuggestionButton(suggestion: suggestion) {
                             vm.search(suggestion, on: .google)
-                        }, label: {
-                            HStack {
-                                Text(suggestion)
-                                    .padding(.leading, 4)
-                                Spacer()
-                                Text("on Google")
-                                    .font(.caption2)
-                                    .foregroundStyle(.secondary)
-                                    .padding(.vertical, 4)
-                                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                            }
-                        })
-                        .foregroundStyle(.primary)
+                        }
                     }
                 } header: {
                     Text("Suggestions")
@@ -43,6 +31,28 @@ struct SuggestionList<ViewModel>: View where ViewModel: ViewModelForSuggestionLi
             )
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
+    }
+}
+
+fileprivate struct SuggestionButton: View {
+    var suggestion: String
+    var action: () -> Void
+
+    var body: some View {
+        Button(action: {
+            action()
+        }, label: {
+            HStack(alignment: .bottom) {
+                Text(suggestion)
+                    .padding(.leading, 4)
+                Spacer()
+                Text("on Google")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+                    .padding(.vertical, 4)
+            }
+        })
+        .foregroundStyle(.primary)
     }
 }
 
