@@ -56,6 +56,21 @@ fileprivate struct SuggestionButton: View {
     }
 }
 
+#Preview {
+    TabView {
+        // 正常に検索候補を取得できた場合
+        SuggestionList(vm: MockViewModel1())
+        // 検索候補を取得できたが、それが空だった場合
+        SuggestionList(vm: MockViewModel2())
+        // 検索候補の取得に失敗した場合
+        SuggestionList(vm: MockViewModel3())
+        // 実際のViewModel
+        SuggestionList(vm: ViewModel.shared)
+    }
+    .tabViewStyle(.page)
+    .ignoresSafeArea()
+}
+
 fileprivate class MockViewModel1: ViewModelForSuggestionList {
     var suggestions: [String]? = [
         "macbook", "macbook air", "macbook air m2", "macbook スクショ", "macbook air m1", "macbook 初期化", "macbook pro m3", "macbook air m3", "macbook 中古", "macbook 学割"
@@ -80,19 +95,4 @@ fileprivate class MockViewModel3: ViewModelForSuggestionList {
     func search(_ userInput: String, on: SASerchPlatform) {
         print("Called search function.")
     }
-}
-
-#Preview {
-    TabView {
-        // 実際のViewModel
-        SuggestionList(vm: ViewModel.shared)
-        // 正常に検索候補を取得できた場合
-        SuggestionList(vm: MockViewModel1())
-        // 検索候補を取得できたが、それが空だった場合
-        SuggestionList(vm: MockViewModel2())
-        // 検索候補の取得に失敗した場合
-        SuggestionList(vm: MockViewModel3())
-    }
-    .tabViewStyle(.page)
-    .ignoresSafeArea()
 }
