@@ -18,12 +18,15 @@ struct ContentView: View {
             }
         }
         .overlay(
-            alignment: vm.settingLeftSearchButton == false ? .bottomTrailing : .bottomLeading
+            alignment:
+                vm.settingLeftSearchButton == false ?
+                .bottomTrailing : .bottomLeading
         ) {
             if isFocused == false {
                 SearchButton { isFocused = true }
                     .padding(
-                        vm.settingLeftSearchButton == false ? .trailing : .leading
+                        vm.settingLeftSearchButton == false ?
+                            .trailing : .leading
                     )
             }
         }
