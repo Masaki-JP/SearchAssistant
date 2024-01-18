@@ -65,8 +65,8 @@ fileprivate struct SuggestionButton: View {
         SuggestionList(vm: MockViewModel2())
         // 検索候補の取得に失敗した場合
         SuggestionList(vm: MockViewModel3())
-        // 実際のViewModel
-        SuggestionList(vm: ViewModel.shared)
+        // 実際のContentViewModel
+        SuggestionList(vm: ContentViewModel.shared)
     }
     .tabViewStyle(.page)
     .ignoresSafeArea()

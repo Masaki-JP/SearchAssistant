@@ -128,8 +128,8 @@ fileprivate class MockViewModel2: ViewModelForHistoryList {
 
 #Preview {
     TabView {
-        // 実際のViewModel
-        HistoryList(vm: ViewModel.shared)
+        // 実際のContentViewModel
+        HistoryList(vm: ContentViewModel.shared)
         // 検索履歴がある場合
         HistoryList(vm: MockViewModel1())
         // 検索履歴がない場合

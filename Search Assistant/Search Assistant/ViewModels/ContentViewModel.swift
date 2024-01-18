@@ -3,8 +3,8 @@ import SwiftUI
 fileprivate typealias ViewModelProtocol = ObservableObject & ViewModelForSuggestionList &  ViewModelForHistoryList
 
 @MainActor
-final class ViewModel: ViewModelProtocol {
-    static let shared = ViewModel()
+final class ContentViewModel: ViewModelProtocol {
+    static let shared = ContentViewModel()
     private init() {
         historyStore.$historys
             .receive(on: DispatchQueue.main)
@@ -38,7 +38,7 @@ final class ViewModel: ViewModelProtocol {
     }
 }
 
-extension ViewModel {
+extension ContentViewModel {
     // With Searcher
     func search(_ userInput: String, on platform: SASerchPlatform) {
         do {

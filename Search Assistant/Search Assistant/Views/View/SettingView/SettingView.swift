@@ -9,7 +9,7 @@ enum ColorScheme: String {
 struct SettingView: View {
     @AppStorage("colorScheme") private var colorScheme = ColorScheme.dark.rawValue
     @AppStorage("openInSafariView") private var openInSafariView = true
-    @ObservedObject private(set) var vm: ViewModel
+    @ObservedObject private(set) var vm: ContentViewModel
     @Environment(\.scenePhase) private var scenePhase
     
     var body: some View {
@@ -93,5 +93,5 @@ struct SettingView: View {
 }
 
 #Preview {
-    SettingView(vm: ViewModel.shared)
+    SettingView(vm: ContentViewModel.shared)
 }

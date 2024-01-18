@@ -16,7 +16,7 @@ import SwiftUI
 import SafariServices
 
 struct ContentView: View {
-    @ObservedObject private(set) var vm: ViewModel
+    @ObservedObject private(set) var vm: ContentViewModel
     @FocusState private var isFocused
     @Environment(\.scenePhase) private var scenePhase
 
@@ -102,7 +102,7 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(vm: ViewModel.shared)
+    ContentView(vm: ContentViewModel.shared)
 }
 
 fileprivate struct SafariView: UIViewControllerRepresentable {
