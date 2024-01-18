@@ -2,6 +2,7 @@ import SwiftUI
 
 fileprivate typealias ViewModelProtocol = ObservableObject & ViewModelForSuggestionList &  ViewModelForHistoryList
 
+@MainActor
 final class ViewModel: ViewModelProtocol {
     static let shared = ViewModel()
     private init() {
@@ -56,7 +57,6 @@ extension ViewModel {
         }
     }
     // With SuggestionStore
-    @MainActor
     func getSuggestion(from userInput: String) async {
         do {
             try await suggestions = suggestionFetcher.fetch(from: userInput)

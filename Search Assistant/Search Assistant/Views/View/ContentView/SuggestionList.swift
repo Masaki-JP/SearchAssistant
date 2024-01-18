@@ -1,5 +1,6 @@
 import SwiftUI
 
+@MainActor
 protocol ViewModelForSuggestionList: ObservableObject {
     var suggestions: [String]? { get }
     func search(_ userInput: String, on: SASerchPlatform)

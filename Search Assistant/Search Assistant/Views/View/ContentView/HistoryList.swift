@@ -1,5 +1,6 @@
 import SwiftUI
 
+@MainActor
 protocol ViewModelForHistoryList: ObservableObject {
     var historys: [SASerachHistory] { get }
     func search(_ userInput: String, on: SASerchPlatform)
