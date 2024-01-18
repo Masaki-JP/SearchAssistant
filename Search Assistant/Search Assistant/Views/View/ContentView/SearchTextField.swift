@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SearchTextField: View {
-    @ObservedObject private(set) var vm: ViewModel
+    @ObservedObject private(set) var vm: ContentViewModel
     @FocusState private(set) var isFocused
 
     var body: some View {
@@ -44,13 +44,13 @@ struct SearchTextField: View {
 }
 
 //#Preview {
-//    SearchTextField(vm: ViewModel.shared, userInput: Binding.constant(""))
+//    SearchTextField(vm: ContentViewModel.shared, userInput: Binding.constant(""))
 //        .padding(.horizontal)
 //}
 
 struct SearchTextField_Previews: PreviewProvider {
     static var previews: some View {
-        SearchTextField(vm: ViewModel.shared)
+        SearchTextField(vm: ContentViewModel.shared)
             .previewLayout(.sizeThatFits)
     }
 }

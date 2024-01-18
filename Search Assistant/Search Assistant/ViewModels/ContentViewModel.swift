@@ -1,9 +1,10 @@
 import SwiftUI
 
-fileprivate typealias ViewModelProtocol = ObservableObject & ViewModelForSuggestionList &  ViewModelForHistoryList
+fileprivate typealias ContentViewModelProtocol = ObservableObject & ViewModelForSuggestionList &  ViewModelForHistoryList
 
-final class ViewModel: ViewModelProtocol {
-    static let shared = ViewModel()
+@MainActor
+final class ContentViewModel: ContentViewModelProtocol {
+    static let shared = ContentViewModel()
     private init() {
         historyStore.$historys
             .receive(on: DispatchQueue.main)
@@ -37,7 +38,7 @@ final class ViewModel: ViewModelProtocol {
     }
 }
 
-extension ViewModel {
+extension ContentViewModel {
     // With Searcher
     func search(_ userInput: String, on platform: SASerchPlatform) {
         do {
@@ -56,7 +57,6 @@ extension ViewModel {
         }
     }
     // With SuggestionStore
-    @MainActor
     func getSuggestion(from userInput: String) async {
         do {
             try await suggestions = suggestionFetcher.fetch(from: userInput)

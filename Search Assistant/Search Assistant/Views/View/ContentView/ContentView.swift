@@ -1,52 +1,38 @@
-/*
-
-作業終了後の流れ
-1. topicブランチにてコミット
-2. mainブランチにチェックアウト
-3. topicブランチをマージ(※1)
-4. origin/mainにプッシュ
-5. topicブランチにチェックアウト
-
-※1
-メジャーアップデート、マイナーアップデートの場合はタグをつける。例えば"v2.2.0"のタグをつける場合、"git tag v2.2.0"の実行後、"git push origin v2.2.0"を実行する。見た目の変更だけであれば、パッチアップデートのみとする。
-
-*/
-
 import SwiftUI
-import SafariServices
 
 struct ContentView: View {
-    @ObservedObject private(set) var vm: ViewModel
+    @ObservedObject private(set) var vm: ContentViewModel
     @FocusState private var isFocused
     @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
-        ZStack {
-            VStack {
-                SearchTextField( vm: vm, isFocused: _isFocused )
+        VStack {
+            SearchTextField( vm: vm, isFocused: _isFocused )
                 .padding(.horizontal)
-                Divider()
-                    .padding(.horizontal)
-                if vm.userInput.isEmpty {
-                    HistoryList(vm: vm)
-                } else {
-                    SuggestionList(vm: vm)
-                }
+            Divider()
+                .padding(.horizontal)
+            if vm.userInput.isEmpty {
+                HistoryList(vm: vm)
+            } else {
+                SuggestionList(vm: vm)
             }
-            .overlay(
-                alignment: vm.settingLeftSearchButton == false ? .bottomTrailing : .bottomLeading
-            ) {
-                if isFocused == false {
-                    SearchButton { isFocused = true }
-                        .padding(
-                            vm.settingLeftSearchButton == false ? .trailing : .leading
-                        )
-                }
+        }
+        .overlay(
+            alignment:
+                vm.settingLeftSearchButton == false ?
+                .bottomTrailing : .bottomLeading
+        ) {
+            if isFocused == false {
+                SearchButton { isFocused = true }
+                    .padding(
+                        vm.settingLeftSearchButton == false ?
+                            .trailing : .leading
+                    )
             }
         }
         // SafariView
         .fullScreenCover(item: $vm.searcher.searchDataForSafariView) { data in
-            SafariView(url: data.url)
+            SafariView(data.url)
                 .ignoresSafeArea()
         }
         // ツールバーに検索ボタンを実装
@@ -98,23 +84,9 @@ struct ContentView: View {
         } message: {
             Text("全履歴を削除しますか？")
         }
-    } 
+    }
 }
 
 #Preview {
-    ContentView(vm: ViewModel.shared)
-}
-
-fileprivate struct SafariView: UIViewControllerRepresentable {
-    let url: URL
-
-    func makeUIViewController(
-        context: UIViewControllerRepresentableContext<SafariView>
-    ) -> SFSafariViewController {
-        return SFSafariViewController(url: url)
-    }
-    func updateUIViewController(
-        _ uiViewController: SFSafariViewController,
-        context: UIViewControllerRepresentableContext<SafariView>
-    ) {}
+    ContentView(vm: ContentViewModel.shared)
 }

@@ -1,5 +1,6 @@
 import SwiftUI
 
+@MainActor
 protocol ViewModelForHistoryList: ObservableObject {
     var historys: [SASerachHistory] { get }
     func search(_ userInput: String, on: SASerchPlatform)
@@ -16,28 +17,13 @@ struct HistoryList<VM>: View where VM: ViewModelForHistoryList {
             List {
                 Section {
                     ForEach(vm.historys) { history in
-                        Button(action: {
-                            vm.search(history.userInput, on: history.platform)
-                        }, label: {
-                            HStack {
-                                Text(history.platform.iconCharacter)
-                                    .font(.title3)
-                                    .bold()
-                                    .foregroundStyle(.white)
-                                    .frame(width: 28, height: 28)
-                                    .background(history.platform.imageColor)
-                                    .clipShape(RoundedRectangle(cornerRadius: 7))
-                                Text(history.userInput)
-                                    .padding(.leading, 4)
-                                Spacer()
-                                Text(vm.getDateString(from: history.date))
-                                    .font(.caption2)
-                                    .foregroundStyle(.secondary)
-                                    .padding(.vertical, 4)
-                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                        SearchHistoryButton(
+                            history: history,
+                            dateString: vm.getDateString(from: history.date),
+                            action: {
+                                vm.search(history.userInput, on: history.platform)
                             }
-                        })
-                        .foregroundStyle(.primary)
+                        )
                     }
                     .onDelete { indexSet in
                         vm.removeHistory(atOffsets: indexSet)
@@ -66,6 +52,50 @@ struct HistoryList<VM>: View where VM: ViewModelForHistoryList {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
+}
+
+struct SearchHistoryButton: View {
+    let history: SASerachHistory
+    let dateString: String
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: {
+            action()
+        }, label: {
+            HStack {
+                Text(history.platform.iconCharacter)
+                    .font(.title3)
+                    .bold()
+                    .foregroundStyle(.white)
+                    .frame(width: 28, height: 28)
+                    .background(history.platform.imageColor)
+                    .clipShape(RoundedRectangle(cornerRadius: 7))
+                Text(history.userInput)
+                    .padding(.leading, 4)
+                Spacer()
+                Text(dateString)
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+                    .padding(.vertical, 4)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
+        })
+        .foregroundStyle(.primary)
+    }
+}
+
+#Preview {
+    TabView {
+        // 検索履歴がある場合
+        HistoryList(vm: MockViewModel1())
+        // 検索履歴がない場合
+        HistoryList(vm: MockViewModel2())
+        // 実際のContentViewModel
+        HistoryList(vm: ContentViewModel.shared)
+    }
+    .tabViewStyle(.page)
+    .ignoresSafeArea()
 }
 
 fileprivate class MockViewModel1: ViewModelForHistoryList {
@@ -123,17 +153,4 @@ fileprivate class MockViewModel2: ViewModelForHistoryList {
     }
 
     var isShowPromptToConfirmDeletionOFAllHistorys: Bool = false
-}
-
-#Preview {
-    TabView {
-        // 実際のViewModel
-        HistoryList(vm: ViewModel.shared)
-        // 検索履歴がある場合
-        HistoryList(vm: MockViewModel1())
-        // 検索履歴がない場合
-        HistoryList(vm: MockViewModel2())
-    }
-    .tabViewStyle(.page)
-    .ignoresSafeArea()
 }
