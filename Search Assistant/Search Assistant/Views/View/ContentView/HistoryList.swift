@@ -11,34 +11,19 @@ protocol ViewModelForHistoryList: ObservableObject {
 
 struct HistoryList<VM>: View where VM: ViewModelForHistoryList {
     @ObservedObject private(set) var vm: VM
-
+    
     var body: some View {
         if vm.historys.isEmpty == false {
             List {
                 Section {
                     ForEach(vm.historys) { history in
-                        Button(action: {
-                            vm.search(history.userInput, on: history.platform)
-                        }, label: {
-                            HStack {
-                                Text(history.platform.iconCharacter)
-                                    .font(.title3)
-                                    .bold()
-                                    .foregroundStyle(.white)
-                                    .frame(width: 28, height: 28)
-                                    .background(history.platform.imageColor)
-                                    .clipShape(RoundedRectangle(cornerRadius: 7))
-                                Text(history.userInput)
-                                    .padding(.leading, 4)
-                                Spacer()
-                                Text(vm.getDateString(from: history.date))
-                                    .font(.caption2)
-                                    .foregroundStyle(.secondary)
-                                    .padding(.vertical, 4)
-                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                        SearchHistoryButton(
+                            history: history,
+                            dateString: vm.getDateString(from: history.date),
+                            action: {
+                                vm.search(history.userInput, on: history.platform)
                             }
-                        })
-                        .foregroundStyle(.primary)
+                        )
                     }
                     .onDelete { indexSet in
                         vm.removeHistory(atOffsets: indexSet)
@@ -69,6 +54,37 @@ struct HistoryList<VM>: View where VM: ViewModelForHistoryList {
     }
 }
 
+struct SearchHistoryButton: View {
+    var history: SASerachHistory
+    let dateString: String
+    var action: () -> Void
+    
+    var body: some View {
+        Button(action: {
+            action()
+        }, label: {
+            HStack {
+                Text(history.platform.iconCharacter)
+                    .font(.title3)
+                    .bold()
+                    .foregroundStyle(.white)
+                    .frame(width: 28, height: 28)
+                    .background(history.platform.imageColor)
+                    .clipShape(RoundedRectangle(cornerRadius: 7))
+                Text(history.userInput)
+                    .padding(.leading, 4)
+                Spacer()
+                Text(dateString)
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+                    .padding(.vertical, 4)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
+        })
+        .foregroundStyle(.primary)
+    }
+}
+
 fileprivate class MockViewModel1: ViewModelForHistoryList {
     var historys: [SASerachHistory] = [
         .init(userInput: "iPhone 15 Pro", platform: .google),
@@ -92,37 +108,37 @@ fileprivate class MockViewModel1: ViewModelForHistoryList {
         .init(userInput: "iCloud", platform: .amazon),
         .init(userInput: "Apple Music", platform: .google),
     ]
-
+    
     func search(_ userInput: String, on: SASerchPlatform) {
         print("Called search function.")
     }
-
+    
     func getDateString(from: Date) -> String {
         return "20xx/xx/xx"
     }
-
+    
     func removeHistory(atOffsets: IndexSet) {
         print("Called removeHistory function.")
     }
-
+    
     var isShowPromptToConfirmDeletionOFAllHistorys: Bool = false
 }
 
 fileprivate class MockViewModel2: ViewModelForHistoryList {
     var historys: [SASerachHistory] = []
-
+    
     func search(_ userInput: String, on: SASerchPlatform) {
         print("Called search function.")
     }
-
+    
     func getDateString(from: Date) -> String {
         return "20xx/xx/xx"
     }
-
+    
     func removeHistory(atOffsets: IndexSet) {
         print("Called removeHistory function.")
     }
-
+    
     var isShowPromptToConfirmDeletionOFAllHistorys: Bool = false
 }
 
