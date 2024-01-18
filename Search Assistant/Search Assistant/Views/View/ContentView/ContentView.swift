@@ -1,5 +1,4 @@
 import SwiftUI
-import SafariServices
 
 struct ContentView: View {
     @ObservedObject private(set) var vm: ContentViewModel
@@ -30,7 +29,7 @@ struct ContentView: View {
         }
         // SafariView
         .fullScreenCover(item: $vm.searcher.searchDataForSafariView) { data in
-            SafariView(url: data.url)
+            SafariView(data.url)
                 .ignoresSafeArea()
         }
         // ツールバーに検索ボタンを実装
@@ -87,18 +86,4 @@ struct ContentView: View {
 
 #Preview {
     ContentView(vm: ContentViewModel.shared)
-}
-
-fileprivate struct SafariView: UIViewControllerRepresentable {
-    let url: URL
-
-    func makeUIViewController(
-        context: UIViewControllerRepresentableContext<SafariView>
-    ) -> SFSafariViewController {
-        return SFSafariViewController(url: url)
-    }
-    func updateUIViewController(
-        _ uiViewController: SFSafariViewController,
-        context: UIViewControllerRepresentableContext<SafariView>
-    ) {}
 }
