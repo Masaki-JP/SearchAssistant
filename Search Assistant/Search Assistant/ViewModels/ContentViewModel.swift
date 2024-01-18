@@ -1,9 +1,9 @@
 import SwiftUI
 
-fileprivate typealias ViewModelProtocol = ObservableObject & ViewModelForSuggestionList &  ViewModelForHistoryList
+fileprivate typealias ContentViewModelProtocol = ObservableObject & ViewModelForSuggestionList &  ViewModelForHistoryList
 
 @MainActor
-final class ContentViewModel: ViewModelProtocol {
+final class ContentViewModel: ContentViewModelProtocol {
     static let shared = ContentViewModel()
     private init() {
         historyStore.$historys
