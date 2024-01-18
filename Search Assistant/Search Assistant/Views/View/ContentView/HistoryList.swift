@@ -11,7 +11,7 @@ protocol ViewModelForHistoryList: ObservableObject {
 
 struct HistoryList<VM>: View where VM: ViewModelForHistoryList {
     @ObservedObject private(set) var vm: VM
-    
+
     var body: some View {
         if vm.historys.isEmpty == false {
             List {
@@ -58,7 +58,7 @@ struct SearchHistoryButton: View {
     var history: SASerachHistory
     let dateString: String
     var action: () -> Void
-    
+
     var body: some View {
         Button(action: {
             action()
@@ -85,6 +85,19 @@ struct SearchHistoryButton: View {
     }
 }
 
+#Preview {
+    TabView {
+        // 検索履歴がある場合
+        HistoryList(vm: MockViewModel1())
+        // 検索履歴がない場合
+        HistoryList(vm: MockViewModel2())
+        // 実際のContentViewModel
+        HistoryList(vm: ContentViewModel.shared)
+    }
+    .tabViewStyle(.page)
+    .ignoresSafeArea()
+}
+
 fileprivate class MockViewModel1: ViewModelForHistoryList {
     var historys: [SASerachHistory] = [
         .init(userInput: "iPhone 15 Pro", platform: .google),
@@ -108,49 +121,36 @@ fileprivate class MockViewModel1: ViewModelForHistoryList {
         .init(userInput: "iCloud", platform: .amazon),
         .init(userInput: "Apple Music", platform: .google),
     ]
-    
+
     func search(_ userInput: String, on: SASerchPlatform) {
         print("Called search function.")
     }
-    
+
     func getDateString(from: Date) -> String {
         return "20xx/xx/xx"
     }
-    
+
     func removeHistory(atOffsets: IndexSet) {
         print("Called removeHistory function.")
     }
-    
+
     var isShowPromptToConfirmDeletionOFAllHistorys: Bool = false
 }
 
 fileprivate class MockViewModel2: ViewModelForHistoryList {
     var historys: [SASerachHistory] = []
-    
+
     func search(_ userInput: String, on: SASerchPlatform) {
         print("Called search function.")
     }
-    
+
     func getDateString(from: Date) -> String {
         return "20xx/xx/xx"
     }
-    
+
     func removeHistory(atOffsets: IndexSet) {
         print("Called removeHistory function.")
     }
-    
-    var isShowPromptToConfirmDeletionOFAllHistorys: Bool = false
-}
 
-#Preview {
-    TabView {
-        // 実際のContentViewModel
-        HistoryList(vm: ContentViewModel.shared)
-        // 検索履歴がある場合
-        HistoryList(vm: MockViewModel1())
-        // 検索履歴がない場合
-        HistoryList(vm: MockViewModel2())
-    }
-    .tabViewStyle(.page)
-    .ignoresSafeArea()
+    var isShowPromptToConfirmDeletionOFAllHistorys: Bool = false
 }
