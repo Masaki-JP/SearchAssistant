@@ -5,8 +5,8 @@ protocol ViewModelForSuggestionList: ObservableObject {
     func search(_ userInput: String, on: SASerchPlatform)
 }
 
-struct SuggestionList<VM>: View where VM: ViewModelForSuggestionList {
-    @ObservedObject private(set) var vm: VM
+struct SuggestionList<ViewModel>: View where ViewModel: ViewModelForSuggestionList {
+    @ObservedObject private(set) var vm: ViewModel
 
     var body: some View {
         switch vm.suggestions {
