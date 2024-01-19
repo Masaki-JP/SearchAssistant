@@ -59,19 +59,14 @@ struct SettingView: View {
                 // キーボードツールバーボタンセクション
                 Section {
                     ForEach(SASerchPlatform.allCases, id: \.self) { platform in
-                        Button(action: {
-                            vm.keyboardToolbarButtons.validationToggle(platform: platform)
-                        }, label: {
-                            HStack {
-                                Text(platform.rawValue)
-                                Spacer()
-                                Image(systemName: "checkmark")
-                                    .bold()
-                                    .foregroundStyle(vm.keyboardToolbarButtons.validButtons.contains(platform) ? .green : .clear)
+                        RowLikeToggleButton(
+                            text: platform.rawValue,
+                            isValid: vm.keyboardToolbarButtons.validButtons.contains(platform),
+                            action: {
+                                vm.keyboardToolbarButtons.validationToggle(platform: platform)
                             }
-                        })
+                        )
                     }
-                    .foregroundStyle(.primary)
                 } header: {
                     Text("ツールバーボタン")
                 } footer: {
@@ -92,6 +87,35 @@ struct SettingView: View {
         .onChange(of: scenePhase) { newScene in
             guard newScene != .active else { return }
             dismiss()
+        }
+    }
+}
+
+extension SettingView {
+    struct RowLikeToggleButton: View {
+        private let text: String
+        private let isValid: Bool
+        private let action: () -> Void
+
+        init(text: String, isValid: Bool, action: @escaping () -> Void) {
+            self.text = text
+            self.isValid = isValid
+            self.action = action
+        }
+
+        var body: some View {
+            Button(
+                action: { action() },
+                label: {
+                    HStack {
+                        Text(text)
+                        Spacer()
+                        Image(systemName: "checkmark")
+                            .bold()
+                            .foregroundStyle(isValid ? .green : .clear)
+                    }
+                })
+            .foregroundStyle(.primary)
         }
     }
 }
