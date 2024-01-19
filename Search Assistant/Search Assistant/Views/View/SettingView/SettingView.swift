@@ -9,11 +9,9 @@ enum SAColorScheme: String {
 struct SettingView: View {
     @AppStorage("colorScheme") private var appStorageColorScheme = SAColorScheme.dark.rawValue
     @AppStorage("openInSafariView") private var openInSafariView = true
-    @ObservedObject private var vm: ContentViewModel
+    @ObservedObject private(set) var vm: ContentViewModel
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dismiss) private var dismiss
-
-    init(vm: ContentViewModel) { self.vm = vm }
 
     var body: some View {
         NavigationStack {

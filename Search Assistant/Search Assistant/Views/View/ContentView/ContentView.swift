@@ -2,12 +2,10 @@ import SwiftUI
 
 /// - Important: `ContentViewModel`は検索履歴などのデータを読み込む必要がある。そのため事前に呼び出し元でインスタンスを作成しておく。この方法をとらない場合、一瞬ではあるが`HistoryList`の`NoContentsView`が表示されてしまう。
 struct ContentView: View {
-    @ObservedObject private var vm: ContentViewModel
+    @ObservedObject private(set) var vm: ContentViewModel
     @FocusState private var isFocused: Bool
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.colorScheme) var colorScheme: ColorScheme
-
-    init(vm: ContentViewModel) { self.vm = vm }
 
     var body: some View {
         VStack(spacing: 0) {
