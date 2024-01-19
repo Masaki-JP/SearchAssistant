@@ -81,10 +81,11 @@ struct SettingView: View {
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
         }
-        /// このモーダルが開かれている時に
-        /// SettigsViewが表示された状態でscenePhaseが.inactiveに切り替わった場合、自動的に閉じるようにする
+        ///
+        ///
+        /// このモーダルが表示されている時にscenePhaseがactiveでなくなった場合、自動的に閉じる処理
         .onChange(of: scenePhase) { newScene in
-            guard newScene == .inactive else { return }
+            guard newScene != .active else { return }
             dismiss()
         }
     }
