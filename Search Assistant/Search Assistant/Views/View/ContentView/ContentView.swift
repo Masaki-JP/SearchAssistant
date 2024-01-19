@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject private(set) var vm: ContentViewModel
+    @StateObject private var vm = ContentViewModel.shared
     @FocusState private var isFocused
     @Environment(\.scenePhase) private var scenePhase
 
@@ -88,5 +88,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(vm: ContentViewModel.shared)
+    ContentView()
 }
