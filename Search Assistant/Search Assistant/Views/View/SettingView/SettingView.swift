@@ -76,16 +76,16 @@ struct SettingView: View {
                 } footer: {
                     Text("ツールバーに表示する検索ボタンを設定できます。")
                 }
-            } // List
+            }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
-        } // NabigationStack
+        }
         // SettigsViewが表示された状態でscenePhaseが.inactiveに切り替わった場合、自動的に閉じるようにする
         .onChange(of: scenePhase) { newScene in
             guard case .inactive = newScene else { return }
             vm.isPresesntedSettingsView = false
         }
-    } // body
+    }
 }
 
 #Preview {
