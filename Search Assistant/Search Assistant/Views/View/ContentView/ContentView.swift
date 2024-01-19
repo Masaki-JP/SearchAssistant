@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var vm = ContentViewModel()
-    @FocusState private var isFocused
+    @FocusState private var isFocused: Bool
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.colorScheme) var colorScheme: ColorScheme
 
