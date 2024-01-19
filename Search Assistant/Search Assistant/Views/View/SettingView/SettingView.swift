@@ -85,10 +85,6 @@ struct SettingView: View {
             guard case .inactive = newScene else { return }
             vm.isPresesntedSettingsView = false
         }
-        // カラースキームを変更しても、SettingsViewのカラースキームが切り替わらないことがあるので、対策として付与する
-        .preferredColorScheme(
-            colorScheme == "System" ? .none : colorScheme == "Light" ? .light : .dark
-        )
     } // body
 }
 
