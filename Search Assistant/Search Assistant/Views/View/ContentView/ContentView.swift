@@ -1,10 +1,12 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var vm = ContentViewModel()
+    @ObservedObject private var vm: ContentViewModel
     @FocusState private var isFocused: Bool
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.colorScheme) var colorScheme: ColorScheme
+
+    init(vm: ContentViewModel) { self.vm = vm }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -101,16 +103,16 @@ struct ContentView: View {
                 "確認",
                 isPresented: $vm.isShowPromptToConfirmDeletionOFAllHistorys
             ) {
-            Button("実行", role: .destructive) {
-                vm.removeAllHistorys()
+                Button("実行", role: .destructive) {
+                    vm.removeAllHistorys()
+                }
+                Button("キャンセル", role: .cancel) {}
+            } message: {
+                Text("全履歴を削除しますか？")
             }
-            Button("キャンセル", role: .cancel) {}
-        } message: {
-            Text("全履歴を削除しますか？")
-        }
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView(vm: ContentViewModel())
 }
