@@ -50,7 +50,7 @@ struct SearchTextField: View {
 
 struct SearchTextField_Previews: PreviewProvider {
     static var previews: some View {
-        SearchTextField(vm: ContentViewModel.shared)
+        SearchTextField(vm: ContentViewModel())
             .previewLayout(.sizeThatFits)
     }
 }

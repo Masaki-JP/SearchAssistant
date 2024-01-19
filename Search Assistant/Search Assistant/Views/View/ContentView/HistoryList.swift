@@ -92,7 +92,7 @@ struct SearchHistoryButton: View {
         // 検索履歴がない場合
         HistoryList(vm: MockViewModel2())
         // 実際のContentViewModel
-        HistoryList(vm: ContentViewModel.shared)
+        HistoryList(vm: ContentViewModel())
     }
     .tabViewStyle(.page)
     .ignoresSafeArea()

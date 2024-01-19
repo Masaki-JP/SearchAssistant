@@ -4,8 +4,7 @@ fileprivate typealias ContentViewModelProtocol = ObservableObject & ViewModelFor
 
 @MainActor
 final class ContentViewModel: ContentViewModelProtocol {
-    static let shared = ContentViewModel()
-    private init() {
+    init() {
         historyStore.$historys
             .receive(on: DispatchQueue.main)
             .assign(to: &self.$historys)

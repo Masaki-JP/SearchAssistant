@@ -93,5 +93,5 @@ struct SettingView: View {
 }
 
 #Preview {
-    SettingView(vm: ContentViewModel.shared)
+    SettingView(vm: ContentViewModel())
 }
