@@ -15,7 +15,7 @@ final class ContentViewModel: ContentViewModelProtocol {
     @Published var keyboardToolbarButtons = KeyboardToolbarButtonsModel()
     // ビュープロパティ
     @Published var userInput = ""
-    @Published var isPresesntedSettingsView = false
+    @Published var isPresentedSettingView = false
     @Published var isShowInstagramErrorAlert = false
     @Published var isShowPromptToConfirmDeletionOFAllHistorys = false
 

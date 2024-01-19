@@ -55,7 +55,7 @@ struct ContentView: View {
         ///
         ///
         /// SettingsViewの表示設定
-        .sheet(isPresented: $vm.isPresesntedSettingsView) {
+        .sheet(isPresented: $vm.isPresentedSettingView) {
             SettingView(vm: vm)
                 .preferredColorScheme(colorScheme)
         }
@@ -64,7 +64,7 @@ struct ContentView: View {
         /// オートフォーカス有効 & アプリが開かれた
         .onAppear {
             guard vm.settingAutoFocus == true,
-                  vm.isPresesntedSettingsView == false,
+                  vm.isPresentedSettingView == false,
                   vm.isShowInstagramErrorAlert == false,
                   vm.isShowPromptToConfirmDeletionOFAllHistorys == false
             else { return }
@@ -78,7 +78,7 @@ struct ContentView: View {
         .onChange(of: scenePhase) { newScenePhase in
             guard case .active = newScenePhase,
                   vm.settingAutoFocus == true,
-                  vm.isPresesntedSettingsView == false,
+                  vm.isPresentedSettingView == false,
                   vm.isShowInstagramErrorAlert == false,
                   vm.isShowPromptToConfirmDeletionOFAllHistorys == false,
                   vm.searcher.searchDataForSafariView == nil

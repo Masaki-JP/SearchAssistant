@@ -84,7 +84,7 @@ struct SettingView: View {
         /// SettigsViewが表示された状態でscenePhaseが.inactiveに切り替わった場合、自動的に閉じるようにする
         .onChange(of: scenePhase) { newScene in
             guard case .inactive = newScene else { return }
-            vm.isPresesntedSettingsView = false
+            vm.isPresentedSettingView = false
         }
     }
 }
