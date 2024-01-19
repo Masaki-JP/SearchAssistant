@@ -1,13 +1,13 @@
 import SwiftUI
 
-enum ColorScheme: String {
+enum SAColorScheme: String {
     case light = "Light"
     case dark = "Dark"
     case system = "System"
 }
 
 struct SettingView: View {
-    @AppStorage("colorScheme") private var colorScheme = ColorScheme.dark.rawValue
+    @AppStorage("colorScheme") private var colorScheme = SAColorScheme.dark.rawValue
     @AppStorage("openInSafariView") private var openInSafariView = true
     @ObservedObject private(set) var vm: ContentViewModel
     @Environment(\.scenePhase) private var scenePhase
@@ -38,9 +38,9 @@ struct SettingView: View {
                 // 外観モードセクション
                 Section {
                     Picker("Color Scheme", selection: $colorScheme) {
-                        Text("Light").tag(ColorScheme.light.rawValue)
-                        Text("Dark").tag(ColorScheme.dark.rawValue)
-                        Text("System").tag(ColorScheme.system.rawValue)
+                        Text("Light").tag(SAColorScheme.light.rawValue)
+                        Text("Dark").tag(SAColorScheme.dark.rawValue)
+                        Text("System").tag(SAColorScheme.system.rawValue)
                     }
                 } header: {
                     Text("外観モード")
