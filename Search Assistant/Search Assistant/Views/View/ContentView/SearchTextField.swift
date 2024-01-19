@@ -19,7 +19,7 @@ struct SearchTextField: View {
                 }
             if vm.userInput.isEmpty {
                 Button(action: {
-                    vm.isPresesntedSettingsView = true
+                    vm.isPresentedSettingView = true
                 }, label: {
                     Image(systemName: "gearshape")
                         .resizable()

@@ -9,8 +9,11 @@ enum SAColorScheme: String {
 struct SettingView: View {
     @AppStorage("colorScheme") private var appStorageColorScheme = SAColorScheme.dark.rawValue
     @AppStorage("openInSafariView") private var openInSafariView = true
-    @ObservedObject private(set) var vm: ContentViewModel
+    @ObservedObject private var vm: ContentViewModel
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.dismiss) private var dismiss
+
+    init(vm: ContentViewModel) { self.vm = vm }
 
     var body: some View {
         NavigationStack {
@@ -58,34 +61,65 @@ struct SettingView: View {
                 // キーボードツールバーボタンセクション
                 Section {
                     ForEach(SASerchPlatform.allCases, id: \.self) { platform in
-                        Button(action: {
-                            vm.keyboardToolbarButtons.validationToggle(platform: platform)
-                        }, label: {
-                            HStack {
-                                Text(platform.rawValue)
-                                Spacer()
-                                Image(systemName: "checkmark")
-                                    .bold()
-                                    .foregroundStyle(vm.keyboardToolbarButtons.validButtons.contains(platform) ? .green : .clear)
+                        RowLikeToggleButton(
+                            text: platform.rawValue,
+                            isValid: vm.keyboardToolbarButtons.validButtons.contains(platform),
+                            action: {
+                                vm.keyboardToolbarButtons.validationToggle(platform: platform)
                             }
-                        })
+                        )
                     }
-                    .foregroundStyle(.primary)
                 } header: {
                     Text("ツールバーボタン")
                 } footer: {
                     Text("ツールバーに表示する検索ボタンを設定できます。")
                 }
-            } // List
+            }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
-        } // NabigationStack
-        // SettigsViewが表示された状態でscenePhaseが.inactiveに切り替わった場合、自動的に閉じるようにする
-        .onChange(of: scenePhase) { newScene in
-            guard case .inactive = newScene else { return }
-            vm.isPresesntedSettingsView = false
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("完了") { dismiss() }
+                }
+            }
         }
-    } // body
+        ///
+        ///
+        /// このモーダルが表示されている時にscenePhaseがactiveでなくなった場合、自動的に閉じる処理
+        .onChange(of: scenePhase) { newScene in
+            guard newScene != .active else { return }
+            dismiss()
+        }
+    }
+}
+
+extension SettingView {
+    struct RowLikeToggleButton: View {
+        private let text: String
+        private let isValid: Bool
+        private let action: () -> Void
+
+        init(text: String, isValid: Bool, action: @escaping () -> Void) {
+            self.text = text
+            self.isValid = isValid
+            self.action = action
+        }
+
+        var body: some View {
+            Button(
+                action: { action() },
+                label: {
+                    HStack {
+                        Text(text)
+                        Spacer()
+                        Image(systemName: "checkmark")
+                            .bold()
+                            .foregroundStyle(isValid ? .green : .clear)
+                    }
+                })
+            .foregroundStyle(.primary)
+        }
+    }
 }
 
 #Preview {
