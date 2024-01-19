@@ -31,27 +31,37 @@ struct ContentView: View {
                     )
             }
         }
-        // SafariView
+        ///
+        ///
+        /// SafariView
         .fullScreenCover(item: $vm.searcher.searchDataForSafariView) { data in
             SafariView(data.url)
                 .ignoresSafeArea()
         }
-        // ツールバーに検索ボタンを実装
+        ///
+        ///
+        /// ツールバーに検索ボタンを実装
         .modifier(
             ToolbarWithSearchButtons(vm: vm, isFocused: _isFocused )
         )
-        // 入力時にSuggestionを取得
+        ///
+        ///
+        /// 入力時にSuggestionを取得
         .onChange(of: vm.userInput) { _ in
             // 協調スレッドの無駄遣い防止
             guard vm.userInput.isEmpty == false else { return }
             Task { await vm.getSuggestion(from: vm.userInput) }
         }
-        // SettingsViewの表示設定
+        ///
+        ///
+        /// SettingsViewの表示設定
         .sheet(isPresented: $vm.isPresesntedSettingsView) {
             SettingView(vm: vm)
                 .preferredColorScheme(colorScheme)
         }
-        // オートフォーカス有効 & アプリが開かれた
+        ///
+        ///
+        /// オートフォーカス有効 & アプリが開かれた
         .onAppear {
             guard vm.settingAutoFocus == true,
                   vm.isPresesntedSettingsView == false,
@@ -62,7 +72,9 @@ struct ContentView: View {
                 isFocused = true
             }
         }
-        // オートフォーカスが有効 & アプリがアクティブになった
+        ///
+        ///
+        /// オートフォーカスが有効 & アプリがアクティブになった
         .onChange(of: scenePhase) { newScenePhase in
             guard case .active = newScenePhase,
                   vm.settingAutoFocus == true,
@@ -75,10 +87,20 @@ struct ContentView: View {
                 isFocused = true
             }
         }
-        // Instagramエラーのアラート
-        .alert("Instagram検索ではスペースを使用できません。", isPresented: $vm.isShowInstagramErrorAlert) {}
-        // 履歴を全削除する際の確認のアラート
-        .alert("確認", isPresented: $vm.isShowPromptToConfirmDeletionOFAllHistorys) {
+        ///
+        ///
+        /// Instagramエラーのアラート
+        .alert(
+            "Instagram検索ではスペースを使用できません。",
+            isPresented: $vm.isShowInstagramErrorAlert
+        ) {}
+        ///
+        ///
+        /// 履歴を全削除する際の確認のアラート
+            .alert(
+                "確認",
+                isPresented: $vm.isShowPromptToConfirmDeletionOFAllHistorys
+            ) {
             Button("実行", role: .destructive) {
                 vm.removeAllHistorys()
             }
