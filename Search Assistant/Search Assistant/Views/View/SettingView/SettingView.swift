@@ -11,6 +11,7 @@ struct SettingView: View {
     @AppStorage("openInSafariView") private var openInSafariView = true
     @ObservedObject private(set) var vm: ContentViewModel
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         NavigationStack {
@@ -84,7 +85,7 @@ struct SettingView: View {
         /// SettigsViewが表示された状態でscenePhaseが.inactiveに切り替わった場合、自動的に閉じるようにする
         .onChange(of: scenePhase) { newScene in
             guard newScene == .inactive else { return }
-            vm.isPresentedSettingView = false
+            dismiss()
         }
     }
 }
