@@ -76,7 +76,7 @@ struct ContentView: View {
         ///
         /// オートフォーカスが有効 & アプリがアクティブになった
         .onChange(of: scenePhase) { newScenePhase in
-            guard case .active = newScenePhase,
+            guard newScenePhase == .active,
                   vm.settingAutoFocus == true,
                   vm.isPresentedSettingView == false,
                   vm.isShowInstagramErrorAlert == false,
