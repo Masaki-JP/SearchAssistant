@@ -4,6 +4,7 @@ struct ContentView: View {
     @StateObject private var vm = ContentViewModel()
     @FocusState private var isFocused
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
 
     var body: some View {
         VStack(spacing: 0) {
@@ -48,6 +49,7 @@ struct ContentView: View {
         // SettingsViewの表示設定
         .sheet(isPresented: $vm.isPresesntedSettingsView) {
             SettingView(vm: vm)
+                .preferredColorScheme(colorScheme)
         }
         // オートフォーカス有効 & アプリが開かれた
         .onAppear {

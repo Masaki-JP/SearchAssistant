@@ -7,11 +7,11 @@ enum SAColorScheme: String {
 }
 
 struct SettingView: View {
-    @AppStorage("colorScheme") private var colorScheme = SAColorScheme.dark.rawValue
+    @AppStorage("colorScheme") private var appStorageColorScheme = SAColorScheme.dark.rawValue
     @AppStorage("openInSafariView") private var openInSafariView = true
     @ObservedObject private(set) var vm: ContentViewModel
     @Environment(\.scenePhase) private var scenePhase
-    
+
     var body: some View {
         NavigationStack {
             List {
@@ -37,7 +37,7 @@ struct SettingView: View {
                 }
                 // 外観モードセクション
                 Section {
-                    Picker("Color Scheme", selection: $colorScheme) {
+                    Picker("Color Scheme", selection: $appStorageColorScheme) {
                         Text("Light").tag(SAColorScheme.light.rawValue)
                         Text("Dark").tag(SAColorScheme.dark.rawValue)
                         Text("System").tag(SAColorScheme.system.rawValue)

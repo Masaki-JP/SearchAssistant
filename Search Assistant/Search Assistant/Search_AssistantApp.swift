@@ -2,9 +2,9 @@ import SwiftUI
 
 @main
 struct Search_AssistantApp: App {
-    @AppStorage("colorScheme") private var colorScheme = SAColorScheme.dark.rawValue
+    @AppStorage("colorScheme") private var appStorageColorScheme = SAColorScheme.dark.rawValue
     @StateObject private var viewRouter = ViewRouter.shared
-    
+
     var body: some Scene {
         WindowGroup {
             Group {
@@ -15,9 +15,13 @@ struct Search_AssistantApp: App {
                     ContentView()
                 }
             }
-            .preferredColorScheme(
-                colorScheme == "System" ? .none : colorScheme == "Light" ? .light : .dark
-            )
+            .preferredColorScheme({
+                return switch self.appStorageColorScheme {
+                case "Dark": .dark
+                case "Light": .light
+                default: .none
+                }
+            }())
         }
     }
 }
