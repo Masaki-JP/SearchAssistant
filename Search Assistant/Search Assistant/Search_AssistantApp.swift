@@ -8,7 +8,7 @@ struct Search_AssistantApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                switch viewRouter.selected {
+                switch viewRouter.currentView {
                 case .splashScreenView:
                     SplashScreenView()
                 case .contentView:
