@@ -80,6 +80,11 @@ struct SettingView: View {
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("完了") { dismiss() }
+                }
+            }
         }
         ///
         ///
