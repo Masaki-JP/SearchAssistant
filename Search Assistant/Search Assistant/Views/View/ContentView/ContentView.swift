@@ -6,11 +6,11 @@ struct ContentView: View {
     @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             SearchTextField( vm: vm, isFocused: _isFocused )
                 .padding(.horizontal)
             Divider()
-                .padding(.horizontal)
+                .padding(.top, 5)
             if vm.userInput.isEmpty {
                 HistoryList(vm: vm)
             } else {
