@@ -12,7 +12,7 @@ struct KeyboardToolbarButtonsModel {
         self.validButtons = keyboardToolbarButtons
     }
 
-    mutating func validationToggle(platform: SASerchPlatform) {
+    mutating func validationToggle(_ platform: SASerchPlatform) {
         if validButtons.contains(platform) {
             validButtons.remove(platform)
         } else {
