@@ -1,7 +1,8 @@
 import SwiftUI
 
+/// - Important: `ContentViewModel`は検索履歴などのデータを読み込む必要がある。そのため事前に呼び出し元でインスタンスを作成しておく。この方法をとらない場合、一瞬ではあるが`HistoryList`の`NoContentsView`が表示されてしまう。
 struct ContentView: View {
-    @StateObject private var vm = ContentViewModel()
+    @ObservedObject private(set) var vm: ContentViewModel
     @FocusState private var isFocused: Bool
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.colorScheme) var colorScheme: ColorScheme
@@ -33,34 +34,16 @@ struct ContentView: View {
         }
         ///
         ///
-        /// SafariView
-        .fullScreenCover(item: $vm.searcher.searchDataForSafariView) { data in
-            SafariView(data.url)
-                .ignoresSafeArea()
-        }
         ///
-        ///
-        /// ツールバーに検索ボタンを実装
+        /// [Toolbar]
+        /// ツールバー検索ボタンの実装
         .modifier(
             ToolbarWithSearchButtons(vm: vm, isFocused: _isFocused )
         )
         ///
         ///
-        /// 入力時にSuggestionを取得
-        .onChange(of: vm.userInput) { _ in
-            // 協調スレッドの無駄遣い防止
-            guard vm.userInput.isEmpty == false else { return }
-            Task { await vm.getSuggestion(from: vm.userInput) }
-        }
         ///
-        ///
-        /// SettingsViewの表示設定
-        .sheet(isPresented: $vm.isPresentedSettingView) {
-            SettingView(vm: vm)
-                .preferredColorScheme(colorScheme)
-        }
-        ///
-        ///
+        /// [Observation]
         /// オートフォーカス有効 & アプリが開かれた
         .onAppear {
             guard vm.settingAutoFocus == true,
@@ -74,6 +57,8 @@ struct ContentView: View {
         }
         ///
         ///
+        ///
+        /// [Observation]
         /// オートフォーカスが有効 & アプリがアクティブになった
         .onChange(of: scenePhase) { newScenePhase in
             guard newScenePhase == .active,
@@ -89,18 +74,40 @@ struct ContentView: View {
         }
         ///
         ///
-        /// Instagramエラーのアラート
+        ///
+        /// [Observation]
+        /// 入力時のSuggestionの取得
+        .onChange(of: vm.userInput) { _ in
+            guard vm.userInput.isEmpty == false else { return }
+            Task { await vm.getSuggestion(from: vm.userInput) }
+        }
+        ///
+        ///
+        ///
+        /// [Presentation]
+        /// フルスクリーンで`SafariView`の表示を行う。
+        .fullScreenCover(item: $vm.searcher.searchDataForSafariView) { data in
+            SafariView(data.url)
+                .ignoresSafeArea()
+        }
+        ///
+        ///
+        ///
+        /// [Presentation]
+        /// `SettingsView`の表示を行う。
+        .sheet(isPresented: $vm.isPresentedSettingView) {
+            SettingView(vm: vm)
+                .preferredColorScheme(colorScheme)
+        }
+        ///
+        ///
+        ///
+        /// [Message]
+        /// 検索履歴の全削除を行う際に確認を行う。
         .alert(
-            "Instagram検索ではスペースを使用できません。",
-            isPresented: $vm.isShowInstagramErrorAlert
-        ) {}
-        ///
-        ///
-        /// 履歴を全削除する際の確認のアラート
-            .alert(
-                "確認",
-                isPresented: $vm.isShowPromptToConfirmDeletionOFAllHistorys
-            ) {
+            "確認",
+            isPresented: $vm.isShowPromptToConfirmDeletionOFAllHistorys
+        ) {
             Button("実行", role: .destructive) {
                 vm.removeAllHistorys()
             }
@@ -108,9 +115,18 @@ struct ContentView: View {
         } message: {
             Text("全履歴を削除しますか？")
         }
+        ///
+        ///
+        ///
+        /// [Message]
+        /// Instagramエラー発生時にアラートを表示する。
+        .alert(
+            "Instagram検索ではスペースを使用できません。",
+            isPresented: $vm.isShowInstagramErrorAlert
+        ) {}
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView(vm: ContentViewModel())
 }

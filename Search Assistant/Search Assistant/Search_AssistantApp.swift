@@ -4,15 +4,16 @@ import SwiftUI
 struct Search_AssistantApp: App {
     @AppStorage("colorScheme") private var appStorageColorScheme = SAColorScheme.dark.rawValue
     @StateObject private var viewRouter = ViewRouter.shared
+    @StateObject private var contentViewModel = ContentViewModel()
 
     var body: some Scene {
         WindowGroup {
             Group {
-                switch viewRouter.selected {
+                switch viewRouter.currentView {
                 case .splashScreenView:
                     SplashScreenView()
                 case .contentView:
-                    ContentView()
+                    ContentView(vm: contentViewModel)
                 }
             }
             .preferredColorScheme({
