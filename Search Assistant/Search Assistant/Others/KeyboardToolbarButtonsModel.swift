@@ -23,7 +23,8 @@ struct KeyboardToolbarButtonsModel {
     }
 
     private func save() {
-        let encodedData = try! JSONEncoder().encode(validButtons)
+        guard let encodedData = try? JSONEncoder().encode(validButtons)
+        else { return }
         UserDefaults.standard.set(encodedData, forKey: userDefaultsKey)
     }
 }
