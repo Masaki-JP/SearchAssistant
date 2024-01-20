@@ -73,7 +73,7 @@ struct SettingView: View {
                             text: platform.rawValue,
                             isValid: vm.keyboardToolbarButtons.validButtons.contains(platform),
                             action: {
-                                vm.keyboardToolbarButtons.validationToggle(platform: platform)
+                                vm.keyboardToolbarButtons.validationToggle(platform)
                             }
                         )
                     }
