@@ -16,7 +16,9 @@ struct SettingView: View {
     var body: some View {
         NavigationStack {
             List {
-                // フォーカス制御セクション
+                ///
+                ///
+                /// フォーカス制御セクション
                 Section {
                     Toggle(isOn: vm.$settingAutoFocus) {
                         Text("キーボードの自動表示")
@@ -26,7 +28,9 @@ struct SettingView: View {
                 } footer: {
                     Text("検索画面が表示された時に、検索フォームに自動でフォーカスします。")
                 }
-                // 検索ボタンセクション
+                ///
+                ///
+                /// 検索ボタンセクション
                 Section {
                     Toggle(isOn: vm.$settingLeftSearchButton) {
                         Text("左利き用の配置")
@@ -36,7 +40,9 @@ struct SettingView: View {
                 } footer: {
                     Text("検索ボタンを画面左下に配置します。")
                 }
-                // 外観モードセクション
+                ///
+                ///
+                /// 外観モードセクション
                 Section {
                     Picker("Color Scheme", selection: $appStorageColorScheme) {
                         Text("Light").tag(SAColorScheme.light.rawValue)
@@ -48,7 +54,9 @@ struct SettingView: View {
                 } footer: {
                     Text("iPhoneの外観モードと同じものにするにはSystemを選択してください。")
                 }
-                // ブラウザセクション
+                ///
+                ///
+                /// ブラウザセクション
                 Section {
                     Toggle("アプリ内ブラウザで開く", isOn: $openInSafariView)
                 } header: {
@@ -56,7 +64,9 @@ struct SettingView: View {
                 } footer: {
                     Text("上記の設定をオフにした場合、検索はSafariで行われます。")
                 }
-                // キーボードツールバーボタンセクション
+                ///
+                ///
+                /// キーボードツールバーボタンセクション
                 Section {
                     ForEach(SASerchPlatform.allCases, id: \.self) { platform in
                         RowLikeToggleButton(
