@@ -1,10 +1,24 @@
 import Foundation
 
-/// ユーザー入力に基づいてGoogleの検索候補をフェッチするためのクラスです。
+/// ユーザー入力に基づいてGoogleの検索候補をフェッチするためのクラス
+///
+/// 使用例：
+/// ```
+/// let userInput = "apple"
+/// let suggestionFetcher = SuggestionFetcher.shared
+///
+/// Task {
+///     do {
+///         let suggestions = try await suggestionFetcher.fetch(from: userInput)
+///         print(suggestions)
+///     } catch {
+///         print(error)
+///     }
+/// }
+/// ```
 final class SuggestionFetcher {
-    /// シングルトンインスタンスを提供します。
+    /// プライベートイニシャライザで外部でのインスタンスの作成を防ぎ、スタティックプロパティを通じてシングルトンインスタンスを提供する。
     static let shared = SuggestionFetcher()
-    /// プライベートイニシャライザは外部からのインスタンス化を防ぎます。
     private init() {}
 
     /// ユーザー入力に基づいて提案を非同期的にフェッチします。
@@ -39,41 +53,42 @@ final class SuggestionFetcher {
         let suggestions = convertXMLStringToArray(xmlString: xmlString)
         return suggestions
     }
-}
 
-/// ユーザー入力から検索URLを作成します。
-///
-/// - Parameter userInput: 検索クエリとして使用するユーザー入力文字列。
-/// - Returns: 構築されたURL。
-private func createURL(from userInput: String) -> URL {
-    let prefixURL = "https://www.google.com/complete/search?hl=ja&output=toolbar&q="
-    let query = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-    let url = URL(string: prefixURL + query)!
-    return url
-}
-
-/// XML形式の文字列を文字列の配列に変換します。
-///
-/// - Parameter xmlString: 変換するXML形式の文字列。
-/// - Returns: 抽出された提案の文字列配列。
-private func convertXMLStringToArray(xmlString: String) -> [String] {
-    var suggestions: [String] = .init()
-    let unfinishedXmlElements = xmlString.components(separatedBy: "<CompleteSuggestion><suggestion data=\"")
-    for (index, element) in xmlString.components(separatedBy: "<CompleteSuggestion><suggestion data=\"").enumerated() {
-        if index == 0 {
-            continue
-        } else if index == unfinishedXmlElements.count-1 {
-            suggestions.append(
-                element.replacingOccurrences(of: "\"/></CompleteSuggestion></toplevel>", with: "")
-            )
-        } else {
-            suggestions.append(
-                element.replacingOccurrences(of: "\"/></CompleteSuggestion>", with: "")
-            )
-        }
+    /// ユーザー入力から検索URLを作成する。
+    ///
+    /// - Parameter userInput: 検索クエリとして使用するユーザー入力文字列
+    /// - Returns: 構築されたURL。
+    private func createURL(from userInput: String) -> URL {
+        let prefixURL = "https://www.google.com/complete/search?hl=ja&output=toolbar&q="
+        let query = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let url = URL(string: prefixURL + query)!
+        return url
     }
-    return suggestions
+
+    /// XML形式の文字列を文字列の配列に変換する。
+    ///
+    /// - Parameter xmlString: 変換するXML形式の文字列
+    /// - Returns: 抽出された提案の文字列配列
+    private func convertXMLStringToArray(xmlString: String) -> [String] {
+        var suggestions: [String] = .init()
+        let unfinishedXmlElements = xmlString.components(separatedBy: "<CompleteSuggestion><suggestion data=\"")
+        for (index, element) in xmlString.components(separatedBy: "<CompleteSuggestion><suggestion data=\"").enumerated() {
+            if index == 0 {
+                continue
+            } else if index == unfinishedXmlElements.count-1 {
+                suggestions.append(
+                    element.replacingOccurrences(of: "\"/></CompleteSuggestion></toplevel>", with: "")
+                )
+            } else {
+                suggestions.append(
+                    element.replacingOccurrences(of: "\"/></CompleteSuggestion>", with: "")
+                )
+            }
+        }
+        return suggestions
+    }
 }
+
 
 
 //// About XML
