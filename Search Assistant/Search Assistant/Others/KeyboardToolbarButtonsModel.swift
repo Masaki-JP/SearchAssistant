@@ -19,10 +19,10 @@ struct KeyboardToolbarButtonsModel {
         } else {
             validButtons.insert(platform)
         }
-        updateUserDefaults()
+        save()
     }
 
-    private func updateUserDefaults() {
+    private func save() {
         let encodedData = try! JSONEncoder().encode(validButtons)
         UserDefaults.standard.set(encodedData, forKey: userDefaultsKey)
     }
