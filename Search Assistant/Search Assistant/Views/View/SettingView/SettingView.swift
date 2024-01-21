@@ -1,11 +1,5 @@
 import SwiftUI
 
-enum SAColorScheme: String {
-    case light = "Light"
-    case dark = "Dark"
-    case system = "System"
-}
-
 struct SettingView: View {
     @AppStorage("colorScheme") private var appStorageColorScheme = SAColorScheme.dark.rawValue
     @AppStorage("openInSafariView") private var openInSafariView = true
@@ -44,15 +38,15 @@ struct SettingView: View {
                 ///
                 /// 外観モードセクション
                 Section {
-                    Picker("Color Scheme", selection: $appStorageColorScheme) {
-                        Text("Light").tag(SAColorScheme.light.rawValue)
-                        Text("Dark").tag(SAColorScheme.dark.rawValue)
-                        Text("System").tag(SAColorScheme.system.rawValue)
+                    Picker("外観モード", selection: $appStorageColorScheme) {
+                        Text("ライト").tag(SAColorScheme.light.rawValue)
+                        Text("ダーク").tag(SAColorScheme.dark.rawValue)
+                        Text("システム").tag(SAColorScheme.system.rawValue)
                     }
                 } header: {
                     Text("外観モード")
                 } footer: {
-                    Text("iPhoneの外観モードと同じものにするにはSystemを選択してください。")
+                    Text("iPhoneの外観モードと同じものにするにはシステムを選択してください。")
                 }
                 ///
                 ///
