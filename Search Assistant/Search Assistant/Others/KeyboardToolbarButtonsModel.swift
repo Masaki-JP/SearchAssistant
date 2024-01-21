@@ -1,5 +1,6 @@
 import Foundation
 
+#warning("削除の際はUserDefaultsのキーを以前使用していたキーとしてメモしておく")
 struct KeyboardToolbarButtonsModel {
     private let userDefaultsKey = "keyboardToolbarButtons"
     private(set) var validButtons = Set(SASerchPlatform.allCases)
