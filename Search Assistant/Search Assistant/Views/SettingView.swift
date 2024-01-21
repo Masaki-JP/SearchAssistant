@@ -12,20 +12,7 @@ struct SettingView: View {
             List {
                 FocusControlSection(isOn: vm.$settingAutoFocus)
                 SearchButtonSection(isOn: vm.$settingLeftSearchButton)
-                ///
-                ///
-                /// 外観モードセクション
-                Section {
-                    Picker("外観モード", selection: $appStorageColorScheme) {
-                        Text("ライト").tag(SAColorScheme.light.rawValue)
-                        Text("ダーク").tag(SAColorScheme.dark.rawValue)
-                        Text("システム").tag(SAColorScheme.system.rawValue)
-                    }
-                } header: {
-                    Text("外観モード")
-                } footer: {
-                    Text("iPhoneの外観モードと同じものにするにはシステムを選択してください。")
-                }
+                ColorSchemeSection(selection: $appStorageColorScheme)
                 ///
                 ///
                 /// ブラウザセクション
