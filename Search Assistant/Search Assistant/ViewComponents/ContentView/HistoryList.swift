@@ -2,9 +2,8 @@ import SwiftUI
 
 @MainActor
 protocol ViewModelForHistoryList: ObservableObject {
-    var historys: [SASerachHistory] { get }
+    var historys: [ContentViewModel.HistoryInfo] { get }
     func search(_ userInput: String, on: SASerchPlatform)
-    func getDateString(from: Date) -> String
     func removeHistory(atOffsets: IndexSet)
     var isShowPromptToConfirmDeletionOFAllHistorys: Bool { get set }
 }
@@ -19,7 +18,7 @@ struct HistoryList<VM>: View where VM: ViewModelForHistoryList {
                     ForEach(vm.historys) { history in
                         SearchHistoryButton(
                             history: history,
-                            dateString: vm.getDateString(from: history.date),
+                            dateString: history.dateString,
                             action: {
                                 vm.search(history.userInput, on: history.platform)
                             }
@@ -55,7 +54,7 @@ struct HistoryList<VM>: View where VM: ViewModelForHistoryList {
 }
 
 struct SearchHistoryButton: View {
-    let history: SASerachHistory
+    let history: ContentViewModel.HistoryInfo
     let dateString: String
     let action: () -> Void
 
@@ -87,10 +86,10 @@ struct SearchHistoryButton: View {
 
 #Preview {
     TabView {
-        // 検索履歴がある場合
-        HistoryList(vm: MockViewModel1())
-        // 検索履歴がない場合
-        HistoryList(vm: MockViewModel2())
+        //        // 検索履歴がある場合
+        //        HistoryList(vm: MockViewModel1())
+        //        // 検索履歴がない場合
+        //        HistoryList(vm: MockViewModel2())
         // 実際のContentViewModel
         HistoryList(vm: ContentViewModel())
     }
@@ -98,59 +97,59 @@ struct SearchHistoryButton: View {
     .ignoresSafeArea()
 }
 
-fileprivate class MockViewModel1: ViewModelForHistoryList {
-    var historys: [SASerachHistory] = [
-        .init(userInput: "iPhone 15 Pro", platform: .google),
-        .init(userInput: "iPad Pro", platform: .twitter),
-        .init(userInput: "Studio Display", platform: .instagram),
-        .init(userInput: "AirPods", platform: .mercari),
-        .init(userInput: "iMac", platform: .amazon),
-        .init(userInput: "Apple Pencil", platform: .youtube),
-        .init(userInput: "Macbook Air", platform: .facebook),
-        .init(userInput: "Xcode", platform: .google),
-        .init(userInput: "Apple Watch", platform: .twitter),
-        .init(userInput: "AirPods", platform: .rakuma),
-        .init(userInput: "iPod touch", platform: .instagram),
-        .init(userInput: "Apple Vision Pro", platform: .amazon),
-        .init(userInput: "Safari", platform: .youtube),
-        .init(userInput: "Tim Cook", platform: .facebook),
-        .init(userInput: "iPhone SE", platform: .google),
-        .init(userInput: "Apple Store", platform: .amazon),
-        .init(userInput: "Steve Jobs", platform: .paypayFleaMarket),
-        .init(userInput: "Apple Watch Ultra", platform: .google),
-        .init(userInput: "iCloud", platform: .amazon),
-        .init(userInput: "Apple Music", platform: .google),
-    ]
-
-    func search(_ userInput: String, on: SASerchPlatform) {
-        print("Called search function.")
-    }
-
-    func getDateString(from: Date) -> String {
-        return "20xx/xx/xx"
-    }
-
-    func removeHistory(atOffsets: IndexSet) {
-        print("Called removeHistory function.")
-    }
-
-    var isShowPromptToConfirmDeletionOFAllHistorys: Bool = false
-}
-
-fileprivate class MockViewModel2: ViewModelForHistoryList {
-    var historys: [SASerachHistory] = []
-
-    func search(_ userInput: String, on: SASerchPlatform) {
-        print("Called search function.")
-    }
-
-    func getDateString(from: Date) -> String {
-        return "20xx/xx/xx"
-    }
-
-    func removeHistory(atOffsets: IndexSet) {
-        print("Called removeHistory function.")
-    }
-
-    var isShowPromptToConfirmDeletionOFAllHistorys: Bool = false
-}
+//fileprivate class MockViewModel1: ViewModelForHistoryList {
+//    var historys: [SASerachHistory] = [
+//        .init(userInput: "iPhone 15 Pro", platform: .google),
+//        .init(userInput: "iPad Pro", platform: .twitter),
+//        .init(userInput: "Studio Display", platform: .instagram),
+//        .init(userInput: "AirPods", platform: .mercari),
+//        .init(userInput: "iMac", platform: .amazon),
+//        .init(userInput: "Apple Pencil", platform: .youtube),
+//        .init(userInput: "Macbook Air", platform: .facebook),
+//        .init(userInput: "Xcode", platform: .google),
+//        .init(userInput: "Apple Watch", platform: .twitter),
+//        .init(userInput: "AirPods", platform: .rakuma),
+//        .init(userInput: "iPod touch", platform: .instagram),
+//        .init(userInput: "Apple Vision Pro", platform: .amazon),
+//        .init(userInput: "Safari", platform: .youtube),
+//        .init(userInput: "Tim Cook", platform: .facebook),
+//        .init(userInput: "iPhone SE", platform: .google),
+//        .init(userInput: "Apple Store", platform: .amazon),
+//        .init(userInput: "Steve Jobs", platform: .paypayFleaMarket),
+//        .init(userInput: "Apple Watch Ultra", platform: .google),
+//        .init(userInput: "iCloud", platform: .amazon),
+//        .init(userInput: "Apple Music", platform: .google),
+//    ]
+//
+//    func search(_ userInput: String, on: SASerchPlatform) {
+//        print("Called search function.")
+//    }
+//
+//    func getDateString(from: Date) -> String {
+//        return "20xx/xx/xx"
+//    }
+//
+//    func removeHistory(atOffsets: IndexSet) {
+//        print("Called removeHistory function.")
+//    }
+//
+//    var isShowPromptToConfirmDeletionOFAllHistorys: Bool = false
+//}
+//
+//fileprivate class MockViewModel2: ViewModelForHistoryList {
+//    var historys: [SASerachHistory] = []
+//
+//    func search(_ userInput: String, on: SASerchPlatform) {
+//        print("Called search function.")
+//    }
+//
+//    func getDateString(from: Date) -> String {
+//        return "20xx/xx/xx"
+//    }
+//
+//    func removeHistory(atOffsets: IndexSet) {
+//        print("Called removeHistory function.")
+//    }
+//
+//    var isShowPromptToConfirmDeletionOFAllHistorys: Bool = false
+//}
