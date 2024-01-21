@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SettingView: View {
     @StateObject private var settingVM = SettingViewModel()
-    @ObservedObject private(set) var vm: ContentViewModel
+    @ObservedObject private(set) var contentVM: ContentViewModel
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dismiss) private var dismiss
 
@@ -13,7 +13,7 @@ struct SettingView: View {
                 SearchButtonSection(isOn: settingVM.$settingLeftSearchButton)
                 ColorSchemeSection(selection: settingVM.$appStorageColorScheme)
                 BrowserSection(isOn: settingVM.$openInSafariView)
-                KeyboardToolbarSection(vm: vm)
+                KeyboardToolbarSection(contentVM: contentVM)
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
@@ -32,5 +32,5 @@ struct SettingView: View {
 }
 
 #Preview {
-    SettingView(vm: ContentViewModel())
+    SettingView(contentVM: ContentViewModel())
 }

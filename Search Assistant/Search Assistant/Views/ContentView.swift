@@ -96,7 +96,7 @@ struct ContentView: View {
         /// [Presentation]
         /// `SettingsView`の表示を行う。
         .sheet(isPresented: $vm.isPresentedSettingView) {
-            SettingView(vm: vm)
+            SettingView(contentVM: vm)
                 .preferredColorScheme(colorScheme)
         }
         ///
