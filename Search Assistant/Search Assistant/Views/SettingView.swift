@@ -11,19 +11,7 @@ struct SettingView: View {
         NavigationStack {
             List {
                 FocusControlSection(isOn: vm.$settingAutoFocus)
-//                }
-                ///
-                ///
-                /// 検索ボタンセクション
-                Section {
-                    Toggle(isOn: vm.$settingLeftSearchButton) {
-                        Text("左利き用の配置")
-                    }.tint(.green)
-                } header: {
-                    Text("検索ボタン")
-                } footer: {
-                    Text("検索ボタンを画面左下に配置します。")
-                }
+                SearchButtonSection(isOn: vm.$settingLeftSearchButton)
                 ///
                 ///
                 /// 外観モードセクション

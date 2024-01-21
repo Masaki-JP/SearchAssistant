@@ -48,6 +48,7 @@
 		4CD2FB2D2B47C4EF00778310 /* NoContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2FB2C2B47C4EF00778310 /* NoContentsView.swift */; };
 		4CD61B8A2B5D3F1300040FD2 /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD61B892B5D3F1300040FD2 /* UserDefaultsKey.swift */; };
 		4CD61B8C2B5D517200040FD2 /* FocusControlSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD61B8B2B5D517200040FD2 /* FocusControlSection.swift */; };
+		4CD61B8E2B5D537C00040FD2 /* SearchButtonSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD61B8D2B5D537C00040FD2 /* SearchButtonSection.swift */; };
 		4CFC39D82B4C2162000E1DF2 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4CFC39D72B4C2162000E1DF2 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
@@ -122,6 +123,7 @@
 		4CD455F22AD3C8790092E95A /* Search-Assistant-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Search-Assistant-Info.plist"; sourceTree = SOURCE_ROOT; };
 		4CD61B892B5D3F1300040FD2 /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
 		4CD61B8B2B5D517200040FD2 /* FocusControlSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusControlSection.swift; sourceTree = "<group>"; };
+		4CD61B8D2B5D537C00040FD2 /* SearchButtonSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchButtonSection.swift; sourceTree = "<group>"; };
 		4CFC39D72B4C2162000E1DF2 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = Views/View/SettingView/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -305,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				4CD61B8B2B5D517200040FD2 /* FocusControlSection.swift */,
+				4CD61B8D2B5D537C00040FD2 /* SearchButtonSection.swift */,
 			);
 			path = SettingView;
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 				4CD61B8C2B5D517200040FD2 /* FocusControlSection.swift in Sources */,
 				4C072E852AD264A000477675 /* SettingView.swift in Sources */,
 				4C0872442ACC14F400033787 /* ContentViewModel.swift in Sources */,
+				4CD61B8E2B5D537C00040FD2 /* SearchButtonSection.swift in Sources */,
 				4C0871ED2ACC043D00033787 /* Search_AssistantApp.swift in Sources */,
 				4C6AE3F62AD2A5B500863115 /* SearchTextField.swift in Sources */,
 				4C3A5FA82B5CB8E800766BC1 /* RepositoryProtocol.swift in Sources */,
