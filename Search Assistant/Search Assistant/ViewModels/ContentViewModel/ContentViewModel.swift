@@ -14,6 +14,13 @@ final class ContentViewModel: ContentViewModelProtocol {
     @Published var isShowInstagramErrorAlert = false
     @Published var isShowPromptToConfirmDeletionOFAllHistorys = false
 
+    @AppStorage(AppStorageKey.autoFocus)
+    private(set) var settingAutoFocus = true
+    @AppStorage(AppStorageKey.searchButton_Left)
+    private(set) var settingLeftSearchButton = false
+
+    @Published var keyboardToolbarButtons = KeyboardToolbarButtonsModel()
+
     // 検索機能
     var searcher = Searcher()
 

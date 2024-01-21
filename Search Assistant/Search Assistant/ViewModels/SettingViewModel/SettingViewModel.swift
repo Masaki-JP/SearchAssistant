@@ -10,5 +10,4 @@ final class SettingViewModel: ObservableObject {
     private(set) var appStorageColorScheme = SAColorScheme.dark.rawValue
     @AppStorage(AppStorageKey.openInSafariView)
     private(set) var openInSafariView = true
-    @Published var keyboardToolbarButtons = KeyboardToolbarButtonsModel()
 }
