@@ -13,16 +13,7 @@ struct SettingView: View {
                 FocusControlSection(isOn: vm.$settingAutoFocus)
                 SearchButtonSection(isOn: vm.$settingLeftSearchButton)
                 ColorSchemeSection(selection: $appStorageColorScheme)
-                ///
-                ///
-                /// ブラウザセクション
-                Section {
-                    Toggle("アプリ内ブラウザで開く", isOn: $openInSafariView)
-                } header: {
-                    Text("ブラウザ")
-                } footer: {
-                    Text("上記の設定をオフにした場合、検索はSafariで行われます。")
-                }
+                BrowserSection(isOn: $openInSafariView)
                 ///
                 ///
                 /// キーボードツールバーボタンセクション

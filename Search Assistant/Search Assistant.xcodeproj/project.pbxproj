@@ -50,6 +50,7 @@
 		4CD61B8C2B5D517200040FD2 /* FocusControlSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD61B8B2B5D517200040FD2 /* FocusControlSection.swift */; };
 		4CD61B8E2B5D537C00040FD2 /* SearchButtonSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD61B8D2B5D537C00040FD2 /* SearchButtonSection.swift */; };
 		4CD61B902B5D555400040FD2 /* ColorSchemeSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD61B8F2B5D555400040FD2 /* ColorSchemeSection.swift */; };
+		4CD61B922B5D56CE00040FD2 /* BrowserSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD61B912B5D56CE00040FD2 /* BrowserSection.swift */; };
 		4CFC39D82B4C2162000E1DF2 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4CFC39D72B4C2162000E1DF2 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
@@ -126,6 +127,7 @@
 		4CD61B8B2B5D517200040FD2 /* FocusControlSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusControlSection.swift; sourceTree = "<group>"; };
 		4CD61B8D2B5D537C00040FD2 /* SearchButtonSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchButtonSection.swift; sourceTree = "<group>"; };
 		4CD61B8F2B5D555400040FD2 /* ColorSchemeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeSection.swift; sourceTree = "<group>"; };
+		4CD61B912B5D56CE00040FD2 /* BrowserSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserSection.swift; sourceTree = "<group>"; };
 		4CFC39D72B4C2162000E1DF2 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = Views/View/SettingView/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -311,6 +313,7 @@
 				4CD61B8B2B5D517200040FD2 /* FocusControlSection.swift */,
 				4CD61B8D2B5D537C00040FD2 /* SearchButtonSection.swift */,
 				4CD61B8F2B5D555400040FD2 /* ColorSchemeSection.swift */,
+				4CD61B912B5D56CE00040FD2 /* BrowserSection.swift */,
 			);
 			path = SettingView;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 				4C42169C2AD2C850000AF20A /* SuggestionList.swift in Sources */,
 				4CD2FB2D2B47C4EF00778310 /* NoContentsView.swift in Sources */,
 				4C446F032AD4F6270023C4F1 /* ViewRouter.swift in Sources */,
+				4CD61B922B5D56CE00040FD2 /* BrowserSection.swift in Sources */,
 				4C0872462ACC150F00033787 /* HistoryStore.swift in Sources */,
 				4C3A5FBB2B5CBC7200766BC1 /* MockSettingViewModel.swift in Sources */,
 				4C0871EF2ACC043D00033787 /* ContentView.swift in Sources */,
