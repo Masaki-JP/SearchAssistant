@@ -1,11 +1,5 @@
 import SwiftUI
 
-enum SAColorScheme: String {
-    case light = "Light"
-    case dark = "Dark"
-    case system = "System"
-}
-
 struct SettingView: View {
     @AppStorage("colorScheme") private var appStorageColorScheme = SAColorScheme.dark.rawValue
     @AppStorage("openInSafariView") private var openInSafariView = true

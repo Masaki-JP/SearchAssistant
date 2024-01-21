@@ -20,6 +20,7 @@
 		4C08720E2ACC059E00033787 /* SAWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4C0871FE2ACC059B00033787 /* SAWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4C0872442ACC14F400033787 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0872432ACC14F400033787 /* ContentViewModel.swift */; };
 		4C0872462ACC150F00033787 /* HistoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0872452ACC150F00033787 /* HistoryStore.swift */; };
+		4C11893E2B5BD1400005F59A /* SAColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C11893D2B5BD1400005F59A /* SAColorScheme.swift */; };
 		4C24C0AF2ACD2740000A604E /* SearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C24C0AE2ACD2740000A604E /* SearchButton.swift */; };
 		4C24C0B22ACD28A9000A604E /* ToolbarWithSearchButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C24C0B12ACD28A9000A604E /* ToolbarWithSearchButtons.swift */; };
 		4C24C0B42ACD2A5B000A604E /* SASerchPlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C24C0B32ACD2A5B000A604E /* SASerchPlatform.swift */; };
@@ -81,6 +82,7 @@
 		4C0872422ACC10D900033787 /* Development Notes */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Development Notes"; sourceTree = "<group>"; };
 		4C0872432ACC14F400033787 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		4C0872452ACC150F00033787 /* HistoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStore.swift; sourceTree = "<group>"; };
+		4C11893D2B5BD1400005F59A /* SAColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SAColorScheme.swift; sourceTree = "<group>"; };
 		4C24C0AE2ACD2740000A604E /* SearchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchButton.swift; sourceTree = "<group>"; };
 		4C24C0B12ACD28A9000A604E /* ToolbarWithSearchButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarWithSearchButtons.swift; sourceTree = "<group>"; };
 		4C24C0B32ACD2A5B000A604E /* SASerchPlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SASerchPlatform.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				4C951F542B37BE9F0064A2F9 /* SASerachHistory.swift */,
+				4C11893D2B5BD1400005F59A /* SAColorScheme.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 				4C0872442ACC14F400033787 /* ContentViewModel.swift in Sources */,
 				4C0871ED2ACC043D00033787 /* Search_AssistantApp.swift in Sources */,
 				4C6AE3F62AD2A5B500863115 /* SearchTextField.swift in Sources */,
+				4C11893E2B5BD1400005F59A /* SAColorScheme.swift in Sources */,
 				4CBF86672AE76AF700B73BAB /* KeyboardToolbarButtonsModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
