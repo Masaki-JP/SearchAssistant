@@ -46,6 +46,7 @@
 		4CB14D292AD433D300854078 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB14D282AD433D300854078 /* SplashScreenView.swift */; };
 		4CBF86672AE76AF700B73BAB /* KeyboardToolbarButtonsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBF86662AE76AF700B73BAB /* KeyboardToolbarButtonsModel.swift */; };
 		4CD2FB2D2B47C4EF00778310 /* NoContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2FB2C2B47C4EF00778310 /* NoContentsView.swift */; };
+		4CD61B8A2B5D3F1300040FD2 /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD61B892B5D3F1300040FD2 /* UserDefaultsKey.swift */; };
 		4CFC39D82B4C2162000E1DF2 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4CFC39D72B4C2162000E1DF2 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
@@ -118,6 +119,7 @@
 		4CBF86662AE76AF700B73BAB /* KeyboardToolbarButtonsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardToolbarButtonsModel.swift; sourceTree = "<group>"; };
 		4CD2FB2C2B47C4EF00778310 /* NoContentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoContentsView.swift; sourceTree = "<group>"; };
 		4CD455F22AD3C8790092E95A /* Search-Assistant-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Search-Assistant-Info.plist"; sourceTree = SOURCE_ROOT; };
+		4CD61B892B5D3F1300040FD2 /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
 		4CFC39D72B4C2162000E1DF2 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = Views/View/SettingView/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -246,6 +248,7 @@
 		4C3A5FA92B5CB94B00766BC1 /* UserDefaultsRepositoryProtocol */ = {
 			isa = PBXGroup;
 			children = (
+				4CD61B892B5D3F1300040FD2 /* UserDefaultsKey.swift */,
 				4C3A5FAA2B5CB97200766BC1 /* UserDefaultsRepositoryProtocol.swift */,
 				4C3A5FAC2B5CB9F600766BC1 /* UserDefaultsRepository.swift */,
 				4C3A5FAE2B5CBA4200766BC1 /* InMemoryUserDefaultsRepository.swift */,
@@ -430,6 +433,7 @@
 				4C3A5FBB2B5CBC7200766BC1 /* MockSettingViewModel.swift in Sources */,
 				4C0871EF2ACC043D00033787 /* ContentView.swift in Sources */,
 				4C5F81032B59BE89003EE563 /* SafariView.swift in Sources */,
+				4CD61B8A2B5D3F1300040FD2 /* UserDefaultsKey.swift in Sources */,
 				4C42169A2AD2C844000AF20A /* HistoryList.swift in Sources */,
 				4C3A5FB22B5CBABD00766BC1 /* ContentViewModelProtocol.swift in Sources */,
 				4C3A5FB72B5CBC3200766BC1 /* SettingViewModelProtocol.swift in Sources */,

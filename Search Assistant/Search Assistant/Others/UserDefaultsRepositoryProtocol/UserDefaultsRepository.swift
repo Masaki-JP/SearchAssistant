@@ -1,10 +1,10 @@
 import Foundation
 
 final class UserDefaultsRepository<Item: Codable>: UserDefaultsRepositoryProtocol {
-    private let userDefaultsKey: String
+    private let userDefaultsKey: UserDefaultsKey
 
-    init(userDefaultsKey: String) {
-        self.userDefaultsKey = userDefaultsKey
+    init(key: UserDefaultsKey) {
+        self.userDefaultsKey = key
     }
 
     enum UserDefaultsRepositoryError: Error {
@@ -16,7 +16,7 @@ final class UserDefaultsRepository<Item: Codable>: UserDefaultsRepositoryProtoco
     func save(_ items: [Item]) throws {
         do {
             let encodedData = try JSONEncoder().encode(items)
-            UserDefaults.standard.set(encodedData, forKey: userDefaultsKey)
+            UserDefaults.standard.set(encodedData, forKey: userDefaultsKey.string)
         } catch {
             reportError(error)
             throw UserDefaultsRepositoryError.encodingError
@@ -24,7 +24,7 @@ final class UserDefaultsRepository<Item: Codable>: UserDefaultsRepositoryProtoco
     }
 
     func fetch() throws -> [Item] {
-        guard let itemsData = UserDefaults.standard.data(forKey: userDefaultsKey)
+        guard let itemsData = UserDefaults.standard.data(forKey: userDefaultsKey.string)
         else { throw UserDefaultsRepositoryError.dataNotFound }
         do {
             let items = try JSONDecoder().decode([Item].self, from: itemsData)
