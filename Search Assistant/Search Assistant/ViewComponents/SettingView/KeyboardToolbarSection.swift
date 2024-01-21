@@ -1,16 +1,16 @@
 import SwiftUI
 
 struct KeyboardToolbarSection: View {
-    @ObservedObject private(set) var contentVM: ContentViewModel
+    @ObservedObject private(set) var settingVM: SettingViewModel
 
     var body: some View {
         Section {
             ForEach(SASerchPlatform.allCases, id: \.self) { platform in
                 RowLikeToggleButton(
                     text: platform.rawValue,
-                    isValid: contentVM.keyboardToolbarButtons.validButtons.contains(platform),
+                    isValid: settingVM.keyboardToolbarValidButtons.contains(platform),
                     action: {
-                        contentVM.keyboardToolbarButtons.validationToggle(platform)
+                        settingVM.toggleToolbarButtonAvailability(platform)
                     }
                 )
             }
@@ -52,6 +52,6 @@ struct RowLikeToggleButton: View {
 
 #Preview {
     List {
-        KeyboardToolbarSection(contentVM: ContentViewModel())
+        KeyboardToolbarSection(settingVM: SettingViewModel())
     }
 }

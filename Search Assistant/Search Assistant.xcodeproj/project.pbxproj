@@ -44,7 +44,6 @@
 		4C906C1D2B37E61400E1E50E /* SuggestionFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C906C1C2B37E61400E1E50E /* SuggestionFetcher.swift */; };
 		4C951F552B37BE9F0064A2F9 /* SASerachHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C951F542B37BE9F0064A2F9 /* SASerachHistory.swift */; };
 		4CB14D292AD433D300854078 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB14D282AD433D300854078 /* SplashScreenView.swift */; };
-		4CBF86672AE76AF700B73BAB /* KeyboardToolbarButtonsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBF86662AE76AF700B73BAB /* KeyboardToolbarButtonsModel.swift */; };
 		4CD2FB2D2B47C4EF00778310 /* NoContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2FB2C2B47C4EF00778310 /* NoContentsView.swift */; };
 		4CD61B8A2B5D3F1300040FD2 /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD61B892B5D3F1300040FD2 /* UserDefaultsKey.swift */; };
 		4CD61B8C2B5D517200040FD2 /* FocusControlSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD61B8B2B5D517200040FD2 /* FocusControlSection.swift */; };
@@ -122,7 +121,6 @@
 		4C906C1C2B37E61400E1E50E /* SuggestionFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionFetcher.swift; sourceTree = "<group>"; };
 		4C951F542B37BE9F0064A2F9 /* SASerachHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SASerachHistory.swift; sourceTree = "<group>"; };
 		4CB14D282AD433D300854078 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
-		4CBF86662AE76AF700B73BAB /* KeyboardToolbarButtonsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardToolbarButtonsModel.swift; sourceTree = "<group>"; };
 		4CD2FB2C2B47C4EF00778310 /* NoContentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoContentsView.swift; sourceTree = "<group>"; };
 		4CD455F22AD3C8790092E95A /* Search-Assistant-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Search-Assistant-Info.plist"; sourceTree = SOURCE_ROOT; };
 		4CD61B892B5D3F1300040FD2 /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
@@ -247,7 +245,6 @@
 				4C3A5FA92B5CB94B00766BC1 /* UserDefaultsRepositoryProtocol */,
 				4C0872452ACC150F00033787 /* HistoryStore.swift */,
 				4C6B127D2ACE339600324302 /* Searcher.swift */,
-				4CBF86662AE76AF700B73BAB /* KeyboardToolbarButtonsModel.swift */,
 				4C906C1C2B37E61400E1E50E /* SuggestionFetcher.swift */,
 				4C36B6A72AD2AFEE00875FDC /* DateFormatterModel.swift */,
 				4C24C0B52ACD2A66000A604E /* Error.swift */,
@@ -471,7 +468,6 @@
 				4C11893E2B5BD1400005F59A /* SAColorScheme.swift in Sources */,
 				4C3A5FAF2B5CBA4200766BC1 /* InMemoryUserDefaultsRepository.swift in Sources */,
 				4C3A5FB42B5CBBDB00766BC1 /* MockContentViewModel.swift in Sources */,
-				4CBF86672AE76AF700B73BAB /* KeyboardToolbarButtonsModel.swift in Sources */,
 				4CD61B942B5D58B800040FD2 /* KeyboardToolbarSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

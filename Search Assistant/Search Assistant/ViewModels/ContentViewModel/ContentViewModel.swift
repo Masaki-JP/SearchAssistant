@@ -2,24 +2,40 @@ import SwiftUI
 
 @MainActor
 final class ContentViewModel: ContentViewModelProtocol {
-    init() {
-        historyStore.$historys
-            .receive(on: DispatchQueue.main)
-            .assign(to: &self.$historys)
-    }
-    
-    // ビュープロパティ
     @Published var userInput = ""
     @Published var isPresentedSettingView = false
     @Published var isShowInstagramErrorAlert = false
     @Published var isShowPromptToConfirmDeletionOFAllHistorys = false
+    @Published private(set) var keyboardToolbarValidButtons: Set<SASerchPlatform>
 
     @AppStorage(AppStorageKey.autoFocus)
     private(set) var settingAutoFocus = true
     @AppStorage(AppStorageKey.searchButton_Left)
     private(set) var settingLeftSearchButton = false
 
-    @Published var keyboardToolbarButtons = KeyboardToolbarButtonsModel()
+    init() {
+        do {
+            keyboardToolbarValidButtons = try keyboardToolbarValidButtonManager.fetch()
+        } catch {
+            reportError(error)
+            keyboardToolbarValidButtons = Set(SASerchPlatform.allCases)
+        }
+        historyStore.$historys
+            .receive(on: DispatchQueue.main)
+            .assign(to: &self.$historys)
+    }
+
+    // キーボードツールバー管理
+    private let keyboardToolbarValidButtonManager = UserDefaultsRepository<Set<SASerchPlatform>>(key: UserDefaultsKey.keyboardToolbarValidButtons)
+
+    func fetchKeyboardToolbarValidButtons() {
+        do {
+            keyboardToolbarValidButtons = try keyboardToolbarValidButtonManager.fetch()
+        } catch {
+            reportError(error)
+            keyboardToolbarValidButtons = Set(SASerchPlatform.allCases)
+        }
+    }
 
     // 検索機能
     var searcher = Searcher()
@@ -37,9 +53,7 @@ final class ContentViewModel: ContentViewModelProtocol {
         let dateString = dateFormatter.string(from: date)
         return dateString
     }
-}
 
-extension ContentViewModel {
     // With Searcher
     func search(_ userInput: String, on platform: SASerchPlatform) {
         do {

@@ -13,7 +13,7 @@ struct SettingView: View {
                 SearchButtonSection(isOn: settingVM.$settingLeftSearchButton)
                 ColorSchemeSection(selection: settingVM.$appStorageColorScheme)
                 BrowserSection(isOn: settingVM.$openInSafariView)
-                KeyboardToolbarSection(contentVM: contentVM)
+                KeyboardToolbarSection(settingVM: settingVM)
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
