@@ -52,6 +52,7 @@
 		4CD61B902B5D555400040FD2 /* ColorSchemeSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD61B8F2B5D555400040FD2 /* ColorSchemeSection.swift */; };
 		4CD61B922B5D56CE00040FD2 /* BrowserSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD61B912B5D56CE00040FD2 /* BrowserSection.swift */; };
 		4CD61B942B5D58B800040FD2 /* KeyboardToolbarSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD61B932B5D58B800040FD2 /* KeyboardToolbarSection.swift */; };
+		4CD61B962B5D634300040FD2 /* AppStorageKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD61B952B5D634300040FD2 /* AppStorageKey.swift */; };
 		4CFC39D82B4C2162000E1DF2 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4CFC39D72B4C2162000E1DF2 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
@@ -130,6 +131,7 @@
 		4CD61B8F2B5D555400040FD2 /* ColorSchemeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeSection.swift; sourceTree = "<group>"; };
 		4CD61B912B5D56CE00040FD2 /* BrowserSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserSection.swift; sourceTree = "<group>"; };
 		4CD61B932B5D58B800040FD2 /* KeyboardToolbarSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardToolbarSection.swift; sourceTree = "<group>"; };
+		4CD61B952B5D634300040FD2 /* AppStorageKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorageKey.swift; sourceTree = "<group>"; };
 		4CFC39D72B4C2162000E1DF2 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = Views/View/SettingView/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -251,6 +253,7 @@
 				4C24C0B52ACD2A66000A604E /* Error.swift */,
 				4C446F022AD4F6270023C4F1 /* ViewRouter.swift */,
 				4C3A5FA72B5CB8E800766BC1 /* RepositoryProtocol.swift */,
+				4CD61B952B5D634300040FD2 /* AppStorageKey.swift */,
 			);
 			path = Others;
 			sourceTree = "<group>";
@@ -433,6 +436,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CB14D292AD433D300854078 /* SplashScreenView.swift in Sources */,
+				4CD61B962B5D634300040FD2 /* AppStorageKey.swift in Sources */,
 				4C36B6A82AD2AFEE00875FDC /* DateFormatterModel.swift in Sources */,
 				4C906C1D2B37E61400E1E50E /* SuggestionFetcher.swift in Sources */,
 				4C24C0B62ACD2A66000A604E /* Error.swift in Sources */,
