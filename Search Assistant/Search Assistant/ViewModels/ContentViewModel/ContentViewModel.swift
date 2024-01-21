@@ -1,7 +1,5 @@
 import SwiftUI
 
-fileprivate typealias ContentViewModelProtocol = ObservableObject & ViewModelForSuggestionList &  ViewModelForHistoryList
-
 @MainActor
 final class ContentViewModel: ContentViewModelProtocol {
     init() {
