@@ -221,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				4C951F542B37BE9F0064A2F9 /* SASerachHistory.swift */,
+				4C24C0B32ACD2A5B000A604E /* SASerchPlatform.swift */,
 				4C11893D2B5BD1400005F59A /* SAColorScheme.swift */,
 			);
 			path = Models;
@@ -235,7 +236,6 @@
 				4CBF86662AE76AF700B73BAB /* KeyboardToolbarButtonsModel.swift */,
 				4C906C1C2B37E61400E1E50E /* SuggestionFetcher.swift */,
 				4C36B6A72AD2AFEE00875FDC /* DateFormatterModel.swift */,
-				4C24C0B32ACD2A5B000A604E /* SASerchPlatform.swift */,
 				4C24C0B52ACD2A66000A604E /* Error.swift */,
 				4C446F022AD4F6270023C4F1 /* ViewRouter.swift */,
 				4C3A5FA72B5CB8E800766BC1 /* RepositoryProtocol.swift */,
