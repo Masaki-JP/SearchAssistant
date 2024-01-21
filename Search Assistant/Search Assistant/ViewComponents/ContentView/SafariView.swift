@@ -2,7 +2,7 @@ import SwiftUI
 import SafariServices
 
 struct SafariView: UIViewControllerRepresentable {
-    let url: URL
+    private let url: URL
 
     init(_ url: URL) {
         self.url = url
