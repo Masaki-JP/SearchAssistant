@@ -168,7 +168,7 @@
 				4C0872412ACC10C700033787 /* Development Rules */,
 				4C0872422ACC10D900033787 /* Development Notes */,
 				4C24C0A72ACD264C000A604E /* Views */,
-				4C3A5FBC2B5CBD8800766BC1 /* ViewExtentions */,
+				4C3A5FBC2B5CBD8800766BC1 /* ViewComponents */,
 				4C906C1E2B37EC2500E1E50E /* ViewModels */,
 				4C24C0AA2ACD267D000A604E /* Models */,
 				4C24C0AB2ACD2683000A604E /* Others */,
@@ -212,7 +212,6 @@
 				4C0871EC2ACC043D00033787 /* Search_AssistantApp.swift */,
 				4CB14D282AD433D300854078 /* SplashScreenView.swift */,
 				4C0871EE2ACC043D00033787 /* ContentView.swift */,
-				4C5F81022B59BE88003EE563 /* SafariView.swift */,
 				4C072E842AD264A000477675 /* SettingView.swift */,
 			);
 			path = Views;
@@ -274,16 +273,16 @@
 			path = SettingViewModel;
 			sourceTree = "<group>";
 		};
-		4C3A5FBC2B5CBD8800766BC1 /* ViewExtentions */ = {
+		4C3A5FBC2B5CBD8800766BC1 /* ViewComponents */ = {
 			isa = PBXGroup;
 			children = (
-				4C3A5FBD2B5CBDE300766BC1 /* ContentView+ */,
-				4C3A5FBE2B5CBDF000766BC1 /* SettingView+ */,
+				4C3A5FBD2B5CBDE300766BC1 /* ContentView */,
+				4C3A5FBE2B5CBDF000766BC1 /* SettingView */,
 			);
-			path = ViewExtentions;
+			path = ViewComponents;
 			sourceTree = "<group>";
 		};
-		4C3A5FBD2B5CBDE300766BC1 /* ContentView+ */ = {
+		4C3A5FBD2B5CBDE300766BC1 /* ContentView */ = {
 			isa = PBXGroup;
 			children = (
 				4C42169B2AD2C850000AF20A /* SuggestionList.swift */,
@@ -292,15 +291,16 @@
 				4C6AE3F52AD2A5B500863115 /* SearchTextField.swift */,
 				4C24C0AE2ACD2740000A604E /* SearchButton.swift */,
 				4C24C0B12ACD28A9000A604E /* ToolbarWithSearchButtons.swift */,
+				4C5F81022B59BE88003EE563 /* SafariView.swift */,
 			);
-			path = "ContentView+";
+			path = ContentView;
 			sourceTree = "<group>";
 		};
-		4C3A5FBE2B5CBDF000766BC1 /* SettingView+ */ = {
+		4C3A5FBE2B5CBDF000766BC1 /* SettingView */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = "SettingView+";
+			path = SettingView;
 			sourceTree = "<group>";
 		};
 		4C906C1E2B37EC2500E1E50E /* ViewModels */ = {
