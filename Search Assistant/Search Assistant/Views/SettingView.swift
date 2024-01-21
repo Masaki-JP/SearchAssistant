@@ -1,8 +1,6 @@
 import SwiftUI
 
 struct SettingView: View {
-    @AppStorage("colorScheme") private var appStorageColorScheme = SAColorScheme.dark.rawValue
-    @AppStorage("openInSafariView") private var openInSafariView = true
     @ObservedObject private(set) var vm: ContentViewModel
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dismiss) private var dismiss
@@ -12,8 +10,8 @@ struct SettingView: View {
             List {
                 FocusControlSection(isOn: vm.$settingAutoFocus)
                 SearchButtonSection(isOn: vm.$settingLeftSearchButton)
-                ColorSchemeSection(selection: $appStorageColorScheme)
-                BrowserSection(isOn: $openInSafariView)
+                ColorSchemeSection(selection: vm.$appStorageColorScheme)
+                BrowserSection(isOn: vm.$openInSafariView)
                 KeyboardToolbarSection(vm: vm)
             }
             .navigationTitle("Settings")

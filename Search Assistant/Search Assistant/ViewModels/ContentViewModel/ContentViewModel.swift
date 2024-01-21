@@ -10,6 +10,8 @@ final class ContentViewModel: ContentViewModelProtocol {
     // SettingsViewで使用
     @AppStorage("autoFocus") private(set) var settingAutoFocus = true
     @AppStorage("searchButton_Left") private(set) var settingLeftSearchButton = false
+    @AppStorage("colorScheme") private(set) var appStorageColorScheme = SAColorScheme.dark.rawValue
+    @AppStorage("openInSafariView") private(set) var openInSafariView = true
     @Published var keyboardToolbarButtons = KeyboardToolbarButtonsModel()
     // ビュープロパティ
     @Published var userInput = ""
