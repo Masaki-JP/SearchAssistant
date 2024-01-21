@@ -14,9 +14,9 @@ struct SuggestionList<ViewModel>: View where ViewModel: ViewModelForSuggestionLi
         case .some(let suggestions):
             List {
                 Section {
-                    ForEach(suggestions, id: \.self) { suggestion in
-                        SuggestionButton(suggestion: suggestion) {
-                            vm.search(suggestion, on: .google)
+                    ForEach(suggestions.indices, id: \.self) { i in
+                        SuggestionButton(suggestion: suggestions[i]) {
+                            vm.search(suggestions[i], on: .google)
                         }
                     }
                 } header: {
