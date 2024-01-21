@@ -51,6 +51,7 @@
 		4CD61B8E2B5D537C00040FD2 /* SearchButtonSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD61B8D2B5D537C00040FD2 /* SearchButtonSection.swift */; };
 		4CD61B902B5D555400040FD2 /* ColorSchemeSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD61B8F2B5D555400040FD2 /* ColorSchemeSection.swift */; };
 		4CD61B922B5D56CE00040FD2 /* BrowserSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD61B912B5D56CE00040FD2 /* BrowserSection.swift */; };
+		4CD61B942B5D58B800040FD2 /* KeyboardToolbarSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD61B932B5D58B800040FD2 /* KeyboardToolbarSection.swift */; };
 		4CFC39D82B4C2162000E1DF2 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4CFC39D72B4C2162000E1DF2 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
@@ -128,6 +129,7 @@
 		4CD61B8D2B5D537C00040FD2 /* SearchButtonSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchButtonSection.swift; sourceTree = "<group>"; };
 		4CD61B8F2B5D555400040FD2 /* ColorSchemeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeSection.swift; sourceTree = "<group>"; };
 		4CD61B912B5D56CE00040FD2 /* BrowserSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserSection.swift; sourceTree = "<group>"; };
+		4CD61B932B5D58B800040FD2 /* KeyboardToolbarSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardToolbarSection.swift; sourceTree = "<group>"; };
 		4CFC39D72B4C2162000E1DF2 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = Views/View/SettingView/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -314,6 +316,7 @@
 				4CD61B8D2B5D537C00040FD2 /* SearchButtonSection.swift */,
 				4CD61B8F2B5D555400040FD2 /* ColorSchemeSection.swift */,
 				4CD61B912B5D56CE00040FD2 /* BrowserSection.swift */,
+				4CD61B932B5D58B800040FD2 /* KeyboardToolbarSection.swift */,
 			);
 			path = SettingView;
 			sourceTree = "<group>";
@@ -465,6 +468,7 @@
 				4C3A5FAF2B5CBA4200766BC1 /* InMemoryUserDefaultsRepository.swift in Sources */,
 				4C3A5FB42B5CBBDB00766BC1 /* MockContentViewModel.swift in Sources */,
 				4CBF86672AE76AF700B73BAB /* KeyboardToolbarButtonsModel.swift in Sources */,
+				4CD61B942B5D58B800040FD2 /* KeyboardToolbarSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

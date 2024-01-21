@@ -14,24 +14,7 @@ struct SettingView: View {
                 SearchButtonSection(isOn: vm.$settingLeftSearchButton)
                 ColorSchemeSection(selection: $appStorageColorScheme)
                 BrowserSection(isOn: $openInSafariView)
-                ///
-                ///
-                /// キーボードツールバーボタンセクション
-                Section {
-                    ForEach(SASerchPlatform.allCases, id: \.self) { platform in
-                        RowLikeToggleButton(
-                            text: platform.rawValue,
-                            isValid: vm.keyboardToolbarButtons.validButtons.contains(platform),
-                            action: {
-                                vm.keyboardToolbarButtons.validationToggle(platform)
-                            }
-                        )
-                    }
-                } header: {
-                    Text("ツールバーボタン")
-                } footer: {
-                    Text("ツールバーに表示する検索ボタンを設定できます。")
-                }
+                KeyboardToolbarSection(vm: vm)
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
@@ -41,41 +24,10 @@ struct SettingView: View {
                 }
             }
         }
-        ///
-        ///
-        /// このモーダルが表示されている時にscenePhaseがactiveでなくなった場合、自動的に閉じる処理
+        // Close Automation
         .onChange(of: scenePhase) { newScene in
             guard newScene != .active else { return }
             dismiss()
-        }
-    }
-}
-
-extension SettingView {
-    struct RowLikeToggleButton: View {
-        private let text: String
-        private let isValid: Bool
-        private let action: () -> Void
-
-        init(text: String, isValid: Bool, action: @escaping () -> Void) {
-            self.text = text
-            self.isValid = isValid
-            self.action = action
-        }
-
-        var body: some View {
-            Button(
-                action: { action() },
-                label: {
-                    HStack {
-                        Text(text)
-                        Spacer()
-                        Image(systemName: "checkmark")
-                            .bold()
-                            .foregroundStyle(isValid ? .green : .clear)
-                    }
-                })
-            .foregroundStyle(.primary)
         }
     }
 }
