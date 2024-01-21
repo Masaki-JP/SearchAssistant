@@ -11,7 +11,7 @@ struct KeyboardToolbarSection: View {
 
     var body: some View {
         Section {
-            ForEach(SASerchPlatform.allCases, id: \.self) { platform in
+            ForEach(SASerchPlatform.allCases) { platform in
                 RowLikeToggleButton(
                     text: platform.rawValue,
                     isValid: keyboardToolbarValisButtons.contains(platform),

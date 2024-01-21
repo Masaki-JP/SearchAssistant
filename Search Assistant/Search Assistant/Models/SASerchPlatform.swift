@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum SASerchPlatform: String, Codable, CaseIterable {
+enum SASerchPlatform: String, Codable, CaseIterable, Identifiable {
     case google = "Google"
     case twitter = "Twitter"
     case instagram = "Instagram"
@@ -10,6 +10,8 @@ enum SASerchPlatform: String, Codable, CaseIterable {
     case mercari = "メルカリ"
     case rakuma = "ラクマ"
     case paypayFleaMarket = "PayPayフリマ"
+
+    var id: Self { self }
 
     var prefixURL: String {
         switch self {
