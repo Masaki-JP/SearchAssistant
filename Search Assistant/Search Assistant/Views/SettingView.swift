@@ -10,18 +10,8 @@ struct SettingView: View {
     var body: some View {
         NavigationStack {
             List {
-                ///
-                ///
-                /// フォーカス制御セクション
-                Section {
-                    Toggle(isOn: vm.$settingAutoFocus) {
-                        Text("キーボードの自動表示")
-                    }.tint(.green)
-                } header: {
-                    Text("キーボード")
-                } footer: {
-                    Text("検索画面が表示された時に、検索フォームに自動でフォーカスします。")
-                }
+                FocusControlSection(isOn: vm.$settingAutoFocus)
+//                }
                 ///
                 ///
                 /// 検索ボタンセクション
