@@ -11,7 +11,7 @@ struct SearchDataForSafariView: Identifiable {
     }
 }
 
-final class Searcher {
+final class SearchExecuter {
     @AppStorage("openInSafariView") var openInSafariView = true
     var searchDataForSafariView: SearchDataForSafariView? = nil
 
@@ -38,7 +38,7 @@ final class Searcher {
 
 
 // プラットフォームごとの検索処理。現在ではGoogle、Instagramのみが少し処理が異なる。
-extension Searcher {
+extension SearchExecuter {
     // Google検索
     private func searchOnGoogle(_ userInput: String) throws {
         // 空文字はエラーを投げる

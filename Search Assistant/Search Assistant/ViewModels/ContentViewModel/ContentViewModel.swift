@@ -68,7 +68,7 @@ final class ContentViewModel: ContentViewModelProtocol {
     /// 【Search Executer】
     ///
     /// 検索を行うためのクラス
-    var searcher = Searcher()
+    var searcher = SearchExecuter()
     /// ユーザー入力とプラットフォームを元に検索を実行し、履歴に追加する
     func search(_ userInput: String, on platform: SASerchPlatform) {
         do {
