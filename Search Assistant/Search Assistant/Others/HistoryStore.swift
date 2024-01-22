@@ -16,7 +16,7 @@ final class HistoryStore {
     }
 
     // 履歴を追加
-    func add(userInput: String, platform: SASerchPlatform) {
+    func append(userInput: String, platform: SASerchPlatform) {
         let history = SASerachHistory(userInput: userInput, platform: platform)
         historys.insert(history, at: 0)
     }
