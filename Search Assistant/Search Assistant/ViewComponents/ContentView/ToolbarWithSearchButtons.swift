@@ -29,21 +29,21 @@ fileprivate struct SearchButtonsForToolbar: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     ForEach(SASerchPlatform.allCases, id: \.self) { platform in
-                        if vm.keyboardToolbarButtons.validButtons.contains(platform) {
+                        if vm.keyboardToolbarValidButtons.contains(platform) {
                             Button(platform.rawValue) {
                                 vm.search(vm.userInput, on: platform)
                             }
-                            .id(platform.rawValue)
                         }
                     }
                 }
             }
             .onChange(of: scenePhase) { newScenePhase in
                 guard newScenePhase == .active,
-                      vm.keyboardToolbarButtons.validButtons.isEmpty == false
+                      vm.keyboardToolbarValidButtons.isEmpty == false
                 else { return }
-                for platform in SASerchPlatform.allCases where
-                vm.keyboardToolbarButtons.validButtons.contains(platform) {
+
+                for platform in SASerchPlatform.allCases
+                where vm.keyboardToolbarValidButtons.contains(platform) {
                     reader.scrollTo(platform.rawValue)
                     return
                 }

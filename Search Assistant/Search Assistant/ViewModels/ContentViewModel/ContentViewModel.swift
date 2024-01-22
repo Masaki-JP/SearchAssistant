@@ -2,45 +2,74 @@ import SwiftUI
 
 @MainActor
 final class ContentViewModel: ContentViewModelProtocol {
-    init() {
-        historyStore.$historys
-            .receive(on: DispatchQueue.main)
-            .assign(to: &self.$historys)
+    ///
+    ///
+    ///
+    ///
+    ///
+    /// 【Search History】
+    ///
+    @Published private var _historys: [SASerachHistory] = []
+    var historys: [HistoryInfo] {
+        self._historys.map { history in
+            HistoryInfo(
+                userInput: history.userInput,
+                platform: history.platform,
+                dateString: self.dateFormatter.string(from: history.date),
+                id: history.id
+            )
+        }
     }
-    // SettingsViewで使用
-    @AppStorage("autoFocus") private(set) var settingAutoFocus = true
-    @AppStorage("searchButton_Left") private(set) var settingLeftSearchButton = false
-    @Published var keyboardToolbarButtons = KeyboardToolbarButtonsModel()
-    // ビュープロパティ
-    @Published var userInput = ""
-    @Published var isPresentedSettingView = false
-    @Published var isShowInstagramErrorAlert = false
-    @Published var isShowPromptToConfirmDeletionOFAllHistorys = false
 
-    // 検索機能
+    struct HistoryInfo: Identifiable {
+        let userInput: String
+        let platform: SASerchPlatform
+        let dateString: String
+        let id: UUID
+    }
+
+    private let historyStore = HistoryStore.shared
+
+    private func appendHistory(userInput: String, platform: SASerchPlatform) {
+        historyStore.append(userInput: userInput, platform: platform)
+    }
+
+    func removeHistory(atOffsets indexSet: IndexSet) {
+        historyStore.remove(atOffsets: indexSet)
+    }
+
+    func removeAllHistorys() {
+        historyStore.removeAll()
+    }
+    ///
+    ///
+    ///
+    ///
+    ///
+    /// 【Search Suggestion】
+    ///
+    @Published private(set) var suggestions: [String]? = []
+    private let suggestionFetcher = SuggestionFetcher.shared
+
+    func getSuggestion(from userInput: String) async {
+        do {
+            try await suggestions = suggestionFetcher.fetch(from: userInput)
+        } catch {
+            suggestions = nil
+        }
+    }
+    ///
+    ///
+    ///
+    ///
+    ///
+    /// 【Search Executer】
+    ///
     var searcher = Searcher()
-
-    // 検索候補
-    let suggestionFetcher = SuggestionFetcher.shared
-    @Published var suggestions: [String]? = []
-
-    // 履歴管理
-    let historyStore = HistoryStore.shared
-    @Published var historys: [SASerachHistory] = []
-    // 日付管理
-    private let dateFormatter = SADateFormatter.shared
-    func getDateString(from date: Date) -> String {
-        let dateString = dateFormatter.string(from: date)
-        return dateString
-    }
-}
-
-extension ContentViewModel {
-    // With Searcher
     func search(_ userInput: String, on platform: SASerchPlatform) {
         do {
             try searcher.Search(userInput, on: platform)
-            addHistory(userInput: userInput, platform: platform)
+            appendHistory(userInput: userInput, platform: platform)
             self.userInput.removeAll()
         } catch {
             switch error {
@@ -53,22 +82,71 @@ extension ContentViewModel {
             }
         }
     }
-    // With SuggestionStore
-    func getSuggestion(from userInput: String) async {
+    ///
+    ///
+    ///
+    ///
+    ///
+    /// 【Presentation】
+    ///
+    @Published var isPresentedSettingView = false
+    @Published var isShowInstagramErrorAlert = false
+    @Published var isShowPromptToConfirmDeletionOFAllHistorys = false
+    ///
+    ///
+    ///
+    ///
+    ///
+    /// 【Settings】
+    ///
+    @AppStorage(AppStorageKey.autoFocus)
+    private(set) var settingAutoFocus = true
+    @AppStorage(AppStorageKey.searchButton_Left)
+    private(set) var settingLeftSearchButton = false
+    ///
+    ///
+    ///
+    ///
+    ///
+    /// 【Setting: KeyboardToolbarValidButton】
+    ///
+    @Published private(set) var keyboardToolbarValidButtons: Set<SASerchPlatform>
+    private let keyboardToolbarValidButtonManager = UserDefaultsRepository<Set<SASerchPlatform>>(key: UserDefaultsKey.keyboardToolbarValidButtons)
+    func fetchKeyboardToolbarValidButtons() {
         do {
-            try await suggestions = suggestionFetcher.fetch(from: userInput)
+            keyboardToolbarValidButtons = try keyboardToolbarValidButtonManager.fetch()
         } catch {
-            suggestions = nil
+            reportError(error)
+            keyboardToolbarValidButtons = Set(SASerchPlatform.allCases)
         }
     }
-    // With HistoryStore
-    private func addHistory(userInput: String, platform: SASerchPlatform) {
-        historyStore.add(userInput: userInput, platform: platform)
-    }
-    func removeHistory(atOffsets indexSet: IndexSet) {
-        historyStore.remove(atOffsets: indexSet)
-    }
-    func removeAllHistorys() {
-        historyStore.removeAll()
+    ///
+    ///
+    ///
+    ///
+    ///
+    /// 【Others】
+    ///
+    @Published var userInput = ""
+    private let dateFormatter: DateFormatter
+    ///
+    ///
+    ///
+    /// 【Initializer】
+    ///
+    init() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy/MM/dd"
+        dateFormatter.calendar = Calendar.autoupdatingCurrent
+        self.dateFormatter = dateFormatter
+        do {
+            keyboardToolbarValidButtons = try keyboardToolbarValidButtonManager.fetch()
+        } catch {
+            reportError(error)
+            keyboardToolbarValidButtons = Set(SASerchPlatform.allCases)
+        }
+        historyStore.$historys
+            .receive(on: DispatchQueue.main)
+            .assign(to: &self.$_historys)
     }
 }

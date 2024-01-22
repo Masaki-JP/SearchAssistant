@@ -95,10 +95,15 @@ struct ContentView: View {
         ///
         /// [Presentation]
         /// `SettingsView`の表示を行う。
-        .sheet(isPresented: $vm.isPresentedSettingView) {
-            SettingView(vm: vm)
-                .preferredColorScheme(colorScheme)
-        }
+        .sheet(
+            isPresented: $vm.isPresentedSettingView,
+            onDismiss: {
+                vm.fetchKeyboardToolbarValidButtons()
+            },
+            content: {
+                SettingView(contentVM: vm)
+                    .preferredColorScheme(colorScheme)
+            })
         ///
         ///
         ///

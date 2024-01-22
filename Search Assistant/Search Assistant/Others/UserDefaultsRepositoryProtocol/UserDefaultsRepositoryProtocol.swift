@@ -1,3 +1,3 @@
 import Foundation
 
-protocol UserDefaultsRepositoryProtocol: RepositoryProtocol where ItemType: Codable {}
+protocol UserDefaultsRepositoryProtocol: RepositoryProtocol where Object: Codable {}

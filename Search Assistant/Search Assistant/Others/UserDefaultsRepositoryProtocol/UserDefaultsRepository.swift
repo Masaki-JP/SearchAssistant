@@ -1,10 +1,10 @@
 import Foundation
 
-final class UserDefaultsRepository<Item: Codable>: UserDefaultsRepositoryProtocol {
-    private let userDefaultsKey: String
+final class UserDefaultsRepository<Object: Codable>: UserDefaultsRepositoryProtocol {
+    private let userDefaultsKey: UserDefaultsKey
 
-    init(userDefaultsKey: String) {
-        self.userDefaultsKey = userDefaultsKey
+    init(key: UserDefaultsKey) {
+        self.userDefaultsKey = key
     }
 
     enum UserDefaultsRepositoryError: Error {
@@ -13,21 +13,21 @@ final class UserDefaultsRepository<Item: Codable>: UserDefaultsRepositoryProtoco
         case encodingError
     }
 
-    func save(_ items: [Item]) throws {
+    func save(_ object: Object) throws {
         do {
-            let encodedData = try JSONEncoder().encode(items)
-            UserDefaults.standard.set(encodedData, forKey: userDefaultsKey)
+            let encodedData = try JSONEncoder().encode(object)
+            UserDefaults.standard.set(encodedData, forKey: userDefaultsKey.string)
         } catch {
             reportError(error)
             throw UserDefaultsRepositoryError.encodingError
         }
     }
 
-    func fetch() throws -> [Item] {
-        guard let itemsData = UserDefaults.standard.data(forKey: userDefaultsKey)
+    func fetch() throws -> Object {
+        guard let itemsData = UserDefaults.standard.data(forKey: userDefaultsKey.string)
         else { throw UserDefaultsRepositoryError.dataNotFound }
         do {
-            let items = try JSONDecoder().decode([Item].self, from: itemsData)
+            let items = try JSONDecoder().decode(Object.self, from: itemsData)
             return items
         } catch {
             reportError(error)

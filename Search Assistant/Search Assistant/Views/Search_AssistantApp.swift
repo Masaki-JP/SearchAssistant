@@ -18,8 +18,9 @@ struct Search_AssistantApp: App {
             }
             .preferredColorScheme({
                 return switch self.appStorageColorScheme {
-                case "Dark": .dark
-                case "Light": .light
+                case SAColorScheme.dark.rawValue: .dark
+                case SAColorScheme.light.rawValue: .light
+                case SAColorScheme.system.rawValue: .none
                 default: .none
                 }
             }())
