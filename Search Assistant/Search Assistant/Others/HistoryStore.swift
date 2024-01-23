@@ -1,7 +1,7 @@
 import SwiftUI
 
 final class HistoryStore {
-    private let userDefaultsKey = "historys"
+    private let userDefaultsKey = UserDefaultsKey.historys.string
     @Published var historys: [SASerachHistory] {
         didSet {
             saveHistorysToUserDefaults()
