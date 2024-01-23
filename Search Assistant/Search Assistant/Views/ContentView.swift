@@ -16,7 +16,10 @@ struct ContentView: View {
             if vm.userInput.isEmpty {
                 HistoryList(vm: vm)
             } else {
-                SuggestionList(vm: vm)
+                SuggestionList(
+                    suggestions: vm.suggestions,
+                    action: vm.search(_:on:)
+                )
             }
         }
         .overlay(
