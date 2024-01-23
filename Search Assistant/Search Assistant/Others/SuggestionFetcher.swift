@@ -50,7 +50,7 @@ final class SuggestionFetcher {
         let url = createURL(from: userInput)
         let (data, _) = try await URLSession.shared.data(from: url)
         let xmlString = String(data: data, encoding: .shiftJIS)!
-        let suggestions = convertXMLStringToArray(xmlString: xmlString)
+        let suggestions = convertXMLStringToStringArray(xmlString)
         return suggestions
     }
 
@@ -69,7 +69,7 @@ final class SuggestionFetcher {
     ///
     /// - Parameter xmlString: 変換するXML形式の文字列
     /// - Returns: 抽出された提案の文字列配列
-    private func convertXMLStringToArray(xmlString: String) -> [String] {
+    private func convertXMLStringToStringArray(_ xmlString: String) -> [String] {
         var suggestions: [String] = .init()
         let unfinishedXmlElements = xmlString.components(separatedBy: "<CompleteSuggestion><suggestion data=\"")
         for (index, element) in xmlString.components(separatedBy: "<CompleteSuggestion><suggestion data=\"").enumerated() {
