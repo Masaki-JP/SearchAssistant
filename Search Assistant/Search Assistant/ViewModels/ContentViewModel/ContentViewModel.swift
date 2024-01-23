@@ -67,33 +67,14 @@ final class ContentViewModel: ContentViewModelProtocol {
     ///
     /// 【Search Executer】
     ///
-//    /// 検索を行うためのクラス
-//    var searcher = SearchExecuter()
-//    /// ユーザー入力とプラットフォームを元に検索を実行し、履歴に追加する
-//    func search(_ userInput: String, on platform: SASerchPlatform) {
-//        do {
-//            try searcher.Search(userInput, on: platform)
-//            appendHistory(userInput: userInput, platform: platform)
-//            self.userInput.removeAll()
-//        } catch {
-//            switch error {
-//            case SearchExecuter.SearchExecuterError.userInputContainsWhitespaceOnInstagramSearch:
-//                isShowInstagramErrorAlert = true
-//            default:
-//                reportError(error)
-//            }
-//        }
-//    }
-
-
-    @AppStorage("openInSafariView") var openInSafariView = true
-    var safariViewURL: SafariViewURL? = nil
-
+    /// `SafariView`を表示する際にトリガーとなるアイテム
     struct SafariViewURL: Identifiable {
         let url: URL
         let id = UUID()
     }
+    /// 検索用URLを作成するクラス
     private let searchURLCreater = SearchURLCreater()
+    /// ユーザー入力とプラットフォームを受け取り、検索を行う関数
     func search(_ userInput: String, on platform: SASerchPlatform) {
         do {
             let url = try searchURLCreater.create(userInput, searchPlatform: platform)
@@ -123,12 +104,14 @@ final class ContentViewModel: ContentViewModelProtocol {
     ///
     /// 【Presentation】
     ///
-    /// 設定画面の表示状態を管理する変数
+    /// `SettingView`の表示状態を管理する変数
     @Published var isPresentedSettingView = false
     /// インスタグラムエラーアラートの表示状態を管理する変数
     @Published var isShowInstagramErrorAlert = false
     /// 全履歴削除の確認を行うプロンプトの表示状態を管理する変数
     @Published var isShowPromptToConfirmDeletionOFAllHistorys = false
+    /// `SafariView`を表示する際にトリガーとなるアイテム
+    var safariViewURL: SafariViewURL? = nil
     ///
     ///
     ///
@@ -142,6 +125,8 @@ final class ContentViewModel: ContentViewModelProtocol {
     /// 検索ボタンの位置の設定を保持する変数
     @AppStorage(AppStorageKey.searchButton_Left)
     private(set) var settingLeftSearchButton = false
+    /// 検索結果を`SafariView`で開くか否かの設定を保持する変数
+    @AppStorage("openInSafariView") var openInSafariView = true
     ///
     ///
     ///

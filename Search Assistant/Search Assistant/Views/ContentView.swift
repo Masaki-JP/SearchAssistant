@@ -90,10 +90,6 @@ struct ContentView: View {
             SafariView(item.url)
                 .ignoresSafeArea()
         }
-//        .fullScreenCover(item: $vm.searcher.safariViewURL) { data in
-//            SafariView(data.url)
-//                .ignoresSafeArea()
-//        }
         ///
         ///
         ///
