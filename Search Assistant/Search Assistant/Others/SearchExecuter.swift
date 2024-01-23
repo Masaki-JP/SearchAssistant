@@ -1,29 +1,51 @@
 import SwiftUI
 
-struct SearchDataForSafariView: Identifiable {
-    let id = UUID()
-    let url: URL
-
-    init(_ userInput: String) {
-        let query = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        let url = URL(string: SASerchPlatform.google.prefixURL + query)!
-        self.url = url
-    }
-}
-
 final class SearchExecuter {
     @AppStorage("openInSafariView") var openInSafariView = true
     var searchDataForSafariView: SearchDataForSafariView? = nil
+    ///
+    ///
+    ///
+    ///
+    ///
+    ///
+    struct SearchDataForSafariView: Identifiable {
+        let url: URL
+        let id: UUID
 
-    // 外部から呼ばれるのはこのメソッドのみ。プラットフォーム別の検索処理を行う。
+        init(_ userInput: String) {
+            let query = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+            let url = URL(string: SASerchPlatform.google.prefixURL + query)!
+            self.url = url
+            self.id = UUID()
+        }
+    }
+    ///
+    ///
+    ///
+    ///
+    enum SearchExecuterError: Error {
+        case noUserInput
+        case cannotOpenURL
+        case userInputPercentEncodingFailure
+        case creatingURLFailure
+        case userInputContainsWhitespaceOnInstagramSearch
+    }
+
+    struct SearchError: Error {}
+    ///
+    ///
+    ///
+    ///
+    ///
+    /// 外部に提供するプラットフォーム別の検索を行う関数
     func Search(_ userInput: String, on platform: SASerchPlatform) throws {
         switch platform {
         case .google where openInSafariView == true:
             searchDataForSafariView = .init(userInput)
         case .google where openInSafariView == false:
             try searchOnGoogle(userInput)
-        case .google:
-            fatalError()
+        case .google: fatalError()
         case .twitter: try searchOnTwitter(userInput)
         case .instagram: try searchOnInstagram(userInput)
         case .amazon: try searchOnAmazon(userInput)
@@ -34,21 +56,20 @@ final class SearchExecuter {
         case .paypayFleaMarket: try searchOnPayPayFleaMarket(userInput)
         }
     }
-}
-
-
-// プラットフォームごとの検索処理。現在ではGoogle、Instagramのみが少し処理が異なる。
-extension SearchExecuter {
-    // Google検索
+    ///
+    ///
+    ///
+    ///
+    ///
+    /// 以下はプラットフォーム別の検索を行う関数
+    /// 現在ではGoogleとInstagramが特有の処理をもつ
+    ///
+    /// Google検索を行う関数
     private func searchOnGoogle(_ userInput: String) throws {
-        // 空文字はエラーを投げる
-        guard !userInput.isEmpty else { throw HumanError.noUserInput }
-
+        guard !userInput.isEmpty else { throw SearchExecuterError.noUserInput }
         if let url = URL(string: userInput), UIApplication.shared.canOpenURL(url) {
-            // URLを開く
             UIApplication.shared.open(url)
         } else {
-            // 通常の検索
             let encodedWord = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
             guard let encodedWord = encodedWord,
                   let url = URL(string: SASerchPlatform.google.prefixURL + encodedWord)
@@ -56,25 +77,22 @@ extension SearchExecuter {
             UIApplication.shared.open(url)
         }
     }
-    // Twitter検索
+    /// Twitter検索を行う関数
     private func searchOnTwitter(_ userInput: String) throws {
-        // 空文字でないことを確認
-        guard !userInput.isEmpty else { throw HumanError.noUserInput }
-        // Twitter検索用URLを作成
+        guard !userInput.isEmpty else { throw SearchExecuterError.noUserInput }
         guard let encodedWord = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: SASerchPlatform.twitter.prefixURL + encodedWord)
         else { throw SearchError() }
-        // 作成したURLを開く
         UIApplication.shared.open(url)
     }
-    // Instagram検索
+    /// Instagram検索を行う関数
     private func searchOnInstagram(_ userInput: String) throws {
         // スペースが含まれていないことを確認（Instagram特有）
         guard !userInput.contains(" ") && !userInput.contains("　") else {
-            throw HumanError.whiteSpace
+            throw SearchExecuterError.userInputContainsWhitespaceOnInstagramSearch
         }
         // 空文字でないことを確認
-        guard !userInput.isEmpty else { throw HumanError.noUserInput }
+        guard !userInput.isEmpty else { throw SearchExecuterError.noUserInput }
         // Instagram検索用URLを作成
         guard let encodedWord = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: SASerchPlatform.instagram.prefixURL + encodedWord)
@@ -82,70 +100,52 @@ extension SearchExecuter {
         // 作成したURLを開く
         UIApplication.shared.open(url)
     }
-    // Amazon検索
+    /// Amazon検索を行う関数
     private func searchOnAmazon(_ userInput: String) throws {
-        // 空文字でないことを確認
-        guard !userInput.isEmpty else { throw HumanError.noUserInput }
-        // Amazon検索用URLを作成
+        guard !userInput.isEmpty else { throw SearchExecuterError.noUserInput }
         guard let encodedWord = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: SASerchPlatform.amazon.prefixURL + encodedWord)
         else { throw SearchError() }
-        // 作成したURLを開く
         UIApplication.shared.open(url)
     }
-    // YouTube検索
+    /// YouTube検索を行う関数
     private func searchOnYouTube(_ userInput: String) throws {
-        // 空文字でないことを確認
-        guard !userInput.isEmpty else { throw HumanError.noUserInput }
-        // YouTube検索用URLを作成
+        guard !userInput.isEmpty else { throw SearchExecuterError.noUserInput }
         guard let encodedWord = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: SASerchPlatform.youtube.prefixURL + encodedWord)
         else { throw SearchError() }
-        // 作成したURLを開く
         UIApplication.shared.open(url)
     }
-    // Facebook検索
+    /// Facebook検索を行う関数
     private func searchOnFacebook(_ userInput: String) throws {
-        // 空文字でないことを確認
-        guard !userInput.isEmpty else { throw HumanError.noUserInput }
-        // Facebook検索用URLを作成
+        guard !userInput.isEmpty else { throw SearchExecuterError.noUserInput }
         guard let encodedWord = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: SASerchPlatform.facebook.prefixURL + encodedWord)
         else { throw SearchError() }
-        // 作成したURLを開く
         UIApplication.shared.open(url)
     }
-    // メルカリ検索
+    /// メルカリ検索を行う関数
     private func searchOnMercari(_ userInput: String) throws {
-        // 空文字でないことを確認
-        guard !userInput.isEmpty else { throw HumanError.noUserInput }
-        // メルカリ検索用URLを作成
+        guard !userInput.isEmpty else { throw SearchExecuterError.noUserInput }
         guard let encodedWord = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: SASerchPlatform.mercari.prefixURL + encodedWord)
         else { throw SearchError() }
-        // 作成したURLを開く
         UIApplication.shared.open(url)
     }
-    // ラクマ検索
+    /// ラクマ検索を行う関数
     private func searchOnRakuma(_ userInput: String) throws {
-        // 空文字でないことを確認
-        guard !userInput.isEmpty else { throw HumanError.noUserInput }
-        // ラクマ検索用URLを作成
+        guard !userInput.isEmpty else { throw SearchExecuterError.noUserInput }
         guard let encodedWord = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: SASerchPlatform.rakuma.prefixURL + encodedWord)
         else { throw SearchError() }
-        // 作成したURLを開く
         UIApplication.shared.open(url)
     }
-    // PayPayフリマ検索
+    /// PayPayフリマ検索を行う関数
     private func searchOnPayPayFleaMarket(_ userInput: String) throws {
-        // 空文字でないことを確認
-        guard !userInput.isEmpty else { throw HumanError.noUserInput }
-        // PayPayフリマ検索用URLを作成
+        guard !userInput.isEmpty else { throw SearchExecuterError.noUserInput }
         guard let encodedWord = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: SASerchPlatform.paypayFleaMarket.prefixURL + encodedWord)
         else { throw SearchError() }
-        // 作成したURLを開く
         UIApplication.shared.open(url)
     }
 }
