@@ -56,7 +56,7 @@ struct HistoryList<VM>: View where VM: ViewModelForHistoryList {
 struct SearchHistoryButton: View {
     let history: ContentViewModel.HistoryInfo
     let dateString: String
-    let action: () -> Void
+    let action: @MainActor () -> Void
 
     var body: some View {
         Button(action: {
@@ -86,10 +86,10 @@ struct SearchHistoryButton: View {
 
 #Preview {
     TabView {
-        //        // 検索履歴がある場合
-        //        HistoryList(vm: MockViewModel1())
-        //        // 検索履歴がない場合
-        //        HistoryList(vm: MockViewModel2())
+        // 検索履歴がある場合
+        HistoryList(vm: MockViewModel1())
+        // 検索履歴がない場合
+        HistoryList(vm: MockViewModel2())
         // 実際のContentViewModel
         HistoryList(vm: ContentViewModel())
     }
@@ -97,59 +97,60 @@ struct SearchHistoryButton: View {
     .ignoresSafeArea()
 }
 
-//fileprivate class MockViewModel1: ViewModelForHistoryList {
-//    var historys: [SASerachHistory] = [
-//        .init(userInput: "iPhone 15 Pro", platform: .google),
-//        .init(userInput: "iPad Pro", platform: .twitter),
-//        .init(userInput: "Studio Display", platform: .instagram),
-//        .init(userInput: "AirPods", platform: .mercari),
-//        .init(userInput: "iMac", platform: .amazon),
-//        .init(userInput: "Apple Pencil", platform: .youtube),
-//        .init(userInput: "Macbook Air", platform: .facebook),
-//        .init(userInput: "Xcode", platform: .google),
-//        .init(userInput: "Apple Watch", platform: .twitter),
-//        .init(userInput: "AirPods", platform: .rakuma),
-//        .init(userInput: "iPod touch", platform: .instagram),
-//        .init(userInput: "Apple Vision Pro", platform: .amazon),
-//        .init(userInput: "Safari", platform: .youtube),
-//        .init(userInput: "Tim Cook", platform: .facebook),
-//        .init(userInput: "iPhone SE", platform: .google),
-//        .init(userInput: "Apple Store", platform: .amazon),
-//        .init(userInput: "Steve Jobs", platform: .paypayFleaMarket),
-//        .init(userInput: "Apple Watch Ultra", platform: .google),
-//        .init(userInput: "iCloud", platform: .amazon),
-//        .init(userInput: "Apple Music", platform: .google),
-//    ]
-//
-//    func search(_ userInput: String, on: SASerchPlatform) {
-//        print("Called search function.")
-//    }
-//
-//    func getDateString(from: Date) -> String {
-//        return "20xx/xx/xx"
-//    }
-//
-//    func removeHistory(atOffsets: IndexSet) {
-//        print("Called removeHistory function.")
-//    }
-//
-//    var isShowPromptToConfirmDeletionOFAllHistorys: Bool = false
-//}
-//
-//fileprivate class MockViewModel2: ViewModelForHistoryList {
-//    var historys: [SASerachHistory] = []
-//
-//    func search(_ userInput: String, on: SASerchPlatform) {
-//        print("Called search function.")
-//    }
-//
-//    func getDateString(from: Date) -> String {
-//        return "20xx/xx/xx"
-//    }
-//
-//    func removeHistory(atOffsets: IndexSet) {
-//        print("Called removeHistory function.")
-//    }
-//
-//    var isShowPromptToConfirmDeletionOFAllHistorys: Bool = false
-//}
+fileprivate class MockViewModel1: ViewModelForHistoryList {
+    var historys: [ContentViewModel.HistoryInfo] = [
+        .init(userInput: "iPhone 15 Pro", platform: .google, dateString: "2022/01/01", id: UUID()),
+        .init(userInput: "iPad Pro", platform: .twitter, dateString: "2022/02/01", id: UUID()),
+        .init(userInput: "Studio Display", platform: .instagram, dateString: "2022/03/01", id: UUID()),
+        .init(userInput: "AirPods", platform: .mercari, dateString: "2022/04/01", id: UUID()),
+        .init(userInput: "iMac", platform: .amazon, dateString: "2022/05/01", id: UUID()),
+        .init(userInput: "Apple Pencil", platform: .youtube, dateString: "2022/06/01", id: UUID()),
+        .init(userInput: "Macbook Air", platform: .facebook, dateString: "2022/07/01", id: UUID()),
+        .init(userInput: "Xcode", platform: .google, dateString: "2022/08/01", id: UUID()),
+        .init(userInput: "Apple Watch", platform: .twitter, dateString: "2022/09/01", id: UUID()),
+        .init(userInput: "AirPods", platform: .rakuma, dateString: "2022/10/01", id: UUID()),
+        .init(userInput: "iPod touch", platform: .instagram, dateString: "2022/11/01", id: UUID()),
+        .init(userInput: "Apple Vision Pro", platform: .amazon, dateString: "2022/12/01", id: UUID()),
+        .init(userInput: "Safari", platform: .youtube, dateString: "2023/01/01", id: UUID()),
+        .init(userInput: "Tim Cook", platform: .facebook, dateString: "2023/02/01", id: UUID()),
+        .init(userInput: "iPhone SE", platform: .google, dateString: "2023/03/01", id: UUID()),
+        .init(userInput: "Apple Store", platform: .amazon, dateString: "2023/04/01", id: UUID()),
+        .init(userInput: "Steve Jobs", platform: .paypayFleaMarket, dateString: "2023/05/01", id: UUID()),
+        .init(userInput: "Apple Watch Ultra", platform: .google, dateString: "2023/06/01", id: UUID()),
+        .init(userInput: "iCloud", platform: .amazon, dateString: "2023/07/01", id: UUID()),
+        .init(userInput: "Apple Music", platform: .google, dateString: "2023/08/01", id: UUID()),
+    ]
+
+
+    func search(_ userInput: String, on: SASerchPlatform) {
+        print("Called search function.")
+    }
+
+    func getDateString(from: Date) -> String {
+        return "20xx/xx/xx"
+    }
+
+    func removeHistory(atOffsets: IndexSet) {
+        print("Called removeHistory function.")
+    }
+
+    var isShowPromptToConfirmDeletionOFAllHistorys: Bool = false
+}
+
+fileprivate class MockViewModel2: ViewModelForHistoryList {
+    var historys: [ContentViewModel.HistoryInfo] = []
+
+    func search(_ userInput: String, on: SASerchPlatform) {
+        print("Called search function.")
+    }
+
+    func getDateString(from: Date) -> String {
+        return "20xx/xx/xx"
+    }
+
+    func removeHistory(atOffsets: IndexSet) {
+        print("Called removeHistory function.")
+    }
+
+    var isShowPromptToConfirmDeletionOFAllHistorys: Bool = false
+}
