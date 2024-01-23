@@ -93,7 +93,7 @@ final class ContentViewModel: ContentViewModelProtocol {
     ///
     /// 【Presentation】
     ///
-    /// SettingViewの表示状態を管理する変数
+    /// 設定画面の表示状態を管理する変数
     @Published var isPresentedSettingView = false
     /// インスタグラムエラーアラートの表示状態を管理する変数
     @Published var isShowInstagramErrorAlert = false
