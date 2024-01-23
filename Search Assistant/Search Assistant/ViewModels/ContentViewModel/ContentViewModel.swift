@@ -157,7 +157,12 @@ final class ContentViewModel: ContentViewModelProtocol {
     /// テキストフィールドで用いるテキストを保持する変数
     @Published var userInput = ""
     /// 日付フォーマットが"yyyy/MM/dd"で設定されているDateFormatter
-    private let dateFormatter: DateFormatter
+    private let dateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy/MM/dd"
+        dateFormatter.calendar = Calendar.autoupdatingCurrent
+        return dateFormatter
+    }()
     ///
     ///
     ///
@@ -166,11 +171,6 @@ final class ContentViewModel: ContentViewModelProtocol {
     /// 【Initializer】
     ///
     init() {
-        /// 内部で使用するdateFormatter設定する
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy/MM/dd"
-        dateFormatter.calendar = Calendar.autoupdatingCurrent
-        self.dateFormatter = dateFormatter
         /// 保存されている有効化されているキーボードツールバーボタンを取得する
         /// 失敗時には全てのキーボードツールバーボタンを有効化する
         do {
