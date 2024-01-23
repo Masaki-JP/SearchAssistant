@@ -31,7 +31,6 @@ final class SearchExecuter {
             safariViewURL = .init(userInput)
         case .google where openInSafariView == false:
             try searchOnGoogle(userInput)
-        case .google: fatalError()
         case .instagram: try searchOnInstagram(userInput)
         default: try defaultSearch(userInput, on: platform)
         }
@@ -41,10 +40,10 @@ final class SearchExecuter {
     private func searchOnGoogle(_ userInput: String) throws {
         guard userInput.isEmpty == false
         else { throw SearchExecuterError.noUserInput }
-        if let url = URL(string: userInput) {
+
+        if let url = URL(string: userInput),
+           UIApplication.shared.canOpenURL(url) {
             // userInputがURLとして有効なケース
-            guard UIApplication.shared.canOpenURL(url)
-            else { throw SearchExecuterError.cannotOpenURL }
             UIApplication.shared.open(url)
         } else {
             // 通常のケース

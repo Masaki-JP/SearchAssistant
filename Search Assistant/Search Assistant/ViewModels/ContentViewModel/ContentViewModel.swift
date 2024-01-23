@@ -77,12 +77,10 @@ final class ContentViewModel: ContentViewModelProtocol {
             self.userInput.removeAll()
         } catch {
             switch error {
-            case SearchExecuter.SearchExecuterError.noUserInput:
-                break
             case SearchExecuter.SearchExecuterError.userInputContainsWhitespaceOnInstagramSearch:
                 isShowInstagramErrorAlert = true
             default:
-                fatalError()
+                reportError(error)
             }
         }
     }
