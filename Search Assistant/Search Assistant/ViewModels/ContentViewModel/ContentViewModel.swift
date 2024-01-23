@@ -67,19 +67,51 @@ final class ContentViewModel: ContentViewModelProtocol {
     ///
     /// 【Search Executer】
     ///
-    /// 検索を行うためのクラス
-    var searcher = SearchExecuter()
-    /// ユーザー入力とプラットフォームを元に検索を実行し、履歴に追加する
+//    /// 検索を行うためのクラス
+//    var searcher = SearchExecuter()
+//    /// ユーザー入力とプラットフォームを元に検索を実行し、履歴に追加する
+//    func search(_ userInput: String, on platform: SASerchPlatform) {
+//        do {
+//            try searcher.Search(userInput, on: platform)
+//            appendHistory(userInput: userInput, platform: platform)
+//            self.userInput.removeAll()
+//        } catch {
+//            switch error {
+//            case SearchExecuter.SearchExecuterError.userInputContainsWhitespaceOnInstagramSearch:
+//                isShowInstagramErrorAlert = true
+//            default:
+//                reportError(error)
+//            }
+//        }
+//    }
+
+
+    @AppStorage("openInSafariView") var openInSafariView = true
+    var safariViewURL: SafariViewURL? = nil
+
+    struct SafariViewURL: Identifiable {
+        let url: URL
+        let id = UUID()
+    }
+    private let searchURLCreater = SearchURLCreater()
     func search(_ userInput: String, on platform: SASerchPlatform) {
         do {
-            try searcher.Search(userInput, on: platform)
+            let url = try searchURLCreater.create(userInput, searchPlatform: platform)
+            switch openInSafariView {
+            case true:
+                safariViewURL = SafariViewURL(url: url)
+            case false:
+                UIApplication.shared.open(url)
+            }
             appendHistory(userInput: userInput, platform: platform)
             self.userInput.removeAll()
         } catch {
+            guard let error = error as? SearchURLCreater.SearchURLCreaterError
+            else { reportError(error); return; }
             switch error {
-            case SearchExecuter.SearchExecuterError.userInputContainsWhitespaceOnInstagramSearch:
+            case .inputContainsWhitespaceOnInstagramSearch:
                 isShowInstagramErrorAlert = true
-            default:
+            case .noInput, .inputPercentEncodingFailure, .creatingURLFailure, .cannotOpenURL:
                 reportError(error)
             }
         }

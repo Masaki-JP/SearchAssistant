@@ -66,7 +66,7 @@ struct ContentView: View {
                   vm.isPresentedSettingView == false,
                   vm.isShowInstagramErrorAlert == false,
                   vm.isShowPromptToConfirmDeletionOFAllHistorys == false,
-                  vm.searcher.safariViewURL == nil
+                  vm.safariViewURL == nil
             else { return }
             DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
                 isFocused = true
@@ -86,10 +86,14 @@ struct ContentView: View {
         ///
         /// [Presentation]
         /// フルスクリーンで`SafariView`の表示を行う。
-        .fullScreenCover(item: $vm.searcher.safariViewURL) { data in
-            SafariView(data.url)
+        .fullScreenCover(item: $vm.safariViewURL) { item in
+            SafariView(item.url)
                 .ignoresSafeArea()
         }
+//        .fullScreenCover(item: $vm.searcher.safariViewURL) { data in
+//            SafariView(data.url)
+//                .ignoresSafeArea()
+//        }
         ///
         ///
         ///
