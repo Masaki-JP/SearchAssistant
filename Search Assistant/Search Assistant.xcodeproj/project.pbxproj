@@ -19,7 +19,7 @@
 		4C08720A2ACC059E00033787 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C0872092ACC059E00033787 /* Assets.xcassets */; };
 		4C08720E2ACC059E00033787 /* SAWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4C0871FE2ACC059B00033787 /* SAWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4C0872442ACC14F400033787 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0872432ACC14F400033787 /* ContentViewModel.swift */; };
-		4C11893E2B5BD1400005F59A /* SAColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C11893D2B5BD1400005F59A /* SAColorScheme.swift */; };
+		4C11893E2B5BD1400005F59A /* ColorSchemeSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C11893D2B5BD1400005F59A /* ColorSchemeSetting.swift */; };
 		4C24C0AF2ACD2740000A604E /* SearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C24C0AE2ACD2740000A604E /* SearchButton.swift */; };
 		4C24C0B22ACD28A9000A604E /* ToolbarWithSearchButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C24C0B12ACD28A9000A604E /* ToolbarWithSearchButtons.swift */; };
 		4C24C0B42ACD2A5B000A604E /* SASerchPlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C24C0B32ACD2A5B000A604E /* SASerchPlatform.swift */; };
@@ -27,9 +27,7 @@
 		4C3A5FAB2B5CB97200766BC1 /* UserDefaultsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A5FAA2B5CB97200766BC1 /* UserDefaultsRepositoryProtocol.swift */; };
 		4C3A5FAD2B5CB9F600766BC1 /* UserDefaultsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A5FAC2B5CB9F600766BC1 /* UserDefaultsRepository.swift */; };
 		4C3A5FAF2B5CBA4200766BC1 /* InMemoryUserDefaultsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A5FAE2B5CBA4200766BC1 /* InMemoryUserDefaultsRepository.swift */; };
-		4C3A5FB22B5CBABD00766BC1 /* ContentViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A5FB12B5CBABD00766BC1 /* ContentViewModelProtocol.swift */; };
 		4C3A5FB42B5CBBDB00766BC1 /* MockContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A5FB32B5CBBDB00766BC1 /* MockContentViewModel.swift */; };
-		4C3A5FB72B5CBC3200766BC1 /* SettingViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A5FB62B5CBC3200766BC1 /* SettingViewModelProtocol.swift */; };
 		4C3A5FB92B5CBC5E00766BC1 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A5FB82B5CBC5E00766BC1 /* SettingViewModel.swift */; };
 		4C3A5FBB2B5CBC7200766BC1 /* MockSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A5FBA2B5CBC7200766BC1 /* MockSettingViewModel.swift */; };
 		4C42169A2AD2C844000AF20A /* HistoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4216992AD2C844000AF20A /* HistoryList.swift */; };
@@ -93,7 +91,7 @@
 		4C0872412ACC10C700033787 /* Development Rules */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Development Rules"; sourceTree = "<group>"; };
 		4C0872422ACC10D900033787 /* Development Notes */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Development Notes"; sourceTree = "<group>"; };
 		4C0872432ACC14F400033787 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
-		4C11893D2B5BD1400005F59A /* SAColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SAColorScheme.swift; sourceTree = "<group>"; };
+		4C11893D2B5BD1400005F59A /* ColorSchemeSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeSetting.swift; sourceTree = "<group>"; };
 		4C24C0AE2ACD2740000A604E /* SearchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchButton.swift; sourceTree = "<group>"; };
 		4C24C0B12ACD28A9000A604E /* ToolbarWithSearchButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarWithSearchButtons.swift; sourceTree = "<group>"; };
 		4C24C0B32ACD2A5B000A604E /* SASerchPlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SASerchPlatform.swift; sourceTree = "<group>"; };
@@ -101,9 +99,7 @@
 		4C3A5FAA2B5CB97200766BC1 /* UserDefaultsRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsRepositoryProtocol.swift; sourceTree = "<group>"; };
 		4C3A5FAC2B5CB9F600766BC1 /* UserDefaultsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsRepository.swift; sourceTree = "<group>"; };
 		4C3A5FAE2B5CBA4200766BC1 /* InMemoryUserDefaultsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryUserDefaultsRepository.swift; sourceTree = "<group>"; };
-		4C3A5FB12B5CBABD00766BC1 /* ContentViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModelProtocol.swift; sourceTree = "<group>"; };
 		4C3A5FB32B5CBBDB00766BC1 /* MockContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockContentViewModel.swift; sourceTree = "<group>"; };
-		4C3A5FB62B5CBC3200766BC1 /* SettingViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModelProtocol.swift; sourceTree = "<group>"; };
 		4C3A5FB82B5CBC5E00766BC1 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		4C3A5FBA2B5CBC7200766BC1 /* MockSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSettingViewModel.swift; sourceTree = "<group>"; };
 		4C4216992AD2C844000AF20A /* HistoryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryList.swift; sourceTree = "<group>"; };
@@ -177,6 +173,7 @@
 				4C3A5FBC2B5CBD8800766BC1 /* ViewComponents */,
 				4C906C1E2B37EC2500E1E50E /* ViewModels */,
 				4C24C0AA2ACD267D000A604E /* Models */,
+				4CD686C82B6101B700806515 /* Repository */,
 				4C24C0AB2ACD2683000A604E /* Others */,
 				4C0871F02ACC043E00033787 /* Assets.xcassets */,
 				4C0871F22ACC043E00033787 /* Preview Content */,
@@ -228,7 +225,6 @@
 			children = (
 				4C951F542B37BE9F0064A2F9 /* SASerachHistory.swift */,
 				4C24C0B32ACD2A5B000A604E /* SASerchPlatform.swift */,
-				4C11893D2B5BD1400005F59A /* SAColorScheme.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -236,11 +232,11 @@
 		4C24C0AB2ACD2683000A604E /* Others */ = {
 			isa = PBXGroup;
 			children = (
-				4CD686C82B6101B700806515 /* Repository */,
+				4C446F022AD4F6270023C4F1 /* ViewRouter.swift */,
 				4CFFF1E82B604223008E8CCD /* SearchURLCreater.swift */,
 				4C906C1C2B37E61400E1E50E /* SuggestionFetcher.swift */,
-				4C446F022AD4F6270023C4F1 /* ViewRouter.swift */,
 				4CD61B952B5D634300040FD2 /* AppStorageKey.swift */,
+				4C11893D2B5BD1400005F59A /* ColorSchemeSetting.swift */,
 			);
 			path = Others;
 			sourceTree = "<group>";
@@ -259,7 +255,6 @@
 		4C3A5FB02B5CBA7C00766BC1 /* ContentViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				4C3A5FB12B5CBABD00766BC1 /* ContentViewModelProtocol.swift */,
 				4C0872432ACC14F400033787 /* ContentViewModel.swift */,
 				4C3A5FB32B5CBBDB00766BC1 /* MockContentViewModel.swift */,
 			);
@@ -269,7 +264,6 @@
 		4C3A5FB52B5CBBE700766BC1 /* SettingViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				4C3A5FB62B5CBC3200766BC1 /* SettingViewModelProtocol.swift */,
 				4C3A5FB82B5CBC5E00766BC1 /* SettingViewModel.swift */,
 				4C3A5FBA2B5CBC7200766BC1 /* MockSettingViewModel.swift */,
 			);
@@ -449,8 +443,6 @@
 				4CD61B8A2B5D3F1300040FD2 /* UserDefaultsKey.swift in Sources */,
 				4C42169A2AD2C844000AF20A /* HistoryList.swift in Sources */,
 				4CD61B902B5D555400040FD2 /* ColorSchemeSection.swift in Sources */,
-				4C3A5FB22B5CBABD00766BC1 /* ContentViewModelProtocol.swift in Sources */,
-				4C3A5FB72B5CBC3200766BC1 /* SettingViewModelProtocol.swift in Sources */,
 				4C951F552B37BE9F0064A2F9 /* SASerachHistory.swift in Sources */,
 				4C3A5FAB2B5CB97200766BC1 /* UserDefaultsRepositoryProtocol.swift in Sources */,
 				4CD61B8C2B5D517200040FD2 /* FocusControlSection.swift in Sources */,
@@ -461,7 +453,7 @@
 				4C6AE3F62AD2A5B500863115 /* SearchTextField.swift in Sources */,
 				4C3A5FA82B5CB8E800766BC1 /* RepositoryProtocol.swift in Sources */,
 				4C3A5FB92B5CBC5E00766BC1 /* SettingViewModel.swift in Sources */,
-				4C11893E2B5BD1400005F59A /* SAColorScheme.swift in Sources */,
+				4C11893E2B5BD1400005F59A /* ColorSchemeSetting.swift in Sources */,
 				4C3A5FAF2B5CBA4200766BC1 /* InMemoryUserDefaultsRepository.swift in Sources */,
 				4C3A5FB42B5CBBDB00766BC1 /* MockContentViewModel.swift in Sources */,
 				4CD61B942B5D58B800040FD2 /* KeyboardToolbarSection.swift in Sources */,

@@ -4,7 +4,7 @@ import SwiftUI
 final class SettingViewModel: ObservableObject {
     @AppStorage(AppStorageKey.autoFocus) private(set) var settingAutoFocus = true
     @AppStorage(AppStorageKey.searchButton_Left) private(set) var settingLeftSearchButton = false
-    @AppStorage(AppStorageKey.colorScheme) private(set) var appStorageColorScheme = SAColorScheme.dark.rawValue
+    @AppStorage(AppStorageKey.colorScheme) private(set) var appStorageColorScheme = ColorSchemeSetting.dark.rawValue
     @AppStorage(AppStorageKey.openInSafariView) private(set) var openInSafariView = true
     @Published private(set) var keyboardToolbarValidButtons = Set(SASerchPlatform.allCases)
 

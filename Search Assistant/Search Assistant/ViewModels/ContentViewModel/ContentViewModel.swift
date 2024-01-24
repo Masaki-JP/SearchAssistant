@@ -1,7 +1,7 @@
 import SwiftUI
 
 @MainActor
-final class ContentViewModel: ContentViewModelProtocol {
+final class ContentViewModel: ObservableObject {
     ///
     ///
     ///

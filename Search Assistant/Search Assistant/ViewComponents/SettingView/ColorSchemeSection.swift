@@ -6,9 +6,9 @@ struct ColorSchemeSection: View {
     var body: some View {
         Section {
             Picker("外観モード", selection: $selection) {
-                Text("ライト").tag(SAColorScheme.light.rawValue)
-                Text("ダーク").tag(SAColorScheme.dark.rawValue)
-                Text("システム").tag(SAColorScheme.system.rawValue)
+                Text("ライト").tag(ColorSchemeSetting.light.rawValue)
+                Text("ダーク").tag(ColorSchemeSetting.dark.rawValue)
+                Text("システム").tag(ColorSchemeSetting.system.rawValue)
             }
         } header: {
             Text("外観モード")
@@ -20,6 +20,6 @@ struct ColorSchemeSection: View {
 
 #Preview {
     List {
-        ColorSchemeSection(selection: Binding.constant(SAColorScheme.system.rawValue))
+        ColorSchemeSection(selection: Binding.constant(ColorSchemeSetting.system.rawValue))
     }
 }

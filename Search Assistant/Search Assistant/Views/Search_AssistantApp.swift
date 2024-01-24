@@ -2,7 +2,7 @@ import SwiftUI
 
 @main
 struct Search_AssistantApp: App {
-    @AppStorage("colorScheme") private var appStorageColorScheme = SAColorScheme.dark.rawValue
+    @AppStorage("colorScheme") private var appStorageColorScheme = ColorSchemeSetting.dark.rawValue
     @StateObject private var viewRouter = ViewRouter.shared
     @StateObject private var contentViewModel = ContentViewModel()
 
@@ -18,9 +18,9 @@ struct Search_AssistantApp: App {
             }
             .preferredColorScheme({
                 return switch self.appStorageColorScheme {
-                case SAColorScheme.dark.rawValue: .dark
-                case SAColorScheme.light.rawValue: .light
-                case SAColorScheme.system.rawValue: .none
+                case ColorSchemeSetting.dark.rawValue: .dark
+                case ColorSchemeSetting.light.rawValue: .light
+                case ColorSchemeSetting.system.rawValue: .none
                 default: .none
                 }
             }())
