@@ -33,7 +33,7 @@ struct ContentView: View {
                 .bottomTrailing : .bottomLeading
         ) {
             if isFocused == false {
-                SearchButton { isFocused = true }
+                FocusTextFieldButton { isFocused = true }
                     .padding(
                         vm.settingLeftSearchButton == false ?
                             .trailing : .leading

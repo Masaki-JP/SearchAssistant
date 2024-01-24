@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct SearchButton: View {
+struct FocusTextFieldButton: View {
     private let diameter: CGFloat
     private let action: () -> Void
     
@@ -23,5 +23,5 @@ struct SearchButton: View {
 }
 
 #Preview {
-    SearchButton(action: {})
+    FocusTextFieldButton(action: {})
 }

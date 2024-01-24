@@ -20,7 +20,7 @@
 		4C08720E2ACC059E00033787 /* SAWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4C0871FE2ACC059B00033787 /* SAWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4C0872442ACC14F400033787 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0872432ACC14F400033787 /* ContentViewModel.swift */; };
 		4C11893E2B5BD1400005F59A /* ColorSchemeSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C11893D2B5BD1400005F59A /* ColorSchemeSetting.swift */; };
-		4C24C0AF2ACD2740000A604E /* SearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C24C0AE2ACD2740000A604E /* SearchButton.swift */; };
+		4C24C0AF2ACD2740000A604E /* FocusTextFieldButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C24C0AE2ACD2740000A604E /* FocusTextFieldButton.swift */; };
 		4C24C0B22ACD28A9000A604E /* ImplementationButtonsOnKeyboardToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C24C0B12ACD28A9000A604E /* ImplementationButtonsOnKeyboardToolbar.swift */; };
 		4C24C0B42ACD2A5B000A604E /* SerchPlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C24C0B32ACD2A5B000A604E /* SerchPlatform.swift */; };
 		4C3A5FA82B5CB8E800766BC1 /* RepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A5FA72B5CB8E800766BC1 /* RepositoryProtocol.swift */; };
@@ -92,7 +92,7 @@
 		4C0872422ACC10D900033787 /* Development Notes */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Development Notes"; sourceTree = "<group>"; };
 		4C0872432ACC14F400033787 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		4C11893D2B5BD1400005F59A /* ColorSchemeSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeSetting.swift; sourceTree = "<group>"; };
-		4C24C0AE2ACD2740000A604E /* SearchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchButton.swift; sourceTree = "<group>"; };
+		4C24C0AE2ACD2740000A604E /* FocusTextFieldButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTextFieldButton.swift; sourceTree = "<group>"; };
 		4C24C0B12ACD28A9000A604E /* ImplementationButtonsOnKeyboardToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplementationButtonsOnKeyboardToolbar.swift; sourceTree = "<group>"; };
 		4C24C0B32ACD2A5B000A604E /* SerchPlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerchPlatform.swift; sourceTree = "<group>"; };
 		4C3A5FA72B5CB8E800766BC1 /* RepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryProtocol.swift; sourceTree = "<group>"; };
@@ -286,7 +286,7 @@
 				4C4216992AD2C844000AF20A /* HistoryList.swift */,
 				4CD2FB2C2B47C4EF00778310 /* NoContentsView.swift */,
 				4C6AE3F52AD2A5B500863115 /* SearchTextField.swift */,
-				4C24C0AE2ACD2740000A604E /* SearchButton.swift */,
+				4C24C0AE2ACD2740000A604E /* FocusTextFieldButton.swift */,
 				4C24C0B12ACD28A9000A604E /* ImplementationButtonsOnKeyboardToolbar.swift */,
 				4C5F81022B59BE88003EE563 /* SafariView.swift */,
 			);
@@ -429,7 +429,7 @@
 				4CD61B962B5D634300040FD2 /* AppStorageKey.swift in Sources */,
 				4C906C1D2B37E61400E1E50E /* SuggestionFetcher.swift in Sources */,
 				4C24C0B42ACD2A5B000A604E /* SerchPlatform.swift in Sources */,
-				4C24C0AF2ACD2740000A604E /* SearchButton.swift in Sources */,
+				4C24C0AF2ACD2740000A604E /* FocusTextFieldButton.swift in Sources */,
 				4C3A5FAD2B5CB9F600766BC1 /* UserDefaultsRepository.swift in Sources */,
 				4C24C0B22ACD28A9000A604E /* ImplementationButtonsOnKeyboardToolbar.swift in Sources */,
 				4CFFF1E92B604223008E8CCD /* SearchURLCreater.swift in Sources */,
