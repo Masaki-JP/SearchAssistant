@@ -4,7 +4,10 @@ struct SuggestionList: View {
     private let suggestions: [String]?
     private let action: @MainActor (String, SASerchPlatform) -> Void
 
-    init(suggestions: [String]?, action: @escaping @MainActor (String, SASerchPlatform) -> Void) {
+    init(
+        suggestions: [String]?,
+        action: @escaping @MainActor (String, SASerchPlatform) -> Void
+    ) {
         self.suggestions = suggestions
         self.action = action
     }

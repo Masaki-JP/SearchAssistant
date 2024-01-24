@@ -4,9 +4,7 @@ import SafariServices
 struct SafariView: UIViewControllerRepresentable {
     private let url: URL
 
-    init(_ url: URL) {
-        self.url = url
-    }
+    init(_ url: URL) { self.url = url }
 
     func makeUIViewController(
         context: UIViewControllerRepresentableContext<SafariView>

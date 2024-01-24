@@ -122,11 +122,9 @@ final class ContentViewModel: ContentViewModelProtocol {
     /// 【Settings】
     ///
     /// キーボードの自動表示の設定を保持する変数
-    @AppStorage(AppStorageKey.autoFocus)
-    private(set) var settingAutoFocus = true
+    @AppStorage(AppStorageKey.autoFocus) private(set) var settingAutoFocus = true
     /// 検索ボタンの位置の設定を保持する変数
-    @AppStorage(AppStorageKey.searchButton_Left)
-    private(set) var settingLeftSearchButton = false
+    @AppStorage(AppStorageKey.searchButton_Left) private(set) var settingLeftSearchButton = false
     /// 検索結果を`SafariView`で開くか否かの設定を保持する変数
     @AppStorage("openInSafariView") var openInSafariView = true
     ///
