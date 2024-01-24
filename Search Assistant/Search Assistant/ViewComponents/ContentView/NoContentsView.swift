@@ -1,11 +1,15 @@
 import SwiftUI
 
 struct NoContentsView: View {
-    let title: String
-    let description: String?
-    let imageSystemName: String
+    private let title: String
+    private let description: String?
+    private let imageSystemName: String
 
-    init(title: String, description: String? = nil, imageSystemName: String) {
+    init(
+        title: String,
+        description: String? = nil,
+        imageSystemName: String
+    ) {
         self.title = title
         self.description = description
         self.imageSystemName = imageSystemName
