@@ -16,15 +16,15 @@ final class SettingViewModel: ObservableObject {
         fetchKeyboardToolbarValidButtons()
     }
 
-    private let keyboardToolbarValidButtonManager = UserDefaultsRepository<Set<SASerchPlatform>>(key: UserDefaultsKey.keyboardToolbarValidButtons)
+    private let keyboardToolbarValidButtonRepository = UserDefaultsRepository<Set<SASerchPlatform>>(key: UserDefaultsKey.keyboardToolbarValidButtons)
 
     private func saveKeyboardToolbarValidButton() throws {
-        try keyboardToolbarValidButtonManager.save(keyboardToolbarValidButtons)
+        try keyboardToolbarValidButtonRepository.save(keyboardToolbarValidButtons)
     }
 
     func fetchKeyboardToolbarValidButtons() {
         do {
-            keyboardToolbarValidButtons = try keyboardToolbarValidButtonManager.fetch()
+            keyboardToolbarValidButtons = try keyboardToolbarValidButtonRepository.fetch()
         } catch {
             reportError(error)
             keyboardToolbarValidButtons = Set(SASerchPlatform.allCases)
@@ -39,7 +39,7 @@ final class SettingViewModel: ObservableObject {
             keyboardToolbarValidButtons.insert(platform)
         }
         do {
-            try keyboardToolbarValidButtonManager.save(keyboardToolbarValidButtons)
+            try keyboardToolbarValidButtonRepository.save(keyboardToolbarValidButtons)
         } catch {
             reportError(error)
             keyboardToolbarValidButtons = preKeyboardToolbarValidButtons
