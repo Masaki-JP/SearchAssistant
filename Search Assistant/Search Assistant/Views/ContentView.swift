@@ -46,7 +46,7 @@ struct ContentView: View {
         /// [Toolbar]
         /// ツールバー検索ボタンの実装
         .modifier(
-            ToolbarWithSearchButtons(vm: vm, isFocused: _isFocused )
+            ImplementationButtonsOnKeyboardToolbar(vm: vm, isFocused: _isFocused )
         )
         ///
         ///
