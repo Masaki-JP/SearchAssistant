@@ -7,39 +7,42 @@ final class ContentViewModel: ContentViewModelProtocol {
     ///
     /// 【Search History】
     ///
-    /// ContentViewModel内部で保持する検索履歴
-    @Published private var _historys: [SASerachHistory] = []
-    /// 外部に公開する整形された検索履歴
-    var historys: [HistoryInfo] {
-        self._historys.map { history in
-            HistoryInfo(
-                userInput: history.userInput,
-                platform: history.platform,
-                dateString: self.dateFormatter.string(from: history.date),
-                id: history.id
-            )
+    /// - Important: 検索履歴の追加に失敗した場合は、そのまま処理を続行する。任意の検索履歴の削除、全ての検索履歴の削除を行う際は、処理前の状態を保持しておき、処理に失敗した場合に処理前の状態に戻す。
+    ///
+    /// 検索履歴
+    @Published private(set) var historys: [SASerachHistory] = []
+    /// 検索履歴リポジトリ
+    private let searchHistoryRepository = UserDefaultsRepository<[SASerachHistory]>(key: .searchHistorys)
+    /// 検索履歴を追加
+    private func appendHistory(userInput: String, platform: SASerchPlatform) {
+        do {
+            historys.insert(.init(userInput: userInput, platform: platform), at: 0)
+            try searchHistoryRepository.save(historys)
+        } catch {
+            reportError(error)
         }
     }
-    /// ContentViewに提供する検索履歴
-    struct HistoryInfo: Identifiable {
-        let userInput: String
-        let platform: SASerchPlatform
-        let dateString: String
-        let id: UUID
-    }
-    /// 検索履歴を保管するためのクラス
-    private let historyStore = HistoryStore.shared
-    /// 検索履歴を追加する
-    private func appendHistory(userInput: String, platform: SASerchPlatform) {
-        historyStore.append(userInput: userInput, platform: platform)
-    }
-    /// 特定の検索履歴を削除する
+    /// 任意の検索履歴を削除
     func removeHistory(atOffsets indexSet: IndexSet) {
-        historyStore.remove(atOffsets: indexSet)
+        let preHistorys = historys
+        do {
+            historys.remove(atOffsets: indexSet)
+            try searchHistoryRepository.save(historys)
+        } catch {
+            reportError(error)
+            historys = preHistorys
+        }
     }
-    /// 全ての検索履歴を削除する
+    /// 全ての検索履歴を削除
     func removeAllHistorys() {
-        historyStore.removeAll()
+        let preHistorys = historys
+        do {
+            historys.removeAll()
+            try searchHistoryRepository.save(historys)
+        } catch {
+            reportError(error)
+            historys = preHistorys
+        }
     }
     ///
     ///
@@ -69,8 +72,7 @@ final class ContentViewModel: ContentViewModelProtocol {
     ///
     /// `SafariView`を表示する際にトリガーとなるアイテム
     struct SafariViewURL: Identifiable {
-        let url: URL
-        let id = UUID()
+        let url: URL; let id = UUID();
     }
     /// 検索用URLを作成するクラス
     private let searchURLCreater = SearchURLCreater()
@@ -78,14 +80,14 @@ final class ContentViewModel: ContentViewModelProtocol {
     func search(_ userInput: String, on platform: SASerchPlatform) {
         do {
             let url = try searchURLCreater.create(userInput, searchPlatform: platform)
+            appendHistory(userInput: userInput, platform: platform)
+            self.userInput.removeAll()
             switch openInSafariView {
             case true:
                 safariViewURL = SafariViewURL(url: url)
             case false:
                 UIApplication.shared.open(url)
             }
-            appendHistory(userInput: userInput, platform: platform)
-            self.userInput.removeAll()
         } catch {
             guard let error = error as? SearchURLCreater.SearchURLCreaterError
             else { reportError(error); return; }
@@ -120,11 +122,9 @@ final class ContentViewModel: ContentViewModelProtocol {
     /// 【Settings】
     ///
     /// キーボードの自動表示の設定を保持する変数
-    @AppStorage(AppStorageKey.autoFocus)
-    private(set) var settingAutoFocus = true
+    @AppStorage(AppStorageKey.autoFocus) private(set) var settingAutoFocus = true
     /// 検索ボタンの位置の設定を保持する変数
-    @AppStorage(AppStorageKey.searchButton_Left)
-    private(set) var settingLeftSearchButton = false
+    @AppStorage(AppStorageKey.searchButton_Left) private(set) var settingLeftSearchButton = false
     /// 検索結果を`SafariView`で開くか否かの設定を保持する変数
     @AppStorage("openInSafariView") var openInSafariView = true
     ///
@@ -135,13 +135,13 @@ final class ContentViewModel: ContentViewModelProtocol {
     /// 【Setting: KeyboardToolbarValidButton】
     ///
     /// 有効化されているキーボードツールバーボタンを保持する変数
-    @Published private(set) var keyboardToolbarValidButtons: Set<SASerchPlatform>
+    @Published private(set) var keyboardToolbarValidButtons = Set(SASerchPlatform.allCases)
     /// キーボードツールバーボタンの有効無効を管理するクラス
-    private let keyboardToolbarValidButtonManager = UserDefaultsRepository<Set<SASerchPlatform>>(key: UserDefaultsKey.keyboardToolbarValidButtons)
+    private let keyboardToolbarValidButtonRepository = UserDefaultsRepository<Set<SASerchPlatform>>(key: UserDefaultsKey.keyboardToolbarValidButtons)
     /// 有効化されているキーボードツールバーボタンを取得する
     func fetchKeyboardToolbarValidButtons() {
         do {
-            keyboardToolbarValidButtons = try keyboardToolbarValidButtonManager.fetch()
+            keyboardToolbarValidButtons = try keyboardToolbarValidButtonRepository.fetch()
         } catch {
             reportError(error)
             keyboardToolbarValidButtons = Set(SASerchPlatform.allCases)
@@ -156,8 +156,6 @@ final class ContentViewModel: ContentViewModelProtocol {
     ///
     /// テキストフィールドで用いるテキストを保持する変数
     @Published var userInput = ""
-    /// 日付フォーマットが"yyyy/MM/dd"で設定されているDateFormatter
-    private let dateFormatter: DateFormatter
     ///
     ///
     ///
@@ -166,22 +164,14 @@ final class ContentViewModel: ContentViewModelProtocol {
     /// 【Initializer】
     ///
     init() {
-        /// 内部で使用するdateFormatter設定する
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy/MM/dd"
-        dateFormatter.calendar = Calendar.autoupdatingCurrent
-        self.dateFormatter = dateFormatter
-        /// 保存されている有効化されているキーボードツールバーボタンを取得する
-        /// 失敗時には全てのキーボードツールバーボタンを有効化する
+        /// 検索履歴の取得を行う
         do {
-            keyboardToolbarValidButtons = try keyboardToolbarValidButtonManager.fetch()
+            historys = try searchHistoryRepository.fetch()
         } catch {
             reportError(error)
-            keyboardToolbarValidButtons = Set(SASerchPlatform.allCases)
         }
-        /// historyStoreが保持するhistorysの変更を内部の_historys変数に伝播させる
-        historyStore.$historys
-            .receive(on: DispatchQueue.main)
-            .assign(to: &self.$_historys)
+        /// 保存されている有効化されているキーボードツールバーボタンを取得する
+        /// 失敗時には全てのキーボードツールバーボタンを有効化する
+        fetchKeyboardToolbarValidButtons()
     }
 }

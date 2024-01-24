@@ -5,7 +5,7 @@ struct ContentView: View {
     @ObservedObject private(set) var vm: ContentViewModel
     @FocusState private var isFocused: Bool
     @Environment(\.scenePhase) private var scenePhase
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    @Environment(\.colorScheme) private var colorScheme: ColorScheme
 
     var body: some View {
         VStack(spacing: 0) {
@@ -14,9 +14,17 @@ struct ContentView: View {
             Divider()
                 .padding(.top, 5)
             if vm.userInput.isEmpty {
-                HistoryList(vm: vm)
+                HistoryList(
+                    historys: vm.historys,
+                    searchAction: vm.search(_:on:),
+                    removeHistoryAction: vm.removeHistory(atOffsets:),
+                    isShowPromptToConfirmDeletionOfAllHistorys: $vm.isShowPromptToConfirmDeletionOFAllHistorys
+                )
             } else {
-                SuggestionList(vm: vm)
+                SuggestionList(
+                    suggestions: vm.suggestions,
+                    action: vm.search(_:on:)
+                )
             }
         }
         .overlay(
@@ -76,6 +84,15 @@ struct ContentView: View {
         ///
         ///
         /// [Observation]
+        /// キーボードツールバーボタンの構成が変更される可能性があるため、
+        /// `SettingView`を表示する際はキーボードを閉じる仕様とする。
+        .onChange(of: vm.isPresentedSettingView) { newValue in
+            if newValue == true { isFocused = false }
+        }
+        ///
+        ///
+        ///
+        /// [Observation]
         /// 入力時のSuggestionの取得
         .onChange(of: vm.userInput) { _ in
             guard vm.userInput.isEmpty == false else { return }
@@ -99,6 +116,8 @@ struct ContentView: View {
             isPresented: $vm.isPresentedSettingView,
             onDismiss: {
                 vm.fetchKeyboardToolbarValidButtons()
+                guard vm.settingAutoFocus else { return }
+                isFocused = true
             },
             content: {
                 SettingView(contentVM: vm)

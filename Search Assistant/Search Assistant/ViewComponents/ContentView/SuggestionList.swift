@@ -1,22 +1,25 @@
 import SwiftUI
 
-@MainActor
-protocol ViewModelForSuggestionList: ObservableObject {
-    var suggestions: [String]? { get }
-    func search(_ userInput: String, on: SASerchPlatform)
-}
+struct SuggestionList: View {
+    private let suggestions: [String]?
+    private let action: @MainActor (String, SASerchPlatform) -> Void
 
-struct SuggestionList<ViewModel>: View where ViewModel: ViewModelForSuggestionList {
-    @ObservedObject private(set) var vm: ViewModel
+    init(
+        suggestions: [String]?,
+        action: @escaping @MainActor (String, SASerchPlatform) -> Void
+    ) {
+        self.suggestions = suggestions
+        self.action = action
+    }
 
     var body: some View {
-        switch vm.suggestions {
+        switch suggestions {
         case .some(let suggestions):
             List {
                 Section {
                     ForEach(suggestions.indices, id: \.self) { i in
                         SuggestionButton(suggestion: suggestions[i]) {
-                            vm.search(suggestions[i], on: .google)
+                            action(suggestions[i], .google)
                         }
                     }
                 } header: {
@@ -37,7 +40,7 @@ struct SuggestionList<ViewModel>: View where ViewModel: ViewModelForSuggestionLi
 
 fileprivate struct SuggestionButton: View {
     let suggestion: String
-    let action: () -> Void
+    let action: @MainActor () -> Void
 
     var body: some View {
         Button(action: {
@@ -60,40 +63,24 @@ fileprivate struct SuggestionButton: View {
 #Preview {
     TabView {
         // 正常に検索候補を取得できた場合
-        SuggestionList(vm: MockViewModel1())
+        SuggestionList(
+            suggestions: [
+                "macbook", "macbook air", "macbook air m2", "macbook スクショ", "macbook air m1", "macbook 初期化", "macbook pro m3", "macbook air m3", "macbook 中古", "macbook 学割"
+            ],
+            action: { (str, platform) in print(str, platform) }
+        )
         // 検索候補を取得できたが、それが空だった場合
-        SuggestionList(vm: MockViewModel2())
+        SuggestionList(
+            suggestions: [],
+            action: { (_, _) in }
+        )
         // 検索候補の取得に失敗した場合
-        SuggestionList(vm: MockViewModel3())
-        // 実際のContentViewModel
-        SuggestionList(vm: ContentViewModel())
+        SuggestionList(
+            suggestions: nil,
+            action: { (_, _) in }
+        )
+
     }
     .tabViewStyle(.page)
     .ignoresSafeArea()
-}
-
-fileprivate class MockViewModel1: ViewModelForSuggestionList {
-    var suggestions: [String]? = [
-        "macbook", "macbook air", "macbook air m2", "macbook スクショ", "macbook air m1", "macbook 初期化", "macbook pro m3", "macbook air m3", "macbook 中古", "macbook 学割"
-    ]
-
-    func search(_ userInput: String, on: SASerchPlatform) {
-        print("Called search function.")
-    }
-}
-
-fileprivate class MockViewModel2: ViewModelForSuggestionList {
-    var suggestions: [String]? = []
-
-    func search(_ userInput: String, on: SASerchPlatform) {
-        print("Called search function.")
-    }
-}
-
-fileprivate class MockViewModel3: ViewModelForSuggestionList {
-    var suggestions: [String]? = nil
-
-    func search(_ userInput: String, on: SASerchPlatform) {
-        print("Called search function.")
-    }
 }
