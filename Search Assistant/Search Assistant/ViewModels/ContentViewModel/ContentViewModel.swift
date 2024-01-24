@@ -7,21 +7,42 @@ final class ContentViewModel: ContentViewModelProtocol {
     ///
     /// 【Search History】
     ///
-    /// ContentViewModel内部で保持する検索履歴
+    /// - Important: 検索履歴の追加に失敗した場合は、そのまま処理を続行する。任意の検索履歴の削除、全ての検索履歴の削除を行う際は、処理前の状態を保持しておき、処理に失敗した場合に処理前の状態に戻す。
+    ///
+    /// 検索履歴
     @Published private(set) var historys: [SASerachHistory] = []
-    /// 検索履歴を保管するためのクラス
-    private let historyStore = HistoryStore.shared
-    /// 検索履歴を追加する
+    /// 検索履歴リポジトリ
+    private let searchHistoryRepository = UserDefaultsRepository<[SASerachHistory]>(key: .searchHistorys)
+    /// 検索履歴を追加
     private func appendHistory(userInput: String, platform: SASerchPlatform) {
-        historyStore.append(userInput: userInput, platform: platform)
+        do {
+            historys.insert(.init(userInput: userInput, platform: platform), at: 0)
+            try searchHistoryRepository.save(historys)
+        } catch {
+            reportError(error)
+        }
     }
-    /// 特定の検索履歴を削除する
+    /// 任意の検索履歴を削除
     func removeHistory(atOffsets indexSet: IndexSet) {
-        historyStore.remove(atOffsets: indexSet)
+        let preHistorys = historys
+        do {
+            historys.remove(atOffsets: indexSet)
+            try searchHistoryRepository.save(historys)
+        } catch {
+            reportError(error)
+            historys = preHistorys
+        }
     }
-    /// 全ての検索履歴を削除する
+    /// 全ての検索履歴を削除
     func removeAllHistorys() {
-        historyStore.removeAll()
+        let preHistorys = historys
+        do {
+            historys.removeAll()
+            try searchHistoryRepository.save(historys)
+        } catch {
+            reportError(error)
+            historys = preHistorys
+        }
     }
     ///
     ///
@@ -51,8 +72,7 @@ final class ContentViewModel: ContentViewModelProtocol {
     ///
     /// `SafariView`を表示する際にトリガーとなるアイテム
     struct SafariViewURL: Identifiable {
-        let url: URL
-        let id = UUID()
+        let url: URL; let id = UUID();
     }
     /// 検索用URLを作成するクラス
     private let searchURLCreater = SearchURLCreater()
@@ -60,14 +80,14 @@ final class ContentViewModel: ContentViewModelProtocol {
     func search(_ userInput: String, on platform: SASerchPlatform) {
         do {
             let url = try searchURLCreater.create(userInput, searchPlatform: platform)
+            appendHistory(userInput: userInput, platform: platform)
+            self.userInput.removeAll()
             switch openInSafariView {
             case true:
                 safariViewURL = SafariViewURL(url: url)
             case false:
                 UIApplication.shared.open(url)
             }
-            appendHistory(userInput: userInput, platform: platform)
-            self.userInput.removeAll()
         } catch {
             guard let error = error as? SearchURLCreater.SearchURLCreaterError
             else { reportError(error); return; }
@@ -146,6 +166,12 @@ final class ContentViewModel: ContentViewModelProtocol {
     /// 【Initializer】
     ///
     init() {
+        /// 検索履歴の取得を行う
+        do {
+            historys = try searchHistoryRepository.fetch()
+        } catch {
+            reportError(error)
+        }
         /// 保存されている有効化されているキーボードツールバーボタンを取得する
         /// 失敗時には全てのキーボードツールバーボタンを有効化する
         do {
@@ -154,9 +180,5 @@ final class ContentViewModel: ContentViewModelProtocol {
             reportError(error)
             keyboardToolbarValidButtons = Set(SASerchPlatform.allCases)
         }
-        /// historyStoreが保持するhistorysの変更を内部の_historys変数に伝播させる
-        historyStore.$historys
-            .receive(on: DispatchQueue.main)
-            .assign(to: &self.$historys)
     }
 }
