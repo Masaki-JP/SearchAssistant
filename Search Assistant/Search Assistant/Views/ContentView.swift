@@ -120,7 +120,7 @@ struct ContentView: View {
                 isFocused = true
             },
             content: {
-                SettingView(contentVM: vm)
+                SettingView()
                     .preferredColorScheme(colorScheme)
             })
         ///
