@@ -9,7 +9,7 @@ struct ContentView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            SearchTextField(vm: vm, isFocused: _isFocused)
+            SearchTextField(vm: vm, isFocused: $isFocused)
                 .padding(.horizontal)
             Divider()
                 .padding(.top, 5)

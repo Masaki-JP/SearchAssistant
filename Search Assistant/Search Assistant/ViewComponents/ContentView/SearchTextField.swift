@@ -1,8 +1,16 @@
 import SwiftUI
 
 struct SearchTextField: View {
-    @ObservedObject private(set) var vm: ContentViewModel
-    @FocusState private(set) var isFocused
+    @ObservedObject private var vm: ContentViewModel
+    private var isFocused: FocusState<Bool>.Binding
+
+    init(
+        vm: ContentViewModel,
+        isFocused: FocusState<Bool>.Binding
+    ) {
+        self.vm = vm
+        self.isFocused = isFocused
+    }
 
     var body: some View {
         HStack {
@@ -13,7 +21,7 @@ struct SearchTextField: View {
             TextField("What do you search for?", text: $vm.userInput)
                 .font(.title2)
                 .submitLabel(.search)
-                .focused($isFocused)
+                .focused(isFocused)
                 .onSubmit {
                     vm.search(vm.userInput, on: .google)
                 }
@@ -50,8 +58,11 @@ struct SearchTextField: View {
 
 struct SearchTextField_Previews: PreviewProvider {
     static var previews: some View {
-        SearchTextField(vm: ContentViewModel())
-            .previewLayout(.sizeThatFits)
-            .padding(.horizontal)
+        SearchTextField(
+            vm: ContentViewModel(),
+            isFocused: FocusState<Bool>().projectedValue
+        )
+        .previewLayout(.sizeThatFits)
+        .padding(.horizontal)
     }
 }
