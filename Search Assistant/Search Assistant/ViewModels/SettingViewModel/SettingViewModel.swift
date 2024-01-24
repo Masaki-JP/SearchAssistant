@@ -10,21 +10,25 @@ final class SettingViewModel: ObservableObject {
     private(set) var appStorageColorScheme = SAColorScheme.dark.rawValue
     @AppStorage(AppStorageKey.openInSafariView)
     private(set) var openInSafariView = true
-    @Published private(set) var keyboardToolbarValidButtons: Set<SASerchPlatform>
+    @Published private(set) var keyboardToolbarValidButtons = Set(SASerchPlatform.allCases)
 
     init() {
-        do {
-            keyboardToolbarValidButtons = try keyboardToolbarValidButtonManager.fetch()
-        } catch {
-            reportError(error)
-            keyboardToolbarValidButtons = Set(SASerchPlatform.allCases)
-        }
+        fetchKeyboardToolbarValidButtons()
     }
 
     private let keyboardToolbarValidButtonManager = UserDefaultsRepository<Set<SASerchPlatform>>(key: UserDefaultsKey.keyboardToolbarValidButtons)
 
     private func saveKeyboardToolbarValidButton() throws {
         try keyboardToolbarValidButtonManager.save(keyboardToolbarValidButtons)
+    }
+
+    func fetchKeyboardToolbarValidButtons() {
+        do {
+            keyboardToolbarValidButtons = try keyboardToolbarValidButtonManager.fetch()
+        } catch {
+            reportError(error)
+            keyboardToolbarValidButtons = Set(SASerchPlatform.allCases)
+        }
     }
 
     func toggleToolbarButtonAvailability(_ platform: SASerchPlatform) {

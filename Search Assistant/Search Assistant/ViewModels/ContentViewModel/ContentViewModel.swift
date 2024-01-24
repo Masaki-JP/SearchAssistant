@@ -137,7 +137,7 @@ final class ContentViewModel: ContentViewModelProtocol {
     /// 【Setting: KeyboardToolbarValidButton】
     ///
     /// 有効化されているキーボードツールバーボタンを保持する変数
-    @Published private(set) var keyboardToolbarValidButtons: Set<SASerchPlatform>
+    @Published private(set) var keyboardToolbarValidButtons = Set(SASerchPlatform.allCases)
     /// キーボードツールバーボタンの有効無効を管理するクラス
     private let keyboardToolbarValidButtonManager = UserDefaultsRepository<Set<SASerchPlatform>>(key: UserDefaultsKey.keyboardToolbarValidButtons)
     /// 有効化されているキーボードツールバーボタンを取得する
@@ -174,11 +174,6 @@ final class ContentViewModel: ContentViewModelProtocol {
         }
         /// 保存されている有効化されているキーボードツールバーボタンを取得する
         /// 失敗時には全てのキーボードツールバーボタンを有効化する
-        do {
-            keyboardToolbarValidButtons = try keyboardToolbarValidButtonManager.fetch()
-        } catch {
-            reportError(error)
-            keyboardToolbarValidButtons = Set(SASerchPlatform.allCases)
-        }
+        fetchKeyboardToolbarValidButtons()
     }
 }
