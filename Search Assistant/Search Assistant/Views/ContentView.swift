@@ -5,7 +5,7 @@ struct ContentView: View {
     @ObservedObject private(set) var vm: ContentViewModel
     @FocusState private var isFocused: Bool
     @Environment(\.scenePhase) private var scenePhase
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    @Environment(\.colorScheme) private var colorScheme: ColorScheme
 
     var body: some View {
         VStack(spacing: 0) {
@@ -14,7 +14,12 @@ struct ContentView: View {
             Divider()
                 .padding(.top, 5)
             if vm.userInput.isEmpty {
-                HistoryList(vm: vm)
+                HistoryList(
+                    historys: vm.historys,
+                    searchAction: vm.search(_:on:),
+                    removeHistoryAction: vm.removeHistory(atOffsets:),
+                    isShowPromptToConfirmDeletionOfAllHistorys: $vm.isShowPromptToConfirmDeletionOFAllHistorys
+                )
             } else {
                 SuggestionList(
                     suggestions: vm.suggestions,

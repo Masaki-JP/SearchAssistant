@@ -1,3 +1,3 @@
 import SwiftUI
 
-typealias ContentViewModelProtocol = ObservableObject &  ViewModelForHistoryList
+typealias ContentViewModelProtocol = ObservableObject
