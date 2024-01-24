@@ -8,25 +8,7 @@ final class ContentViewModel: ContentViewModelProtocol {
     /// 【Search History】
     ///
     /// ContentViewModel内部で保持する検索履歴
-    @Published private var _historys: [SASerachHistory] = []
-    /// 外部に公開する整形された検索履歴
-    var historys: [HistoryInfo] {
-        self._historys.map { history in
-            HistoryInfo(
-                userInput: history.userInput,
-                platform: history.platform,
-                dateString: self.dateFormatter.string(from: history.date),
-                id: history.id
-            )
-        }
-    }
-    /// ContentViewに提供する検索履歴
-    struct HistoryInfo: Identifiable {
-        let userInput: String
-        let platform: SASerchPlatform
-        let dateString: String
-        let id: UUID
-    }
+    @Published private(set) var historys: [SASerachHistory] = []
     /// 検索履歴を保管するためのクラス
     private let historyStore = HistoryStore.shared
     /// 検索履歴を追加する
@@ -156,13 +138,6 @@ final class ContentViewModel: ContentViewModelProtocol {
     ///
     /// テキストフィールドで用いるテキストを保持する変数
     @Published var userInput = ""
-    /// 日付フォーマットが"yyyy/MM/dd"で設定されているDateFormatter
-    private let dateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy/MM/dd"
-        dateFormatter.calendar = Calendar.autoupdatingCurrent
-        return dateFormatter
-    }()
     ///
     ///
     ///
@@ -182,6 +157,6 @@ final class ContentViewModel: ContentViewModelProtocol {
         /// historyStoreが保持するhistorysの変更を内部の_historys変数に伝播させる
         historyStore.$historys
             .receive(on: DispatchQueue.main)
-            .assign(to: &self.$_historys)
+            .assign(to: &self.$historys)
     }
 }
