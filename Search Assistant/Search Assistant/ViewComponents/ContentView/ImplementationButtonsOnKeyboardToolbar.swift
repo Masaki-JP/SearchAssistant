@@ -18,7 +18,7 @@ struct ImplementationButtonsOnKeyboardToolbar: ViewModifier {
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
                     HStack {
-                        SearchButtonsForToolbar(vm: vm)
+                        SearchButtons(vm: vm)
                         Button("完了") {
                             isFocused.wrappedValue = false
                         }
@@ -28,7 +28,7 @@ struct ImplementationButtonsOnKeyboardToolbar: ViewModifier {
     }
 }
 
-fileprivate struct SearchButtonsForToolbar: View {
+fileprivate struct SearchButtons: View {
     @ObservedObject private(set) var vm: ContentViewModel
     @Environment(\.scenePhase) private var scenePhase
 
