@@ -84,6 +84,15 @@ struct ContentView: View {
         ///
         ///
         /// [Observation]
+        /// キーボードツールバーボタンの構成が変更される可能性があるため、
+        /// `SettingView`を表示する際はキーボードを閉じる仕様とする。
+        .onChange(of: vm.isPresentedSettingView) { newValue in
+            if newValue == true { isFocused = false }
+        }
+        ///
+        ///
+        ///
+        /// [Observation]
         /// 入力時のSuggestionの取得
         .onChange(of: vm.userInput) { _ in
             guard vm.userInput.isEmpty == false else { return }
@@ -107,6 +116,8 @@ struct ContentView: View {
             isPresented: $vm.isPresentedSettingView,
             onDismiss: {
                 vm.fetchKeyboardToolbarValidButtons()
+                guard vm.settingAutoFocus else { return }
+                isFocused = true
             },
             content: {
                 SettingView(contentVM: vm)
