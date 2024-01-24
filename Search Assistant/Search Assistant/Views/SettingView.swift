@@ -13,7 +13,7 @@ struct SettingView: View {
                 ColorSchemeSection(selection: veiewModel.$appStorageColorScheme)
                 BrowserSection(isOn: veiewModel.$openInSafariView)
                 KeyboardToolbarSection(
-                    keyboardToolbarValisButtons: veiewModel.keyboardToolbarValidButtons,
+                    validKeyboardToolbarButtons: veiewModel.validKeyboardToolbarButtons,
                     action: veiewModel.toggleToolbarButtonAvailability
                 )
             }

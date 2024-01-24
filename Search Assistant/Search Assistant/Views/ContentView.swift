@@ -115,7 +115,7 @@ struct ContentView: View {
         .sheet(
             isPresented: $vm.isPresentedSettingView,
             onDismiss: {
-                vm.fetchKeyboardToolbarValidButtons()
+                vm.fetchValidKeyboardToolbarButtons()
                 guard vm.settingAutoFocus else { return }
                 isFocused = true
             },

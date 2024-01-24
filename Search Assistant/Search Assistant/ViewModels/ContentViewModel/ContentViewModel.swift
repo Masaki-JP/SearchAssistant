@@ -132,19 +132,19 @@ final class ContentViewModel: ObservableObject {
     ///
     ///
     ///
-    /// 【Setting: KeyboardToolbarValidButton】
+    /// 【Setting: ValidKeyboardToolbarButton】
     ///
     /// 有効化されているキーボードツールバーボタンを保持する変数
-    @Published private(set) var keyboardToolbarValidButtons = Set(SerchPlatform.allCases)
+    @Published private(set) var validKeyboardToolbarButtons = Set(SerchPlatform.allCases)
     /// キーボードツールバーボタンの有効無効を管理するクラス
-    private let keyboardToolbarValidButtonRepository = UserDefaultsRepository<Set<SerchPlatform>>(key: UserDefaultsKey.keyboardToolbarValidButtons)
+    private let validKeyboardToolbarButtonRepository = UserDefaultsRepository<Set<SerchPlatform>>(key: UserDefaultsKey.validKeyboardToolbarButtons)
     /// 有効化されているキーボードツールバーボタンを取得する
-    func fetchKeyboardToolbarValidButtons() {
+    func fetchValidKeyboardToolbarButtons() {
         do {
-            keyboardToolbarValidButtons = try keyboardToolbarValidButtonRepository.fetch()
+            validKeyboardToolbarButtons = try validKeyboardToolbarButtonRepository.fetch()
         } catch {
             reportError(error)
-            keyboardToolbarValidButtons = Set(SerchPlatform.allCases)
+            validKeyboardToolbarButtons = Set(SerchPlatform.allCases)
         }
     }
     ///
@@ -172,6 +172,6 @@ final class ContentViewModel: ObservableObject {
         }
         /// 保存されている有効化されているキーボードツールバーボタンを取得する
         /// 失敗時には全てのキーボードツールバーボタンを有効化する
-        fetchKeyboardToolbarValidButtons()
+        fetchValidKeyboardToolbarButtons()
     }
 }
