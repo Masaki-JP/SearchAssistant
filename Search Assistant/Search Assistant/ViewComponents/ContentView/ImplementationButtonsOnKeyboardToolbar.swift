@@ -3,7 +3,15 @@ import SwiftUI
 // キーボードツールバーにプラットフォーム別検索ボタンを追加
 struct ImplementationButtonsOnKeyboardToolbar: ViewModifier {
     @ObservedObject private(set) var vm: ContentViewModel
-    @FocusState private(set) var isFocused
+    private var isFocused: FocusState<Bool>.Binding
+
+    init(
+        vm: ContentViewModel,
+        isFocused: FocusState<Bool>.Binding
+    ) {
+        self.vm = vm
+        self.isFocused = isFocused
+    }
 
     func body(content: Content) -> some View {
         content
@@ -12,7 +20,7 @@ struct ImplementationButtonsOnKeyboardToolbar: ViewModifier {
                     HStack {
                         SearchButtonsForToolbar(vm: vm)
                         Button("完了") {
-                            isFocused = false
+                            isFocused.wrappedValue = false
                         }
                     }
                 }
