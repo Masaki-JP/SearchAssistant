@@ -2,11 +2,11 @@ import SwiftUI
 
 struct SuggestionList: View {
     private let suggestions: [String]?
-    private let action: @MainActor (String, SASerchPlatform) -> Void
+    private let action: @MainActor (String, SerchPlatform) -> Void
 
     init(
         suggestions: [String]?,
-        action: @escaping @MainActor (String, SASerchPlatform) -> Void
+        action: @escaping @MainActor (String, SerchPlatform) -> Void
     ) {
         self.suggestions = suggestions
         self.action = action

@@ -1,13 +1,13 @@
 import SwiftUI
 
 struct KeyboardToolbarSection: View {
-    private let keyboardToolbarValisButtons: Set<SASerchPlatform>
-    private let action: @MainActor (SASerchPlatform) -> Void
+    private let keyboardToolbarValisButtons: Set<SerchPlatform>
+    private let action: @MainActor (SerchPlatform) -> Void
     private let feedbackGenerator = UINotificationFeedbackGenerator()
 
     init(
-        keyboardToolbarValisButtons: Set<SASerchPlatform>,
-        action: @escaping @MainActor (SASerchPlatform) -> Void
+        keyboardToolbarValisButtons: Set<SerchPlatform>,
+        action: @escaping @MainActor (SerchPlatform) -> Void
     ) {
         self.keyboardToolbarValisButtons = keyboardToolbarValisButtons
         self.action = action
@@ -15,7 +15,7 @@ struct KeyboardToolbarSection: View {
 
     var body: some View {
         Section {
-            ForEach(SASerchPlatform.allCases) { platform in
+            ForEach(SerchPlatform.allCases) { platform in
                 RowLikeToggleButton(
                     text: platform.rawValue,
                     isValid: keyboardToolbarValisButtons.contains(platform),
@@ -69,7 +69,7 @@ struct RowLikeToggleButton: View {
 #Preview {
     List {
         KeyboardToolbarSection(
-            keyboardToolbarValisButtons: Set(SASerchPlatform.allCases),
+            keyboardToolbarValisButtons: Set(SerchPlatform.allCases),
             action: { _ in}
         )
     }

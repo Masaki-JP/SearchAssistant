@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum SASerchPlatform: String, Codable, CaseIterable, Identifiable {
+enum SerchPlatform: String, Codable, CaseIterable, Identifiable {
     case google = "Google"
     case twitter = "Twitter"
     case instagram = "Instagram"

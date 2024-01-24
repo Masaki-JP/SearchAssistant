@@ -9,7 +9,7 @@ final class SearchURLCreater {
         case cannotOpenURL
     }
 
-    func create(_ input: String, searchPlatform: SASerchPlatform) throws -> URL {
+    func create(_ input: String, searchPlatform: SerchPlatform) throws -> URL {
         ///
         ///
         /// もしinputが有効なURLだった場合、そのままURLインスタンスを作成し、それを返す。

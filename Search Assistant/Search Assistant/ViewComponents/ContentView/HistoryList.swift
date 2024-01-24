@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct HistoryList: View {
-    let historys: [SASerachHistory]
-    let searchAction: @MainActor (String, SASerchPlatform) -> Void
+    let historys: [SerachHistory]
+    let searchAction: @MainActor (String, SerchPlatform) -> Void
     let removeHistoryAction: @MainActor (IndexSet) -> Void
     @Binding var isShowPromptToConfirmDeletionOfAllHistorys: Bool
 
@@ -48,11 +48,11 @@ struct HistoryList: View {
 }
 
 struct SearchHistoryButton: View {
-    private let history: SASerachHistory
+    private let history: SerachHistory
     private let action: @MainActor () -> Void
 
     init(
-        history: SASerachHistory,
+        history: SerachHistory,
         action: @escaping @MainActor () -> Void
     ) {
         self.history = history

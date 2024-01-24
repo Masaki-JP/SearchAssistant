@@ -28,7 +28,7 @@ fileprivate struct SearchButtonsForToolbar: View {
         ScrollViewReader { reader in
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    ForEach(SASerchPlatform.allCases, id: \.self) { platform in
+                    ForEach(SerchPlatform.allCases, id: \.self) { platform in
                         if vm.keyboardToolbarValidButtons.contains(platform) {
                             Button(platform.rawValue) {
                                 vm.search(vm.userInput, on: platform)
@@ -42,7 +42,7 @@ fileprivate struct SearchButtonsForToolbar: View {
                       vm.keyboardToolbarValidButtons.isEmpty == false
                 else { return }
 
-                for platform in SASerchPlatform.allCases
+                for platform in SerchPlatform.allCases
                 where vm.keyboardToolbarValidButtons.contains(platform) {
                     reader.scrollTo(platform.rawValue)
                     return
