@@ -1,13 +1,13 @@
 import Foundation
 
 enum UserDefaultsKey {
-    case historys
+    case searchHistorys
     case keyboardToolbarValidButtons
     case inMemory
 
     var string: String {
         return switch self {
-        case .historys:
+        case .searchHistorys:
             "historys"
         case .keyboardToolbarValidButtons:
             "keyboardToolbarValidButtons"

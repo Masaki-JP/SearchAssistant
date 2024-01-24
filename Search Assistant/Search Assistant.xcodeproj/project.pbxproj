@@ -238,12 +238,11 @@
 		4C24C0AB2ACD2683000A604E /* Others */ = {
 			isa = PBXGroup;
 			children = (
-				4C3A5FA92B5CB94B00766BC1 /* UserDefaultsRepositoryProtocol */,
+				4CD686C82B6101B700806515 /* Repository */,
 				4C0872452ACC150F00033787 /* HistoryStore.swift */,
 				4CFFF1E82B604223008E8CCD /* SearchURLCreater.swift */,
 				4C906C1C2B37E61400E1E50E /* SuggestionFetcher.swift */,
 				4C446F022AD4F6270023C4F1 /* ViewRouter.swift */,
-				4C3A5FA72B5CB8E800766BC1 /* RepositoryProtocol.swift */,
 				4CD61B952B5D634300040FD2 /* AppStorageKey.swift */,
 			);
 			path = Others;
@@ -322,6 +321,15 @@
 				4C3A5FB52B5CBBE700766BC1 /* SettingViewModel */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		4CD686C82B6101B700806515 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				4C3A5FA72B5CB8E800766BC1 /* RepositoryProtocol.swift */,
+				4C3A5FA92B5CB94B00766BC1 /* UserDefaultsRepositoryProtocol */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
