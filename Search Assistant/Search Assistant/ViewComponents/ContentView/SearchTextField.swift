@@ -25,28 +25,17 @@ struct SearchTextField: View {
                 .onSubmit {
                     vm.search(vm.userInput, on: .google)
                 }
-            if vm.userInput.isEmpty {
-                Button(action: {
-                    vm.isPresentedSettingView = true
-                }, label: {
-                    Image(systemName: "gearshape")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 20)
-                        .tint(.primary)
-                })
-            } else {
-                Button(action: {
-                    vm.userInput.removeAll()
-                }, label: {
-                    Image(systemName: "x.circle")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 20)
-                        .tint(.primary)
-                })
-            }
-                
+            Button(action: {
+                vm.userInput.isEmpty
+                ? vm.isPresentedSettingView = true
+                : vm.userInput.removeAll()
+            }, label: {
+                Image(systemName: vm.userInput.isEmpty ? "gearshape" : "x.circle")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 20)
+                    .tint(.primary)
+            })
         }
     }
 }
