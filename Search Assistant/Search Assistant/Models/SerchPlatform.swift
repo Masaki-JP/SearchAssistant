@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum SASerchPlatform: String, Codable, CaseIterable, Identifiable {
+enum SerchPlatform: String, Codable, CaseIterable, Identifiable {
     case google = "Google"
     case twitter = "Twitter"
     case instagram = "Instagram"
@@ -43,24 +43,15 @@ enum SASerchPlatform: String, Codable, CaseIterable, Identifiable {
 
     var imageColor: Color {
         switch self {
-        case .google:
-                .blue
-        case .twitter:
-            Color(red: 0.25, green: 0.25, blue: 0.25)
-        case .instagram:
-                .pink
-        case .amazon:
-                .orange
-        case .youtube:
-            Color(red: 1.0, green: 0.0, blue: 0.0)
-        case .facebook:
-                .cyan
-        case .mercari:
-                .green
-        case .rakuma:
-                .green
-        case .paypayFleaMarket:
-                .green
+        case .google: .blue
+        case .twitter: Color(red: 0.25, green: 0.25, blue: 0.25)
+        case .instagram: .pink
+        case .amazon: .orange
+        case .youtube: Color(red: 1.0, green: 0.0, blue: 0.0)
+        case .facebook: .cyan
+        case .mercari: .green
+        case .rakuma: .green
+        case .paypayFleaMarket: .green
         }
     }
 }

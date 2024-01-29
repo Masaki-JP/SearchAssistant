@@ -1,12 +1,12 @@
 import Foundation
 
-struct SASerachHistory: Codable, Identifiable {
+struct SerachHistory: Codable, Identifiable {
     let userInput: String
-    let platform: SASerchPlatform
+    let platform: SerchPlatform
     let date: Date
     let id: UUID
 
-    init(userInput: String, platform: SASerchPlatform) {
+    init(userInput: String, platform: SerchPlatform) {
         self.userInput = userInput
         self.platform = platform
         self.date = Date()

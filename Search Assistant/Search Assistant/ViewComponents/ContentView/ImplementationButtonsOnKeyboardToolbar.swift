@@ -1,18 +1,26 @@
 import SwiftUI
 
 // キーボードツールバーにプラットフォーム別検索ボタンを追加
-struct ToolbarWithSearchButtons: ViewModifier {
+struct ImplementationButtonsOnKeyboardToolbar: ViewModifier {
     @ObservedObject private(set) var vm: ContentViewModel
-    @FocusState private(set) var isFocused
+    private var isFocused: FocusState<Bool>.Binding
+
+    init(
+        vm: ContentViewModel,
+        isFocused: FocusState<Bool>.Binding
+    ) {
+        self.vm = vm
+        self.isFocused = isFocused
+    }
 
     func body(content: Content) -> some View {
         content
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
                     HStack {
-                        SearchButtonsForToolbar(vm: vm)
+                        SearchButtons(vm: vm)
                         Button("完了") {
-                            isFocused = false
+                            isFocused.wrappedValue = false
                         }
                     }
                 }
@@ -20,7 +28,7 @@ struct ToolbarWithSearchButtons: ViewModifier {
     }
 }
 
-fileprivate struct SearchButtonsForToolbar: View {
+fileprivate struct SearchButtons: View {
     @ObservedObject private(set) var vm: ContentViewModel
     @Environment(\.scenePhase) private var scenePhase
 
@@ -28,8 +36,8 @@ fileprivate struct SearchButtonsForToolbar: View {
         ScrollViewReader { reader in
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    ForEach(SASerchPlatform.allCases, id: \.self) { platform in
-                        if vm.keyboardToolbarValidButtons.contains(platform) {
+                    ForEach(SerchPlatform.allCases, id: \.self) { platform in
+                        if vm.validKeyboardToolbarButtons.contains(platform) {
                             Button(platform.rawValue) {
                                 vm.search(vm.userInput, on: platform)
                             }
@@ -39,11 +47,11 @@ fileprivate struct SearchButtonsForToolbar: View {
             }
             .onChange(of: scenePhase) { newScenePhase in
                 guard newScenePhase == .active,
-                      vm.keyboardToolbarValidButtons.isEmpty == false
+                      vm.validKeyboardToolbarButtons.isEmpty == false
                 else { return }
 
-                for platform in SASerchPlatform.allCases
-                where vm.keyboardToolbarValidButtons.contains(platform) {
+                for platform in SerchPlatform.allCases
+                where vm.validKeyboardToolbarButtons.contains(platform) {
                     reader.scrollTo(platform.rawValue)
                     return
                 }

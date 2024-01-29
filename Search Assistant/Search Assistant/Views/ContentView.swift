@@ -9,7 +9,7 @@ struct ContentView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            SearchTextField(vm: vm, isFocused: _isFocused)
+            SearchTextField(vm: vm, isFocused: $isFocused)
                 .padding(.horizontal)
             Divider()
                 .padding(.top, 5)
@@ -33,7 +33,7 @@ struct ContentView: View {
                 .bottomTrailing : .bottomLeading
         ) {
             if isFocused == false {
-                SearchButton { isFocused = true }
+                FocusTextFieldButton { isFocused = true }
                     .padding(
                         vm.settingLeftSearchButton == false ?
                             .trailing : .leading
@@ -46,7 +46,10 @@ struct ContentView: View {
         /// [Toolbar]
         /// ツールバー検索ボタンの実装
         .modifier(
-            ToolbarWithSearchButtons(vm: vm, isFocused: _isFocused )
+            ImplementationButtonsOnKeyboardToolbar(
+                vm: vm,
+                isFocused: $isFocused
+            )
         )
         ///
         ///
@@ -115,12 +118,12 @@ struct ContentView: View {
         .sheet(
             isPresented: $vm.isPresentedSettingView,
             onDismiss: {
-                vm.fetchKeyboardToolbarValidButtons()
+                vm.fetchValidKeyboardToolbarButtons()
                 guard vm.settingAutoFocus else { return }
                 isFocused = true
             },
             content: {
-                SettingView(contentVM: vm)
+                SettingView()
                     .preferredColorScheme(colorScheme)
             })
         ///

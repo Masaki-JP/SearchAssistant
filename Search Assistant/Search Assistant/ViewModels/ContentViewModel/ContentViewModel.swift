@@ -1,7 +1,7 @@
 import SwiftUI
 
 @MainActor
-final class ContentViewModel: ContentViewModelProtocol {
+final class ContentViewModel: ObservableObject {
     ///
     ///
     ///
@@ -10,11 +10,11 @@ final class ContentViewModel: ContentViewModelProtocol {
     /// - Important: 検索履歴の追加に失敗した場合は、そのまま処理を続行する。任意の検索履歴の削除、全ての検索履歴の削除を行う際は、処理前の状態を保持しておき、処理に失敗した場合に処理前の状態に戻す。
     ///
     /// 検索履歴
-    @Published private(set) var historys: [SASerachHistory] = []
+    @Published private(set) var historys: [SerachHistory] = []
     /// 検索履歴リポジトリ
-    private let searchHistoryRepository = UserDefaultsRepository<[SASerachHistory]>(key: .searchHistorys)
+    private let searchHistoryRepository = UserDefaultsRepository<[SerachHistory]>(key: .searchHistorys)
     /// 検索履歴を追加
-    private func appendHistory(userInput: String, platform: SASerchPlatform) {
+    private func appendHistory(userInput: String, platform: SerchPlatform) {
         do {
             historys.insert(.init(userInput: userInput, platform: platform), at: 0)
             try searchHistoryRepository.save(historys)
@@ -77,7 +77,7 @@ final class ContentViewModel: ContentViewModelProtocol {
     /// 検索用URLを作成するクラス
     private let searchURLCreater = SearchURLCreater()
     /// ユーザー入力とプラットフォームを受け取り、検索を行う関数
-    func search(_ userInput: String, on platform: SASerchPlatform) {
+    func search(_ userInput: String, on platform: SerchPlatform) {
         do {
             let url = try searchURLCreater.create(userInput, searchPlatform: platform)
             appendHistory(userInput: userInput, platform: platform)
@@ -132,19 +132,19 @@ final class ContentViewModel: ContentViewModelProtocol {
     ///
     ///
     ///
-    /// 【Setting: KeyboardToolbarValidButton】
+    /// 【Setting: ValidKeyboardToolbarButton】
     ///
     /// 有効化されているキーボードツールバーボタンを保持する変数
-    @Published private(set) var keyboardToolbarValidButtons = Set(SASerchPlatform.allCases)
+    @Published private(set) var validKeyboardToolbarButtons = Set(SerchPlatform.allCases)
     /// キーボードツールバーボタンの有効無効を管理するクラス
-    private let keyboardToolbarValidButtonRepository = UserDefaultsRepository<Set<SASerchPlatform>>(key: UserDefaultsKey.keyboardToolbarValidButtons)
+    private let validKeyboardToolbarButtonRepository = UserDefaultsRepository<Set<SerchPlatform>>(key: UserDefaultsKey.validKeyboardToolbarButtons)
     /// 有効化されているキーボードツールバーボタンを取得する
-    func fetchKeyboardToolbarValidButtons() {
+    func fetchValidKeyboardToolbarButtons() {
         do {
-            keyboardToolbarValidButtons = try keyboardToolbarValidButtonRepository.fetch()
+            validKeyboardToolbarButtons = try validKeyboardToolbarButtonRepository.fetch()
         } catch {
             reportError(error)
-            keyboardToolbarValidButtons = Set(SASerchPlatform.allCases)
+            validKeyboardToolbarButtons = Set(SerchPlatform.allCases)
         }
     }
     ///
@@ -172,6 +172,6 @@ final class ContentViewModel: ContentViewModelProtocol {
         }
         /// 保存されている有効化されているキーボードツールバーボタンを取得する
         /// 失敗時には全てのキーボードツールバーボタンを有効化する
-        fetchKeyboardToolbarValidButtons()
+        fetchValidKeyboardToolbarButtons()
     }
 }

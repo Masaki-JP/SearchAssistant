@@ -1,21 +1,20 @@
 import SwiftUI
 
 struct SettingView: View {
-    @StateObject private var settingVM = SettingViewModel()
-    @ObservedObject private(set) var contentVM: ContentViewModel
+    @StateObject private var veiewModel = SettingViewModel()
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         NavigationStack {
             List {
-                FocusControlSection(isOn: settingVM.$settingAutoFocus)
-                SearchButtonSection(isOn: settingVM.$settingLeftSearchButton)
-                ColorSchemeSection(selection: settingVM.$appStorageColorScheme)
-                BrowserSection(isOn: settingVM.$openInSafariView)
+                FocusControlSection(isOn: veiewModel.$settingAutoFocus)
+                SearchButtonSection(isOn: veiewModel.$settingLeftSearchButton)
+                ColorSchemeSection(selection: veiewModel.$appStorageColorScheme)
+                BrowserSection(isOn: veiewModel.$openInSafariView)
                 KeyboardToolbarSection(
-                    keyboardToolbarValisButtons: settingVM.keyboardToolbarValidButtons,
-                    action: settingVM.toggleToolbarButtonAvailability
+                    validKeyboardToolbarButtons: veiewModel.validKeyboardToolbarButtons,
+                    action: veiewModel.toggleToolbarButtonAvailability
                 )
             }
             .navigationTitle("Settings")
@@ -35,5 +34,5 @@ struct SettingView: View {
 }
 
 #Preview {
-    SettingView(contentVM: ContentViewModel())
+    SettingView()
 }
