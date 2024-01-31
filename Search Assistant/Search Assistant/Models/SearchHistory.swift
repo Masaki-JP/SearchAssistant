@@ -1,6 +1,6 @@
 import Foundation
 
-struct SerachHistory: Codable, Identifiable {
+struct SearchHistory: Codable, Identifiable {
     let userInput: String
     let platform: SerchPlatform
     let date: Date

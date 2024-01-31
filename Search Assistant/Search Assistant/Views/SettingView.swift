@@ -1,20 +1,20 @@
 import SwiftUI
 
 struct SettingView: View {
-    @StateObject private var veiewModel = SettingViewModel()
+    @StateObject private var viewModel = SettingViewModel()
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         NavigationStack {
             List {
-                FocusControlSection(isOn: veiewModel.$settingAutoFocus)
-                SearchButtonSection(isOn: veiewModel.$settingLeftSearchButton)
-                ColorSchemeSection(selection: veiewModel.$appStorageColorScheme)
-                BrowserSection(isOn: veiewModel.$openInSafariView)
+                FocusControlSection(isOn: viewModel.$settingAutoFocus)
+                SearchButtonSection(isOn: viewModel.$settingLeftSearchButton)
+                ColorSchemeSection(selection: viewModel.$appStorageColorScheme)
+                BrowserSection(isOn: viewModel.$openInSafariView)
                 KeyboardToolbarSection(
-                    validKeyboardToolbarButtons: veiewModel.validKeyboardToolbarButtons,
-                    action: veiewModel.toggleToolbarButtonAvailability
+                    validKeyboardToolbarButtons: viewModel.validKeyboardToolbarButtons,
+                    action: viewModel.toggleToolbarButtonAvailability
                 )
             }
             .navigationTitle("Settings")

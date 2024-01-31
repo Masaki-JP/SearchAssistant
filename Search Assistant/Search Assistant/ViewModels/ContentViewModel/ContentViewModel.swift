@@ -10,9 +10,9 @@ final class ContentViewModel: ObservableObject {
     /// - Important: 検索履歴の追加に失敗した場合は、そのまま処理を続行する。任意の検索履歴の削除、全ての検索履歴の削除を行う際は、処理前の状態を保持しておき、処理に失敗した場合に処理前の状態に戻す。
     ///
     /// 検索履歴
-    @Published private(set) var historys: [SerachHistory] = []
+    @Published private(set) var historys: [SearchHistory] = []
     /// 検索履歴リポジトリ
-    private let searchHistoryRepository = UserDefaultsRepository<[SerachHistory]>(key: .searchHistorys)
+    private let searchHistoryRepository = UserDefaultsRepository<[SearchHistory]>(key: .searchHistorys)
     /// 検索履歴を追加
     private func appendHistory(userInput: String, platform: SerchPlatform) {
         do {
