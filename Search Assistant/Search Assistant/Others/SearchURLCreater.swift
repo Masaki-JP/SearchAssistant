@@ -31,7 +31,7 @@ final class SearchURLCreater {
         ///
         ///
         /// 入力のパーセントエンコーディング
-        guard let percentEncodedInput = input.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        guard let percentEncodedInput = input.addingPercentEncoding(withAllowedCharacters: .alphanumerics)
         else { throw SearchURLCreaterError.inputPercentEncodingFailure }
         ///
         ///
