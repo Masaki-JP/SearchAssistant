@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ColorSchemeSection: View {
-    @Binding var selection: String
+    @Binding private(set) var selection: String
 
     var body: some View {
         Section {

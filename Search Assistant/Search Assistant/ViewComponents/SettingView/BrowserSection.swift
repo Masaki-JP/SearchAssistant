@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct BrowserSection: View {
-    @Binding var isOn: Bool
+    @Binding private(set) var isOn: Bool
 
     var body: some View {
         Section {

@@ -4,7 +4,7 @@ struct HistoryList: View {
     let historys: [SearchHistory]
     let searchAction: @MainActor (String, SerchPlatform) -> Void
     let removeHistoryAction: @MainActor (IndexSet) -> Void
-    @Binding var isShowPromptToConfirmDeletionOfAllHistorys: Bool
+    @Binding private(set) var isShowPromptToConfirmDeletionOfAllHistorys: Bool
 
     var body: some View {
         if historys.isEmpty == false {

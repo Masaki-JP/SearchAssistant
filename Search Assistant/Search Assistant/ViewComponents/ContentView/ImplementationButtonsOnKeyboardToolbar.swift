@@ -2,8 +2,8 @@ import SwiftUI
 
 // キーボードツールバーにプラットフォーム別検索ボタンを追加
 struct ImplementationButtonsOnKeyboardToolbar: ViewModifier {
-    @ObservedObject var vm: ContentViewModel
-    var isFocused: FocusState<Bool>.Binding
+    @ObservedObject private(set) var vm: ContentViewModel
+    private(set) var isFocused: FocusState<Bool>.Binding
 
     func body(content: Content) -> some View {
         content

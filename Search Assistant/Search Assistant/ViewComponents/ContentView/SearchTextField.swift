@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct SearchTextField: View {
-    @ObservedObject var vm: ContentViewModel
-    var isFocused: FocusState<Bool>.Binding
+    @ObservedObject private(set) var vm: ContentViewModel
+    private(set) var isFocused: FocusState<Bool>.Binding
 
     var body: some View {
         HStack {
