@@ -48,16 +48,8 @@ struct HistoryList: View {
 }
 
 struct SearchHistoryButton: View {
-    private let history: SearchHistory
-    private let action: @MainActor () -> Void
-
-    init(
-        history: SearchHistory,
-        action: @escaping @MainActor () -> Void
-    ) {
-        self.history = history
-        self.action = action
-    }
+    let history: SearchHistory
+    let action: @MainActor () -> Void
 
     var body: some View {
         Button(action: {

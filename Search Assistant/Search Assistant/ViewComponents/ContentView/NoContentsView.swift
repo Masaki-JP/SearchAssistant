@@ -1,19 +1,9 @@
 import SwiftUI
 
 struct NoContentsView: View {
-    private let title: String
-    private let description: String?
-    private let imageSystemName: String
-
-    init(
-        title: String,
-        description: String? = nil,
-        imageSystemName: String
-    ) {
-        self.title = title
-        self.description = description
-        self.imageSystemName = imageSystemName
-    }
+    let title: String
+    let description: String?
+    let imageSystemName: String
 
     var body: some View {
         VStack(spacing: 5) {

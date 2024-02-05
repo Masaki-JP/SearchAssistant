@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct FocusControlSection: View {
-    @Binding private(set) var isOn: Bool
+    @Binding var isOn: Bool
 
     var body: some View {
         Section {

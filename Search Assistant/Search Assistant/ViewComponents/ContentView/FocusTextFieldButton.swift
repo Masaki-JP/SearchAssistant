@@ -1,13 +1,8 @@
 import SwiftUI
 
 struct FocusTextFieldButton: View {
-    private let diameter: CGFloat
-    private let action: () -> Void
-    
-    init(_ diameter: CGFloat = 65, action: @escaping () -> Void) {
-        self.diameter = diameter
-        self.action = action
-    }
+    let diameter: CGFloat = 65
+    let action: () -> Void
     
     var body: some View {
         Button {

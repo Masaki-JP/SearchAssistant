@@ -107,7 +107,7 @@ struct ContentView: View {
         /// [Presentation]
         /// フルスクリーンで`SafariView`の表示を行う。
         .fullScreenCover(item: $vm.safariViewURL) { item in
-            SafariView(item.url)
+            SafariView(url: item.url)
                 .ignoresSafeArea()
         }
         ///
