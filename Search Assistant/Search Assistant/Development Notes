@@ -1,34 +1,49 @@
 
+————————————————————
+2024年1月29日のコードレビュー会にていただいたアドバイス等
+
+最速の検索を求めるならば、現在のSplashScreenを廃止し、LaunchScreenを実装するといい
+
+ツールバーに並び替えなどの機能を実装する
+人によっては、ラクマなどが最も使うプラットフォームだったりする。
+できれば、うまいこと全部表示できないか？
+
+CircleButtonの実装
+
+@Environmentと@FocusState
+ViewModel内にプロパティを追加し、それらとバインディング
+
+onDismissなどの処理をViewModelに切り出し、ViewではviewModel.settingViewDismissActionを呼び出すような形にする
+
+Repositoryプロトコルについて
+fetchだけで事済む場合もある。
+
+子Viewに関しては、そこまでアクセスレベルを意識しなくていいのでは？
+イニシャライザ面倒だし、SwiftUIの場合は普通に開発してて間違って子ビューの値をいじってしまうことはない。
+
+————————————————————
+
 アプデ時に参考
 https://tech.amefure.com/swift-appstore-public-version-up
 ウィジェットターゲットのビルド番号とマーケティング番号（バージョン）の変更も忘れずに
 
  メジャーアップデート、マイナーアップデートの場合はタグをつける。例えば"v2.2.0"のタグをつける場合、"git tag v2.2.0"の実行後、"git push origin v2.2.0"を実行する。見た目の変更だけであれば、パッチアップデートのみとする。
 
+————————————————————
+
 やること
 URLが入力された場合、それがhttp通信ならば警告を表示する。
-private(set)に書き換えられるものがあるならば書き換える
-
-
-
-
-
-おそらくスレッドの問題は非同期処理を行うと起こる
-協調スレッドを使用するため。MainActorなどを用いて解決する
-
-
-
-
-
 引数にnewValueをとるonChangeメソッドはiOS17以降では非推奨になったためを新しいものに変更する
 
 
+————————————————————
 
 
 @FocusStateをViewModelに持たせることができない
 ViewとViewModel間では問題なく動作するが、子Viewから@FocusStateを変更することができなかった。（コンパイルエラーが出ないところまでは持っていけた）
 
 
+————————————————————
 
 Google検索について
 https://so-zou.jp/web-app/tech/search-engine/google/search/
@@ -37,14 +52,18 @@ http://www13.plala.or.jp/bigdata/google.html
 https://dev.classmethod.jp/articles/check-url-structure-of-google/
 
 
-I'm feeling lucky
-「https://www.google.com/search?btnI=I%27m+Feeling+Lucky&lr=lang_ja&ie=UTF-8&oe=UTF-8&q=」
- 
+I'm feeling luckyについて
+https://www.google.com/search?btnI=I%27m+Feeling+Lucky&lr=lang_ja&ie=UTF-8&oe=UTF-8&q=
+
+————————————————————
 
 
 2023年10月8日時点でキーボードツールバーの問題がある模様。
 なぜかアプリを起動して最初の一回のみ、ツールバーのボタンのフォントが大きくなってしまう。
 → fontモディファイアでbodyを指定し、一応は解決した
+
+
+————————————————————
 
 デバックエリアの黄色で表示される文章(Report NavigatorのConsole)
 
