@@ -2,15 +2,14 @@ import SwiftUI
 import SafariServices
 
 struct SafariView: UIViewControllerRepresentable {
-    private let url: URL
-
-    init(_ url: URL) { self.url = url }
+    let url: URL
 
     func makeUIViewController(
         context: UIViewControllerRepresentableContext<SafariView>
     ) -> SFSafariViewController {
         return SFSafariViewController(url: url)
     }
+    
     func updateUIViewController(
         _ uiViewController: SFSafariViewController,
         context: UIViewControllerRepresentableContext<SafariView>
@@ -18,5 +17,5 @@ struct SafariView: UIViewControllerRepresentable {
 }
 
 #Preview {
-    SafariView(URL(string: "https://apple.com/jp/")!)
+    SafariView(url: URL(string: "https://apple.com/jp/")!)
 }

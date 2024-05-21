@@ -1,10 +1,10 @@
 import SwiftUI
 
 struct HistoryList: View {
-    let historys: [SerachHistory]
+    let historys: [SearchHistory]
     let searchAction: @MainActor (String, SerchPlatform) -> Void
     let removeHistoryAction: @MainActor (IndexSet) -> Void
-    @Binding var isShowPromptToConfirmDeletionOfAllHistorys: Bool
+    @Binding private(set) var isShowPromptToConfirmDeletionOfAllHistorys: Bool
 
     var body: some View {
         if historys.isEmpty == false {
@@ -48,16 +48,8 @@ struct HistoryList: View {
 }
 
 struct SearchHistoryButton: View {
-    private let history: SerachHistory
-    private let action: @MainActor () -> Void
-
-    init(
-        history: SerachHistory,
-        action: @escaping @MainActor () -> Void
-    ) {
-        self.history = history
-        self.action = action
-    }
+    let history: SearchHistory
+    let action: @MainActor () -> Void
 
     var body: some View {
         Button(action: {

@@ -1,17 +1,9 @@
 import SwiftUI
 
 struct KeyboardToolbarSection: View {
-    private let validKeyboardToolbarButtons: Set<SerchPlatform>
-    private let action: @MainActor (SerchPlatform) -> Void
+    let validKeyboardToolbarButtons: Set<SerchPlatform>
+    let action: @MainActor (SerchPlatform) -> Void
     private let feedbackGenerator = UINotificationFeedbackGenerator()
-
-    init(
-        validKeyboardToolbarButtons: Set<SerchPlatform>,
-        action: @escaping @MainActor (SerchPlatform) -> Void
-    ) {
-        self.validKeyboardToolbarButtons = validKeyboardToolbarButtons
-        self.action = action
-    }
 
     var body: some View {
         Section {
@@ -33,22 +25,10 @@ struct KeyboardToolbarSection: View {
 }
 
 struct RowLikeToggleButton: View {
-    private let text: String
-    private let isValid: Bool
-    private let action: @MainActor () -> Void
-    private let feedbackAction: () -> Void
-
-    init(
-        text: String,
-        isValid: Bool,
-        action: @escaping @MainActor () -> Void,
-        feedbackAction: @escaping () -> Void
-    ) {
-        self.text = text
-        self.isValid = isValid
-        self.action = action
-        self.feedbackAction = feedbackAction
-    }
+    let text: String
+    let isValid: Bool
+    let action: @MainActor () -> Void
+    let feedbackAction: () -> Void
 
     var body: some View {
         Button(
