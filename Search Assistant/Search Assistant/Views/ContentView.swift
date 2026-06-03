@@ -5,7 +5,6 @@ struct ContentView: View {
     @ObservedObject private(set) var vm: ContentViewModel
     @FocusState private var isFocused: Bool
     @Environment(\.scenePhase) private var scenePhase
-    @Environment(\.colorScheme) private var colorScheme: ColorScheme
 
     var body: some View {
         VStack(spacing: 0) {
@@ -124,7 +123,6 @@ struct ContentView: View {
             },
             content: {
                 SettingView()
-                    .preferredColorScheme(colorScheme)
             })
         ///
         ///
