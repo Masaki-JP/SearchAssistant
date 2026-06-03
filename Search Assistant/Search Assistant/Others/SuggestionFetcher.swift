@@ -50,7 +50,7 @@ final class SuggestionFetcher {
         let url = createURL(from: userInput)
         let (data, _) = try await URLSession.shared.data(from: url)
 
-        let parser = XMLParserManager()
+        let parser = SuggestionXMLParser()
         return parser.parse(data: data)
     }
 
@@ -67,7 +67,7 @@ final class SuggestionFetcher {
 
 }
 
-class XMLParserManager: NSObject, XMLParserDelegate {
+class SuggestionXMLParser: NSObject, XMLParserDelegate {
     var suggestions: [String] = []
 
     func parse(data: Data) -> [String] {
