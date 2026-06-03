@@ -49,9 +49,9 @@ final class SuggestionFetcher {
     func fetch(from userInput: String) async throws -> [String] {
         let url = createURL(from: userInput)
         let (data, _) = try await URLSession.shared.data(from: url)
-        let xmlString = String(data: data, encoding: .shiftJIS)!
-        let suggestions = convertXMLStringToStringArray(xmlString)
-        return suggestions
+
+        let parser = XMLParserManager()
+        return parser.parse(data: data)
     }
 
     /// ユーザー入力から検索URLを作成する。
@@ -65,62 +65,47 @@ final class SuggestionFetcher {
         return url
     }
 
-    /// XML形式の文字列を文字列の配列に変換する。
-    ///
-    /// - Parameter xmlString: 変換するXML形式の文字列
-    /// - Returns: 抽出された提案の文字列配列
-    private func convertXMLStringToStringArray(_ xmlString: String) -> [String] {
-        var suggestions: [String] = .init()
-        let unfinishedXmlElements = xmlString.components(separatedBy: "<CompleteSuggestion><suggestion data=\"")
-        for (index, element) in xmlString.components(separatedBy: "<CompleteSuggestion><suggestion data=\"").enumerated() {
-            if index == 0 {
-                continue
-            } else if index == unfinishedXmlElements.count-1 {
-                suggestions.append(
-                    element.replacingOccurrences(of: "\"/></CompleteSuggestion></toplevel>", with: "")
-                )
-            } else {
-                suggestions.append(
-                    element.replacingOccurrences(of: "\"/></CompleteSuggestion>", with: "")
-                )
-            }
-        }
-        return suggestions
-    }
 }
 
+class XMLParserManager: NSObject, XMLParserDelegate {
+    var suggestions: [String] = []
 
+    func parse(data: Data) -> [String] {
+        suggestions = []
+        if parseXMLData(data) {
+            return suggestions
+        }
 
-//// About XML
-//// https://softmoco.com/swift/swift-how-to-parse-xml.php
-//// https://zenn.dev/toaster/articles/2510da8c704d63
-//// https://k-icegreen.com/?p=4032
-//// https://qiita.com/eito_2/items/8dc0c5ed48a353c2a1b2
-//// https://jp-seemore.com/app/16108/
-//
-//class XMLParserManager: NSObject, XMLParserDelegate {
-//    var suggestions: [String] = []
-//    private var currentElement = ""
-//
-//    func parse(data: Data) -> [String] {
-//        let parser = XMLParser(data: data)
-//        parser.delegate = self
-//        parser.parse()
-//        return suggestions
-//    }
-//
-//    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-//        currentElement = elementName
-//        if elementName == "suggestion", let suggestion = attributeDict["data"] {
-//            suggestions.append(suggestion)
-//        }
-//    }
-//}
-//
-//let xmlString = "<?xml version=\"1.0\"?><toplevel><CompleteSuggestion><suggestion data=\"apple\"/></CompleteSuggestion><CompleteSuggestion><suggestion data=\"apple watch\"/></CompleteSuggestion><CompleteSuggestion><suggestion data=\"apple store\"/></CompleteSuggestion><CompleteSuggestion><suggestion data=\"apple music\"/></CompleteSuggestion></toplevel>"
-//
-//if let data = xmlString.data(using: .utf8) {
-//    let parserManager = XMLParserManager()
-//    let suggestions = parserManager.parse(data: data)
-//    print(suggestions) // ["apple", "apple watch", "apple store", "apple music"]
-//}
+        guard let xmlData = utf8DataFromShiftJISXML(data) else {
+            return suggestions
+        }
+
+        suggestions = []
+        parseXMLData(xmlData)
+        return suggestions
+    }
+
+    @discardableResult
+    private func parseXMLData(_ data: Data) -> Bool {
+        let parser = XMLParser(data: data)
+        parser.delegate = self
+        return parser.parse()
+    }
+
+    private func utf8DataFromShiftJISXML(_ data: Data) -> Data? {
+        guard
+            let xmlString = String(data: data, encoding: .shiftJIS),
+            let utf8Data = xmlString.data(using: .utf8)
+        else {
+            return nil
+        }
+
+        return utf8Data
+    }
+
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+        if elementName == "suggestion", let suggestion = attributeDict["data"] {
+            suggestions.append(suggestion)
+        }
+    }
+}
