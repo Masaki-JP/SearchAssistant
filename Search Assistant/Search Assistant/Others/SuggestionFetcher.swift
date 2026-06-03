@@ -60,7 +60,7 @@ final class SuggestionFetcher {
     /// - Returns: 構築されたURL。
     private func createURL(from userInput: String) -> URL {
         let prefixURL = "https://www.google.com/complete/search?hl=ja&output=toolbar&q="
-        let query = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let query = userInput.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
         let url = URL(string: prefixURL + query)!
         return url
     }
