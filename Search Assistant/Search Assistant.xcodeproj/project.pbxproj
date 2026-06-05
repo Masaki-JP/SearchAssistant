@@ -31,6 +31,7 @@
 		4C446F032AD4F6270023C4F1 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C446F022AD4F6270023C4F1 /* ViewRouter.swift */; };
 		4C44E60D2FD2DD1800EB1965 /* ContentView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C44E60B2FD2DD1800EB1965 /* ContentView+.swift */; };
 		4C44E6172FD3306700EB1965 /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C44E6162FD3306700EB1965 /* DebugLog.swift */; };
+		4C44E6192FD333D200EB1965 /* SettingView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C44E6182FD333D200EB1965 /* SettingView+.swift */; };
 		4C5F81032B59BE89003EE563 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5F81022B59BE88003EE563 /* SafariView.swift */; };
 		4C6AE3F62AD2A5B500863115 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6AE3F52AD2A5B500863115 /* SearchTextField.swift */; };
 		4C906C1D2B37E61400E1E50E /* SuggestionFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C906C1C2B37E61400E1E50E /* SuggestionFetcher.swift */; };
@@ -101,6 +102,7 @@
 		4C446F022AD4F6270023C4F1 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
 		4C44E60B2FD2DD1800EB1965 /* ContentView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView+.swift"; sourceTree = "<group>"; };
 		4C44E6162FD3306700EB1965 /* DebugLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLog.swift; sourceTree = "<group>"; };
+		4C44E6182FD333D200EB1965 /* SettingView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingView+.swift"; sourceTree = "<group>"; };
 		4C5F81022B59BE88003EE563 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		4C6AE3F52AD2A5B500863115 /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		4C906C1C2B37E61400E1E50E /* SuggestionFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionFetcher.swift; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				4C44E60B2FD2DD1800EB1965 /* ContentView+.swift */,
+				4C44E6182FD333D200EB1965 /* SettingView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -409,6 +412,7 @@
 				4C24C0B42ACD2A5B000A604E /* SearchPlatform.swift in Sources */,
 				4C24C0AF2ACD2740000A604E /* FocusTextFieldButton.swift in Sources */,
 				4C3A5FAD2B5CB9F600766BC1 /* UserDefaultsRepository.swift in Sources */,
+				4C44E6192FD333D200EB1965 /* SettingView+.swift in Sources */,
 				4C24C0B22ACD28A9000A604E /* ImplementationButtonsOnKeyboardToolbar.swift in Sources */,
 				4CFFF1E92B604223008E8CCD /* SearchURLCreater.swift in Sources */,
 				4C42169C2AD2C850000AF20A /* SuggestionList.swift in Sources */,
