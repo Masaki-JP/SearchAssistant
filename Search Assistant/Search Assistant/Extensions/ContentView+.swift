@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension ContentView {
-    private func appendHistory(userInput: String, platform: SerchPlatform) {
+    private func appendHistory(userInput: String, platform: SearchPlatform) {
         do {
             historys.insert(.init(userInput: userInput, platform: platform), at: 0)
             try searchHistoryRepository.save(historys)
@@ -40,7 +40,7 @@ extension ContentView {
         }
     }
 
-    func search(_ userInput: String, on platform: SerchPlatform) {
+    func search(_ userInput: String, on platform: SearchPlatform) {
         do {
             let url = try searchURLCreater.create(userInput, searchPlatform: platform)
             appendHistory(userInput: userInput, platform: platform)
@@ -68,7 +68,7 @@ extension ContentView {
             validKeyboardToolbarButtons = try validKeyboardToolbarButtonRepository.fetch()
         } catch {
             reportError(error)
-            validKeyboardToolbarButtons = Set(SerchPlatform.allCases)
+            validKeyboardToolbarButtons = Set(SearchPlatform.allCases)
         }
     }
 }

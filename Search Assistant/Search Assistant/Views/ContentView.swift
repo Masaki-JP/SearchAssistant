@@ -24,8 +24,8 @@ struct ContentView: View {
     @AppStorage(AppStorageKey.searchButton_Left) var settingLeftSearchButton = false
     @AppStorage("openInSafariView") var openInSafariView = true
 
-    @State var validKeyboardToolbarButtons = Set(SerchPlatform.allCases)
-    let validKeyboardToolbarButtonRepository = UserDefaultsRepository<Set<SerchPlatform>>(key: UserDefaultsKey.validKeyboardToolbarButtons)
+    @State var validKeyboardToolbarButtons = Set(SearchPlatform.allCases)
+    let validKeyboardToolbarButtonRepository = UserDefaultsRepository<Set<SearchPlatform>>(key: UserDefaultsKey.validKeyboardToolbarButtons)
 
     @State var userInput = ""
 
@@ -77,7 +77,7 @@ struct ContentView: View {
         .modifier(
             ImplementationButtonsOnKeyboardToolbar(
                 isFocused: $isFocused.projectedValue,
-                platforms: SerchPlatform.allCases.filter(validKeyboardToolbarButtons.contains),
+                platforms: SearchPlatform.allCases.filter(validKeyboardToolbarButtons.contains),
                 onButtonTapped: { serchPlatform in
                     search(userInput, on: serchPlatform)
                 },
@@ -86,7 +86,7 @@ struct ContentView: View {
                           validKeyboardToolbarButtons.isEmpty == false
                     else { return }
 
-                    for platform in SerchPlatform.allCases where validKeyboardToolbarButtons.contains(platform) {
+                    for platform in SearchPlatform.allCases where validKeyboardToolbarButtons.contains(platform) {
                         reader.scrollTo(platform.rawValue)
                         return
                     }

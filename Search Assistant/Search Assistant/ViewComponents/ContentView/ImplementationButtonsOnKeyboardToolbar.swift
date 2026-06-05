@@ -4,8 +4,8 @@ import SwiftUI
 struct ImplementationButtonsOnKeyboardToolbar: ViewModifier {
     @Environment(\.scenePhase) var scenePhase
     var isFocused: FocusState<Bool>.Binding
-    let platforms: [SerchPlatform]
-    let onButtonTapped: (SerchPlatform) -> Void
+    let platforms: [SearchPlatform]
+    let onButtonTapped: (SearchPlatform) -> Void
     let onScenePhaseChange: (ScenePhase, ScrollViewProxy) -> Void
 
     func body(content: Content) -> some View {
