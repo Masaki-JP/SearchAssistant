@@ -2,52 +2,37 @@ import SwiftUI
 
 // キーボードツールバーにプラットフォーム別検索ボタンを追加
 struct ImplementationButtonsOnKeyboardToolbar: ViewModifier {
-    @ObservedObject private(set) var vm: ContentViewModel
-    private(set) var isFocused: FocusState<Bool>.Binding
+    @Environment(\.scenePhase) var scenePhase
+    var isFocused: FocusState<Bool>.Binding
+    let platforms: [SerchPlatform]
+    let onButtonTapped: (SerchPlatform) -> Void
+    let onScenePhaseChange: (ScenePhase, ScrollViewProxy) -> Void
 
     func body(content: Content) -> some View {
         content
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
                     HStack {
-                        SearchButtons(vm: vm)
+                        ScrollViewReader { reader in
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack {
+                                    ForEach(platforms) { platform in
+                                        Button(platform.rawValue) {
+                                            onButtonTapped(platform)
+                                        }
+                                    }
+                                }
+                            }
+                            .onChange(of: scenePhase) { newScenePhase in
+                                onScenePhaseChange(newScenePhase, reader)
+                            }
+
+                        }
                         Button("完了") {
                             isFocused.wrappedValue = false
                         }
                     }
                 }
-            }
-    }
-}
-
-fileprivate struct SearchButtons: View {
-    @ObservedObject private(set) var vm: ContentViewModel
-    @Environment(\.scenePhase) private var scenePhase
-
-    var body: some View {
-        ScrollViewReader { reader in
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    ForEach(SerchPlatform.allCases, id: \.self) { platform in
-                        if vm.validKeyboardToolbarButtons.contains(platform) {
-                            Button(platform.rawValue) {
-                                vm.search(vm.userInput, on: platform)
-                            }
-                        }
-                    }
-                }
-            }
-            .onChange(of: scenePhase) { newScenePhase in
-                guard newScenePhase == .active,
-                      vm.validKeyboardToolbarButtons.isEmpty == false
-                else { return }
-
-                for platform in SerchPlatform.allCases
-                where vm.validKeyboardToolbarButtons.contains(platform) {
-                    reader.scrollTo(platform.rawValue)
-                    return
-                }
-            }
         }
     }
 }

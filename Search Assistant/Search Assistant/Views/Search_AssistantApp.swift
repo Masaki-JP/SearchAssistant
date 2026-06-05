@@ -4,7 +4,6 @@ import SwiftUI
 struct Search_AssistantApp: App {
     @AppStorage("colorScheme") private var appStorageColorScheme = ColorSchemeSetting.dark.rawValue
     @StateObject private var viewRouter = ViewRouter.shared
-    @StateObject private var contentViewModel = ContentViewModel()
 
     var body: some Scene {
         WindowGroup {
@@ -13,7 +12,7 @@ struct Search_AssistantApp: App {
                 case .splashScreenView:
                     SplashScreenView()
                 case .contentView:
-                    ContentView(vm: contentViewModel)
+                    ContentView()
                 }
             }
             .preferredColorScheme({
