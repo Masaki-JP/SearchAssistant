@@ -3,18 +3,18 @@ import SwiftUI
 struct SettingView: View {
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dismiss) private var dismiss
-
+    
     @AppStorage(AppStorageKey.autoFocus) private(set) var settingAutoFocus = true
     @AppStorage(AppStorageKey.searchButton_Left) private(set) var settingLeftSearchButton = false
     @AppStorage(AppStorageKey.colorScheme) private(set) var appStorageColorScheme = ColorSchemeSetting.dark.rawValue
     @AppStorage(AppStorageKey.openInSafariView) private(set) var openInSafariView = true
-
+    
     @State private var validKeyboardToolbarButtons = Set(SerchPlatform.allCases)
-
+    
     private let validKeyboardToolbarButtonRepository = UserDefaultsRepository<Set<SerchPlatform>>(key: UserDefaultsKey.validKeyboardToolbarButtons)
-
+    
     init() { fetchValidKeyboardToolbarButtons() }
-
+    
     var body: some View {
         NavigationStack {
             List {
@@ -37,7 +37,7 @@ struct SettingView: View {
             dismiss()
         }
     }
-
+        
     func fetchValidKeyboardToolbarButtons() {
         do {
             validKeyboardToolbarButtons = try validKeyboardToolbarButtonRepository.fetch()
@@ -46,7 +46,7 @@ struct SettingView: View {
             validKeyboardToolbarButtons = Set(SerchPlatform.allCases)
         }
     }
-
+    
     func toggleToolbarButtonAvailability(_ platform: SerchPlatform) {
         let previousState = validKeyboardToolbarButtons
         if validKeyboardToolbarButtons.contains(platform) {
