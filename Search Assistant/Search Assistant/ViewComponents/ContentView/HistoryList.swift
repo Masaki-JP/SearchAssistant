@@ -2,7 +2,7 @@ import SwiftUI
 
 struct HistoryList: View {
     let historys: [SearchHistory]
-    let searchAction: @MainActor (String, SerchPlatform) -> Void
+    let searchAction: @MainActor (String, SearchPlatform) -> Void
     let removeHistoryAction: @MainActor (IndexSet) -> Void
     @Binding private(set) var isShowPromptToConfirmDeletionOfAllHistorys: Bool
 

@@ -1,13 +1,13 @@
 import SwiftUI
 
 struct KeyboardToolbarSection: View {
-    let validKeyboardToolbarButtons: Set<SerchPlatform>
-    let action: @MainActor (SerchPlatform) -> Void
+    let validKeyboardToolbarButtons: Set<SearchPlatform>
+    let action: @MainActor (SearchPlatform) -> Void
     private let feedbackGenerator = UINotificationFeedbackGenerator()
 
     var body: some View {
         Section {
-            ForEach(SerchPlatform.allCases) { platform in
+            ForEach(SearchPlatform.allCases) { platform in
                 RowLikeToggleButton(
                     text: platform.rawValue,
                     isValid: validKeyboardToolbarButtons.contains(platform),
@@ -49,7 +49,7 @@ struct RowLikeToggleButton: View {
 #Preview {
     List {
         KeyboardToolbarSection(
-            validKeyboardToolbarButtons: Set(SerchPlatform.allCases),
+            validKeyboardToolbarButtons: Set(SearchPlatform.allCases),
             action: { _ in}
         )
     }

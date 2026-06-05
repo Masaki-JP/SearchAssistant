@@ -9,9 +9,9 @@ struct SettingView: View {
     @AppStorage(AppStorageKey.colorScheme) private(set) var appStorageColorScheme = ColorSchemeSetting.dark.rawValue
     @AppStorage(AppStorageKey.openInSafariView) private(set) var openInSafariView = true
     
-    @State private var validKeyboardToolbarButtons = Set(SerchPlatform.allCases)
+    @State private var validKeyboardToolbarButtons = Set(SearchPlatform.allCases)
     
-    private let validKeyboardToolbarButtonRepository = UserDefaultsRepository<Set<SerchPlatform>>(key: UserDefaultsKey.validKeyboardToolbarButtons)
+    private let validKeyboardToolbarButtonRepository = UserDefaultsRepository<Set<SearchPlatform>>(key: UserDefaultsKey.validKeyboardToolbarButtons)
     
     init() { fetchValidKeyboardToolbarButtons() }
     
@@ -43,11 +43,11 @@ struct SettingView: View {
             validKeyboardToolbarButtons = try validKeyboardToolbarButtonRepository.fetch()
         } catch {
             reportError(error)
-            validKeyboardToolbarButtons = Set(SerchPlatform.allCases)
+            validKeyboardToolbarButtons = Set(SearchPlatform.allCases)
         }
     }
     
-    func toggleToolbarButtonAvailability(_ platform: SerchPlatform) {
+    func toggleToolbarButtonAvailability(_ platform: SearchPlatform) {
         let previousState = validKeyboardToolbarButtons
         if validKeyboardToolbarButtons.contains(platform) {
             validKeyboardToolbarButtons.remove(platform)
