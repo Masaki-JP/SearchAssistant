@@ -12,4 +12,29 @@ struct SearchHistory: Codable, Identifiable {
         self.date = Date()
         self.id = UUID()
     }
+    
+    static let sample: Self = samples.first!
+    
+    static let samples: [Self] = [
+        .init(userInput: "iPhone 15 Pro", platform: .google),
+        .init(userInput: "iPad Pro", platform: .twitter),
+        .init(userInput: "Studio Display", platform: .instagram),
+        .init(userInput: "AirPods", platform: .mercari),
+        .init(userInput: "iMac", platform: .amazon),
+        .init(userInput: "Apple Pencil", platform: .youtube),
+        .init(userInput: "Macbook Air", platform: .facebook),
+        .init(userInput: "Xcode", platform: .google),
+        .init(userInput: "Apple Watch", platform: .twitter),
+        .init(userInput: "AirPods", platform: .rakuma),
+        .init(userInput: "iPod touch", platform: .instagram),
+        .init(userInput: "Apple Vision Pro", platform: .amazon),
+        .init(userInput: "Safari", platform: .youtube),
+        .init(userInput: "Tim Cook", platform: .facebook),
+        .init(userInput: "iPhone SE", platform: .google),
+        .init(userInput: "Apple Store", platform: .amazon),
+        .init(userInput: "Steve Jobs", platform: .paypayFleaMarket),
+        .init(userInput: "Apple Watch Ultra", platform: .google),
+        .init(userInput: "iCloud", platform: .amazon),
+        .init(userInput: "Apple Music", platform: .google),
+    ]
 }
