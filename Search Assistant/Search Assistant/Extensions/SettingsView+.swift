@@ -1,4 +1,4 @@
-extension SettingView {
+extension SettingsView {
     func fetchValidKeyboardToolbarButtons() {
         do {
             validKeyboardToolbarButtons = try validKeyboardToolbarButtonRepository.fetch()
