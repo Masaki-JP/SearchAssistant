@@ -3,13 +3,13 @@ import SwiftUI
 final class SearchURLCreater {
     enum SearchURLCreaterError: Error {
         case noInput
-        case inputContainsWhitespaceOnInstagramSearch
         case inputPercentEncodingFailure
         case creatingURLFailure
         case cannotOpenURL
     }
 
     func create(_ input: String, searchPlatform: SearchPlatform) throws -> URL {
+        var input = input
         ///
         ///
         /// もしinputが有効なURLだった場合、そのままURLインスタンスを作成し、それを返す。
@@ -23,10 +23,9 @@ final class SearchURLCreater {
         else { throw SearchURLCreaterError.noInput }
         ///
         ///
-        /// Instagram検索特有の処理：半角空白、全角空白が含まれていないことを確認
-        if searchPlatform == .instagram,
-           input.contains(" ") || input.contains("　") {
-            throw SearchURLCreaterError.inputContainsWhitespaceOnInstagramSearch
+        /// Instagram検索特有の処理：全角スペースを半角スペースに変換
+        if searchPlatform == .instagram {
+            input.replace("　", with: " ")            
         }
         ///
         ///

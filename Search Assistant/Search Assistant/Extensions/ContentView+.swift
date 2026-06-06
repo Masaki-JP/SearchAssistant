@@ -52,14 +52,7 @@ extension ContentView {
                 UIApplication.shared.open(url)
             }
         } catch {
-            guard let error = error as? SearchURLCreater.SearchURLCreaterError
-            else { reportError(error); return; }
-            switch error {
-            case .inputContainsWhitespaceOnInstagramSearch:
-                isShowInstagramErrorAlert = true
-            case .noInput, .inputPercentEncodingFailure, .creatingURLFailure, .cannotOpenURL:
-                reportError(error)
-            }
+            reportError(error)
         }
     }
 

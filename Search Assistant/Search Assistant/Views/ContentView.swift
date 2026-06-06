@@ -16,7 +16,6 @@ struct ContentView: View {
     let searchURLCreater = SearchURLCreater()
 
     @State var isPresentedSettingsView = false
-    @State var isShowInstagramErrorAlert = false
     @State var isShowPromptToConfirmDeletionOFAllHistorys = false
     @State var safariViewURL: SafariViewURL? = nil
 
@@ -96,7 +95,6 @@ struct ContentView: View {
         .onAppear {
             guard settingAutoFocus == true,
                   isPresentedSettingsView == false,
-                  isShowInstagramErrorAlert == false,
                   isShowPromptToConfirmDeletionOFAllHistorys == false
             else { return }
             DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
@@ -107,7 +105,6 @@ struct ContentView: View {
             guard newScenePhase == .active,
                   settingAutoFocus == true,
                   isPresentedSettingsView == false,
-                  isShowInstagramErrorAlert == false,
                   isShowPromptToConfirmDeletionOFAllHistorys == false,
                   safariViewURL == nil
             else { return }
@@ -141,7 +138,6 @@ struct ContentView: View {
         } message: {
             Text("全履歴を削除しますか？")
         }
-        .alert("Instagram検索ではスペースを使用できません。", isPresented: $isShowInstagramErrorAlert, actions: EmptyView.init)
     }
 }
 
