@@ -117,7 +117,7 @@
 		4CD61B912B5D56CE00040FD2 /* BrowserSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserSection.swift; sourceTree = "<group>"; };
 		4CD61B932B5D58B800040FD2 /* KeyboardToolbarSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardToolbarSection.swift; sourceTree = "<group>"; };
 		4CD61B952B5D634300040FD2 /* AppStorageKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorageKey.swift; sourceTree = "<group>"; };
-		4CFC39D72B4C2162000E1DF2 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = Views/View/SettingView/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		4CFC39D72B4C2162000E1DF2 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		4CFFF1E82B604223008E8CCD /* SearchURLCreater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchURLCreater.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
