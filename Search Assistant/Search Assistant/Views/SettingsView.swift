@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct SettingView: View {
+struct SettingsView: View {
     @Environment(\.scenePhase) var scenePhase
     @Environment(\.dismiss) var dismiss
     
@@ -40,5 +40,5 @@ struct SettingView: View {
 }
 
 #Preview {
-    SettingView()
+    SettingsView()
 }

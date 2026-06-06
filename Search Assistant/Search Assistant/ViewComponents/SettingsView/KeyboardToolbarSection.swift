@@ -8,7 +8,7 @@ struct KeyboardToolbarSection: View {
     var body: some View {
         Section {
             ForEach(SearchPlatform.allCases) { platform in
-                RowLikeToggleButton(
+                SettingsRow(
                     text: platform.rawValue,
                     isValid: validKeyboardToolbarButtons.contains(platform),
                     action: { action(platform) },
@@ -24,7 +24,7 @@ struct KeyboardToolbarSection: View {
     }
 }
 
-struct RowLikeToggleButton: View {
+struct SettingsRow: View {
     let text: String
     let isValid: Bool
     let action: @MainActor () -> Void

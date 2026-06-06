@@ -15,7 +15,7 @@ struct ContentView: View {
 
     let searchURLCreater = SearchURLCreater()
 
-    @State var isPresentedSettingView = false
+    @State var isPresentedSettingsView = false
     @State var isShowInstagramErrorAlert = false
     @State var isShowPromptToConfirmDeletionOFAllHistorys = false
     @State var safariViewURL: SafariViewURL? = nil
@@ -44,7 +44,7 @@ struct ContentView: View {
             SearchTextField(
                 isFocused: $isFocused,
                 userInput: $userInput,
-                onSettingsButtonTapped: { isPresentedSettingView = true },
+                onSettingsButtonTapped: { isPresentedSettingsView = true },
                 onInputClearButtonTapped: { userInput.removeAll() },
                 onSubmit: { search(userInput, on: .google) }
             )
@@ -95,7 +95,7 @@ struct ContentView: View {
         )
         .onAppear {
             guard settingAutoFocus == true,
-                  isPresentedSettingView == false,
+                  isPresentedSettingsView == false,
                   isShowInstagramErrorAlert == false,
                   isShowPromptToConfirmDeletionOFAllHistorys == false
             else { return }
@@ -106,7 +106,7 @@ struct ContentView: View {
         .onChange(of: scenePhase) { newScenePhase in
             guard newScenePhase == .active,
                   settingAutoFocus == true,
-                  isPresentedSettingView == false,
+                  isPresentedSettingsView == false,
                   isShowInstagramErrorAlert == false,
                   isShowPromptToConfirmDeletionOFAllHistorys == false,
                   safariViewURL == nil
@@ -115,7 +115,7 @@ struct ContentView: View {
                 isFocused = true
             }
         }
-        .onChange(of: isPresentedSettingView) { newValue in
+        .onChange(of: isPresentedSettingsView) { newValue in
             if newValue == true { isFocused = false }
         }
         .onChange(of: userInput) { _ in
@@ -126,12 +126,12 @@ struct ContentView: View {
             SafariView(url: item.url)
                 .ignoresSafeArea()
         }
-        .sheet(isPresented: $isPresentedSettingView) {
+        .sheet(isPresented: $isPresentedSettingsView) {
             fetchValidKeyboardToolbarButtons()
             guard settingAutoFocus else { return }
             isFocused = true
         } content: {
-            SettingView()
+            SettingsView()
         }
         .alert("確認", isPresented: $isShowPromptToConfirmDeletionOFAllHistorys) {
             Button("実行", role: .destructive) {
