@@ -26,7 +26,6 @@ struct ImplementationButtonsOnKeyboardToolbar: ViewModifier {
                             .onChange(of: scenePhase) { newScenePhase in
                                 onScenePhaseChange(newScenePhase, reader)
                             }
-
                         }
                         Button("完了") {
                             isFocused.wrappedValue = false
