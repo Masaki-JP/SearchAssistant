@@ -10,10 +10,7 @@ struct SettingsView: View {
     @AppStorage(AppStorageKey.openInSafariView) var openInSafariView = true
     
     @State var validKeyboardToolbarButtons = Set(SearchPlatform.allCases)
-    
     let validKeyboardToolbarButtonRepository = UserDefaultsRepository<Set<SearchPlatform>>(key: UserDefaultsKey.validKeyboardToolbarButtons)
-    
-    init() { fetchValidKeyboardToolbarButtons() }
     
     var body: some View {
         NavigationStack {
@@ -36,6 +33,7 @@ struct SettingsView: View {
             guard newScene != .active else { return }
             dismiss()
         }
+        .onAppear(perform: fetchValidKeyboardToolbarButtons)
     }
 }
 
