@@ -85,10 +85,9 @@ struct ContentView: View {
                           validKeyboardToolbarButtons.isEmpty == false
                     else { return }
 
-                    for platform in SearchPlatform.allCases where validKeyboardToolbarButtons.contains(platform) {
-                        reader.scrollTo(platform.rawValue)
-                        return
-                    }
+                    let scrollDestinationPlatform = SearchPlatform.allCases.first(where: validKeyboardToolbarButtons.contains) ?? .google
+                    
+                    reader.scrollTo(scrollDestinationPlatform.rawValue)
                 }
             )
         )
