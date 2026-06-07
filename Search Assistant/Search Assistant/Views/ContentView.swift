@@ -28,16 +28,6 @@ struct ContentView: View {
 
     @State var userInput = ""
 
-    init() {
-        do {
-            historys = try searchHistoryRepository.fetch()
-        } catch {
-            reportError(error)
-        }
-
-        fetchValidKeyboardToolbarButtons()
-    }
-
     var body: some View {
         VStack(spacing: 0) {
             SearchTextField(
@@ -92,6 +82,14 @@ struct ContentView: View {
             )
         )
         .onAppear {
+            do {
+                historys = try searchHistoryRepository.fetch()
+            } catch {
+                reportError(error)
+            }
+            
+            fetchValidKeyboardToolbarButtons()
+            
             guard settingAutoFocus == true,
                   isPresentedSettingsView == false,
                   isShowPromptToConfirmDeletionOFAllHistorys == false
