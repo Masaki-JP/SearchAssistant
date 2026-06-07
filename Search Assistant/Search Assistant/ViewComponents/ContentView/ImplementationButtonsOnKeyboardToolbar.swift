@@ -17,7 +17,7 @@ struct ImplementationButtonsOnKeyboardToolbar: ViewModifier {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack {
                                     ForEach(platforms) { platform in
-                                        Button(platform.rawValue) {
+                                        Button(platform.displayName) {
                                             onButtonTapped(platform)
                                         }
                                     }
