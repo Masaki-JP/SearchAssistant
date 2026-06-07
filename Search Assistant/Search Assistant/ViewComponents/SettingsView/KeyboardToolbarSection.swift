@@ -12,8 +12,7 @@ struct KeyboardToolbarSection: View {
                     text: platform.displayName,
                     isValid: validKeyboardToolbarButtons.contains(platform),
                     action: { action(platform) },
-                    feedbackAction: {                        feedbackGenerator.notificationOccurred(.success)
-                    }
+                    feedbackAction: { feedbackGenerator.notificationOccurred(.success) }
                 )
             }
         } header: {
