@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ColorSchemeSection: View {
     @Binding private(set) var selection: String
-
+    
     var body: some View {
         Section {
             Picker("外観モード", selection: $selection) {

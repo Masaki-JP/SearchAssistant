@@ -12,7 +12,7 @@ enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
     case mercari = "メルカリ"
     case rakuma = "ラクマ"
     case yahooFleaMarket = "PayPayフリマ"
-
+    
     var id: Self { self }
     
     var displayName: String {
@@ -37,7 +37,7 @@ enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
             "Yahoo!フリマ"
         }
     }
-
+    
     var prefixURL: String {
         switch self {
         case .google: "https://www.google.co.jp/search?q="
@@ -51,7 +51,7 @@ enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
         case .yahooFleaMarket: "https://paypayfleamarket.yahoo.co.jp/search/"
         }
     }
-
+    
     var iconCharacter: String {
         switch self {
         case .google: "G"
@@ -65,7 +65,7 @@ enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
         case .yahooFleaMarket: "Y"
         }
     }
-
+    
     var imageColor: Color {
         switch self {
         case .google: .blue

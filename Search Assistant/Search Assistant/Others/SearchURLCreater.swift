@@ -7,7 +7,7 @@ final class SearchURLCreater {
         case creatingURLFailure
         case cannotOpenURL
     }
-
+    
     func create(_ input: String, searchPlatform: SearchPlatform) throws -> URL {
         var input = input
         ///
@@ -25,7 +25,7 @@ final class SearchURLCreater {
         ///
         /// Instagram検索特有の処理：全角スペースを半角スペースに変換
         if searchPlatform == .instagram {
-            input.replace("　", with: " ")            
+            input.replace("　", with: " ")
         }
         ///
         ///

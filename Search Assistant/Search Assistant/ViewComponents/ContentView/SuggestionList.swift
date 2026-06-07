@@ -3,7 +3,7 @@ import SwiftUI
 struct SuggestionList: View {
     let suggestions: [String]?
     let action: @MainActor (String, SearchPlatform) -> Void
-
+    
     var body: some View {
         switch suggestions {
         case .some(let suggestions):
@@ -33,7 +33,7 @@ struct SuggestionList: View {
 fileprivate struct SuggestionButton: View {
     let suggestion: String
     let action: @MainActor () -> Void
-
+    
     var body: some View {
         Button(action: {
             action()
@@ -71,7 +71,6 @@ fileprivate struct SuggestionButton: View {
             suggestions: nil,
             action: { (_, _) in }
         )
-
     }
     .tabViewStyle(.page)
     .ignoresSafeArea()

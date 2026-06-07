@@ -2,7 +2,7 @@ import SwiftUI
 
 struct FocusControlSection: View {
     @Binding private(set) var isOn: Bool
-
+    
     var body: some View {
         Section {
             Toggle(isOn: $isOn) {

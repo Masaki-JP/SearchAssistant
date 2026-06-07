@@ -3,31 +3,31 @@ import SwiftUI
 struct ContentView: View {
     @FocusState var isFocused: Bool
     @Environment(\.scenePhase) var scenePhase
-
+    
     @State var historys: [SearchHistory] = []
     let searchHistoryRepository = UserDefaultsRepository<[SearchHistory]>(key: .searchHistorys)
     @State var suggestions: [String]? = []
     let suggestionFetcher = SuggestionFetcher.shared
-
+    
     struct SafariViewURL: Identifiable {
         let url: URL; let id = UUID();
     }
-
+    
     let searchURLCreater = SearchURLCreater()
-
+    
     @State var isPresentedSettingsView = false
     @State var isShowPromptToConfirmDeletionOFAllHistorys = false
     @State var safariViewURL: SafariViewURL? = nil
-
+    
     @AppStorage(AppStorageKey.autoFocus) var settingAutoFocus = true
     @AppStorage(AppStorageKey.searchButton_Left) var settingLeftSearchButton = false
     @AppStorage("openInSafariView") var openInSafariView = true
-
+    
     @State var validKeyboardToolbarButtons = Set(SearchPlatform.allCases)
     let validKeyboardToolbarButtonRepository = UserDefaultsRepository<Set<SearchPlatform>>(key: UserDefaultsKey.validKeyboardToolbarButtons)
-
+    
     @State var userInput = ""
-
+    
     var body: some View {
         VStack(spacing: 0) {
             SearchTextField(
