@@ -63,24 +63,6 @@ struct ContentView: View {
                     )
             }
         }
-        .modifier(
-            ImplementationButtonsOnKeyboardToolbar(
-                isFocused: $isFocused.projectedValue,
-                platforms: SearchPlatform.allCases.filter(validKeyboardToolbarButtons.contains),
-                onButtonTapped: { serchPlatform in
-                    search(userInput, on: serchPlatform)
-                },
-                onScenePhaseChange: { newScenePhase, reader in
-                    guard newScenePhase == .active,
-                          validKeyboardToolbarButtons.isEmpty == false
-                    else { return }
-
-                    let scrollDestinationPlatform = SearchPlatform.allCases.first(where: validKeyboardToolbarButtons.contains) ?? .google
-                    
-                    reader.scrollTo(scrollDestinationPlatform)
-                }
-            )
-        )
         .onAppear {
             do {
                 historys = try searchHistoryRepository.fetch()
@@ -134,6 +116,39 @@ struct ContentView: View {
             Button("キャンセル", role: .cancel) {}
         } message: {
             Text("全履歴を削除しますか？")
+        }
+        .toolbar {
+            ToolbarItem(placement: .keyboard, content: toolbarItemContent)
+        }
+    }
+    
+    func toolbarItemContent() -> some View {
+        let validButtons = SearchPlatform.allCases.filter(validKeyboardToolbarButtons.contains)
+        
+        return HStack(spacing: 4) {
+            ScrollViewReader { scrollViewProxy in
+                ScrollView(.horizontal) {
+                    HStack {
+                        ForEach(validButtons) { searchPlatform in
+                            Button(searchPlatform.displayName) {
+                                search(userInput, on: searchPlatform)
+                            }
+                        }
+                    }
+                }
+                .scrollIndicators(.hidden)
+                .onChange(of: scenePhase) { newValue in
+                    if newValue != .active, let scrollDestinationID = validButtons.first?.id {
+                        scrollViewProxy.scrollTo(scrollDestinationID)
+                    }
+                }
+            }
+            
+            Button {
+                isFocused = false
+            } label: {
+                Image(systemName: "x.circle")
+            }
         }
     }
 }
