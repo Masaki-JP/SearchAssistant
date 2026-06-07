@@ -4,7 +4,7 @@ struct KeyboardToolbarSection: View {
     let validKeyboardToolbarButtons: Set<SearchPlatform>
     let action: @MainActor (SearchPlatform) -> Void
     private let feedbackGenerator = UINotificationFeedbackGenerator()
-
+    
     var body: some View {
         Section {
             ForEach(SearchPlatform.allCases) { platform in
@@ -28,7 +28,7 @@ struct SettingsRow: View {
     let isValid: Bool
     let action: @MainActor () -> Void
     let feedbackAction: () -> Void
-
+    
     var body: some View {
         Button(
             action: { action(); feedbackAction(); },

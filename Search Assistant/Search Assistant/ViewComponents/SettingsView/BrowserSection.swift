@@ -2,7 +2,7 @@ import SwiftUI
 
 struct BrowserSection: View {
     @Binding private(set) var isOn: Bool
-
+    
     var body: some View {
         Section {
             Toggle("アプリ内ブラウザで開く", isOn: $isOn)

@@ -9,7 +9,7 @@ extension ContentView {
             reportError(error)
         }
     }
-
+    
     func removeHistory(atOffsets indexSet: IndexSet) {
         let preHistorys = historys
         do {
@@ -20,7 +20,7 @@ extension ContentView {
             historys = preHistorys
         }
     }
-
+    
     func removeAllHistorys() {
         let preHistorys = historys
         do {
@@ -31,7 +31,7 @@ extension ContentView {
             historys = preHistorys
         }
     }
-
+    
     func getSuggestion(from userInput: String) async {
         do {
             try await suggestions = suggestionFetcher.fetch(from: userInput)
@@ -39,7 +39,7 @@ extension ContentView {
             suggestions = nil
         }
     }
-
+    
     func search(_ userInput: String, on platform: SearchPlatform) {
         do {
             let url = try searchURLCreater.create(userInput, searchPlatform: platform)
@@ -55,7 +55,7 @@ extension ContentView {
             reportError(error)
         }
     }
-
+    
     func fetchValidKeyboardToolbarButtons() {
         do {
             validKeyboardToolbarButtons = try validKeyboardToolbarButtonRepository.fetch()

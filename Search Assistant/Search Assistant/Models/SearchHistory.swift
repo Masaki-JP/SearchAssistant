@@ -5,7 +5,7 @@ struct SearchHistory: Codable, Identifiable {
     let platform: SearchPlatform
     let date: Date
     let id: UUID
-
+    
     init(userInput: String, platform: SearchPlatform) {
         self.userInput = userInput
         self.platform = platform

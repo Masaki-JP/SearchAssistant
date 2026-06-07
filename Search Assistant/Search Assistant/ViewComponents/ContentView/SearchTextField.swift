@@ -6,7 +6,7 @@ struct SearchTextField: View {
     let onSettingsButtonTapped: () -> Void
     let onInputClearButtonTapped: () -> Void
     let onSubmit: () -> Void
-
+    
     var body: some View {
         HStack {
             Image(systemName: "magnifyingglass")

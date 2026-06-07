@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SplashScreenView: View {
     @State private var opacity = 1.0
-
+    
     var body: some View {
         ZStack {
             Image(systemName: "magnifyingglass")

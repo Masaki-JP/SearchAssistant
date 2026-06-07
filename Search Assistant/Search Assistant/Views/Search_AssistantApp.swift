@@ -4,7 +4,7 @@ import SwiftUI
 struct Search_AssistantApp: App {
     @AppStorage("colorScheme") private var appStorageColorScheme = ColorSchemeSetting.dark.rawValue
     @StateObject private var viewRouter = ViewRouter.shared
-
+    
     var body: some Scene {
         WindowGroup {
             Group {

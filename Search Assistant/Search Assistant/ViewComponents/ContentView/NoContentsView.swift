@@ -4,7 +4,7 @@ struct NoContentsView: View {
     let title: String
     let description: String?
     let imageSystemName: String
-
+    
     var body: some View {
         VStack(spacing: 5) {
             Image(systemName: imageSystemName)
@@ -15,7 +15,7 @@ struct NoContentsView: View {
             Text(title)
                 .fontWeight(.bold)
                 .font(.title2)
-
+            
             if let description {
                 Text(description)
                     .multilineTextAlignment(.leading)

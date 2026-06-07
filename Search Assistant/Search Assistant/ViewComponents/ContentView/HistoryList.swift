@@ -5,7 +5,7 @@ struct HistoryList: View {
     let searchAction: @MainActor (String, SearchPlatform) -> Void
     let removeHistoryAction: @MainActor (IndexSet) -> Void
     @Binding private(set) var isShowPromptToConfirmDeletionOfAllHistorys: Bool
-
+    
     var body: some View {
         if historys.isEmpty == false {
             List {
@@ -50,7 +50,7 @@ struct HistoryList: View {
 struct SearchHistoryButton: View {
     let history: SearchHistory
     let action: @MainActor () -> Void
-
+    
     var body: some View {
         Button(action: {
             action()
@@ -83,7 +83,7 @@ fileprivate extension Date {
         dateFormatter.dateFormat = "yyyy/MM/dd"
         dateFormatter.calendar = Calendar.autoupdatingCurrent
         return dateFormatter}()
-
+    
     func string() -> String {
         Self.dateFormatter.string(from: self)
     }
@@ -100,7 +100,7 @@ fileprivate extension Date {
             removeHistoryAction: { (_) -> Void in },
             isShowPromptToConfirmDeletionOfAllHistorys: Binding.constant(false)
         )
-
+        
         // 検索履歴がない場合
         HistoryList(
             historys: [],

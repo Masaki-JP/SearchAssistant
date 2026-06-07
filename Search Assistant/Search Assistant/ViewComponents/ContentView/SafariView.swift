@@ -3,7 +3,7 @@ import SafariServices
 
 struct SafariView: UIViewControllerRepresentable {
     let url: URL
-
+    
     func makeUIViewController(
         context: UIViewControllerRepresentableContext<SafariView>
     ) -> SFSafariViewController {

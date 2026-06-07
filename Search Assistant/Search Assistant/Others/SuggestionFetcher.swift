@@ -20,7 +20,7 @@ final class SuggestionFetcher {
     /// プライベートイニシャライザで外部でのインスタンスの作成を防ぎ、スタティックプロパティを通じてシングルトンインスタンスを提供する。
     static let shared = SuggestionFetcher()
     private init() {}
-
+    
     /// ユーザー入力に基づいて提案を非同期的にフェッチします。
     ///
     /// - Parameters:
@@ -49,11 +49,11 @@ final class SuggestionFetcher {
     func fetch(from userInput: String) async throws -> [String] {
         let url = createURL(from: userInput)
         let (data, _) = try await URLSession.shared.data(from: url)
-
+        
         let parser = SuggestionXMLParser()
         return parser.parse(data: data)
     }
-
+    
     /// ユーザー入力から検索URLを作成する。
     ///
     /// - Parameter userInput: 検索クエリとして使用するユーザー入力文字列
@@ -64,34 +64,34 @@ final class SuggestionFetcher {
         let url = URL(string: prefixURL + query)!
         return url
     }
-
+    
 }
 
 class SuggestionXMLParser: NSObject, XMLParserDelegate {
     var suggestions: [String] = []
-
+    
     func parse(data: Data) -> [String] {
         suggestions = []
         if parseXMLData(data) {
             return suggestions
         }
-
+        
         guard let xmlData = utf8DataFromShiftJISXML(data) else {
             return suggestions
         }
-
+        
         suggestions = []
         parseXMLData(xmlData)
         return suggestions
     }
-
+    
     @discardableResult
     private func parseXMLData(_ data: Data) -> Bool {
         let parser = XMLParser(data: data)
         parser.delegate = self
         return parser.parse()
     }
-
+    
     private func utf8DataFromShiftJISXML(_ data: Data) -> Data? {
         guard
             let xmlString = String(data: data, encoding: .shiftJIS),
@@ -99,10 +99,10 @@ class SuggestionXMLParser: NSObject, XMLParserDelegate {
         else {
             return nil
         }
-
+        
         return utf8Data
     }
-
+    
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         if elementName == "suggestion", let suggestion = attributeDict["data"] {
             suggestions.append(suggestion)
