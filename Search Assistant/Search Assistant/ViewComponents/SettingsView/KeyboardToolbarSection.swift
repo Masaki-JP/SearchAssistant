@@ -9,7 +9,7 @@ struct KeyboardToolbarSection: View {
         Section {
             ForEach(SearchPlatform.allCases) { platform in
                 SettingsRow(
-                    text: platform.rawValue,
+                    text: platform.displayName,
                     isValid: validKeyboardToolbarButtons.contains(platform),
                     action: { action(platform) },
                     feedbackAction: {                        feedbackGenerator.notificationOccurred(.success)
