@@ -43,16 +43,13 @@ struct SearchTextField: View {
     }
 }
 
-struct SearchTextField_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchTextField(
-            isFocused: FocusState().projectedValue,
-            userInput: .constant("apple"),
-            onSettingsButtonTapped: {},
-            onInputClearButtonTapped: {},
-            onSubmit: {}
-        )
-        .previewLayout(.sizeThatFits)
-        .padding(.horizontal)
-    }
+#Preview(traits: .sizeThatFitsLayout) {
+    SearchTextField(
+        isFocused: FocusState().projectedValue,
+        userInput: .constant("apple"),
+        onSettingsButtonTapped: {},
+        onInputClearButtonTapped: {},
+        onSubmit: {}
+    )
+    .padding(.horizontal)
 }
