@@ -38,7 +38,7 @@ struct HistoryList: View {
             }
         } else {
             NoContentsView(
-                title: "I am Search Assistant!",
+                title: "I am Search Assistant !",
                 description: "Google, Twitter(X), Instagram, Amazon,  YouTubeなどの\n検索をこのアプリひとつで行うことができます。",
                 imageSystemName: "doc.text.magnifyingglass"
             )
