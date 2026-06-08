@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct NoContentsView: View {
+struct NoContentView: View {
     let title: String
     let description: String?
     let imageSystemName: String
@@ -28,7 +28,7 @@ struct NoContentsView: View {
 }
 
 #Preview {
-    NoContentsView(
+    NoContentView(
         title: "I am Search Assistant !",
         description: "Google, Twitter(X), Instagram, Amazon,  YouTubeなどの\n検索をこのアプリひとつで行うことができます。",
         imageSystemName: "doc.text.magnifyingglass"
