@@ -6,13 +6,56 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4CDD8E282FD6C52B00F5237B /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CDD8E272FD6C52B00F5237B /* WidgetKit.framework */; };
+		4CDD8E2A2FD6C52B00F5237B /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CDD8E292FD6C52B00F5237B /* SwiftUI.framework */; };
+		4CDD8E352FD6C52B00F5237B /* SAWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4CDD8E252FD6C52B00F5237B /* SAWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4CDD8E332FD6C52B00F5237B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C242B032FD602CA00FB2DF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4CDD8E242FD6C52B00F5237B;
+			remoteInfo = SAWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4CDD8E3A2FD6C52B00F5237B /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				4CDD8E352FD6C52B00F5237B /* SAWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		4C242B0B2FD602CB00FB2DF9 /* SearchAssistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchAssistant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CDD8E002FD6BB3A00F5237B /* AGENTS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = AGENTS.md; sourceTree = "<group>"; };
 		4CDD8E012FD6BB3A00F5237B /* CLAUDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CLAUDE.md; sourceTree = "<group>"; };
 		4CDD8E022FD6BB3A00F5237B /* development-notes */ = {isa = PBXFileReference; lastKnownFileType = text; path = "development-notes"; sourceTree = "<group>"; };
 		4CDD8E202FD6BB3A00F5237B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		4CDD8E252FD6C52B00F5237B /* SAWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SAWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CDD8E272FD6C52B00F5237B /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		4CDD8E292FD6C52B00F5237B /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		4CDD8E362FD6C52B00F5237B /* Exceptions for "SAWidget" folder in "SAWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 4CDD8E242FD6C52B00F5237B /* SAWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		4C242B0D2FD602CB00FB2DF9 /* SearchAssistant */ = {
@@ -25,6 +68,14 @@
 			path = images;
 			sourceTree = "<group>";
 		};
+		4CDD8E2B2FD6C52B00F5237B /* SAWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				4CDD8E362FD6C52B00F5237B /* Exceptions for "SAWidget" folder in "SAWidgetExtension" target */,
+			);
+			path = SAWidget;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +86,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4CDD8E222FD6C52B00F5237B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4CDD8E2A2FD6C52B00F5237B /* SwiftUI.framework in Frameworks */,
+				4CDD8E282FD6C52B00F5237B /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -42,6 +102,8 @@
 			isa = PBXGroup;
 			children = (
 				4C242B0D2FD602CB00FB2DF9 /* SearchAssistant */,
+				4CDD8E2B2FD6C52B00F5237B /* SAWidget */,
+				4CDD8E262FD6C52B00F5237B /* Frameworks */,
 				4C242B0C2FD602CB00FB2DF9 /* Products */,
 				4CDD8E1F2FD6BB3A00F5237B /* images */,
 				4CDD8E202FD6BB3A00F5237B /* README.md */,
@@ -55,8 +117,18 @@
 			isa = PBXGroup;
 			children = (
 				4C242B0B2FD602CB00FB2DF9 /* SearchAssistant.app */,
+				4CDD8E252FD6C52B00F5237B /* SAWidgetExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		4CDD8E262FD6C52B00F5237B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4CDD8E272FD6C52B00F5237B /* WidgetKit.framework */,
+				4CDD8E292FD6C52B00F5237B /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -69,10 +141,12 @@
 				4C242B072FD602CB00FB2DF9 /* Sources */,
 				4C242B082FD602CB00FB2DF9 /* Frameworks */,
 				4C242B092FD602CB00FB2DF9 /* Resources */,
+				4CDD8E3A2FD6C52B00F5237B /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4CDD8E342FD6C52B00F5237B /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				4C242B0D2FD602CB00FB2DF9 /* SearchAssistant */,
@@ -83,6 +157,28 @@
 			productName = SearchAssistant;
 			productReference = 4C242B0B2FD602CB00FB2DF9 /* SearchAssistant.app */;
 			productType = "com.apple.product-type.application";
+		};
+		4CDD8E242FD6C52B00F5237B /* SAWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4CDD8E372FD6C52B00F5237B /* Build configuration list for PBXNativeTarget "SAWidgetExtension" */;
+			buildPhases = (
+				4CDD8E212FD6C52B00F5237B /* Sources */,
+				4CDD8E222FD6C52B00F5237B /* Frameworks */,
+				4CDD8E232FD6C52B00F5237B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				4CDD8E2B2FD6C52B00F5237B /* SAWidget */,
+			);
+			name = SAWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = SAWidgetExtension;
+			productReference = 4CDD8E252FD6C52B00F5237B /* SAWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -95,6 +191,9 @@
 				LastUpgradeCheck = 2650;
 				TargetAttributes = {
 					4C242B0A2FD602CB00FB2DF9 = {
+						CreatedOnToolsVersion = 26.5;
+					};
+					4CDD8E242FD6C52B00F5237B = {
 						CreatedOnToolsVersion = 26.5;
 					};
 				};
@@ -114,12 +213,20 @@
 			projectRoot = "";
 			targets = (
 				4C242B0A2FD602CB00FB2DF9 /* SearchAssistant */,
+				4CDD8E242FD6C52B00F5237B /* SAWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		4C242B092FD602CB00FB2DF9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4CDD8E232FD6C52B00F5237B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -136,7 +243,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4CDD8E212FD6C52B00F5237B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4CDD8E342FD6C52B00F5237B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4CDD8E242FD6C52B00F5237B /* SAWidgetExtension */;
+			targetProxy = 4CDD8E332FD6C52B00F5237B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		4C242B142FD602CB00FB2DF9 /* Debug */ = {
@@ -324,6 +446,66 @@
 			};
 			name = Release;
 		};
+		4CDD8E382FD6C52B00F5237B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QJC45QJ28B;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SAWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SAWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.masakidoi.SearchAssistant.SAWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4CDD8E392FD6C52B00F5237B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QJC45QJ28B;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SAWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SAWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.masakidoi.SearchAssistant.SAWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -341,6 +523,15 @@
 			buildConfigurations = (
 				4C242B172FD602CB00FB2DF9 /* Debug */,
 				4C242B182FD602CB00FB2DF9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4CDD8E372FD6C52B00F5237B /* Build configuration list for PBXNativeTarget "SAWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4CDD8E382FD6C52B00F5237B /* Debug */,
+				4CDD8E392FD6C52B00F5237B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
