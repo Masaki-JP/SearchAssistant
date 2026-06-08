@@ -20,7 +20,7 @@ struct SuggestionList: View {
                 }
             }
         case .none:
-            NoContentsView(
+            NoContentView(
                 title: "Sorry! Network Error!",
                 description: "入力内容に基づく検索候補の取得に失敗しました。モバイル通信、Wi-Fi、機内モードなどの設定をご確認ください。",
                 imageSystemName: "network.slash"
