@@ -6,12 +6,13 @@ struct NoContentView: View {
     let imageSystemName: String
     
     var body: some View {
-        VStack(spacing: 5) {
+        VStack(spacing: 10) {
             Image(systemName: imageSystemName)
                 .resizable()
                 .scaledToFit()
                 .frame(height: 100)
                 .foregroundStyle(.secondary)
+            
             Text(title)
                 .fontWeight(.bold)
                 .font(.title2)
