@@ -41,12 +41,21 @@ struct ContentView: View {
             Divider()
                 .padding(.top, 5)
             if userInput.isEmpty {
-                HistoryList(
-                    historys: historys,
-                    searchAction: search(_:on:),
-                    removeHistoryAction: removeHistory(atOffsets:),
-                    isShowPromptToConfirmDeletionOfAllHistorys: $isShowPromptToConfirmDeletionOFAllHistorys
-                )
+                if historys.isEmpty == false {
+                    HistoryList(
+                        historys: historys,
+                        searchAction: search(_:on:),
+                        removeHistoryAction: removeHistory(atOffsets:),
+                        isShowPromptToConfirmDeletionOfAllHistorys: $isShowPromptToConfirmDeletionOFAllHistorys
+                    )
+                } else {
+                    NoContentView(
+                        title: "I am Search Assistant !",
+                        description: "Google, Twitter(X), Instagram, Amazon,  YouTubeなどの\n検索をこのアプリひとつで行うことができます。",
+                        imageSystemName: "doc.text.magnifyingglass"
+                    )
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
             } else {
                 SuggestionList(
                     suggestions: suggestions,
