@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SuggestionList: View {
     let suggestions: [String]
-    let action: @MainActor (String, SearchPlatform) -> Void
+    let action: (String, SearchPlatform) -> Void
     
     var body: some View {
         List {

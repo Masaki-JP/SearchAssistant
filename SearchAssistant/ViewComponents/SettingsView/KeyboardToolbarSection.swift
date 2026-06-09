@@ -2,7 +2,7 @@ import SwiftUI
 
 struct KeyboardToolbarSection: View {
     let validKeyboardToolbarButtons: Set<SearchPlatform>
-    let action: @MainActor (SearchPlatform) -> Void
+    let action: (SearchPlatform) -> Void
     let feedbackGenerator = UINotificationFeedbackGenerator()
     
     var body: some View {
@@ -26,7 +26,7 @@ struct KeyboardToolbarSection: View {
 fileprivate struct SettingsRow: View {
     let text: String
     let isValid: Bool
-    let action: @MainActor () -> Void
+    let action: () -> Void
     let feedbackAction: () -> Void
     
     var body: some View {
