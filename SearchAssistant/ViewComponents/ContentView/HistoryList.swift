@@ -10,12 +10,9 @@ struct HistoryList: View {
         List {
             Section {
                 ForEach(historys) { history in
-                    SearchHistoryButton(
-                        history: history,
-                        action: {
-                            searchAction(history.userInput, history.platform)
-                        }
-                    )
+                    buttonRow(history: history) {
+                        searchAction(history.userInput, history.platform)
+                    }
                 }
                 .onDelete { indexSet in
                     removeHistoryAction(indexSet)
@@ -24,25 +21,17 @@ struct HistoryList: View {
                 Text("Historys")
                     .textCase(.none)
             } footer: {
-                if historys.isEmpty == false {
-                    Button("全履歴を削除", role: .destructive) {
-                        isShowPromptToConfirmDeletionOfAllHistorys = true
-                    }
-                    .font(.title3)
-                    .disabled(historys.isEmpty)
-                    .frame(maxWidth: .infinity)
-                    .padding(.top, 5)
+                Button("全履歴を削除", role: .destructive) {
+                    isShowPromptToConfirmDeletionOfAllHistorys = true
                 }
+                .font(.title3)
+                .frame(maxWidth: .infinity)
+                .padding(.top, 5)
             }
         }
     }
-}
-
-fileprivate struct SearchHistoryButton: View {
-    let history: SearchHistory
-    let action: () -> Void
     
-    var body: some View {
+    func buttonRow(history: SearchHistory, action: @escaping () -> Void) -> some View {
         Button(action: {
             action()
         }, label: {
