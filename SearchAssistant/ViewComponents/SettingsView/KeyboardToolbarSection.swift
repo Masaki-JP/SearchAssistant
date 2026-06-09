@@ -3,7 +3,7 @@ import SwiftUI
 struct KeyboardToolbarSection: View {
     let validKeyboardToolbarButtons: Set<SearchPlatform>
     let action: @MainActor (SearchPlatform) -> Void
-    private let feedbackGenerator = UINotificationFeedbackGenerator()
+    let feedbackGenerator = UINotificationFeedbackGenerator()
     
     var body: some View {
         Section {

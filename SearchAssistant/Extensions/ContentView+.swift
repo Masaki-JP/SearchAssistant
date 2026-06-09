@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension ContentView {
-    private func appendHistory(userInput: String, platform: SearchPlatform) {
+    func appendHistory(userInput: String, platform: SearchPlatform) {
         do {
             historys.insert(.init(userInput: userInput, platform: platform), at: 0)
             try searchHistoryRepository.save(historys)
