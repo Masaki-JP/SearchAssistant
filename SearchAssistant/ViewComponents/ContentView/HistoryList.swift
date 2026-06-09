@@ -38,7 +38,7 @@ struct HistoryList: View {
     }
 }
 
-struct SearchHistoryButton: View {
+fileprivate struct SearchHistoryButton: View {
     let history: SearchHistory
     let action: @MainActor () -> Void
     
