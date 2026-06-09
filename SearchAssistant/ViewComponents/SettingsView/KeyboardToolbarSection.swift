@@ -8,12 +8,7 @@ struct KeyboardToolbarSection: View {
     var body: some View {
         Section {
             ForEach(SearchPlatform.allCases) { platform in
-                SettingsRow(
-                    text: platform.displayName,
-                    isValid: validKeyboardToolbarButtons.contains(platform),
-                    action: { action(platform) },
-                    feedbackAction: { feedbackGenerator.notificationOccurred(.success) }
-                )
+                rowButton(platform: platform, action: action)
             }
         } header: {
             Text("ツールバーボタン")
@@ -21,35 +16,42 @@ struct KeyboardToolbarSection: View {
             Text("ツールバーに表示する検索ボタンを設定できます。")
         }
     }
-}
-
-fileprivate struct SettingsRow: View {
-    let text: String
-    let isValid: Bool
-    let action: () -> Void
-    let feedbackAction: () -> Void
     
-    var body: some View {
-        Button(
-            action: { action(); feedbackAction(); },
-            label: {
-                HStack {
-                    Text(text)
-                    Spacer()
-                    Image(systemName: "checkmark")
-                        .bold()
-                        .foregroundStyle(isValid ? .green : .clear)
-                }
-            })
+    func rowButton(
+        platform: SearchPlatform,
+        action: @escaping (SearchPlatform) -> Void
+    ) -> some View {
+        let isValid = validKeyboardToolbarButtons.contains(platform)
+        
+        return Button {
+            action(platform)
+            feedbackGenerator.notificationOccurred(.success)
+        } label: {
+            HStack {
+                Text(platform.displayName)
+                Spacer()
+                Image(systemName: "checkmark")
+                    .bold(isValid)
+                    .foregroundStyle(isValid ? .green : .gray)
+            }
+        }
         .foregroundStyle(.primary)
     }
 }
 
 #Preview {
+    @Previewable @State var validKeyboardToolbarButtons = Set(SearchPlatform.allCases)
+    
     List {
         KeyboardToolbarSection(
-            validKeyboardToolbarButtons: Set(SearchPlatform.allCases),
-            action: { _ in}
+            validKeyboardToolbarButtons: validKeyboardToolbarButtons,
+            action: { platform in
+                if validKeyboardToolbarButtons.contains(platform) {
+                    validKeyboardToolbarButtons.remove(platform)
+                } else {
+                    validKeyboardToolbarButtons.insert(platform)
+                }
+            }
         )
     }
 }
