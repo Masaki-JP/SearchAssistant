@@ -15,14 +15,16 @@ struct SearchAssistantApp: App {
                     ContentView()
                 }
             }
-            .preferredColorScheme({
-                return switch self.appStorageColorScheme {
-                case ColorSchemeSetting.dark.rawValue: .dark
-                case ColorSchemeSetting.light.rawValue: .light
-                case ColorSchemeSetting.system.rawValue: .none
-                default: .none
-                }
-            }())
+            .preferredColorScheme(colorScheme)
+        }
+    }
+    
+    var colorScheme: ColorScheme? {
+        switch appStorageColorScheme {
+        case ColorSchemeSetting.dark.rawValue: .dark
+        case ColorSchemeSetting.light.rawValue: .light
+        case ColorSchemeSetting.system.rawValue: .none
+        default: .none
         }
     }
 }
