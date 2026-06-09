@@ -7,42 +7,33 @@ struct HistoryList: View {
     @Binding private(set) var isShowPromptToConfirmDeletionOfAllHistorys: Bool
     
     var body: some View {
-        if historys.isEmpty == false {
-            List {
-                Section {
-                    ForEach(historys) { history in
-                        SearchHistoryButton(
-                            history: history,
-                            action: {
-                                searchAction(history.userInput, history.platform)
-                            }
-                        )
-                    }
-                    .onDelete { indexSet in
-                        removeHistoryAction(indexSet)
-                    }
-                } header: {
-                    Text("Historys")
-                        .textCase(.none)
-                } footer: {
-                    if historys.isEmpty == false {
-                        Button("全履歴を削除", role: .destructive) {
-                            isShowPromptToConfirmDeletionOfAllHistorys = true
+        List {
+            Section {
+                ForEach(historys) { history in
+                    SearchHistoryButton(
+                        history: history,
+                        action: {
+                            searchAction(history.userInput, history.platform)
                         }
-                        .font(.title3)
-                        .disabled(historys.isEmpty)
-                        .frame(maxWidth: .infinity)
-                        .padding(.top, 5)
+                    )
+                }
+                .onDelete { indexSet in
+                    removeHistoryAction(indexSet)
+                }
+            } header: {
+                Text("Historys")
+                    .textCase(.none)
+            } footer: {
+                if historys.isEmpty == false {
+                    Button("全履歴を削除", role: .destructive) {
+                        isShowPromptToConfirmDeletionOfAllHistorys = true
                     }
+                    .font(.title3)
+                    .disabled(historys.isEmpty)
+                    .frame(maxWidth: .infinity)
+                    .padding(.top, 5)
                 }
             }
-        } else {
-            NoContentView(
-                title: "I am Search Assistant !",
-                description: "Google, Twitter(X), Instagram, Amazon,  YouTubeなどの\n検索をこのアプリひとつで行うことができます。",
-                imageSystemName: "doc.text.magnifyingglass"
-            )
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 }
@@ -90,25 +81,12 @@ fileprivate extension Date {
 }
 
 #Preview {
-    TabView {
-        // 検索履歴がある場合
-        HistoryList(
-            historys: SearchHistory.samples,
-            searchAction: { userInput ,platform in
-                print(userInput, platform)
-            },
-            removeHistoryAction: { (_) -> Void in },
-            isShowPromptToConfirmDeletionOfAllHistorys: Binding.constant(false)
-        )
-        
-        // 検索履歴がない場合
-        HistoryList(
-            historys: [],
-            searchAction: { (_ ,_) -> Void in },
-            removeHistoryAction: { (_) -> Void in },
-            isShowPromptToConfirmDeletionOfAllHistorys: Binding.constant(false)
-        )
-    }
-    .tabViewStyle(.page)
-    .ignoresSafeArea()
+    HistoryList(
+        historys: SearchHistory.samples,
+        searchAction: { userInput ,platform in
+            print(userInput, platform)
+        },
+        removeHistoryAction: { (_) -> Void in },
+        isShowPromptToConfirmDeletionOfAllHistorys: Binding.constant(false)
+    )
 }
