@@ -23,7 +23,7 @@ struct KeyboardToolbarSection: View {
     }
 }
 
-struct SettingsRow: View {
+fileprivate struct SettingsRow: View {
     let text: String
     let isValid: Bool
     let action: @MainActor () -> Void
