@@ -2,7 +2,7 @@ func reportError(
     fileID: String = #fileID,
     function: String = #function,
     line: Int = #line,
-    _ error: Error
+    _ error: any Error
 ) {
     print("💥💥💥")
     print("fileID: \(fileID)")
