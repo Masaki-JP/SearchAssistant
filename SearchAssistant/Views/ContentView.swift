@@ -49,12 +49,8 @@ struct ContentView: View {
                         isShowPromptToConfirmDeletionOfAllHistorys: $isShowPromptToConfirmDeletionOFAllHistorys
                     )
                 } else {
-                    NoContentView(
-                        title: "I am Search Assistant !",
-                        description: "Google, Twitter(X), Instagram, Amazon,  YouTubeなどの\n検索をこのアプリひとつで行うことができます。",
-                        imageSystemName: "doc.text.magnifyingglass"
-                    )
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    NoContentView.searchHistory
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             } else {
                 if let suggestions {
@@ -64,20 +60,12 @@ struct ContentView: View {
                             action: search(_:on:)
                         )
                     } else {
-                        NoContentView(
-                            title: "候補が見つかりません",
-                            description: "入力したキーワードでそのまま検索できます。",
-                            imageSystemName: "magnifyingglass"
-                        )
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        NoContentView.searchSuggestion
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 } else {
-                    NoContentView(
-                        title: "Sorry! Network Error!",
-                        description: "入力内容に基づく検索候補の取得に失敗しました。モバイル通信、Wi-Fi、機内モードなどの設定をご確認ください。",
-                        imageSystemName: "network.slash"
-                    )
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    NoContentView.searchSuggestionNetworkError
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
         }
