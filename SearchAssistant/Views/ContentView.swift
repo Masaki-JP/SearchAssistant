@@ -57,10 +57,28 @@ struct ContentView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             } else {
-                SuggestionList(
-                    suggestions: suggestions,
-                    action: search(_:on:)
-                )
+                if let suggestions {
+                    if suggestions.isEmpty == false {
+                        SuggestionList(
+                            suggestions: suggestions,
+                            action: search(_:on:)
+                        )
+                    } else {
+                        NoContentView(
+                            title: "候補が見つかりません",
+                            description: "入力したキーワードでそのまま検索できます。",
+                            imageSystemName: "magnifyingglass"
+                        )
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    }
+                } else {
+                    NoContentView(
+                        title: "Sorry! Network Error!",
+                        description: "入力内容に基づく検索候補の取得に失敗しました。モバイル通信、Wi-Fi、機内モードなどの設定をご確認ください。",
+                        imageSystemName: "network.slash"
+                    )
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
             }
         }
         .overlay(alignment: settingLeftSearchButton == false ? .bottomTrailing : .bottomLeading) {
