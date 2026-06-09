@@ -12,6 +12,7 @@ struct NoContentView: View {
                 .scaledToFit()
                 .frame(height: 100)
                 .foregroundStyle(.secondary)
+            
             Text(title)
                 .fontWeight(.bold)
                 .font(.title2)
