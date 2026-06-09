@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SplashScreenView: View {
-    @State private var opacity = 1.0
+    @State var opacity = 1.0
     
     var body: some View {
         ZStack {
