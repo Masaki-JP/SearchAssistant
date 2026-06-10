@@ -1,6 +1,11 @@
 import SwiftUI
 
 extension ContentView {
+    struct SafariViewURL: Identifiable {
+        let url: URL
+        let id = UUID()
+    }
+    
     func appendHistory(userInput: String, platform: SearchPlatform) {
         do {
             historys.insert(.init(userInput: userInput, platform: platform), at: 0)
@@ -47,7 +52,7 @@ extension ContentView {
             self.userInput.removeAll()
             switch openInSafariView {
             case true:
-                safariViewURL = SafariViewURL(url: url)
+                presentedSafariViewURL = SafariViewURL(url: url)
             case false:
                 UIApplication.shared.open(url)
             }

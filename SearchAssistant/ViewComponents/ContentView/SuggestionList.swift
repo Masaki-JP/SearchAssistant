@@ -2,14 +2,14 @@ import SwiftUI
 
 struct SuggestionList: View {
     let suggestions: [String]
-    let action: @MainActor (String, SearchPlatform) -> Void
+    let action: (String, SearchPlatform) -> Void
     
     var body: some View {
         List {
             Section {
-                ForEach(suggestions.indices, id: \.self) { i in
-                    SuggestionButton(suggestion: suggestions[i]) {
-                        action(suggestions[i], .google)
+                ForEach(suggestions, id: \.self) { suggestion in
+                    rowButton(suggestion: suggestion) {
+                        action(suggestion, .google)
                     }
                 }
             } header: {
@@ -18,20 +18,17 @@ struct SuggestionList: View {
             }
         }
     }
-}
-
-fileprivate struct SuggestionButton: View {
-    let suggestion: String
-    let action: @MainActor () -> Void
     
-    var body: some View {
+    func rowButton(suggestion: String, action: @escaping () -> Void) -> some View {
         Button(action: {
             action()
         }, label: {
-            HStack(alignment: .bottom) {
+            HStack(alignment: .bottom, spacing: .zero) {
                 Text(suggestion)
                     .padding(.leading, 4)
-                Spacer()
+                
+                Spacer(minLength: 4)
+                
                 Text("on Google")
                     .font(.caption2)
                     .foregroundStyle(.secondary)
