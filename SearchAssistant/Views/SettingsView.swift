@@ -15,10 +15,10 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             List {
-                FocusControlSection(isOn: $settingAutoFocus)
-                SearchButtonSection(isOn: $settingLeftSearchButton)
-                ColorSchemeSection(selection: $appStorageColorScheme)
-                BrowserSection(isOn: $openInSafariView)
+                focusControlSection
+                searchButtonPositionSection
+                colorSchemeSection
+                browserSection
                 KeyboardToolbarSection(validKeyboardToolbarButtons: validKeyboardToolbarButtons, action: toggleToolbarButtonAvailability)
             }
             .navigationTitle("Settings")
@@ -34,6 +34,58 @@ struct SettingsView: View {
             dismiss()
         }
         .onAppear(perform: fetchValidKeyboardToolbarButtons)
+    }
+    
+    var focusControlSection: some View {
+        Section {
+            Toggle(isOn: $settingAutoFocus) {
+                Text("キーボードの自動表示")
+            }
+        } header: {
+            Text("キーボード")
+        } footer: {
+            Text("検索画面が表示された時に、検索フォームに自動でフォーカスします。")
+        }
+    }
+    
+    var searchButtonPositionSection: some View {
+        Section {
+            Toggle(isOn: $settingLeftSearchButton) {
+                Text("左利き用の配置")
+            }
+        } header: {
+            Text("検索ボタン")
+        } footer: {
+            Text("検索ボタンを画面左下に配置します。")
+        }
+    }
+    
+    var colorSchemeSection: some View {
+        Section {
+            Picker("外観モード", selection: $appStorageColorScheme) {
+                Text("ライト")
+                    .tag(ColorSchemeSetting.light.rawValue)
+                Text("ダーク")
+                    .tag(ColorSchemeSetting.dark.rawValue)
+                Text("システム")
+                    .tag(ColorSchemeSetting.system.rawValue)
+            }
+        } header: {
+            Text("外観モード")
+        } footer: {
+            Text("iPhoneの外観モードと同じものにするにはシステムを選択してください。")
+        }
+        
+    }
+    
+    var browserSection: some View {
+        Section {
+            Toggle("アプリ内ブラウザで開く", isOn: $openInSafariView)
+        } header: {
+            Text("ブラウザ")
+        } footer: {
+            Text("上記の設定をオフにした場合、検索はSafariで行われます。")
+        }
     }
 }
 
