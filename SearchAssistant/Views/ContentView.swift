@@ -64,11 +64,8 @@ struct ContentView: View {
         }
         .overlay(alignment: settingLeftSearchButton == false ? .bottomTrailing : .bottomLeading) {
             if isFocused == false {
-                FocusTextFieldButton { isFocused = true }
-                    .padding(
-                        settingLeftSearchButton == false ?
-                            .trailing : .leading
-                    )
+                focusTextFieldButton
+                    .padding(settingLeftSearchButton == false ? .trailing : .leading)
             }
         }
         .onAppear {
@@ -127,6 +124,18 @@ struct ContentView: View {
         }
         .toolbar {
             ToolbarItem(placement: .keyboard, content: toolbarItemContent)
+        }
+    }
+    
+    var focusTextFieldButton: some View {
+        Button {
+            isFocused = true
+        } label: {
+            Image(systemName: "magnifyingglass.circle.fill")
+                .resizable()
+                .frame(width: 65, height: 65)
+                .background(.white)
+                .clipShape(Circle().scale(0.95))
         }
     }
     
