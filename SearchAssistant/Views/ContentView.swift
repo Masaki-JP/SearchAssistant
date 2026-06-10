@@ -4,7 +4,7 @@ struct ContentView: View {
     @FocusState var isFocused: Bool
     @Environment(\.scenePhase) var scenePhase
     
-    @State var historys: [SearchHistory] = []
+    @State var histories: [SearchHistory] = []
     @State var suggestions: [String]? = []
     @State var userInput = ""
     @State var isPresentedSettingsView = false
@@ -17,8 +17,8 @@ struct ContentView: View {
     @AppStorage("openInSafariView") var openInSafariView = true
     
     let suggestionFetcher = SuggestionFetcher.shared
-    let searchURLCreater = SearchURLCreater()
-    let searchHistoryRepository = UserDefaultsRepository<[SearchHistory]>(key: .searchHistorys)
+    let searchURLCreator = SearchURLCreator()
+    let searchHistoryRepository = UserDefaultsRepository<[SearchHistory]>(key: .searchHistories)
     let validKeyboardToolbarButtonRepository = UserDefaultsRepository<Set<SearchPlatform>>(key: UserDefaultsKey.validKeyboardToolbarButtons)
     
     var body: some View {
@@ -34,9 +34,9 @@ struct ContentView: View {
             Divider()
                 .padding(.top, 5)
             if userInput.isEmpty {
-                if historys.isEmpty == false {
+                if histories.isEmpty == false {
                     HistoryList(
-                        historys: historys,
+                        histories: histories,
                         searchAction: search(_:on:),
                         removeHistoryAction: removeHistory(atOffsets:),
                         isPresentedDeleteAllHistoriesAlert: $isPresentedDeleteAllHistoriesAlert
@@ -70,7 +70,7 @@ struct ContentView: View {
         }
         .onAppear {
             do {
-                historys = try searchHistoryRepository.fetch()
+                histories = try searchHistoryRepository.fetch()
             } catch {
                 reportError(error)
             }
@@ -116,7 +116,7 @@ struct ContentView: View {
         }
         .alert("確認", isPresented: $isPresentedDeleteAllHistoriesAlert) {
             Button("実行", role: .destructive) {
-                removeAllHistorys()
+                removeAllHistories()
             }
             Button("キャンセル", role: .cancel) {}
         } message: {

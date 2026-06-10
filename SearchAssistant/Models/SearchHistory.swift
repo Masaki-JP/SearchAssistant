@@ -22,7 +22,7 @@ struct SearchHistory: Codable, Identifiable {
         .init(userInput: "AirPods", platform: .mercari),
         .init(userInput: "iMac", platform: .amazon),
         .init(userInput: "Apple Pencil", platform: .youtube),
-        .init(userInput: "Macbook Air", platform: .facebook),
+        .init(userInput: "MacBook Air", platform: .facebook),
         .init(userInput: "Xcode", platform: .google),
         .init(userInput: "Apple Watch", platform: .x),
         .init(userInput: "AirPods", platform: .rakuma),
