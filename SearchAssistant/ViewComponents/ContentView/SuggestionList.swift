@@ -35,7 +35,7 @@ struct SuggestionList: View {
                     .padding(.vertical, 4)
             }
         })
-        .foregroundStyle(.primary)
+        .buttonStyle(.plain)
     }
 }
 
