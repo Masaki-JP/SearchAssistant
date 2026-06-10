@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct HistoryList: View {
-    let historys: [SearchHistory]
+    let histories: [SearchHistory]
     let searchAction: (String, SearchPlatform) -> Void
     let removeHistoryAction: (IndexSet) -> Void
     @Binding var isPresentedDeleteAllHistoriesAlert: Bool
@@ -9,7 +9,7 @@ struct HistoryList: View {
     var body: some View {
         List {
             Section {
-                ForEach(historys) { history in
+                ForEach(histories) { history in
                     buttonRow(history: history) {
                         searchAction(history.userInput, history.platform)
                     }
@@ -18,7 +18,7 @@ struct HistoryList: View {
                     removeHistoryAction(indexSet)
                 }
             } header: {
-                Text("Historys")
+                Text("Histories")
                     .textCase(.none)
             } footer: {
                 Button("全履歴を削除", role: .destructive) {
@@ -72,8 +72,8 @@ fileprivate extension Date {
 
 #Preview {
     HistoryList(
-        historys: SearchHistory.samples,
-        searchAction: { userInput ,platform in
+        histories: SearchHistory.samples,
+        searchAction: { userInput, platform in
             print(userInput, platform)
         },
         removeHistoryAction: { (_) -> Void in },

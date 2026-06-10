@@ -8,32 +8,32 @@ extension ContentView {
     
     func appendHistory(userInput: String, platform: SearchPlatform) {
         do {
-            historys.insert(.init(userInput: userInput, platform: platform), at: 0)
-            try searchHistoryRepository.save(historys)
+            histories.insert(.init(userInput: userInput, platform: platform), at: 0)
+            try searchHistoryRepository.save(histories)
         } catch {
             reportError(error)
         }
     }
     
     func removeHistory(atOffsets indexSet: IndexSet) {
-        let preHistorys = historys
+        let previousHistories = histories
         do {
-            historys.remove(atOffsets: indexSet)
-            try searchHistoryRepository.save(historys)
+            histories.remove(atOffsets: indexSet)
+            try searchHistoryRepository.save(histories)
         } catch {
             reportError(error)
-            historys = preHistorys
+            histories = previousHistories
         }
     }
     
-    func removeAllHistorys() {
-        let preHistorys = historys
+    func removeAllHistories() {
+        let previousHistories = histories
         do {
-            historys.removeAll()
-            try searchHistoryRepository.save(historys)
+            histories.removeAll()
+            try searchHistoryRepository.save(histories)
         } catch {
             reportError(error)
-            historys = preHistorys
+            histories = previousHistories
         }
     }
     
@@ -47,7 +47,7 @@ extension ContentView {
     
     func search(_ userInput: String, on platform: SearchPlatform) {
         do {
-            let url = try searchURLCreater.create(userInput, searchPlatform: platform)
+            let url = try searchURLCreator.create(userInput, searchPlatform: platform)
             appendHistory(userInput: userInput, platform: platform)
             self.userInput.removeAll()
             switch openInSafariView {

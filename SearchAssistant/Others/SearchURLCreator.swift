@@ -1,7 +1,7 @@
 import SwiftUI
 
-final class SearchURLCreater {
-    enum SearchURLCreaterError: Error {
+final class SearchURLCreator {
+    enum SearchURLCreatorError: Error {
         case noInput
         case inputPercentEncodingFailure
         case creatingURLFailure
@@ -20,7 +20,7 @@ final class SearchURLCreater {
         ///
         /// 入力が空文字でないことを確認
         guard input.isEmpty == false
-        else { throw SearchURLCreaterError.noInput }
+        else { throw SearchURLCreatorError.noInput }
         ///
         ///
         /// Instagram検索特有の処理：全角スペースを半角スペースに変換
@@ -31,17 +31,17 @@ final class SearchURLCreater {
         ///
         /// 入力のパーセントエンコーディング
         guard let percentEncodedInput = input.addingPercentEncoding(withAllowedCharacters: .alphanumerics)
-        else { throw SearchURLCreaterError.inputPercentEncodingFailure }
+        else { throw SearchURLCreatorError.inputPercentEncodingFailure }
         ///
         ///
         /// URLの作成
         guard let url = URL(string: searchPlatform.prefixURL + percentEncodedInput)
-        else { throw SearchURLCreaterError.creatingURLFailure }
+        else { throw SearchURLCreatorError.creatingURLFailure }
         ///
         ///
         /// URLを開けるか否か確認
         guard UIApplication.shared.canOpenURL(url)
-        else { throw SearchURLCreaterError.cannotOpenURL }
+        else { throw SearchURLCreatorError.cannotOpenURL }
         ///
         ///
         /// 作成したURLを返す

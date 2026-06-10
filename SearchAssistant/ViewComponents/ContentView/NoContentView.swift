@@ -31,7 +31,7 @@ struct NoContentView: View {
 extension NoContentView {
     static let searchHistory = NoContentView(
         title: "I am Search Assistant !",
-        description: "Google, Twitter(X), Instagram, Amazon,  YouTubeなどの\n検索をこのアプリひとつで行うことができます。",
+        description: "Google, Twitter(X), Instagram, Amazon, YouTubeなどの\n検索をこのアプリひとつで行うことができます。",
         imageSystemName: "doc.text.magnifyingglass"
     )
 
