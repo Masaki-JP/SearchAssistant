@@ -35,7 +35,7 @@ struct KeyboardToolbarSection: View {
                     .foregroundStyle(isValid ? .green : .gray)
             }
         }
-        .foregroundStyle(.primary)
+        .buttonStyle(.plain)
     }
 }
 

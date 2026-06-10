@@ -53,7 +53,7 @@ struct HistoryList: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
             }
         })
-        .foregroundStyle(.primary)
+        .buttonStyle(.plain)
     }
 }
 
