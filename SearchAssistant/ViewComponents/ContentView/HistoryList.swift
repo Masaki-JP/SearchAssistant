@@ -62,7 +62,8 @@ fileprivate extension Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy/MM/dd"
         dateFormatter.calendar = Calendar.autoupdatingCurrent
-        return dateFormatter}()
+        return dateFormatter
+    }()
     
     func string() -> String {
         Self.dateFormatter.string(from: self)
