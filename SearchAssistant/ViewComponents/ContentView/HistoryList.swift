@@ -4,7 +4,7 @@ struct HistoryList: View {
     let historys: [SearchHistory]
     let searchAction: (String, SearchPlatform) -> Void
     let removeHistoryAction: (IndexSet) -> Void
-    @Binding var isShowPromptToConfirmDeletionOfAllHistorys: Bool
+    @Binding var isPresentedDeleteAllHistoriesAlert: Bool
     
     var body: some View {
         List {
@@ -22,7 +22,7 @@ struct HistoryList: View {
                     .textCase(.none)
             } footer: {
                 Button("全履歴を削除", role: .destructive) {
-                    isShowPromptToConfirmDeletionOfAllHistorys = true
+                    isPresentedDeleteAllHistoriesAlert = true
                 }
                 .font(.title3)
                 .frame(maxWidth: .infinity)
@@ -76,6 +76,6 @@ fileprivate extension Date {
             print(userInput, platform)
         },
         removeHistoryAction: { (_) -> Void in },
-        isShowPromptToConfirmDeletionOfAllHistorys: Binding.constant(false)
+        isPresentedDeleteAllHistoriesAlert: Binding.constant(false)
     )
 }

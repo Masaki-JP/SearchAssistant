@@ -5,28 +5,21 @@ struct ContentView: View {
     @Environment(\.scenePhase) var scenePhase
     
     @State var historys: [SearchHistory] = []
-    let searchHistoryRepository = UserDefaultsRepository<[SearchHistory]>(key: .searchHistorys)
     @State var suggestions: [String]? = []
-    let suggestionFetcher = SuggestionFetcher.shared
-    
-    struct SafariViewURL: Identifiable {
-        let url: URL; let id = UUID();
-    }
-    
-    let searchURLCreater = SearchURLCreater()
-    
+    @State var userInput = ""
     @State var isPresentedSettingsView = false
-    @State var isShowPromptToConfirmDeletionOFAllHistorys = false
-    @State var safariViewURL: SafariViewURL? = nil
+    @State var isPresentedDeleteAllHistoriesAlert = false
+    @State var presentedSafariViewURL: SafariViewURL? = nil
+    @State var validKeyboardToolbarButtons = Set(SearchPlatform.allCases)
     
     @AppStorage(AppStorageKey.autoFocus) var settingAutoFocus = true
     @AppStorage(AppStorageKey.searchButton_Left) var settingLeftSearchButton = false
     @AppStorage("openInSafariView") var openInSafariView = true
     
-    @State var validKeyboardToolbarButtons = Set(SearchPlatform.allCases)
+    let suggestionFetcher = SuggestionFetcher.shared
+    let searchURLCreater = SearchURLCreater()
+    let searchHistoryRepository = UserDefaultsRepository<[SearchHistory]>(key: .searchHistorys)
     let validKeyboardToolbarButtonRepository = UserDefaultsRepository<Set<SearchPlatform>>(key: UserDefaultsKey.validKeyboardToolbarButtons)
-    
-    @State var userInput = ""
     
     var body: some View {
         VStack(spacing: 0) {
@@ -46,7 +39,7 @@ struct ContentView: View {
                         historys: historys,
                         searchAction: search(_:on:),
                         removeHistoryAction: removeHistory(atOffsets:),
-                        isShowPromptToConfirmDeletionOfAllHistorys: $isShowPromptToConfirmDeletionOFAllHistorys
+                        isPresentedDeleteAllHistoriesAlert: $isPresentedDeleteAllHistoriesAlert
                     )
                 } else {
                     NoContentView.searchHistory
@@ -89,7 +82,7 @@ struct ContentView: View {
             
             guard settingAutoFocus == true,
                   isPresentedSettingsView == false,
-                  isShowPromptToConfirmDeletionOFAllHistorys == false
+                  isPresentedDeleteAllHistoriesAlert == false
             else { return }
             DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
                 isFocused = true
@@ -99,8 +92,8 @@ struct ContentView: View {
             guard newScene == .active,
                   settingAutoFocus == true,
                   isPresentedSettingsView == false,
-                  isShowPromptToConfirmDeletionOFAllHistorys == false,
-                  safariViewURL == nil
+                  isPresentedDeleteAllHistoriesAlert == false,
+                  presentedSafariViewURL == nil
             else { return }
             DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
                 isFocused = true
@@ -113,7 +106,7 @@ struct ContentView: View {
             guard userInput.isEmpty == false else { return }
             Task { await getSuggestion(from: userInput) }
         }
-        .fullScreenCover(item: $safariViewURL) { item in
+        .fullScreenCover(item: $presentedSafariViewURL) { item in
             SafariView(url: item.url)
                 .ignoresSafeArea()
         }
@@ -124,7 +117,7 @@ struct ContentView: View {
         } content: {
             SettingsView()
         }
-        .alert("確認", isPresented: $isShowPromptToConfirmDeletionOFAllHistorys) {
+        .alert("確認", isPresented: $isPresentedDeleteAllHistoriesAlert) {
             Button("実行", role: .destructive) {
                 removeAllHistorys()
             }
