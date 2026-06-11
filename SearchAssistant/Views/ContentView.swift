@@ -5,7 +5,8 @@ struct ContentView: View {
     @Environment(\.scenePhase) var scenePhase
     
     @State var histories: [SearchHistory] = []
-    @State var suggestions: [String]? = []
+    @State var suggestions: [String] = []
+    @State var isSuggestionFetchFailed = false
     @State var userInput = ""
     @State var isPresentedSettingsView = false
     @State var isPresentedDeleteAllHistoriesAlert = false
@@ -47,12 +48,9 @@ struct ContentView: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             } else {
-                if let suggestions {
+                if isSuggestionFetchFailed == false {
                     if suggestions.isEmpty == false {
-                        SuggestionList(
-                            suggestions: suggestions,
-                            action: search(_:on:)
-                        )
+                        SuggestionList(suggestions: suggestions, action: search(_:on:))
                     } else {
                         NoContentView.searchSuggestion
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -110,6 +108,7 @@ struct ContentView: View {
             guard newValue.isEmpty == false else {
                 suggestionFetchTask = nil
                 suggestions = []
+                isSuggestionFetchFailed = false
                 return
             }
             
