@@ -15,7 +15,7 @@ struct ContentView: View {
     @State var suggestionFetchTask: Task<Void, Never>? = nil
     
     @AppStorage(AppStorageKey.autoFocus) var settingAutoFocus = true
-    @AppStorage(AppStorageKey.searchButton_Left) var settingLeftSearchButton = false
+    @AppStorage(AppStorageKey.searchButtonLeft) var settingLeftSearchButton = false
     @AppStorage(AppStorageKey.openInSafariView) var openInSafariView = true
     
     let suggestionFetcher = SuggestionFetcher.shared

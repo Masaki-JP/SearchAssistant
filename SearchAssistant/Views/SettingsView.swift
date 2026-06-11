@@ -5,7 +5,7 @@ struct SettingsView: View {
     @Environment(\.dismiss) var dismiss
     
     @AppStorage(AppStorageKey.autoFocus) var settingAutoFocus = true
-    @AppStorage(AppStorageKey.searchButton_Left) var settingLeftSearchButton = false
+    @AppStorage(AppStorageKey.searchButtonLeft) var settingLeftSearchButton = false
     @AppStorage(AppStorageKey.colorScheme) var appStorageColorScheme = ColorSchemeSetting.dark.rawValue
     @AppStorage(AppStorageKey.openInSafariView) var openInSafariView = true
     
