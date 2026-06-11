@@ -9,7 +9,7 @@ enum UserDefaultsKey {
     var string: String {
         return switch self {
         case .searchHistories:
-            "historys"
+            "histories"
         case .validKeyboardToolbarButtons:
             "keyboardToolbarButtons"
         case .inMemory:
