@@ -17,6 +17,11 @@ import Foundation
 /// }
 /// ```
 final class SuggestionFetcher {
+    enum FetchError: Error {
+        case failedToEncodeQuery
+        case failedToCreateURL
+    }
+    
     /// プライベートイニシャライザで外部でのインスタンスの作成を防ぎ、スタティックプロパティを通じてシングルトンインスタンスを提供する。
     static let shared = SuggestionFetcher()
     private init() {}
@@ -47,7 +52,7 @@ final class SuggestionFetcher {
     /// ["apple", "apple watch", "apple store", "apple music", "apple 初売り 2024", "apple id", "apple watch バンド", "apple 初売り", "apple pay", "appleギフトカード"]
     /// ```
     func fetch(from userInput: String) async throws -> [String] {
-        let url = createURL(from: userInput)
+        let url = try createURL(from: userInput)
         let (data, _) = try await URLSession.shared.data(from: url)
         
         let parser = SuggestionXMLParser()
@@ -58,10 +63,14 @@ final class SuggestionFetcher {
     ///
     /// - Parameter userInput: 検索クエリとして使用するユーザー入力文字列
     /// - Returns: 構築されたURL。
-    private func createURL(from userInput: String) -> URL {
+    private func createURL(from userInput: String) throws -> URL {
         let prefixURL = "https://www.google.com/complete/search?hl=ja&output=toolbar&q="
-        let query = userInput.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
-        let url = URL(string: prefixURL + query)!
+        guard let query = userInput.addingPercentEncoding(withAllowedCharacters: .alphanumerics) else {
+            throw FetchError.failedToEncodeQuery
+        }
+        guard let url = URL(string: prefixURL + query) else {
+            throw FetchError.failedToCreateURL
+        }
         return url
     }
     
