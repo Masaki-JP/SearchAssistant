@@ -55,6 +55,9 @@ extension ContentView {
     }
     
     func search(_ userInput: String, on platform: SearchPlatform) {
+        let userInput = userInput.trimmingCharacters(in: .whitespacesAndNewlines.union(CharacterSet(charactersIn: "　")))
+        guard userInput.isEmpty == false else { return }
+
         do {
             let url = try searchURLCreator.create(userInput, searchPlatform: platform)
             appendHistory(userInput: userInput, platform: platform)
