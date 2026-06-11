@@ -1,7 +1,7 @@
 import Foundation
 
 protocol RepositoryProtocol {
-    associatedtype Object
-    func fetch() throws -> Object
-    func save(_ object: Object) throws
+    associatedtype Value
+    func fetch() throws -> Value
+    func save(_ value: Value) throws
 }
