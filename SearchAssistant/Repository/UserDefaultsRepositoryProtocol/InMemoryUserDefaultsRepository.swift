@@ -1,19 +1,20 @@
 import Foundation
 
-final class InMemoryUserDefaultsRepository<Item: Codable>: UserDefaultsRepositoryProtocol {
-    private let dummyData: [Item]
+final class InMemoryUserDefaultsRepository<Value: Codable>: UserDefaultsRepositoryProtocol {
+    private var value: Value
     
-    init(dummyData: [Item]) {
+    init(value: Value) {
         reportMockAction()
-        self.dummyData = dummyData
+        self.value = value
     }
     
-    func save(_ items: [Item]) throws {
+    func save(_ value: Value) throws {
         reportMockAction()
+        self.value = value
     }
     
-    func fetch() throws -> [Item] {
+    func fetch() throws -> Value {
         reportMockAction()
-        return dummyData
+        return value
     }
 }
