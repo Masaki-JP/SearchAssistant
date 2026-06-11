@@ -5,12 +5,14 @@ struct ContentView: View {
     @Environment(\.scenePhase) var scenePhase
     
     @State var histories: [SearchHistory] = []
-    @State var suggestions: [String]? = []
+    @State var suggestions: [String] = []
+    @State var isSuggestionFetchFailed = false
     @State var userInput = ""
     @State var isPresentedSettingsView = false
     @State var isPresentedDeleteAllHistoriesAlert = false
     @State var presentedSafariViewURL: SafariViewURL? = nil
     @State var validKeyboardToolbarButtons = Set(SearchPlatform.allCases)
+    @State var suggestionFetchTask: Task<Void, Never>? = nil
     
     @AppStorage(AppStorageKey.autoFocus) var settingAutoFocus = true
     @AppStorage(AppStorageKey.searchButton_Left) var settingLeftSearchButton = false
@@ -46,12 +48,9 @@ struct ContentView: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             } else {
-                if let suggestions {
+                if isSuggestionFetchFailed == false {
                     if suggestions.isEmpty == false {
-                        SuggestionList(
-                            suggestions: suggestions,
-                            action: search(_:on:)
-                        )
+                        SuggestionList(suggestions: suggestions, action: search(_:on:))
                     } else {
                         NoContentView.searchSuggestion
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -99,9 +98,23 @@ struct ContentView: View {
         .onChange(of: isPresentedSettingsView) { _, newScene in
             if newScene == true { isFocused = false }
         }
-        .onChange(of: userInput) {
-            guard userInput.isEmpty == false else { return }
-            Task { await getSuggestion(from: userInput) }
+        .onDisappear {
+            suggestionFetchTask?.cancel()
+            suggestionFetchTask = nil
+        }
+        .onChange(of: userInput) { _, newValue in
+            suggestionFetchTask?.cancel()
+            
+            guard newValue.isEmpty == false else {
+                suggestionFetchTask = nil
+                suggestions = []
+                isSuggestionFetchFailed = false
+                return
+            }
+            
+            suggestionFetchTask = Task {
+                await getSuggestion(from: newValue)
+            }
         }
         .fullScreenCover(item: $presentedSafariViewURL) { item in
             SafariView(url: item.url)

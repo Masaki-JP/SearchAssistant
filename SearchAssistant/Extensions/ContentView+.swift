@@ -40,8 +40,12 @@ extension ContentView {
     func getSuggestion(from userInput: String) async {
         do {
             try await suggestions = suggestionFetcher.fetch(from: userInput)
+            isSuggestionFetchFailed = false
+        } catch is CancellationError {
+            return
         } catch {
-            suggestions = nil
+            suggestions = []
+            isSuggestionFetchFailed = true
         }
     }
     
