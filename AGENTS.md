@@ -3,6 +3,7 @@
 
 コミットメッセージ、ブランチ名、プルリクエストなどは以前のものを参考にして作成すること。
 例: コミットメッセージは「change: SearchHistoryのサンプルを追加」「fix: SettingViewのカラースキーム固定を解除」「rename: XMLParserManagerをSuggestionXMLParserに改名」、ブランチ名は「change/fetch-keyboard-toolbar-settings-on-appear」「improve/instagram-search-space」「fix/setting-view-color-scheme」のようにすること。
+コミットメッセージは多少長くなっても構わないので、分かりやすさを重視すること。
 
 「PRを提出して」と言われた場合は、DraftではなくReady for reviewの状態まで進めること。
 
