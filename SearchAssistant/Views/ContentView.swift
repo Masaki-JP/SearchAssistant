@@ -77,22 +77,25 @@ struct ContentView: View {
             
             fetchValidKeyboardToolbarButtons()
             
-            guard settingAutoFocus == true,
-                  isPresentedSettingsView == false,
-                  isPresentedDeleteAllHistoriesAlert == false
-            else { return }
             DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
+                guard settingAutoFocus == true,
+                      isPresentedSettingsView == false,
+                      isPresentedDeleteAllHistoriesAlert == false,
+                      presentedSafariViewURL == nil
+                else { return }
+                
                 isFocused = true
             }
         }
         .onChange(of: scenePhase) { _, newScene in
-            guard newScene == .active,
-                  settingAutoFocus == true,
-                  isPresentedSettingsView == false,
-                  isPresentedDeleteAllHistoriesAlert == false,
-                  presentedSafariViewURL == nil
-            else { return }
             DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
+                guard newScene == .active,
+                      settingAutoFocus == true,
+                      isPresentedSettingsView == false,
+                      isPresentedDeleteAllHistoriesAlert == false,
+                      presentedSafariViewURL == nil
+                else { return }
+                
                 isFocused = true
             }
         }
