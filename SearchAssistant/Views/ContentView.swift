@@ -12,7 +12,6 @@ struct ContentView: View {
     @State var isPresentedDeleteAllHistoriesAlert = false
     @State var presentedSafariViewURL: SafariViewURL? = nil
     @State var validKeyboardToolbarButtons = Set(SearchPlatform.allCases)
-    @State var suggestionFetchTask: Task<Void, Never>? = nil
     
     @AppStorage(AppStorageKey.autoFocus) var settingAutoFocus = true
     @AppStorage(AppStorageKey.searchButtonLeft) var settingLeftSearchButton = false
@@ -100,22 +99,12 @@ struct ContentView: View {
         .onChange(of: isPresentedSettingsView) { _, newScene in
             if newScene == true { isFocused = false }
         }
-        .onDisappear {
-            suggestionFetchTask?.cancel()
-            suggestionFetchTask = nil
-        }
-        .onChange(of: userInput) { _, newValue in
-            suggestionFetchTask?.cancel()
-            
-            guard newValue.isEmpty == false else {
-                suggestionFetchTask = nil
+        .task(id: userInput) {
+            if userInput.isEmpty == false {
+                await getSuggestion(from: userInput)
+            } else {
                 suggestions = []
                 isSuggestionFetchFailed = false
-                return
-            }
-            
-            suggestionFetchTask = Task {
-                await getSuggestion(from: newValue)
             }
         }
         .fullScreenCover(item: $presentedSafariViewURL) { item in
