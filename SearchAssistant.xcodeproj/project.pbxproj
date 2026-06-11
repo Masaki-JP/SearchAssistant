@@ -199,11 +199,11 @@
 				};
 			};
 			buildConfigurationList = 4C242B062FD602CA00FB2DF9 /* Build configuration list for PBXProject "SearchAssistant" */;
-			developmentRegion = en;
+			developmentRegion = ja;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				ja,
 			);
 			mainGroup = 4C242B022FD602CA00FB2DF9;
 			minimizedProjectReferenceProxies = 1;
