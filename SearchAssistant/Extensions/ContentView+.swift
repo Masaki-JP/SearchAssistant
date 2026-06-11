@@ -7,11 +7,13 @@ extension ContentView {
     }
     
     func appendHistory(userInput: String, platform: SearchPlatform) {
+        let previousHistories = histories
         do {
             histories.insert(.init(userInput: userInput, platform: platform), at: 0)
             try searchHistoryRepository.save(histories)
         } catch {
             reportError(error)
+            histories = previousHistories
         }
     }
     
