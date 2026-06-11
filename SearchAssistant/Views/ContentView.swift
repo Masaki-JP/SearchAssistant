@@ -16,7 +16,7 @@ struct ContentView: View {
     
     @AppStorage(AppStorageKey.autoFocus) var settingAutoFocus = true
     @AppStorage(AppStorageKey.searchButton_Left) var settingLeftSearchButton = false
-    @AppStorage("openInSafariView") var openInSafariView = true
+    @AppStorage(AppStorageKey.openInSafariView) var openInSafariView = true
     
     let suggestionFetcher = SuggestionFetcher.shared
     let searchURLCreator = SearchURLCreator()
