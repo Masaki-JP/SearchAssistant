@@ -39,11 +39,16 @@ extension ContentView {
     
     func getSuggestion(from userInput: String) async {
         do {
-            try await suggestions = suggestionFetcher.fetch(from: userInput)
+            let fetchedSuggestions = try await suggestionFetcher.fetch(from: userInput)
+            guard Task.isCancelled == false else { return }
+            
+            suggestions = fetchedSuggestions
             isSuggestionFetchFailed = false
         } catch is CancellationError {
             return
         } catch {
+            guard Task.isCancelled == false else { return }
+            
             suggestions = []
             isSuggestionFetchFailed = true
         }
