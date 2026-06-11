@@ -33,8 +33,10 @@ struct ContentView: View {
                 onSubmit: { search(userInput, on: .google) }
             )
             .padding(.horizontal)
+            
             Divider()
                 .padding(.top, 5)
+            
             if userInput.isEmpty {
                 if histories.isEmpty == false {
                     HistoryList(
@@ -120,13 +122,13 @@ struct ContentView: View {
             SafariView(url: item.url)
                 .ignoresSafeArea()
         }
-        .sheet(isPresented: $isPresentedSettingsView) {
+        .sheet(isPresented: $isPresentedSettingsView, onDismiss: {
             fetchValidKeyboardToolbarButtons()
             guard settingAutoFocus else { return }
             isFocused = true
-        } content: {
+        }, content: {
             SettingsView()
-        }
+        })
         .alert("確認", isPresented: $isPresentedDeleteAllHistoriesAlert) {
             Button("実行", role: .destructive) {
                 removeAllHistories()
