@@ -10,41 +10,31 @@ final class SearchURLCreator {
     
     func create(_ input: String, searchPlatform: SearchPlatform) throws -> URL {
         var input = input
-        ///
-        ///
-        /// もしinputが有効なURLだった場合、そのままURLインスタンスを作成し、それを返す。
+
         if let url = URL(string: input), UIApplication.shared.canOpenURL(url) {
             return url
         }
-        ///
-        ///
-        /// 入力が空文字でないことを確認
-        guard input.isEmpty == false
-        else { throw SearchURLCreatorError.noInput }
-        ///
-        ///
-        /// Instagram検索特有の処理：全角スペースを半角スペースに変換
+
+        guard input.isEmpty == false else {
+            throw SearchURLCreatorError.noInput
+        }
+
         if searchPlatform == .instagram {
             input.replace("　", with: " ")
         }
-        ///
-        ///
-        /// 入力のパーセントエンコーディング
-        guard let percentEncodedInput = input.addingPercentEncoding(withAllowedCharacters: .alphanumerics)
-        else { throw SearchURLCreatorError.inputPercentEncodingFailure }
-        ///
-        ///
-        /// URLの作成
-        guard let url = URL(string: searchPlatform.prefixURL + percentEncodedInput)
-        else { throw SearchURLCreatorError.creatingURLFailure }
-        ///
-        ///
-        /// URLを開けるか否か確認
-        guard UIApplication.shared.canOpenURL(url)
-        else { throw SearchURLCreatorError.cannotOpenURL }
-        ///
-        ///
-        /// 作成したURLを返す
+
+        guard let percentEncodedInput = input.addingPercentEncoding(withAllowedCharacters: .alphanumerics) else {
+            throw SearchURLCreatorError.inputPercentEncodingFailure
+        }
+
+        guard let url = URL(string: searchPlatform.prefixURL + percentEncodedInput) else {
+            throw SearchURLCreatorError.creatingURLFailure
+        }
+
+        guard UIApplication.shared.canOpenURL(url) else {
+            throw SearchURLCreatorError.cannotOpenURL
+        }
+
         return url
     }
 }
