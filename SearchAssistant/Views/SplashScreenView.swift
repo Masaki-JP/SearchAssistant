@@ -15,17 +15,19 @@ struct SplashScreenView: View {
                 .fontWeight(.semibold)
         }
         .opacity(opacity)
-        .onAppear(perform: onAppear)
+        .task(afterAppear)
     }
     
-    func onAppear() {
-        withAnimation(.easeInOut(duration: 1.5)) {
-            opacity = 0.0
+    func afterAppear() async {
+        try? await Task.sleep(for: .seconds(0.5))
+        
+        withAnimation(.easeOut(duration: 1.0)) {
+            opacity = .zero
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.75) {
-            ViewRouter.shared.changeView(to: .contentView)
-        }
+        try? await Task.sleep(for: .seconds(1.25))
+        
+        ViewRouter.shared.changeView(to: .contentView)
     }
 }
 
