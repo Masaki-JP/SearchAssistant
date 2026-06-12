@@ -19,8 +19,8 @@ struct ContentView: View {
     
     let suggestionFetcher = SuggestionFetcher.shared
     let searchURLCreator = SearchURLCreator()
-    let searchHistoryRepository = UserDefaultsRepository<[SearchHistory]>(key: .searchHistories)
-    let validKeyboardToolbarButtonRepository = UserDefaultsRepository<[SearchPlatform]>(key: UserDefaultsKey.validKeyboardToolbarButtons)
+    let searchHistoryRepository = SearchHistoryRepository(key: .searchHistories)
+    let validKeyboardToolbarButtonRepository = ValidKeyboardToolbarButtonRepository(key: UserDefaultsKey.validKeyboardToolbarButtons)
     
     var body: some View {
         VStack(spacing: 0) {

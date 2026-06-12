@@ -1,12 +1,11 @@
 import SwiftUI
 
 extension ContentView {
+    typealias SearchHistoryRepository = UserDefaultsRepository<[SearchHistory]>
+    typealias ValidKeyboardToolbarButtonRepository = UserDefaultsRepository<[SearchPlatform]>
+    
     func onAppear() {
-        do {
-            histories = try searchHistoryRepository.fetch()
-        } catch {
-            reportError(error)
-        }
+        fetchSearchHistories()
         
         fetchValidKeyboardToolbarButtons()
         
@@ -124,6 +123,17 @@ extension ContentView {
             }
         } catch {
             reportError(error)
+        }
+    }
+    
+    func fetchSearchHistories() {
+        do {
+            histories = try searchHistoryRepository.fetch()
+        } catch {
+            if let error = error as? SearchHistoryRepository.UserDefaultsRepositoryError,
+               error != .dataNotFound {
+                reportError(error)
+            }
         }
     }
     
