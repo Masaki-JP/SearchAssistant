@@ -1,6 +1,58 @@
 import SwiftUI
 
 extension ContentView {
+    func onAppear() {
+        do {
+            histories = try searchHistoryRepository.fetch()
+        } catch {
+            reportError(error)
+        }
+        
+        fetchValidKeyboardToolbarButtons()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
+            guard settingAutoFocus == true,
+                  isPresentedSettingsView == false,
+                  isPresentedDeleteAllHistoriesAlert == false,
+                  presentedSafariViewURL == nil
+            else { return }
+            
+            isFocused = true
+        }
+    }
+    
+    func onScenePhaseChange(oldScene: ScenePhase, newScene: ScenePhase) {
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
+            guard newScene == .active,
+                  settingAutoFocus == true,
+                  isPresentedSettingsView == false,
+                  isPresentedDeleteAllHistoriesAlert == false,
+                  presentedSafariViewURL == nil
+            else { return }
+            
+            isFocused = true
+        }
+    }
+    
+    func onIsPresentedSettingsViewChange() {
+        if isPresentedSettingsView == true { isFocused = false }
+    }
+    
+    func onUserInputChange() async {
+        if userInput.isEmpty == false {
+            await getSuggestion(from: userInput)
+        } else {
+            suggestions = []
+            isSuggestionFetchFailed = false
+        }
+    }
+    
+    func onSettingsViewDismiss() {
+        fetchValidKeyboardToolbarButtons()
+        guard settingAutoFocus == true else { return }
+        isFocused = true
+    }
+    
     struct SafariViewURL: Identifiable {
         let url: URL
         let id = UUID()
@@ -59,7 +111,7 @@ extension ContentView {
     func search(_ userInput: String, on platform: SearchPlatform) {
         let userInput = userInput.trimmingCharacters(in: .whitespacesAndNewlines.union(CharacterSet(charactersIn: "　")))
         guard userInput.isEmpty == false else { return }
-
+        
         do {
             let url = try searchURLCreator.create(userInput, searchPlatform: platform)
             appendHistory(userInput: userInput, platform: platform)

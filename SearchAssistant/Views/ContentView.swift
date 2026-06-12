@@ -24,26 +24,15 @@ struct ContentView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            SearchTextField(
-                isFocused: $isFocused,
-                userInput: $userInput,
-                onSettingsButtonTapped: { isPresentedSettingsView = true },
-                onInputClearButtonTapped: { userInput.removeAll() },
-                onSubmit: { search(userInput, on: .google) }
-            )
-            .padding(.horizontal)
+            searchTextField
+                .padding(.horizontal)
             
             Divider()
                 .padding(.top, 5)
             
-            if userInput.isEmpty {
+            if userInput.isEmpty == true {
                 if histories.isEmpty == false {
-                    HistoryList(
-                        histories: histories,
-                        searchAction: search(_:on:),
-                        removeHistoryAction: removeHistory(atOffsets:),
-                        isPresentedDeleteAllHistoriesAlert: $isPresentedDeleteAllHistoriesAlert
-                    )
+                    historyList
                 } else {
                     NoContentView.searchHistory
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -51,7 +40,7 @@ struct ContentView: View {
             } else {
                 if isSuggestionFetchFailed == false {
                     if suggestions.isEmpty == false {
-                        SuggestionList(suggestions: suggestions, action: search(_:on:))
+                        SuggestionList(suggestions: suggestions, action: search)
                     } else {
                         NoContentView.searchSuggestion
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -68,57 +57,11 @@ struct ContentView: View {
                     .padding(settingLeftSearchButton == false ? .trailing : .leading)
             }
         }
-        .onAppear {
-            do {
-                histories = try searchHistoryRepository.fetch()
-            } catch {
-                reportError(error)
-            }
-            
-            fetchValidKeyboardToolbarButtons()
-            
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
-                guard settingAutoFocus == true,
-                      isPresentedSettingsView == false,
-                      isPresentedDeleteAllHistoriesAlert == false,
-                      presentedSafariViewURL == nil
-                else { return }
-                
-                isFocused = true
-            }
-        }
-        .onChange(of: scenePhase) { _, newScene in
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
-                guard newScene == .active,
-                      settingAutoFocus == true,
-                      isPresentedSettingsView == false,
-                      isPresentedDeleteAllHistoriesAlert == false,
-                      presentedSafariViewURL == nil
-                else { return }
-                
-                isFocused = true
-            }
-        }
-        .onChange(of: isPresentedSettingsView) { _, newScene in
-            if newScene == true { isFocused = false }
-        }
-        .task(id: userInput) {
-            if userInput.isEmpty == false {
-                await getSuggestion(from: userInput)
-            } else {
-                suggestions = []
-                isSuggestionFetchFailed = false
-            }
-        }
         .fullScreenCover(item: $presentedSafariViewURL) { item in
             SafariView(url: item.url)
                 .ignoresSafeArea()
         }
-        .sheet(isPresented: $isPresentedSettingsView, onDismiss: {
-            fetchValidKeyboardToolbarButtons()
-            guard settingAutoFocus else { return }
-            isFocused = true
-        }, content: {
+        .sheet(isPresented: $isPresentedSettingsView, onDismiss: onSettingsViewDismiss, content: {
             SettingsView()
         })
         .alert("確認", isPresented: $isPresentedDeleteAllHistoriesAlert) {
@@ -132,6 +75,29 @@ struct ContentView: View {
         .toolbar {
             ToolbarItem(placement: .keyboard, content: toolbarItemContent)
         }
+        .onAppear(perform: onAppear)
+        .task(id: userInput, onUserInputChange)
+        .onChange(of: scenePhase, onScenePhaseChange)
+        .onChange(of: isPresentedSettingsView, onIsPresentedSettingsViewChange)
+    }
+    
+    var searchTextField: some View {
+        SearchTextField(
+            isFocused: $isFocused,
+            userInput: $userInput,
+            onSettingsButtonTapped: { isPresentedSettingsView = true },
+            onInputClearButtonTapped: { userInput.removeAll() },
+            onSubmit: { search(userInput, on: .google) }
+        )
+    }
+    
+    var historyList: some View {
+        HistoryList(
+            histories: histories,
+            searchAction: search,
+            removeHistoryAction: removeHistory(atOffsets:),
+            isPresentedDeleteAllHistoriesAlert: $isPresentedDeleteAllHistoriesAlert
+        )
     }
     
     var focusTextFieldButton: some View {
