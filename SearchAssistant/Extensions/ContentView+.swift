@@ -132,7 +132,7 @@ extension ContentView {
             validKeyboardToolbarButtons = try validKeyboardToolbarButtonRepository.fetch()
         } catch {
             reportError(error)
-            validKeyboardToolbarButtons = Set(SearchPlatform.allCases)
+            validKeyboardToolbarButtons = SearchPlatform.allCases
         }
     }
 }

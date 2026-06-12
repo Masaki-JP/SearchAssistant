@@ -4,16 +4,16 @@ extension SettingsView {
             validKeyboardToolbarButtons = try validKeyboardToolbarButtonRepository.fetch()
         } catch {
             reportError(error)
-            validKeyboardToolbarButtons = Set(SearchPlatform.allCases)
+            validKeyboardToolbarButtons = SearchPlatform.allCases
         }
     }
     
     func toggleToolbarButtonAvailability(_ platform: SearchPlatform) {
         let previousState = validKeyboardToolbarButtons
         if validKeyboardToolbarButtons.contains(platform) {
-            validKeyboardToolbarButtons.remove(platform)
+            validKeyboardToolbarButtons.removeAll { $0 == platform }
         } else {
-            validKeyboardToolbarButtons.insert(platform)
+            validKeyboardToolbarButtons.append(platform)
         }
         do {
             try validKeyboardToolbarButtonRepository.save(validKeyboardToolbarButtons)

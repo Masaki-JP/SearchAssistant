@@ -9,8 +9,8 @@ struct SettingsView: View {
     @AppStorage(AppStorageKey.colorScheme) var appStorageColorScheme = ColorSchemeSetting.dark.rawValue
     @AppStorage(AppStorageKey.openInSafariView) var openInSafariView = true
     
-    @State var validKeyboardToolbarButtons = Set(SearchPlatform.allCases)
-    let validKeyboardToolbarButtonRepository = UserDefaultsRepository<Set<SearchPlatform>>(key: UserDefaultsKey.validKeyboardToolbarButtons)
+    @State var validKeyboardToolbarButtons = SearchPlatform.allCases
+    let validKeyboardToolbarButtonRepository = UserDefaultsRepository<[SearchPlatform]>(key: UserDefaultsKey.validKeyboardToolbarButtons)
     
     var body: some View {
         NavigationStack {
