@@ -11,7 +11,7 @@ struct ContentView: View {
     @State var isPresentedSettingsView = false
     @State var isPresentedDeleteAllHistoriesAlert = false
     @State var presentedSafariViewURL: SafariViewURL? = nil
-    @State var validKeyboardToolbarButtons = Set(SearchPlatform.allCases)
+    @State var validKeyboardToolbarButtons = SearchPlatform.allCases
     
     @AppStorage(AppStorageKey.autoFocus) var settingAutoFocus = true
     @AppStorage(AppStorageKey.searchButtonLeft) var settingLeftSearchButton = false
@@ -20,7 +20,7 @@ struct ContentView: View {
     let suggestionFetcher = SuggestionFetcher.shared
     let searchURLCreator = SearchURLCreator()
     let searchHistoryRepository = UserDefaultsRepository<[SearchHistory]>(key: .searchHistories)
-    let validKeyboardToolbarButtonRepository = UserDefaultsRepository<Set<SearchPlatform>>(key: UserDefaultsKey.validKeyboardToolbarButtons)
+    let validKeyboardToolbarButtonRepository = UserDefaultsRepository<[SearchPlatform]>(key: UserDefaultsKey.validKeyboardToolbarButtons)
     
     var body: some View {
         VStack(spacing: 0) {

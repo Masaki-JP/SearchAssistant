@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct KeyboardToolbarSection: View {
-    let validKeyboardToolbarButtons: Set<SearchPlatform>
+    let validKeyboardToolbarButtons: [SearchPlatform]
     let action: (SearchPlatform) -> Void
     let feedbackGenerator = UINotificationFeedbackGenerator()
     
@@ -40,16 +40,16 @@ struct KeyboardToolbarSection: View {
 }
 
 #Preview {
-    @Previewable @State var validKeyboardToolbarButtons = Set(SearchPlatform.allCases)
+    @Previewable @State var validKeyboardToolbarButtons = SearchPlatform.allCases
     
     List {
         KeyboardToolbarSection(
             validKeyboardToolbarButtons: validKeyboardToolbarButtons,
             action: { platform in
                 if validKeyboardToolbarButtons.contains(platform) {
-                    validKeyboardToolbarButtons.remove(platform)
+                    validKeyboardToolbarButtons.removeAll { $0 == platform }
                 } else {
-                    validKeyboardToolbarButtons.insert(platform)
+                    validKeyboardToolbarButtons.append(platform)
                 }
             }
         )
