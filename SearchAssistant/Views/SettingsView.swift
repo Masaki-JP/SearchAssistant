@@ -20,6 +20,7 @@ struct SettingsView: View {
                 colorSchemeSection
                 browserSection
                 KeyboardToolbarSection(validKeyboardToolbarButtons: validKeyboardToolbarButtons, action: toggleToolbarButtonAvailability)
+                appInfoSection
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
@@ -86,6 +87,23 @@ struct SettingsView: View {
         } footer: {
             Text("上記の設定をオフにした場合、検索はSafariで行われます。")
         }
+    }
+    
+    var appInfoSection: some View {
+        Section {
+            LabeledContent("バージョン", value: bundleShortVersionString)
+            LabeledContent("ビルド", value: bundleVersion)
+        } header: {
+            Text("アプリ情報")
+        }
+    }
+    
+    var bundleShortVersionString: String {
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "-"
+    }
+    
+    var bundleVersion: String {
+        Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "-"
     }
 }
 
