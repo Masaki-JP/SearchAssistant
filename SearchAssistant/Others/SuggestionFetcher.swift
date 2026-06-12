@@ -17,14 +17,13 @@ import Foundation
 /// }
 /// ```
 final class SuggestionFetcher {
+    static let shared = SuggestionFetcher()
+    private init() {}
+    
     enum FetchError: Error {
         case failedToEncodeQuery
         case failedToCreateURL
     }
-    
-    /// プライベートイニシャライザで外部でのインスタンスの作成を防ぎ、スタティックプロパティを通じてシングルトンインスタンスを提供する。
-    static let shared = SuggestionFetcher()
-    private init() {}
     
     /// ユーザー入力に基づいて提案を非同期的にフェッチします。
     ///
@@ -59,10 +58,6 @@ final class SuggestionFetcher {
         return parser.parse(data: data)
     }
     
-    /// ユーザー入力から検索URLを作成する。
-    ///
-    /// - Parameter userInput: 検索クエリとして使用するユーザー入力文字列
-    /// - Returns: 構築されたURL。
     private func createURL(from userInput: String) throws -> URL {
         let prefixURL = "https://www.google.com/complete/search?hl=ja&output=toolbar&q="
         guard let query = userInput.addingPercentEncoding(withAllowedCharacters: .alphanumerics) else {
