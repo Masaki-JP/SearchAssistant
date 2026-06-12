@@ -9,6 +9,7 @@ struct SplashScreenView: View {
                 .resizable()
                 .frame(width: 180, height: 180)
                 .opacity(0.2)
+            
             Text("Search Assistant")
                 .font(.largeTitle)
                 .fontWeight(.semibold)
