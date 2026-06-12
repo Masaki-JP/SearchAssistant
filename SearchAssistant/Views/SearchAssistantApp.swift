@@ -16,6 +16,7 @@ struct SearchAssistantApp: App {
                 }
             }
             .preferredColorScheme(colorScheme)
+            .animation(.default, value: viewRouter.currentView)
         }
     }
     
