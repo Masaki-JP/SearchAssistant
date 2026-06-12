@@ -33,7 +33,7 @@ extension ContentView {
             isFocused = true
         }
     }
-        
+    
     func onIsPresentedSettingsViewChange() {
         if isPresentedSettingsView == true { isFocused = false }
     }
@@ -52,7 +52,7 @@ extension ContentView {
         guard settingAutoFocus == true else { return }
         isFocused = true
     }
-
+    
     struct SafariViewURL: Identifiable {
         let url: URL
         let id = UUID()
@@ -111,7 +111,7 @@ extension ContentView {
     func search(_ userInput: String, on platform: SearchPlatform) {
         let userInput = userInput.trimmingCharacters(in: .whitespacesAndNewlines.union(CharacterSet(charactersIn: "　")))
         guard userInput.isEmpty == false else { return }
-
+        
         do {
             let url = try searchURLCreator.create(userInput, searchPlatform: platform)
             appendHistory(userInput: userInput, platform: platform)
