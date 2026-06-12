@@ -2,14 +2,14 @@ import SwiftUI
 
 struct SuggestionList: View {
     let suggestions: [String]
-    let action: (String, SearchPlatform) -> Void
+    let onRowTapped: (String, SearchPlatform) -> Void
     
     var body: some View {
         List {
             Section {
                 ForEach(suggestions, id: \.self) { suggestion in
                     rowButton(suggestion: suggestion) {
-                        action(suggestion, .google)
+                        onRowTapped(suggestion, .google)
                     }
                 }
             } header: {
@@ -44,6 +44,6 @@ struct SuggestionList: View {
         suggestions: [
             "macbook", "macbook air", "macbook air m2", "macbook スクショ", "macbook air m1", "macbook 初期化", "macbook pro m3", "macbook air m3", "macbook 中古", "macbook 学割"
         ],
-        action: { (str, platform) in print(str, platform) }
+        onRowTapped: { (str, platform) in print(str, platform) }
     )
 }
