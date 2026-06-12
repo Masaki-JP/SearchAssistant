@@ -68,57 +68,11 @@ struct ContentView: View {
                     .padding(settingLeftSearchButton == false ? .trailing : .leading)
             }
         }
-        .onAppear {
-            do {
-                histories = try searchHistoryRepository.fetch()
-            } catch {
-                reportError(error)
-            }
-            
-            fetchValidKeyboardToolbarButtons()
-            
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
-                guard settingAutoFocus == true,
-                      isPresentedSettingsView == false,
-                      isPresentedDeleteAllHistoriesAlert == false,
-                      presentedSafariViewURL == nil
-                else { return }
-                
-                isFocused = true
-            }
-        }
-        .onChange(of: scenePhase) { _, newScene in
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
-                guard newScene == .active,
-                      settingAutoFocus == true,
-                      isPresentedSettingsView == false,
-                      isPresentedDeleteAllHistoriesAlert == false,
-                      presentedSafariViewURL == nil
-                else { return }
-                
-                isFocused = true
-            }
-        }
-        .onChange(of: isPresentedSettingsView) { _, newScene in
-            if newScene == true { isFocused = false }
-        }
-        .task(id: userInput) {
-            if userInput.isEmpty == false {
-                await getSuggestion(from: userInput)
-            } else {
-                suggestions = []
-                isSuggestionFetchFailed = false
-            }
-        }
         .fullScreenCover(item: $presentedSafariViewURL) { item in
             SafariView(url: item.url)
                 .ignoresSafeArea()
         }
-        .sheet(isPresented: $isPresentedSettingsView, onDismiss: {
-            fetchValidKeyboardToolbarButtons()
-            guard settingAutoFocus else { return }
-            isFocused = true
-        }, content: {
+        .sheet(isPresented: $isPresentedSettingsView, onDismiss: onSettingsViewDismiss, content: {
             SettingsView()
         })
         .alert("確認", isPresented: $isPresentedDeleteAllHistoriesAlert) {
@@ -132,6 +86,10 @@ struct ContentView: View {
         .toolbar {
             ToolbarItem(placement: .keyboard, content: toolbarItemContent)
         }
+        .onAppear(perform: onAppear)
+        .task(id: userInput, onUserInputChange)
+        .onChange(of: scenePhase, onScenePhaseChange)
+        .onChange(of: isPresentedSettingsView, onIsPresentedSettingsViewChange)
     }
     
     var focusTextFieldButton: some View {
