@@ -1,26 +1,39 @@
-func reportError(
-    fileID: String = #fileID,
-    function: String = #function,
-    line: Int = #line,
-    _ error: any Error
-) {
-    print("💥💥💥")
-    print("fileID: \(fileID)")
-    print("function: \(function)")
-    print("line: \(line)")
-    print("error: \(error) (\(type(of: error)))")
-    print("💥💥💥")
+import Foundation
+import OSLog
+
+private enum AppLog {
+    private static let subsystem = Bundle.main.bundleIdentifier ?? "SearchAssistant"
+    
+    static let error = Logger(subsystem: subsystem, category: "Error")
+    static let mock = Logger(subsystem: subsystem, category: "Mock")
 }
 
-func reportMockAction(
+func reportError(
+    _ error: any Error,
+    message: String = "",
     fileID: String = #fileID,
     function: String = #function,
     line: Int = #line
 ) {
-    print("")
-    print("Called MockAction")
-    print("function: \(function)")
-    print("line: \(line)")
-    print("fileID: \(fileID)")
-    print("")
+#if DEBUG
+    let errorDescription = String(describing: error)
+    let errorType = String(describing: type(of: error))
+    
+    AppLog.error.error(
+        "message=\(message, privacy: .public) error=\(errorDescription, privacy: .private) type=\(errorType, privacy: .public) fileID=\(fileID, privacy: .public) function=\(function, privacy: .public) line=\(line)"
+    )
+#endif
+}
+
+func reportMockAction(
+    message: String = "",
+    fileID: String = #fileID,
+    function: String = #function,
+    line: Int = #line
+) {
+#if DEBUG
+    AppLog.mock.debug(
+        "mockAction message=\(message, privacy: .public) fileID=\(fileID, privacy: .public) function=\(function, privacy: .public) line=\(line)"
+    )
+#endif
 }
