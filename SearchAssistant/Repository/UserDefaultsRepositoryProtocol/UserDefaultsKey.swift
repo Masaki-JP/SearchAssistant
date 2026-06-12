@@ -3,8 +3,7 @@ import Foundation
 enum UserDefaultsKey {
     case searchHistories
     case validKeyboardToolbarButtons
-    // モック用のUserDefaultsKeyとして使うことを想定しています。
-    case inMemory
+    case inMemory // MARK: モック用のUserDefaultsKeyとしての使用を想定
     
     var string: String {
         return switch self {
