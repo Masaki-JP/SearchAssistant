@@ -40,7 +40,7 @@ struct ContentView: View {
             } else {
                 if isSuggestionFetchFailed == false {
                     if suggestions.isEmpty == false {
-                        SuggestionList(suggestions: suggestions, action: search)
+                        SuggestionList(suggestions: suggestions, onRowTapped: search)
                     } else {
                         NoContentView.searchSuggestion
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -94,8 +94,8 @@ struct ContentView: View {
     var historyList: some View {
         HistoryList(
             histories: histories,
-            searchAction: search,
-            removeHistoryAction: removeHistory(atOffsets:),
+            onRowTapped: search,
+            onDelete: removeHistory,
             isPresentedDeleteAllHistoriesAlert: $isPresentedDeleteAllHistoriesAlert
         )
     }

@@ -2,8 +2,8 @@ import SwiftUI
 
 struct HistoryList: View {
     let histories: [SearchHistory]
-    let searchAction: (String, SearchPlatform) -> Void
-    let removeHistoryAction: (IndexSet) -> Void
+    let onRowTapped: (String, SearchPlatform) -> Void
+    let onDelete: (IndexSet) -> Void
     @Binding var isPresentedDeleteAllHistoriesAlert: Bool
     
     var body: some View {
@@ -11,11 +11,11 @@ struct HistoryList: View {
             Section {
                 ForEach(histories) { history in
                     buttonRow(history: history) {
-                        searchAction(history.userInput, history.platform)
+                        onRowTapped(history.userInput, history.platform)
                     }
                 }
                 .onDelete { indexSet in
-                    removeHistoryAction(indexSet)
+                    onDelete(indexSet)
                 }
             } header: {
                 Text("Histories")
@@ -43,9 +43,12 @@ struct HistoryList: View {
                     .frame(width: 28, height: 28)
                     .background(history.platform.imageColor)
                     .clipShape(RoundedRectangle(cornerRadius: 7))
+                
                 Text(history.userInput)
                     .padding(.leading, 4)
+                
                 Spacer()
+                
                 Text(history.date.string())
                     .font(.caption2)
                     .foregroundStyle(.secondary)
@@ -73,10 +76,10 @@ fileprivate extension Date {
 #Preview {
     HistoryList(
         histories: SearchHistory.samples,
-        searchAction: { userInput, platform in
+        onRowTapped: { userInput, platform in
             print(userInput, platform)
         },
-        removeHistoryAction: { (_) -> Void in },
+        onDelete: { (_) -> Void in },
         isPresentedDeleteAllHistoriesAlert: Binding.constant(false)
     )
 }
