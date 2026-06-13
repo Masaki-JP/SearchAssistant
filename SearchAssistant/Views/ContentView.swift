@@ -28,7 +28,7 @@ struct ContentView: View {
                 .padding(.horizontal)
             
             Divider()
-                .padding(.top, 5)
+                .padding(.top, 8)
             
             if userInput.isEmpty == true {
                 if histories.isEmpty == false {
