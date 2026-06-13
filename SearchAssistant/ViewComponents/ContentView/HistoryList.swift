@@ -13,6 +13,15 @@ struct HistoryList: View {
                     buttonRow(history: history) {
                         onRowTapped(history.userInput, history.platform)
                     }
+                    .padding(.top, histories.first?.id == history.id ? 4 : 0)
+                    .padding(.bottom, histories.last?.id == history.id ? 4 : 0)
+                    .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
+                        return -5
+                    })
+                    .alignmentGuide(.listRowSeparatorTrailing, computeValue: { viewDementions in
+                        return viewDementions.width + 5
+                    })
+                    .listRowInsets(.init(top: 6, leading: 12, bottom: 6, trailing: 12))
                 }
                 .onDelete { indexSet in
                     onDelete(indexSet)
