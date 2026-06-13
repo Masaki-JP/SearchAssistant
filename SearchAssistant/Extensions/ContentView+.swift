@@ -39,10 +39,13 @@ extension ContentView {
     
     func onUserInputChange() async {
         if userInput.isEmpty == false {
+            isSuggestionFetchFailed = false
+            inputUsedToFetchCurrentSuggestions = nil
             await getSuggestion(from: userInput)
         } else {
             suggestions = []
             isSuggestionFetchFailed = false
+            inputUsedToFetchCurrentSuggestions = nil
         }
     }
     
@@ -97,6 +100,7 @@ extension ContentView {
             
             suggestions = fetchedSuggestions
             isSuggestionFetchFailed = false
+            inputUsedToFetchCurrentSuggestions = userInput
         } catch is CancellationError {
             return
         } catch {
@@ -104,6 +108,7 @@ extension ContentView {
             
             suggestions = []
             isSuggestionFetchFailed = true
+            inputUsedToFetchCurrentSuggestions = nil
         }
     }
     

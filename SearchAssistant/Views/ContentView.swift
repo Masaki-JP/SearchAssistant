@@ -7,6 +7,7 @@ struct ContentView: View {
     @State var histories: [SearchHistory] = []
     @State var suggestions: [String] = []
     @State var isSuggestionFetchFailed = false
+    @State var inputUsedToFetchCurrentSuggestions: String? = nil
     @State var userInput = ""
     @State var isPresentedSettingsView = false
     @State var isPresentedDeleteAllHistoriesAlert = false
@@ -41,9 +42,11 @@ struct ContentView: View {
                 if isSuggestionFetchFailed == false {
                     if suggestions.isEmpty == false {
                         SuggestionList(suggestions: suggestions, onRowTapped: search)
-                    } else {
+                    } else if inputUsedToFetchCurrentSuggestions == userInput {
                         NoContentView.searchSuggestion
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    } else {
+                        Spacer()
                     }
                 } else {
                     NoContentView.searchSuggestionNetworkError
