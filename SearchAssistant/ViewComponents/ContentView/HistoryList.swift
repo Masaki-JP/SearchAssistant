@@ -10,7 +10,7 @@ struct HistoryList: View {
         List {
             Section {
                 ForEach(histories) { history in
-                    buttonRow(history: history) {
+                    historyRowButton(history: history) {
                         onRowTapped(history.userInput, history.platform)
                     }
                     .padding(.top, histories.first?.id == history.id ? 4 : 0)
@@ -40,7 +40,7 @@ struct HistoryList: View {
         }
     }
     
-    func buttonRow(history: SearchHistory, action: @escaping () -> Void) -> some View {
+    func historyRowButton(history: SearchHistory, action: @escaping () -> Void) -> some View {
         Button(action: {
             action()
         }, label: {

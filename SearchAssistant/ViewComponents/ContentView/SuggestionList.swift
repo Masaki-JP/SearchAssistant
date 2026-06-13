@@ -8,7 +8,7 @@ struct SuggestionList: View {
         List {
             Section {
                 ForEach(suggestions, id: \.self) { suggestion in
-                    rowButton(suggestion: suggestion) {
+                    suggestionRowButton(suggestion: suggestion) {
                         onRowTapped(suggestion, .google)
                     }
                     .padding(.top, suggestions.first == suggestion ? 4 : 0)
@@ -28,7 +28,7 @@ struct SuggestionList: View {
         }
     }
     
-    func rowButton(suggestion: String, action: @escaping () -> Void) -> some View {
+    func suggestionRowButton(suggestion: String, action: @escaping () -> Void) -> some View {
         Button(action: {
             action()
         }, label: {
