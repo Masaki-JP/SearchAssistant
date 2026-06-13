@@ -23,12 +23,11 @@ struct ContentView: View {
     let validKeyboardToolbarButtonRepository = ValidKeyboardToolbarButtonRepository(key: UserDefaultsKey.validKeyboardToolbarButtons)
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: 5) {
             searchTextField
                 .padding(.horizontal)
             
             Divider()
-                .padding(.top, 5)
             
             if userInput.isEmpty == true {
                 if histories.isEmpty == false {
