@@ -11,6 +11,15 @@ struct SuggestionList: View {
                     rowButton(suggestion: suggestion) {
                         onRowTapped(suggestion, .google)
                     }
+                    .padding(.top, suggestions.first == suggestion ? 4 : 0)
+                    .padding(.bottom, suggestions.last == suggestion ? 4 : 0)
+                    .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
+                        return -5
+                    })
+                    .alignmentGuide(.listRowSeparatorTrailing, computeValue: { viewDementions in
+                        return viewDementions.width + 5
+                    })
+                    .listRowInsets(.init(top: 8, leading: 12, bottom: 8, trailing: 12))
                 }
             } header: {
                 Text("Suggestions")
