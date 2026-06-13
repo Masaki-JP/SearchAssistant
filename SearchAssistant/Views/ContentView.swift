@@ -46,7 +46,9 @@ struct ContentView: View {
                         NoContentView.searchSuggestion
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     } else {
-                        Spacer()
+                        ProgressView()
+                            .controlSize(.large)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 } else {
                     NoContentView.searchSuggestionNetworkError
