@@ -74,7 +74,7 @@ struct SettingsView: View {
         } header: {
             Text("外観モード")
         } footer: {
-            Text("iPhoneの外観モードと同じものにするにはシステムを選択してください。")
+            Text("iPhoneの外観モードに合わせるにはシステムを選択してください。")
         }
         
     }
