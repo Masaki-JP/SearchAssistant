@@ -15,6 +15,8 @@ HistoryListやSuggestionListのようにXXXList形式のビューを切り出す
 
 エージェントファイルの更新のコミットメッセージとブランチ名はプレフィックスを「agent」とすること。
 
+プロジェクト全体を作り直した変更は、マージコミット「0c3852e（Merge branch 'change/recreate-search-assistant-project'）」で取り込まれている。実変更コミットは「f2df292（change: 旧プロジェクトのコードを移植）」。
+
 mainにマージするときはファストフォワードを使わないこと。
 
 指示があるまでコミットは行わない。
