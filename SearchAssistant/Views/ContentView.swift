@@ -103,12 +103,13 @@ struct ContentView: View {
         Button {
             isFocused = true
         } label: {
-            Image(systemName: "magnifyingglass.circle.fill")
+            Image(systemName: "magnifyingglass")
                 .resizable()
-                .frame(width: 65, height: 65)
-                .background(.white)
-                .clipShape(Circle().scale(0.95))
+                .padding(10)
+                .frame(width: 45, height: 45)
         }
+        .buttonStyle(.glassProminent)
+        .buttonBorderShape(.circle)
     }
     
     func toolbarItemContent() -> some View {
