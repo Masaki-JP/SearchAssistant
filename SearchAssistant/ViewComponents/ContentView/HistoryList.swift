@@ -35,28 +35,58 @@ struct HistoryList: View {
         Button(action: {
             action()
         }, label: {
-            HStack {
-                Text(history.platform.iconCharacter)
-                    .font(.title3)
-                    .bold()
-                    .foregroundStyle(.white)
-                    .frame(width: 28, height: 28)
-                    .background(history.platform.imageColor)
-                    .clipShape(RoundedRectangle(cornerRadius: 7))
-                
-                Text(history.userInput)
-                    .padding(.leading, 4)
-                
-                Spacer()
-                
-                Text(history.date.string())
-                    .font(.caption2)
-                    .foregroundStyle(.secondary)
-                    .padding(.vertical, 4)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            ViewThatFits(in: .horizontal) {
+                singleLineLabel(history: history)
+                multiLineLabel(history: history)
             }
         })
         .buttonStyle(.plain)
+    }
+    
+    func singleLineLabel(history: SearchHistory) -> some View {
+        HStack(spacing: nil) {
+            Text(history.platform.iconCharacter)
+                .foregroundStyle(.white)
+                .font(.title3)
+                .fontWeight(.semibold)
+                .frame(width: 28, height: 28)
+                .background(history.platform.imageColor)
+                .clipShape(.rect(cornerRadius: 7))
+            
+            Text(history.userInput)
+                .padding(.leading, 4)
+            
+            Spacer()
+            
+            Text(history.date.string())
+                .foregroundStyle(.secondary)
+                .font(.caption2)
+                .padding(.vertical, 4)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+        }
+    }
+    
+    func multiLineLabel(history: SearchHistory) -> some View {
+        HStack(alignment: .top, spacing: nil) {
+            Text(history.platform.iconCharacter)
+                .foregroundStyle(.white)
+                .font(.title3)
+                .fontWeight(.semibold)
+                .frame(width: 28, height: 28)
+                .background(history.platform.imageColor)
+                .clipShape(.rect(cornerRadius: 7))
+            
+            VStack(spacing: 4) {
+                Text(history.userInput)
+                    .padding(.leading, 4)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Text(history.date.string())
+                    .foregroundStyle(.secondary)
+                    .font(.caption2)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+            }
+        }
     }
 }
 
@@ -74,8 +104,12 @@ fileprivate extension Date {
 }
 
 #Preview {
-    HistoryList(
-        histories: SearchHistory.samples,
+    var histories = SearchHistory.samples
+    let userInput = "夢なき者に理想なし、理想なき者に計画なし、計画なき者に成功なし。"
+    histories.insert(.init(userInput: userInput, platform: .google), at: 3)
+    
+    return HistoryList(
+        histories: histories,
         onRowTapped: { userInput, platform in
             print(userInput, platform)
         },
