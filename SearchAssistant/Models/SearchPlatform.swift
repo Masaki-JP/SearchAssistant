@@ -66,17 +66,17 @@ enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
         }
     }
     
-    var imageColor: Color {
+    var faviconResourceName: String {
         switch self {
-        case .google: .blue
-        case .x: Color(red: 0.25, green: 0.25, blue: 0.25)
-        case .instagram: .pink
-        case .amazon: .orange
-        case .youtube: Color(red: 1.0, green: 0.0, blue: 0.0)
-        case .facebook: .cyan
-        case .mercari: .green
-        case .rakuma: .green
-        case .yahooFleaMarket: .green
+        case .google: "google"
+        case .x: "x"
+        case .instagram: "instagram"
+        case .amazon: "amazon"
+        case .youtube: "youtube"
+        case .facebook: "facebook"
+        case .mercari: "mercari"
+        case .rakuma: "rakuma"
+        case .yahooFleaMarket: "yahoo_flea_market"
         }
     }
 }
