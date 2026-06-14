@@ -3,7 +3,6 @@ import SwiftUI
 struct KeyboardToolbarSection: View {
     let validKeyboardToolbarButtons: [SearchPlatform]
     let action: (SearchPlatform) -> Void
-    let feedbackGenerator = UINotificationFeedbackGenerator()
     
     var body: some View {
         Section {
@@ -25,7 +24,6 @@ struct KeyboardToolbarSection: View {
         
         return Button {
             action(platform)
-            feedbackGenerator.notificationOccurred(.success)
         } label: {
             HStack {
                 Text(platform.displayName)
