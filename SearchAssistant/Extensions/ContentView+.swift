@@ -4,6 +4,15 @@ extension ContentView {
     typealias SearchHistoryRepository = UserDefaultsRepository<[SearchHistory]>
     typealias ValidKeyboardToolbarButtonRepository = UserDefaultsRepository<[SearchPlatform]>
     
+    enum ContentViewState {
+        case searchHistoryList
+        case noSearchHistory
+        case searchSuggestionList
+        case noSearchSuggestion
+        case searchSuggestionLoading
+        case searchSuggestionNetworkError
+    }
+    
     func onAppear() {
         fetchSearchHistories()
         
