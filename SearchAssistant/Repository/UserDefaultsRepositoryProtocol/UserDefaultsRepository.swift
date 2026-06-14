@@ -23,7 +23,7 @@ final class UserDefaultsRepository<Value: Codable>: UserDefaultsRepositoryProtoc
         }
     }
     
-    func fetch() throws -> Value {
+    func load() throws -> Value {
         guard let itemsData = UserDefaults.standard.data(forKey: userDefaultsKey.string)
         else { throw UserDefaultsRepositoryError.dataNotFound }
         do {

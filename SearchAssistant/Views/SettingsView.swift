@@ -34,7 +34,7 @@ struct SettingsView: View {
             guard newScene != .active else { return }
             dismiss()
         }
-        .onAppear(perform: fetchValidKeyboardToolbarButtons)
+        .onAppear(perform: loadValidKeyboardToolbarButtons)
     }
     
     var focusControlSection: some View {

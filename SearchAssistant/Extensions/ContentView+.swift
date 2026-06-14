@@ -14,9 +14,9 @@ extension ContentView {
     }
     
     func onAppear() {
-        fetchSearchHistories()
+        loadSearchHistories()
         
-        fetchValidKeyboardToolbarButtons()
+        loadValidKeyboardToolbarButtons()
         
         DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
             guard settingAutoFocus == true,
@@ -50,7 +50,7 @@ extension ContentView {
         if userInput.isEmpty == false {
             isSuggestionFetchFailed = false
             inputUsedToFetchCurrentSuggestions = nil
-            await getSuggestion(from: userInput)
+            await fetchSuggestion(from: userInput)
         } else {
             suggestions = []
             isSuggestionFetchFailed = false
@@ -59,7 +59,7 @@ extension ContentView {
     }
     
     func onSettingsViewDismiss() {
-        fetchValidKeyboardToolbarButtons()
+        loadValidKeyboardToolbarButtons()
         guard settingAutoFocus == true else { return }
         isFocused = true
     }
@@ -102,7 +102,7 @@ extension ContentView {
         }
     }
     
-    func getSuggestion(from userInput: String) async {
+    func fetchSuggestion(from userInput: String) async {
         do {
             let fetchedSuggestions = try await suggestionFetcher.fetch(from: userInput)
             guard Task.isCancelled == false else { return }
@@ -140,9 +140,9 @@ extension ContentView {
         }
     }
     
-    func fetchSearchHistories() {
+    func loadSearchHistories() {
         do {
-            histories = try searchHistoryRepository.fetch()
+            histories = try searchHistoryRepository.load()
         } catch {
             if let error = error as? SearchHistoryRepository.UserDefaultsRepositoryError,
                error != .dataNotFound {
@@ -151,9 +151,9 @@ extension ContentView {
         }
     }
     
-    func fetchValidKeyboardToolbarButtons() {
+    func loadValidKeyboardToolbarButtons() {
         do {
-            validKeyboardToolbarButtons = try validKeyboardToolbarButtonRepository.fetch()
+            validKeyboardToolbarButtons = try validKeyboardToolbarButtonRepository.load()
         } catch {
             reportError(error)
             validKeyboardToolbarButtons = SearchPlatform.allCases
