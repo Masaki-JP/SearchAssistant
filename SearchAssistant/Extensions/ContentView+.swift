@@ -50,7 +50,7 @@ extension ContentView {
         if userInput.isEmpty == false {
             isSuggestionFetchFailed = false
             inputUsedToFetchCurrentSuggestions = nil
-            await getSuggestion(from: userInput)
+            await fetchSuggestion(from: userInput)
         } else {
             suggestions = []
             isSuggestionFetchFailed = false
@@ -102,7 +102,7 @@ extension ContentView {
         }
     }
     
-    func getSuggestion(from userInput: String) async {
+    func fetchSuggestion(from userInput: String) async {
         do {
             let fetchedSuggestions = try await suggestionFetcher.fetch(from: userInput)
             guard Task.isCancelled == false else { return }
