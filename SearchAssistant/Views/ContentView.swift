@@ -36,10 +36,12 @@ struct ContentView: View {
                 switch contentViewState {
                 case .searchHistoryList:
                     historyList
+                        .scrollIndicators(histories.count >= 200 ? .automatic : .hidden)
                 case .noSearchHistory:
                     NoContentView.searchHistory
                 case .searchSuggestionList:
                     SuggestionList(suggestions: suggestions, onRowTapped: search)
+                        .scrollIndicators(.hidden)
                 case .noSearchSuggestion:
                     NoContentView.searchSuggestion
                 case .searchSuggestionLoading:
