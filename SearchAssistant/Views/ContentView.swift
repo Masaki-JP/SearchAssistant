@@ -3,7 +3,8 @@ import SwiftUI
 struct ContentView: View {
     @FocusState var isFocused: Bool
     @Environment(\.scenePhase) var scenePhase
-    
+    @Environment(\.colorScheme) private var colorScheme: ColorScheme
+
     @State var histories: [SearchHistory] = []
     @State var suggestions: [String] = []
     @State var isSuggestionFetchFailed = false
@@ -62,6 +63,7 @@ struct ContentView: View {
         }
         .sheet(isPresented: $isPresentedSettingsView, onDismiss: onSettingsViewDismiss, content: {
             SettingsView()
+                .preferredColorScheme(colorScheme)
         })
         .alert("確認", isPresented: $isPresentedDeleteAllHistoriesAlert) {
             Button("実行", role: .destructive) {
