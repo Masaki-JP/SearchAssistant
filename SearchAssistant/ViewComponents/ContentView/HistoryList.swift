@@ -103,7 +103,6 @@ struct HistoryList: View {
             }
         }
         .frame(width: 28, height: 28)
-        .clipShape(.rect(cornerRadius: 7))
     }
 }
 
