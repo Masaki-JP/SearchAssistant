@@ -51,6 +51,7 @@ struct ContentView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
+        .background(backgroundColor, ignoresSafeAreaEdges: .all)
         .overlay(alignment: settingLeftSearchButton == false ? .bottomTrailing : .bottomLeading) {
             if isFocused == false {
                 focusTextFieldButton
@@ -80,6 +81,7 @@ struct ContentView: View {
         .task(id: userInput, onUserInputChange)
         .onChange(of: scenePhase, onScenePhaseChange)
         .onChange(of: isPresentedSettingsView, onIsPresentedSettingsViewChange)
+        .animation(.default, value: histories)
     }
     
     /// ContentView に表示するコンテンツの状態を返す。
@@ -145,6 +147,10 @@ struct ContentView: View {
         }
         .buttonStyle(.glassProminent)
         .buttonBorderShape(.circle)
+    }
+    
+    var backgroundColor: AnyShapeStyle {
+        colorScheme == .light ? AnyShapeStyle(Color(uiColor: .systemGroupedBackground)) : AnyShapeStyle(.background)
     }
     
     func toolbarItemContent() -> some View {
