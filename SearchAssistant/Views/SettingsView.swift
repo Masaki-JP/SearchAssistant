@@ -35,6 +35,7 @@ struct SettingsView: View {
             dismiss()
         }
         .onAppear(perform: loadValidKeyboardToolbarButtons)
+        .sensoryFeedback(.selection, trigger: validKeyboardToolbarButtons)
     }
     
     var focusControlSection: some View {
