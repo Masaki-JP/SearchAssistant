@@ -13,7 +13,7 @@ final class InMemoryUserDefaultsRepository<Value: Codable>: UserDefaultsReposito
         self.value = value
     }
     
-    func fetch() throws -> Value {
+    func load() throws -> Value {
         reportMockAction()
         return value
     }

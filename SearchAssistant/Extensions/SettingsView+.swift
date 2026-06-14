@@ -1,7 +1,7 @@
 extension SettingsView {
-    func fetchValidKeyboardToolbarButtons() {
+    func loadValidKeyboardToolbarButtons() {
         do {
-            validKeyboardToolbarButtons = try validKeyboardToolbarButtonRepository.fetch()
+            validKeyboardToolbarButtons = try validKeyboardToolbarButtonRepository.load()
         } catch {
             reportError(error)
             validKeyboardToolbarButtons = SearchPlatform.allCases
