@@ -27,6 +27,7 @@ struct KeyboardToolbarSection: View {
         } label: {
             HStack {
                 Text(platform.displayName)
+                    .foregroundStyle(isValid ? .primary : .secondary)
                 Spacer()
                 Image(systemName: "checkmark")
                     .bold(isValid)
