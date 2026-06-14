@@ -54,13 +54,7 @@ struct HistoryList: View {
     
     func singleLineLabel(history: SearchHistory) -> some View {
         HStack(spacing: nil) {
-            Text(history.platform.iconCharacter)
-                .foregroundStyle(.white)
-                .font(.title3)
-                .fontWeight(.semibold)
-                .frame(width: 28, height: 28)
-                .background(history.platform.imageColor)
-                .clipShape(.rect(cornerRadius: 7))
+            faviconImage(history.platform)
             
             Text(history.userInput)
                 .padding(.leading, 4)
@@ -77,13 +71,7 @@ struct HistoryList: View {
     
     func multiLineLabel(history: SearchHistory) -> some View {
         HStack(alignment: .top, spacing: nil) {
-            Text(history.platform.iconCharacter)
-                .foregroundStyle(.white)
-                .font(.title3)
-                .fontWeight(.semibold)
-                .frame(width: 28, height: 28)
-                .background(history.platform.imageColor)
-                .clipShape(.rect(cornerRadius: 7))
+            faviconImage(history.platform)
             
             VStack(spacing: 4) {
                 Text(history.userInput)
@@ -96,6 +84,44 @@ struct HistoryList: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
         }
+    }
+    
+    @ViewBuilder
+    func faviconImage(_ platform: SearchPlatform) -> some View {
+        Group {
+            if let uiImage = UIImage(resourceName: platform.faviconResourceName) {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFit()
+            } else {
+                Text(platform.iconCharacter)
+                    .foregroundStyle(.white)
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(.secondary)
+            }
+        }
+        .frame(width: 28, height: 28)
+        .clipShape(.rect(cornerRadius: 7))
+    }
+}
+
+fileprivate extension UIImage {
+    convenience init?(resourceName: String) {
+        if UIImage(named: resourceName) != nil {
+            self.init(named: resourceName)
+            return
+        }
+        
+        guard let bundleImageURL = Bundle.main.url(
+            forResource: resourceName,
+            withExtension: "png"
+        ) else {
+            return nil
+        }
+        
+        self.init(contentsOfFile: bundleImageURL.path)
     }
 }
 
