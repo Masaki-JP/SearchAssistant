@@ -65,7 +65,7 @@ struct HistoryList: View {
                 .foregroundStyle(.secondary)
                 .font(.caption2)
                 .padding(.vertical, 4)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .clipShape(.rect(cornerRadius: 10))
         }
     }
     
