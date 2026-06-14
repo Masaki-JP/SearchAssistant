@@ -33,9 +33,9 @@ struct HistoryList: View {
                 Button("全履歴を削除", role: .destructive) {
                     isPresentedDeleteAllHistoriesAlert = true
                 }
-                .font(.title3)
+                .font(.headline)
                 .frame(maxWidth: .infinity)
-                .padding(.top, 5)
+                .padding(.top, 4)
             }
         }
     }
