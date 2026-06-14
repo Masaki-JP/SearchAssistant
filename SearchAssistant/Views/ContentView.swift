@@ -31,30 +31,24 @@ struct ContentView: View {
             Divider()
                 .padding(.top, 8)
             
-            if userInput.isEmpty == true {
-                if histories.isEmpty == false {
+            Group {
+                switch contentViewState {
+                case .searchHistoryList:
                     historyList
-                } else {
+                case .noSearchHistory:
                     NoContentView.searchHistory
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                }
-            } else {
-                if isSuggestionFetchFailed == false {
-                    if suggestions.isEmpty == false {
-                        SuggestionList(suggestions: suggestions, onRowTapped: search)
-                    } else if inputUsedToFetchCurrentSuggestions == userInput {
-                        NoContentView.searchSuggestion
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    } else {
-                        ProgressView()
-                            .controlSize(.large)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    }
-                } else {
+                case .searchSuggestionList:
+                    SuggestionList(suggestions: suggestions, onRowTapped: search)
+                case .noSearchSuggestion:
+                    NoContentView.searchSuggestion
+                case .searchSuggestionLoading:
+                    ProgressView()
+                        .controlSize(.large)
+                case .searchSuggestionNetworkError:
                     NoContentView.searchSuggestionNetworkError
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .overlay(alignment: settingLeftSearchButton == false ? .bottomTrailing : .bottomLeading) {
             if isFocused == false {
@@ -86,6 +80,39 @@ struct ContentView: View {
         .onChange(of: isPresentedSettingsView, onIsPresentedSettingsViewChange)
     }
     
+    /// ContentView に表示するコンテンツの状態を返す。
+    ///
+    /// - 入力なし
+    ///   - 履歴あり：検索履歴一覧を表示する。
+    ///   - 履歴なし：検索履歴がないことを表示する。
+    /// - 入力あり
+    ///   - 候補の取得に失敗：ネットワークエラーを表示する。
+    ///   - 候補あり：検索候補一覧を表示する。
+    ///   - 候補なし：検索候補がないことを表示する。
+    ///   - その他：検索候補の取得中として表示する。
+    ///
+    var contentViewState: ContentViewState {
+        if userInput.isEmpty == true {
+            if histories.isEmpty == false {
+                .searchHistoryList
+            } else {
+                .noSearchHistory
+            }
+        } else {
+            if isSuggestionFetchFailed == false {
+                if suggestions.isEmpty == false {
+                    .searchSuggestionList
+                } else if inputUsedToFetchCurrentSuggestions == userInput {
+                    .noSearchSuggestion
+                } else {
+                    .searchSuggestionLoading
+                }
+            } else {
+                .searchSuggestionNetworkError
+            }
+        }
+    }
+
     var searchTextField: some View {
         SearchTextField(
             isFocused: $isFocused,
