@@ -14,7 +14,7 @@ struct SettingsView: View {
     
     var body: some View {
         NavigationStack {
-            List {
+            Form {
                 focusControlSection
                 searchButtonPositionSection
                 colorSchemeSection
