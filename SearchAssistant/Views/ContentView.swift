@@ -170,6 +170,7 @@ struct ContentView: View {
                     }
                 }
                 .scrollIndicators(.hidden)
+                .contentMargins(.horizontal, 8, for: .scrollContent)
                 .onChange(of: scenePhase) { _, newScene in
                     if newScene != .active, let scrollDestinationID = validButtons.first?.id {
                         scrollViewProxy.scrollTo(scrollDestinationID)
