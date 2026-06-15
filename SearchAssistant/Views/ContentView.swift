@@ -155,10 +155,29 @@ struct ContentView: View {
         colorScheme == .light ? AnyShapeStyle(Color(uiColor: .systemGroupedBackground)) : AnyShapeStyle(.background)
     }
     
+    @ViewBuilder
     func toolbarItemContent() -> some View {
         let validButtons = SearchPlatform.allCases.filter(validKeyboardToolbarButtons.contains)
         
-        return HStack(spacing: 4) {
+        let primaryCandidate = HStack(spacing: 4) {
+            HStack(spacing: 4) {
+                ForEach(validButtons) { searchPlatform in
+                    Button(searchPlatform.displayName) {
+                        search(userInput, on: searchPlatform)
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity)
+            
+            Button {
+                isFocused = false
+            } label: {
+                Image(systemName: "x.circle")
+            }
+        }
+            .padding(.horizontal, 4)
+        
+        let secondaryCandidate = HStack(spacing: 4) {
             ScrollViewReader { scrollViewProxy in
                 ScrollView(.horizontal) {
                     HStack {
@@ -183,6 +202,18 @@ struct ContentView: View {
             } label: {
                 Image(systemName: "x.circle")
             }
+        }
+
+        if validButtons.isEmpty == false {
+            ViewThatFits(in: .horizontal) {
+                primaryCandidate
+                secondaryCandidate
+            }
+        } else {
+            Button("閉じる", role: .close) {
+                isFocused = false
+            }
+            .frame(maxWidth: .infinity, alignment: .trailing)
         }
     }
 }
