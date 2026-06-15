@@ -43,6 +43,7 @@ struct SuggestionList: View {
                     .foregroundStyle(.secondary)
                     .padding(.vertical, 4)
             }
+            .contentShape(.rect)
         })
         .buttonStyle(.plain)
     }
