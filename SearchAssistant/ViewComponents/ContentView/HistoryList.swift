@@ -48,6 +48,7 @@ struct HistoryList: View {
                 singleLineLabel(history: history)
                 multiLineLabel(history: history)
             }
+            .contentShape(.rect)
         })
         .buttonStyle(.plain)
     }
