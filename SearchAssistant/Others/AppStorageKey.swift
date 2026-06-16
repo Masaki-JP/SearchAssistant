@@ -5,4 +5,5 @@ enum AppStorageKey {
     static let searchButtonLeft = "searchButtonLeft"
     static let colorScheme = "colorScheme"
     static let openInSafariView = "openInSafariView"
+    static let didMigrateSearchHistoriesToSwiftData = "didMigrateSearchHistoriesToSwiftData"
 }

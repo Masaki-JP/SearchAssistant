@@ -28,6 +28,12 @@ enum SearchAssistantSchemaV1: VersionedSchema {
             self.date = date
         }
         
+        init(userInput: String, platformRawValue: String, date: Date = .now) {
+            self.userInput = userInput
+            self.platformRawValue = platformRawValue
+            self.date = date
+        }
+        
         static var sample: SearchHistory {
             samples.first!
         }
