@@ -122,12 +122,12 @@ extension ContentView {
     }
     
     func search(_ userInput: String, on platform: SearchPlatform) {
-        let userInput = userInput.trimmingCharacters(in: .whitespacesAndNewlines.union(CharacterSet(charactersIn: "　")))
-        guard userInput.isEmpty == false else { return }
+        let normalizedUserInput = userInput.split(whereSeparator: \.isWhitespace).joined(separator: " ")
+        guard normalizedUserInput.isEmpty == false else { return }
         
         do {
-            let url = try searchURLCreator.create(userInput, searchPlatform: platform)
-            appendHistory(userInput: userInput, platform: platform)
+            let url = try searchURLCreator.create(normalizedUserInput, searchPlatform: platform)
+            appendHistory(userInput: normalizedUserInput, platform: platform)
             self.userInput.removeAll()
             switch openInSafariView {
             case true:
