@@ -41,7 +41,7 @@ struct ContentView: View {
                 case .noSearchHistory:
                     NoContentView.searchHistory
                 case .searchSuggestionList:
-                    SuggestionList(suggestions: suggestions, onRowTapped: search)
+                    SuggestionList(suggestions: suggestions, onRowTapped: searchAction)
                         .scrollIndicators(.hidden)
                 case .noSearchSuggestion:
                     NoContentView.searchSuggestion
@@ -126,14 +126,14 @@ struct ContentView: View {
             userInput: $userInput,
             onSettingsButtonTapped: { isPresentedSettingsView = true },
             onInputClearButtonTapped: { userInput.removeAll() },
-            onSubmit: { search(userInput, on: .google) }
+            onSubmit: { searchAction(userInput, on: .google) }
         )
     }
     
     var historyList: some View {
         HistoryList(
             histories: histories,
-            onRowTapped: onHistoryRowTapped,
+            onRowTapped: searchAction,
             onDelete: removeHistory,
             isPresentedDeleteAllHistoriesAlert: $isPresentedDeleteAllHistoriesAlert
         )
@@ -164,7 +164,7 @@ struct ContentView: View {
             HStack(spacing: 4) {
                 ForEach(validButtons) { searchPlatform in
                     Button(searchPlatform.displayName) {
-                        search(userInput, on: searchPlatform)
+                        searchAction(userInput, on: searchPlatform)
                     }
                 }
             }
@@ -184,7 +184,7 @@ struct ContentView: View {
                     HStack {
                         ForEach(validButtons) { searchPlatform in
                             Button(searchPlatform.displayName) {
-                                search(userInput, on: searchPlatform)
+                                searchAction(userInput, on: searchPlatform)
                             }
                         }
                     }
