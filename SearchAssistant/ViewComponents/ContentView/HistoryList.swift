@@ -1,8 +1,9 @@
 import SwiftUI
+import SwiftData
 
 struct HistoryList: View {
     let histories: [SearchHistory]
-    let onRowTapped: (String, SearchPlatform) -> Void
+    let onRowTapped: (String, SearchPlatform?) -> Void
     let onDelete: (IndexSet) -> Void
     @Binding var isPresentedDeleteAllHistoriesAlert: Bool
     
@@ -88,14 +89,14 @@ struct HistoryList: View {
     }
     
     @ViewBuilder
-    func faviconImage(_ platform: SearchPlatform) -> some View {
+    func faviconImage(_ platform: SearchPlatform?) -> some View {
         Group {
-            if let uiImage = UIImage(resourceName: platform.faviconResourceName) {
+            if let platform, let uiImage = UIImage(resourceName: platform.faviconResourceName) {
                 Image(uiImage: uiImage)
                     .resizable()
                     .scaledToFit()
             } else {
-                Text(platform.iconCharacter)
+                Text(platform?.iconCharacter ?? "?")
                     .foregroundStyle(.white)
                     .font(.title3)
                     .fontWeight(.semibold)
@@ -146,7 +147,7 @@ fileprivate extension Date {
     return HistoryList(
         histories: histories,
         onRowTapped: { userInput, platform in
-            print(userInput, platform)
+            print(userInput, platform as Any)
         },
         onDelete: { (_) -> Void in },
         isPresentedDeleteAllHistoriesAlert: Binding.constant(false)

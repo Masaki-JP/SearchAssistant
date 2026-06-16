@@ -1,11 +1,13 @@
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
     @FocusState var isFocused: Bool
     @Environment(\.scenePhase) var scenePhase
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
+    @Environment(\.modelContext) var modelContext
     
-    @State var histories: [SearchHistory] = []
+    @Query(sort: \SearchHistory.date, order: .reverse) var histories: [SearchHistory]
     @State var suggestions: [String] = []
     @State var isSuggestionFetchFailed = false
     @State var inputUsedToFetchCurrentSuggestions: String? = nil
@@ -21,7 +23,6 @@ struct ContentView: View {
     
     let suggestionFetcher = SuggestionFetcher.shared
     let searchURLCreator = SearchURLCreator()
-    let searchHistoryRepository = SearchHistoryRepository(key: .searchHistories)
     let validKeyboardToolbarButtonRepository = ValidKeyboardToolbarButtonRepository(key: UserDefaultsKey.validKeyboardToolbarButtons)
     
     var body: some View {
@@ -132,7 +133,7 @@ struct ContentView: View {
     var historyList: some View {
         HistoryList(
             histories: histories,
-            onRowTapped: search,
+            onRowTapped: onHistoryRowTapped,
             onDelete: removeHistory,
             isPresentedDeleteAllHistoriesAlert: $isPresentedDeleteAllHistoriesAlert
         )

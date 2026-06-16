@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 
 @main
 struct SearchAssistantApp: App {
@@ -18,6 +19,7 @@ struct SearchAssistantApp: App {
             .preferredColorScheme(colorScheme)
             .animation(.default, value: viewRouter.currentView)
         }
+        .modelContainer(for: SearchHistory.self, isAutosaveEnabled: false)
     }
     
     var colorScheme: ColorScheme? {
