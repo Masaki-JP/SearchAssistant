@@ -129,10 +129,10 @@ extension ContentView {
             let url = try searchURLCreator.create(normalizedUserInput, searchPlatform: platform)
             appendHistory(userInput: normalizedUserInput, platform: platform)
             self.userInput.removeAll()
-            switch openInSafariView {
-            case true:
+            
+            if openInSafariView == true {
                 presentedSafariViewURL = SafariViewURL(url: url)
-            case false:
+            } else {
                 UIApplication.shared.open(url)
             }
         } catch {
