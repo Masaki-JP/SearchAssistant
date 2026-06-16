@@ -4,7 +4,7 @@ import SwiftData
 struct ContentView: View {
     @FocusState var isFocused: Bool
     @Environment(\.scenePhase) var scenePhase
-    @Environment(\.colorScheme) private var colorScheme: ColorScheme
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @Environment(\.modelContext) var modelContext
     
     @Query(sort: \SearchHistory.date, order: .reverse) var histories: [SearchHistory]
