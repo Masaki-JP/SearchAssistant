@@ -2,8 +2,6 @@ import SwiftUI
 import SwiftData
 
 extension ContentView {
-    typealias ValidKeyboardToolbarButtonRepository = UserDefaultsRepository<[SearchPlatform]>
-    
     enum ContentViewState {
         case searchHistoryList
         case noSearchHistory
