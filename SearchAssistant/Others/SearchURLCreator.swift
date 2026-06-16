@@ -20,7 +20,7 @@ final class SearchURLCreator {
         }
 
         if searchPlatform == .instagram {
-            input.replace("　", with: " ")
+            input.removeAll { $0 == " " || $0 == "　" }
         }
 
         guard let percentEncodedInput = input.addingPercentEncoding(withAllowedCharacters: .alphanumerics) else {
