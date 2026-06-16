@@ -26,11 +26,7 @@ extension ContentView {
             isFocused = true
         }
     }
-    
-    func onHistoryRowTapped(userInput: String, platform: SearchPlatform?) {
-        search(userInput, on: platform ?? .google)
-    }
-    
+        
     func onScenePhaseChange(oldScene: ScenePhase, newScene: ScenePhase) {
         DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
             guard newScene == .active,
@@ -121,9 +117,10 @@ extension ContentView {
         }
     }
     
-    func search(_ userInput: String, on platform: SearchPlatform) {
+    func searchAction(_ userInput: String, on platform: SearchPlatform?) {
         let normalizedUserInput = userInput.split(whereSeparator: \.isWhitespace).joined(separator: " ")
         guard normalizedUserInput.isEmpty == false else { return }
+        let platform = platform ?? .google
         
         do {
             let url = try searchURLCreator.create(normalizedUserInput, searchPlatform: platform)
