@@ -23,7 +23,7 @@ struct ContentView: View {
     
     let suggestionFetcher = SuggestionFetcher.shared
     let searchURLCreator = SearchURLCreator()
-    let validKeyboardToolbarButtonRepository = ValidKeyboardToolbarButtonRepository(key: UserDefaultsKey.validKeyboardToolbarButtons)
+    let validKeyboardToolbarButtonRepository = ValidKeyboardToolbarButtonRepository()
     
     var body: some View {
         VStack(spacing: 0) {

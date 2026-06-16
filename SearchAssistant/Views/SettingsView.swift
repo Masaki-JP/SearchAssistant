@@ -10,7 +10,7 @@ struct SettingsView: View {
     @AppStorage(AppStorageKey.openInSafariView) var openInSafariView = true
     
     @State var validKeyboardToolbarButtons = SearchPlatform.allCases
-    let validKeyboardToolbarButtonRepository = UserDefaultsRepository<[SearchPlatform]>(key: UserDefaultsKey.validKeyboardToolbarButtons)
+    let validKeyboardToolbarButtonRepository = ValidKeyboardToolbarButtonRepository()
     
     var body: some View {
         NavigationStack {
