@@ -1,7 +1,7 @@
 import SwiftUI
+import SwiftData
 
 extension ContentView {
-    typealias SearchHistoryRepository = UserDefaultsRepository<[SearchHistory]>
     typealias ValidKeyboardToolbarButtonRepository = UserDefaultsRepository<[SearchPlatform]>
     
     enum ContentViewState {
@@ -14,8 +14,6 @@ extension ContentView {
     }
     
     func onAppear() {
-        loadSearchHistories()
-        
         loadValidKeyboardToolbarButtons()
         
         DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
@@ -27,6 +25,10 @@ extension ContentView {
             
             isFocused = true
         }
+    }
+    
+    func onHistoryRowTapped(userInput: String, platform: SearchPlatform?) {
+        search(userInput, on: platform ?? .google)
     }
     
     func onScenePhaseChange(oldScene: ScenePhase, newScene: ScenePhase) {
@@ -70,35 +72,33 @@ extension ContentView {
     }
     
     func appendHistory(userInput: String, platform: SearchPlatform) {
-        let previousHistories = histories
         do {
-            histories.insert(.init(userInput: userInput, platform: platform), at: 0)
-            try searchHistoryRepository.save(histories)
+            modelContext.insert(SearchHistory(userInput: userInput, platform: platform))
+            try modelContext.save()
         } catch {
             reportError(error)
-            histories = previousHistories
+            modelContext.rollback()
         }
     }
     
     func removeHistory(atOffsets indexSet: IndexSet) {
-        let previousHistories = histories
         do {
-            histories.remove(atOffsets: indexSet)
-            try searchHistoryRepository.save(histories)
+            let historiesToDelete = indexSet.map { histories[$0] }
+            historiesToDelete.forEach(modelContext.delete)
+            try modelContext.save()
         } catch {
             reportError(error)
-            histories = previousHistories
+            modelContext.rollback()
         }
     }
     
     func removeAllHistories() {
-        let previousHistories = histories
         do {
-            histories.removeAll()
-            try searchHistoryRepository.save(histories)
+            histories.forEach(modelContext.delete)
+            try modelContext.save()
         } catch {
             reportError(error)
-            histories = previousHistories
+            modelContext.rollback()
         }
     }
     
@@ -137,17 +137,6 @@ extension ContentView {
             }
         } catch {
             reportError(error)
-        }
-    }
-    
-    func loadSearchHistories() {
-        do {
-            histories = try searchHistoryRepository.load()
-        } catch {
-            if let error = error as? SearchHistoryRepository.UserDefaultsRepositoryError,
-               error != .dataNotFound {
-                reportError(error)
-            }
         }
     }
     
