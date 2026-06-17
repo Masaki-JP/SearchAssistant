@@ -11,6 +11,31 @@ extension ContentView {
         case searchSuggestionNetworkError
     }
     
+    struct SafariViewURL: Identifiable {
+        let url: URL
+        let id = UUID()
+    }
+    
+    func searchAction(_ userInput: String, on platform: SearchPlatform?) {
+        let normalizedUserInput = userInput.split(whereSeparator: \.isWhitespace).joined(separator: " ")
+        guard normalizedUserInput.isEmpty == false else { return }
+        let platform = platform ?? .google
+        
+        do {
+            let url = try searchURLCreator.create(normalizedUserInput, searchPlatform: platform)
+            appendHistory(userInput: normalizedUserInput, platform: platform)
+            self.userInput.removeAll()
+            
+            if openInSafariView == true {
+                presentedSafariViewURL = SafariViewURL(url: url)
+            } else {
+                UIApplication.shared.open(url)
+            }
+        } catch {
+            reportError(error)
+        }
+    }
+    
     func onAppear() {
         loadValidKeyboardToolbarButtons()
         
@@ -24,7 +49,7 @@ extension ContentView {
             isFocused = true
         }
     }
-        
+    
     func onScenePhaseChange(oldScene: ScenePhase, newScene: ScenePhase) {
         DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
             guard newScene == .active,
@@ -63,11 +88,6 @@ extension ContentView {
         loadValidKeyboardToolbarButtons()
         guard settingAutoFocus == true else { return }
         isFocused = true
-    }
-    
-    struct SafariViewURL: Identifiable {
-        let url: URL
-        let id = UUID()
     }
     
     func appendHistory(userInput: String, platform: SearchPlatform) {
@@ -118,26 +138,6 @@ extension ContentView {
             suggestions = []
             isSuggestionFetchFailed = true
             inputUsedToFetchCurrentSuggestions = nil
-        }
-    }
-    
-    func searchAction(_ userInput: String, on platform: SearchPlatform?) {
-        let normalizedUserInput = userInput.split(whereSeparator: \.isWhitespace).joined(separator: " ")
-        guard normalizedUserInput.isEmpty == false else { return }
-        let platform = platform ?? .google
-        
-        do {
-            let url = try searchURLCreator.create(normalizedUserInput, searchPlatform: platform)
-            appendHistory(userInput: normalizedUserInput, platform: platform)
-            self.userInput.removeAll()
-            
-            if openInSafariView == true {
-                presentedSafariViewURL = SafariViewURL(url: url)
-            } else {
-                UIApplication.shared.open(url)
-            }
-        } catch {
-            reportError(error)
         }
     }
     
