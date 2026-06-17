@@ -1,9 +1,11 @@
 import Foundation
 
-enum AppStorageKey {
-    static let autoFocus = "autoFocus"
-    static let searchButtonLeft = "searchButtonLeft"
-    static let colorScheme = "colorScheme"
-    static let openInSafariView = "openInSafariView"
-    static let didMigrateSearchHistoriesToSwiftData = "didMigrateSearchHistoriesToSwiftData"
+extension UserDefaultsKey {
+    enum AppStorageKey: String {
+        case autoFocus
+        case searchButtonLeft
+        case colorScheme
+        case openInSafariView
+        case didMigrateSearchHistoriesToSwiftData
+    }
 }

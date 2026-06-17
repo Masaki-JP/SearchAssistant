@@ -4,10 +4,10 @@ struct SettingsView: View {
     @Environment(\.scenePhase) var scenePhase
     @Environment(\.dismiss) var dismiss
     
-    @AppStorage(AppStorageKey.autoFocus) var settingAutoFocus = true
-    @AppStorage(AppStorageKey.searchButtonLeft) var settingLeftSearchButton = false
-    @AppStorage(AppStorageKey.colorScheme) var appStorageColorScheme = ColorSchemeSetting.dark.rawValue
-    @AppStorage(AppStorageKey.openInSafariView) var openInSafariView = true
+    @AppStorage(UserDefaultsKey.AppStorageKey.autoFocus.rawValue) var settingAutoFocus = true
+    @AppStorage(UserDefaultsKey.AppStorageKey.searchButtonLeft.rawValue) var settingLeftSearchButton = false
+    @AppStorage(UserDefaultsKey.AppStorageKey.colorScheme.rawValue) var appStorageColorScheme = ColorSchemeSetting.dark.rawValue
+    @AppStorage(UserDefaultsKey.AppStorageKey.openInSafariView.rawValue) var openInSafariView = true
     
     @State var validKeyboardToolbarButtons = SearchPlatform.allCases
     let validKeyboardToolbarButtonRepository = ValidKeyboardToolbarButtonRepository()

@@ -12,7 +12,7 @@ final class ValidKeyboardToolbarButtonRepository {
     func save(_ value: [SearchPlatform]) throws {
         do {
             let encodedData = try JSONEncoder().encode(value)
-            UserDefaults.standard.set(encodedData, forKey: key.string)
+            UserDefaults.standard.set(encodedData, forKey: key.rawValue)
         } catch {
             reportError(error)
             throw ValidKeyboardToolbarButtonRepositoryError.encodingError
@@ -20,7 +20,7 @@ final class ValidKeyboardToolbarButtonRepository {
     }
     
     func load() throws -> [SearchPlatform] {
-        guard let itemsData = UserDefaults.standard.data(forKey: key.string)
+        guard let itemsData = UserDefaults.standard.data(forKey: key.rawValue)
         else { throw ValidKeyboardToolbarButtonRepositoryError.dataNotFound }
         do {
             let items = try JSONDecoder().decode([SearchPlatform].self, from: itemsData)
