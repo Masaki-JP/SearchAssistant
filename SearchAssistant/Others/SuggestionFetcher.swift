@@ -23,6 +23,9 @@ final class SuggestionFetcher {
     enum FetchError: Error {
         case failedToEncodeQuery
         case failedToCreateURL
+        case invalidResponse
+        case unacceptableStatusCode(Int)
+        case failedToParseResponse
     }
     
     /// ユーザー入力に基づいて提案を非同期的にフェッチします。
@@ -52,10 +55,22 @@ final class SuggestionFetcher {
     /// ```
     func fetch(from userInput: String) async throws -> [String] {
         let url = try createURL(from: userInput)
-        let (data, _) = try await URLSession.shared.data(from: url)
-        
+        let (data, response) = try await URLSession.shared.data(from: url)
+
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw FetchError.invalidResponse
+        }
+
+        guard (200..<300).contains(httpResponse.statusCode) else {
+            throw FetchError.unacceptableStatusCode(httpResponse.statusCode)
+        }
+
         let parser = SuggestionXMLParser()
-        return parser.parse(data: data)
+        guard let suggestions = parser.parse(data: data) else {
+            throw FetchError.failedToParseResponse
+        }
+
+        return suggestions
     }
     
     private func createURL(from userInput: String) throws -> URL {
@@ -73,24 +88,29 @@ final class SuggestionFetcher {
 
 class SuggestionXMLParser: NSObject, XMLParserDelegate {
     var suggestions: [String] = []
+    var didFindToplevelElement = false
     
-    func parse(data: Data) -> [String] {
-        suggestions = []
-        if parseXMLData(data) {
+    func parse(data: Data) -> [String]? {
+        if parseXMLData(data), didFindToplevelElement == true {
             return suggestions
         }
-        
+
         guard let xmlData = utf8DataFromShiftJISXML(data) else {
+            return nil
+        }
+
+        if parseXMLData(xmlData), didFindToplevelElement == true {
             return suggestions
         }
-        
-        suggestions = []
-        parseXMLData(xmlData)
-        return suggestions
+
+        return nil
     }
     
     @discardableResult
     private func parseXMLData(_ data: Data) -> Bool {
+        suggestions = []
+        didFindToplevelElement = false
+
         let parser = XMLParser(data: data)
         parser.delegate = self
         return parser.parse()
@@ -103,11 +123,21 @@ class SuggestionXMLParser: NSObject, XMLParserDelegate {
         else {
             return nil
         }
-        
+
         return utf8Data
     }
     
-    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+    func parser(
+        _ parser: XMLParser,
+        didStartElement elementName: String,
+        namespaceURI: String?,
+        qualifiedName qName: String?,
+        attributes attributeDict: [String : String] = [:]
+    ) {
+        if elementName == "toplevel" {
+            didFindToplevelElement = true
+        }
+
         if elementName == "suggestion", let suggestion = attributeDict["data"] {
             suggestions.append(suggestion)
         }
