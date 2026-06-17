@@ -7,6 +7,7 @@ struct SuggestionList: View {
     var body: some View {
         List {
             Section {
+                /// 通常はsuggestionsに重複はなく、 現状では並び替えや削除もないため、idにselfを使用する。
                 ForEach(suggestions, id: \.self) { suggestion in
                     suggestionRowButton(suggestion: suggestion) {
                         onRowTapped(suggestion, .google)
