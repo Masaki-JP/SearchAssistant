@@ -1,0 +1,24 @@
+————————————————————
+
+UserDefaults Keys（AppStorageも含む）
+
+現在使用中
+- historys
+- autoFocus
+- searchButtonLeft
+- colorScheme
+- keyboardToolbarButtons
+- openInSafariView
+- didMigrateSearchHistoriesToSwiftData
+
+過去に使用
+- searchHistorysData
+- searchButton_Left
+- autofocus
+- histories
+
+————————————————————
+
+バージョン管理にはSemantic Versioningを採用する。
+
+————————————————————
