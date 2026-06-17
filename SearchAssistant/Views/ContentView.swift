@@ -17,9 +17,9 @@ struct ContentView: View {
     @State var presentedSafariViewURL: SafariViewURL? = nil
     @State var validKeyboardToolbarButtons = SearchPlatform.allCases
     
-    @AppStorage(AppStorageKey.autoFocus) var settingAutoFocus = true
-    @AppStorage(AppStorageKey.searchButtonLeft) var settingLeftSearchButton = false
-    @AppStorage(AppStorageKey.openInSafariView) var openInSafariView = true
+    @AppStorage(UserDefaultsKey.AppStorageKey.autoFocus.rawValue) var settingAutoFocus = true
+    @AppStorage(UserDefaultsKey.AppStorageKey.searchButtonLeft.rawValue) var settingLeftSearchButton = false
+    @AppStorage(UserDefaultsKey.AppStorageKey.openInSafariView.rawValue) var openInSafariView = true
     
     let suggestionFetcher = SuggestionFetcher.shared
     let searchURLCreator = SearchURLCreator()

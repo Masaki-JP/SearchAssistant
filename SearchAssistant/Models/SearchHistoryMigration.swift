@@ -15,10 +15,10 @@ enum SearchHistoryMigration {
     }
     
     static func migrateIfNeeded(using modelContext: ModelContext) throws {
-        guard UserDefaults.standard.bool(forKey: AppStorageKey.didMigrateSearchHistoriesToSwiftData) == false else { return }
+        guard UserDefaults.standard.bool(forKey: UserDefaultsKey.AppStorageKey.didMigrateSearchHistoriesToSwiftData.rawValue) == false else { return }
         
-        guard let data = UserDefaults.standard.data(forKey: UserDefaultsKey.searchHistories.string) else {
-            UserDefaults.standard.set(true, forKey: AppStorageKey.didMigrateSearchHistoriesToSwiftData)
+        guard let data = UserDefaults.standard.data(forKey: UserDefaultsKey.searchHistories.rawValue) else {
+            UserDefaults.standard.set(true, forKey: UserDefaultsKey.AppStorageKey.didMigrateSearchHistoriesToSwiftData.rawValue)
             return
         }
         
@@ -41,7 +41,7 @@ enum SearchHistoryMigration {
                 try modelContext.save()
             }
             
-            UserDefaults.standard.set(true, forKey: AppStorageKey.didMigrateSearchHistoriesToSwiftData)
+            UserDefaults.standard.set(true, forKey: UserDefaultsKey.AppStorageKey.didMigrateSearchHistoriesToSwiftData.rawValue)
         } catch {
             modelContext.rollback()
             throw error

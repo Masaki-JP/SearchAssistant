@@ -3,7 +3,7 @@ import SwiftData
 
 @main
 struct SearchAssistantApp: App {
-    @AppStorage(AppStorageKey.colorScheme) var appStorageColorScheme = ColorSchemeSetting.dark.rawValue
+    @AppStorage(UserDefaultsKey.AppStorageKey.colorScheme.rawValue) var appStorageColorScheme = ColorSchemeSetting.dark.rawValue
     @StateObject var viewRouter = ViewRouter.shared
     
     var body: some Scene {
