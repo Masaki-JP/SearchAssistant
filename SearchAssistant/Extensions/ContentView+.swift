@@ -43,6 +43,11 @@ extension ContentView {
     }
     
     func onUserInputChange() async {
+        if userInput.count > maxUserInputLength {
+            userInput = String(userInput.prefix(maxUserInputLength))
+            return
+        }
+        
         if userInput.isEmpty == false {
             isSuggestionFetchFailed = false
             inputUsedToFetchCurrentSuggestions = nil

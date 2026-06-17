@@ -24,6 +24,7 @@ struct ContentView: View {
     let suggestionFetcher = SuggestionFetcher.shared
     let searchURLCreator = SearchURLCreator()
     let validKeyboardToolbarButtonRepository = ValidKeyboardToolbarButtonRepository()
+    let maxUserInputLength = 1000
     
     var body: some View {
         VStack(spacing: 0) {
