@@ -14,6 +14,8 @@ enum SearchAssistantSchemaV1: VersionedSchema {
     
     @Model
     final class SearchHistory: Equatable {
+        static let maximumCount = 3_000
+        
         private(set) var userInput: String
         private(set) var platformRawValue: String
         private(set) var date: Date
@@ -32,6 +34,16 @@ enum SearchAssistantSchemaV1: VersionedSchema {
             self.userInput = userInput
             self.platformRawValue = platformRawValue
             self.date = date
+        }
+        
+        static func trimIfNeeded(using modelContext: ModelContext) throws {
+            let fetchDescriptor = FetchDescriptor<SearchHistory>(
+                sortBy: [SortDescriptor(\SearchHistory.date, order: .reverse)]
+            )
+            let allHistories = try modelContext.fetch(fetchDescriptor)
+            let historiesToDelete = allHistories.dropFirst(maximumCount)
+            
+            historiesToDelete.forEach(modelContext.delete)
         }
         
         static var sample: SearchHistory {
