@@ -3,7 +3,7 @@ import SwiftData
 
 @main
 struct SearchAssistantApp: App {
-    @AppStorage(UserDefaultsKey.AppStorageKey.colorScheme.rawValue) var appStorageColorScheme = ColorSchemeSetting.dark.rawValue
+    @AppStorage(UserDefaultsKey.AppStorageKey.colorScheme.rawValue) var colorSchemeSetting = ColorSchemeSetting.defaultValue
     @StateObject var viewRouter = ViewRouter.shared
     
     var body: some Scene {
@@ -16,18 +16,9 @@ struct SearchAssistantApp: App {
                     ContentView()
                 }
             }
-            .preferredColorScheme(colorScheme)
+            .preferredColorScheme(colorSchemeSetting.colorScheme)
             .animation(.default, value: viewRouter.currentView)
         }
         .modelContainer(for: SearchHistory.self, isAutosaveEnabled: false)
-    }
-    
-    var colorScheme: ColorScheme? {
-        switch appStorageColorScheme {
-        case ColorSchemeSetting.dark.rawValue: .dark
-        case ColorSchemeSetting.light.rawValue: .light
-        case ColorSchemeSetting.system.rawValue: .none
-        default: .none
-        }
     }
 }

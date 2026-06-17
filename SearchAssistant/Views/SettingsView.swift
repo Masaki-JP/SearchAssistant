@@ -6,7 +6,7 @@ struct SettingsView: View {
     
     @AppStorage(UserDefaultsKey.AppStorageKey.autoFocus.rawValue) var settingAutoFocus = true
     @AppStorage(UserDefaultsKey.AppStorageKey.searchButtonLeft.rawValue) var settingLeftSearchButton = false
-    @AppStorage(UserDefaultsKey.AppStorageKey.colorScheme.rawValue) var appStorageColorScheme = ColorSchemeSetting.dark.rawValue
+    @AppStorage(UserDefaultsKey.AppStorageKey.colorScheme.rawValue) var colorSchemeSetting = ColorSchemeSetting.defaultValue
     @AppStorage(UserDefaultsKey.AppStorageKey.openInSafariView.rawValue) var openInSafariView = true
     
     @State var validKeyboardToolbarButtons = SearchPlatform.allCases
@@ -65,13 +65,11 @@ struct SettingsView: View {
     
     var colorSchemeSection: some View {
         Section {
-            Picker("外観モード", selection: $appStorageColorScheme) {
-                Text("ライト")
-                    .tag(ColorSchemeSetting.light.rawValue)
-                Text("ダーク")
-                    .tag(ColorSchemeSetting.dark.rawValue)
-                Text("システム")
-                    .tag(ColorSchemeSetting.system.rawValue)
+            Picker("外観モード", selection: $colorSchemeSetting) {
+                ForEach(ColorSchemeSetting.allCases) { colorSchemeSetting in
+                    Text(colorSchemeSetting.label)
+                        .tag(colorSchemeSetting)
+                }
             }
         } header: {
             Text("外観モード")
