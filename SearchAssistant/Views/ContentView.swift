@@ -205,7 +205,7 @@ struct ContentView: View {
                 Image(systemName: "x.circle")
             }
         }
-
+        
         if validButtons.isEmpty == false {
             ViewThatFits(in: .horizontal) {
                 primaryCandidate
