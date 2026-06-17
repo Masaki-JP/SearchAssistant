@@ -12,7 +12,7 @@ final class SearchURLCreator {
         var input = input
 
         if let url = URL(string: input), UIApplication.shared.canOpenURL(url) {
-            return url
+            return url.replacingHTTPWithHTTPS ?? url
         }
 
         guard input.isEmpty == false else {
