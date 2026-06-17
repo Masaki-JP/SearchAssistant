@@ -1,5 +1,7 @@
 import Foundation
 
+/// rawValue は UserDefaults のキー文字列として使用される。
+///
 enum UserDefaultsKey: String {
     case searchHistories = "historys" // ※1
     case validKeyboardToolbarButtons = "keyboardToolbarButtons" // ※2

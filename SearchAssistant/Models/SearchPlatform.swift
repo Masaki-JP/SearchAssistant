@@ -1,9 +1,8 @@
 import SwiftUI
 
+/// rawValue はデコード、エンコードで使用しているため、開発開始時点の名称で固定する。
+///
 enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
-    
-    // MARK: rawValue はデコード、エンコードで使用しているため、開発開始時点の名称で固定する。
-    
     case google = "Google"
     case x = "Twitter"
     case instagram = "Instagram"
