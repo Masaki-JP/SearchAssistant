@@ -4,7 +4,7 @@ final class ValidKeyboardToolbarButtonRepository {
     private let key = UserDefaultsKey.validKeyboardToolbarButtons
     
     enum ValidKeyboardToolbarButtonRepositoryError: Error {
-        case dataNotFound
+        case dataNotSet
         case decodingError
         case encodingError
     }
@@ -21,7 +21,8 @@ final class ValidKeyboardToolbarButtonRepository {
     
     func load() throws -> [SearchPlatform] {
         guard let itemsData = UserDefaults.standard.data(forKey: key.rawValue)
-        else { throw ValidKeyboardToolbarButtonRepositoryError.dataNotFound }
+        else { throw ValidKeyboardToolbarButtonRepositoryError.dataNotSet }
+        
         do {
             let items = try JSONDecoder().decode([SearchPlatform].self, from: itemsData)
             return items
