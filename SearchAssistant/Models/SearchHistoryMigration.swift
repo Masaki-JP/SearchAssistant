@@ -38,6 +38,7 @@ enum SearchHistoryMigration {
                         )
                     )
                 }
+                try SearchHistory.trimIfNeeded(using: modelContext)
                 try modelContext.save()
             }
             

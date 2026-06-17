@@ -68,6 +68,7 @@ extension ContentView {
     func appendHistory(userInput: String, platform: SearchPlatform) {
         do {
             modelContext.insert(SearchHistory(userInput: userInput, platform: platform))
+            try SearchHistory.trimIfNeeded(using: modelContext)
             try modelContext.save()
         } catch {
             reportError(error)

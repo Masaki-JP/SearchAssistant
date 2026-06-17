@@ -20,6 +20,7 @@ struct SettingsView: View {
                 colorSchemeSection
                 browserSection
                 KeyboardToolbarSection(validKeyboardToolbarButtons: validKeyboardToolbarButtons, action: toggleToolbarButtonAvailability)
+                historySection
                 appInfoSection
             }
             .navigationTitle("Settings")
@@ -87,6 +88,16 @@ struct SettingsView: View {
             Text("ブラウザ")
         } footer: {
             Text("上記の設定をオフにした場合、検索はSafariで行われます。")
+        }
+    }
+    
+    var historySection: some View {
+        Section {
+            LabeledContent("保存件数", value: "最大\(SearchHistory.maximumCount.formatted())件(固定)")
+        } header: {
+            Text("履歴")
+        } footer: {
+            Text("上限を超えた場合は、古い履歴から自動で削除されます。")
         }
     }
     
