@@ -3,6 +3,7 @@ import SwiftUI
 struct SuggestionList: View {
     let suggestions: [String]
     let onRowTapped: (String, SearchPlatform) -> Void
+    let defaultPlatform: SearchPlatform = .google
     
     var body: some View {
         List {
@@ -10,7 +11,7 @@ struct SuggestionList: View {
                 /// 通常はsuggestionsに重複はなく、 現状では並び替えや削除もないため、idにselfを使用する。
                 ForEach(suggestions, id: \.self) { suggestion in
                     suggestionRowButton(suggestion: suggestion) {
-                        onRowTapped(suggestion, .google)
+                        onRowTapped(suggestion, defaultPlatform)
                     }
                     .padding(.top, suggestions.first == suggestion ? 4 : 0)
                     .padding(.bottom, suggestions.last == suggestion ? 4 : 0)
@@ -39,7 +40,7 @@ struct SuggestionList: View {
                 
                 Spacer(minLength: 4)
                 
-                Text("on Google")
+                Text("on \(defaultPlatform.displayName)")
                     .font(.caption2)
                     .foregroundStyle(.secondary)
                     .padding(.vertical, 4)
