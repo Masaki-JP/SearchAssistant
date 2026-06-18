@@ -9,7 +9,7 @@ final class ValidKeyboardToolbarButtonRepository {
         case encodingError
     }
     
-    func save(_ value: [SearchPlatform]) throws {
+    func save(_ value: [SearchPlatform]) throws(ValidKeyboardToolbarButtonRepositoryError) {
         do {
             let encodedData = try JSONEncoder().encode(value)
             UserDefaults.standard.set(encodedData, forKey: key.rawValue)
@@ -19,7 +19,7 @@ final class ValidKeyboardToolbarButtonRepository {
         }
     }
     
-    func load() throws -> [SearchPlatform] {
+    func load() throws(ValidKeyboardToolbarButtonRepositoryError) -> [SearchPlatform] {
         guard let itemsData = UserDefaults.standard.data(forKey: key.rawValue)
         else { throw ValidKeyboardToolbarButtonRepositoryError.dataNotSet }
         
