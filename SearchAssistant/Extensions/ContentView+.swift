@@ -68,8 +68,18 @@ extension ContentView {
     }
     
     func onUserInputChange() async {
+        let maxUserInputLength = 1000
         if userInput.count > maxUserInputLength {
             userInput = String(userInput.prefix(maxUserInputLength))
+            return
+        }
+        
+        let maxSuggestionInputLength = 100
+        // Googleの検索候補APIは、クエリのUTF-16長が100を超えると400を返すため、取得せず候補なしとして扱う。
+        if userInput.utf16.count > maxSuggestionInputLength {
+            suggestions = []
+            isSuggestionFetchFailed = false
+            inputUsedToFetchCurrentSuggestions = userInput
             return
         }
         

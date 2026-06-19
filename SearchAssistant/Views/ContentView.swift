@@ -24,7 +24,6 @@ struct ContentView: View {
     let suggestionFetcher = SuggestionFetcher.shared
     let searchURLCreator = SearchURLCreator()
     let validKeyboardToolbarButtonRepository = ValidKeyboardToolbarButtonRepository()
-    let maxUserInputLength = 1000
     
     var orderedValidKeyboardToolbarButtons: [SearchPlatform] {
         SearchPlatform.allCases.filter(validKeyboardToolbarButtons.contains)
