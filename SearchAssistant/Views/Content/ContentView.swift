@@ -116,6 +116,7 @@ struct ContentView: View {
             if isFocused == true, orderedValidKeyboardToolbarButtons.isEmpty == false {
                 SearchButtonsBar(
                     platforms: orderedValidKeyboardToolbarButtons,
+                    isSearchButtonDisabled: userInput.isEmpty,
                     onPlatformButtonTapped: { searchAction(userInput, on: $0) },
                     onCloseButtonTapped: { isFocused = false }
                 )
