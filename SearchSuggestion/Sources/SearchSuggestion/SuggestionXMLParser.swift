@@ -24,7 +24,7 @@ import Foundation
 /// 文字コードは通常のXMLとして一度解析し、失敗した場合はShift_JISとして読み直してから
 /// UTF-8に変換して再解析します。どちらの方法でも`toplevel`要素が見つからない場合は、
 /// Googleの検索候補XMLとして扱えないため`nil`を返します。
-final class SuggestionXMLParser: NSObject, XMLParserDelegate {
+nonisolated final class SuggestionXMLParser: NSObject, XMLParserDelegate {
     private var suggestions: [String] = []
     private var didFindToplevelElement = false
     
