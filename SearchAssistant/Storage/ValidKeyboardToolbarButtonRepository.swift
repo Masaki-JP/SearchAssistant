@@ -1,4 +1,5 @@
 import Foundation
+import SearchCore
 
 final class ValidKeyboardToolbarButtonRepository {
     private let key = UserDefaultsKey.validKeyboardToolbarButtons

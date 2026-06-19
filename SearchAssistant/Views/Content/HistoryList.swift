@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import SearchCore
 
 struct HistoryList: View {
     let histories: [SearchHistory]

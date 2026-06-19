@@ -1,4 +1,5 @@
 import SwiftUI
+import SearchCore
 
 struct KeyboardToolbarSection: View {
     let validKeyboardToolbarButtons: [SearchPlatform]
