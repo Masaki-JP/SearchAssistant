@@ -1,5 +1,6 @@
 import Foundation
 import SwiftData
+import SearchCore
 
 typealias SearchHistory = SearchAssistantSchemaV1.SearchHistory
 

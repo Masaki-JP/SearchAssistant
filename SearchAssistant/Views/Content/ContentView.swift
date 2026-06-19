@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import SearchCore
 
 struct ContentView: View {
     @FocusState var isFocused: Bool

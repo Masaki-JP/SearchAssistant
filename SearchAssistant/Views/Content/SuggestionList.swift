@@ -1,4 +1,5 @@
 import SwiftUI
+import SearchCore
 
 struct SuggestionList: View {
     let suggestions: [String]

@@ -1,4 +1,5 @@
 import SwiftUI
+import SearchCore
 
 struct SettingsView: View {
     @Environment(\.scenePhase) var scenePhase

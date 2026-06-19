@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C23345F2FE5678800CCC43A /* SearchCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4C23345E2FE5678800CCC43A /* SearchCore */; };
 		4CDD8E282FD6C52B00F5237B /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CDD8E272FD6C52B00F5237B /* WidgetKit.framework */; };
 		4CDD8E2A2FD6C52B00F5237B /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CDD8E292FD6C52B00F5237B /* SwiftUI.framework */; };
 		4CDD8E352FD6C52B00F5237B /* SAWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4CDD8E252FD6C52B00F5237B /* SAWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -37,6 +38,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4C23345C2FE5676E00CCC43A /* SearchCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SearchCore; sourceTree = "<group>"; };
 		4C242B0B2FD602CB00FB2DF9 /* SearchAssistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchAssistant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CDD8E002FD6BB3A00F5237B /* AGENTS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = AGENTS.md; sourceTree = "<group>"; };
 		4CDD8E012FD6BB3A00F5237B /* CLAUDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CLAUDE.md; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C23345F2FE5678800CCC43A /* SearchCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +104,7 @@
 		4C242B022FD602CA00FB2DF9 = {
 			isa = PBXGroup;
 			children = (
+				4C23345C2FE5676E00CCC43A /* SearchCore */,
 				4C242B0D2FD602CB00FB2DF9 /* SearchAssistant */,
 				4CDD8E2B2FD6C52B00F5237B /* SAWidget */,
 				4CDD8E262FD6C52B00F5237B /* Frameworks */,
@@ -153,6 +157,7 @@
 			);
 			name = SearchAssistant;
 			packageProductDependencies = (
+				4C23345E2FE5678800CCC43A /* SearchCore */,
 			);
 			productName = SearchAssistant;
 			productReference = 4C242B0B2FD602CB00FB2DF9 /* SearchAssistant.app */;
@@ -207,6 +212,9 @@
 			);
 			mainGroup = 4C242B022FD602CA00FB2DF9;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				4C23345D2FE5678800CCC43A /* XCLocalSwiftPackageReference "SearchCore" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4C242B0C2FD602CB00FB2DF9 /* Products */;
 			projectDirPath = "";
@@ -569,6 +577,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		4C23345D2FE5678800CCC43A /* XCLocalSwiftPackageReference "SearchCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = SearchCore;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4C23345E2FE5678800CCC43A /* SearchCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SearchCore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4C242B032FD602CA00FB2DF9 /* Project object */;
 }

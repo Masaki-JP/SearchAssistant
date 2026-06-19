@@ -1,4 +1,5 @@
 import SwiftUI
+import SearchCore
 
 struct SearchButtonsBar: View {
     let platforms: [SearchPlatform]

@@ -1,3 +1,5 @@
+import SearchCore
+
 extension SettingsView {
     func loadValidKeyboardToolbarButtons() {
         do {

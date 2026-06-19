@@ -1,8 +1,6 @@
-import SwiftUI
-
 /// rawValue はデコード、エンコードで使用しているため、開発開始時点の名称で固定する。
 ///
-enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
+public enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
     case google = "Google"
     case x = "Twitter"
     case instagram = "Instagram"
@@ -12,10 +10,10 @@ enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
     case mercari = "メルカリ"
     case rakuma = "ラクマ"
     case yahooFleaMarket = "PayPayフリマ"
-    
-    var id: Self { self }
-    
-    var displayName: String {
+
+    public var id: Self { self }
+
+    public var displayName: String {
         switch self {
         case .google:
             "Google"
@@ -37,8 +35,8 @@ enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
             "Yahoo!フリマ"
         }
     }
-    
-    var prefixURL: String {
+
+    public var prefixURL: String {
         switch self {
         case .google: "https://www.google.co.jp/search?q="
         case .x: "https://x.com/search?q="
@@ -51,8 +49,8 @@ enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
         case .yahooFleaMarket: "https://paypayfleamarket.yahoo.co.jp/search/"
         }
     }
-    
-    var iconCharacter: String {
+
+    public var iconCharacter: String {
         switch self {
         case .google: "G"
         case .x: "X"
@@ -65,8 +63,8 @@ enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
         case .yahooFleaMarket: "Y"
         }
     }
-    
-    var faviconResourceName: String {
+
+    public var faviconResourceName: String {
         switch self {
         case .google: "google"
         case .x: "x"
