@@ -1,6 +1,7 @@
 import SwiftUI
 import SwiftData
 import SearchCore
+import SearchSuggestion
 
 extension ContentView {
     enum ContentViewState {
