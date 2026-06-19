@@ -26,6 +26,10 @@ struct ContentView: View {
     let validKeyboardToolbarButtonRepository = ValidKeyboardToolbarButtonRepository()
     let maxUserInputLength = 1000
     
+    var orderedValidKeyboardToolbarButtons: [SearchPlatform] {
+        SearchPlatform.allCases.filter(validKeyboardToolbarButtons.contains)
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             searchTextField
@@ -60,6 +64,21 @@ struct ContentView: View {
             if isFocused == false {
                 focusTextFieldButton
                     .padding(settingLeftSearchButton == false ? .trailing : .leading)
+            } else {
+                if orderedValidKeyboardToolbarButtons.isEmpty == true {
+                    keyboardCloseButton
+                        .padding(settingLeftSearchButton == false ? .trailing : .leading)
+                        .padding(.bottom, 4)
+                }
+            }
+        }
+        .overlay(alignment: .bottom) {
+            if isFocused == true, orderedValidKeyboardToolbarButtons.isEmpty == false {
+                SearchButtonsBar(
+                    platforms: orderedValidKeyboardToolbarButtons,
+                    onPlatformButtonTapped: { searchAction(userInput, on: $0) },
+                    onCloseButtonTapped: { isFocused = false }
+                )
             }
         }
         .fullScreenCover(item: $presentedSafariViewURL) { item in
@@ -77,9 +96,6 @@ struct ContentView: View {
             Button("キャンセル", role: .cancel) {}
         } message: {
             Text("全履歴を削除しますか？")
-        }
-        .toolbar {
-            ToolbarItem(placement: .keyboard, content: toolbarItemContent)
         }
         .onAppear(perform: onAppear)
         .task(id: userInput, onUserInputChange)
@@ -153,70 +169,16 @@ struct ContentView: View {
         .buttonBorderShape(.circle)
     }
     
-    var backgroundColor: AnyShapeStyle {
-        colorScheme == .light ? AnyShapeStyle(Color(uiColor: .systemGroupedBackground)) : AnyShapeStyle(.background)
+    var keyboardCloseButton: some View {
+        Button("Close", role: .close) {
+            isFocused = false
+        }
+        .font(.title2)
+        .buttonStyle(.glass)
     }
     
-    @ViewBuilder
-    func toolbarItemContent() -> some View {
-        let validButtons = SearchPlatform.allCases.filter(validKeyboardToolbarButtons.contains)
-        
-        let primaryCandidate = HStack(spacing: 4) {
-            HStack(spacing: 4) {
-                ForEach(validButtons) { searchPlatform in
-                    Button(searchPlatform.displayName) {
-                        searchAction(userInput, on: searchPlatform)
-                    }
-                }
-            }
-            .frame(maxWidth: .infinity)
-            
-            Button {
-                isFocused = false
-            } label: {
-                Image(systemName: "x.circle")
-            }
-        }
-            .padding(.horizontal, 4)
-        
-        let secondaryCandidate = HStack(spacing: 4) {
-            ScrollViewReader { scrollViewProxy in
-                ScrollView(.horizontal) {
-                    HStack {
-                        ForEach(validButtons) { searchPlatform in
-                            Button(searchPlatform.displayName) {
-                                searchAction(userInput, on: searchPlatform)
-                            }
-                        }
-                    }
-                }
-                .scrollIndicators(.hidden)
-                .contentMargins(.horizontal, 8, for: .scrollContent)
-                .onChange(of: scenePhase) { _, newScene in
-                    if newScene != .active, let scrollDestinationID = validButtons.first?.id {
-                        scrollViewProxy.scrollTo(scrollDestinationID)
-                    }
-                }
-            }
-            
-            Button {
-                isFocused = false
-            } label: {
-                Image(systemName: "x.circle")
-            }
-        }
-        
-        if validButtons.isEmpty == false {
-            ViewThatFits(in: .horizontal) {
-                primaryCandidate
-                secondaryCandidate
-            }
-        } else {
-            Button("閉じる", role: .close) {
-                isFocused = false
-            }
-            .frame(maxWidth: .infinity, alignment: .trailing)
-        }
+    var backgroundColor: AnyShapeStyle {
+        colorScheme == .light ? AnyShapeStyle(Color(uiColor: .systemGroupedBackground)) : AnyShapeStyle(.background)
     }
 }
 
