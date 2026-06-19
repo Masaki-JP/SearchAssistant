@@ -9,6 +9,8 @@
 
 Xcodeが空行に入れるインデント用スペースはXcodeの仕様として扱い、不要な空白整理として削除しないこと。
 
+iOS向けのローカルSwift Packageを検証するときは、macOS向けにビルドされる`swift build`ではなく、iOS SDKを指定した`xcodebuild`を使用すること。macOS対応は予定していないため、Package.swiftのplatformsにmacOSを追加しないこと。
+
 ビューのプロパティとメソッドには、アクセスレベルを付けないこと。
 
 HistoryListやSuggestionListのようにXXXList形式のビューを切り出す場合は、渡される配列が空配列ではないことを前提として作成すること。
