@@ -3,7 +3,6 @@ import SearchCore
 
 struct SearchButtonsBar: View {
     let platforms: [SearchPlatform]
-    let isSearchButtonDisabled: Bool
     let onPlatformButtonTapped: (SearchPlatform?) -> Void
     let onCloseButtonTapped: () -> Void
     
@@ -14,7 +13,7 @@ struct SearchButtonsBar: View {
             primaryCandidate
             secondaryCandidate
         }
-        .foregroundStyle(isSearchButtonDisabled ? .secondary : .primary) // ※1
+        .foregroundStyle(.primary) // ※1
         .font(.title3)
         .padding(.horizontal, 4)
         .fixedSize(horizontal: false, vertical: true)
@@ -34,7 +33,6 @@ struct SearchButtonsBar: View {
                             .padding(.vertical, 12)
                             .frame(maxWidth: .infinity)
                     }
-                    .disabled(isSearchButtonDisabled)
                 }
             }
             .frame(maxWidth: .infinity)
@@ -56,7 +54,6 @@ struct SearchButtonsBar: View {
                                     .padding(.horizontal, 6)
                                     .padding(.vertical, 12)
                             }
-                            .disabled(isSearchButtonDisabled)
                         }
                     }
                 }
@@ -92,14 +89,12 @@ struct SearchButtonsBar: View {
             VStack(spacing: 40) {
                 SearchButtonsBar(
                     platforms: SearchPlatform.allCases,
-                    isSearchButtonDisabled: false,
                     onPlatformButtonTapped: { print($0?.displayName as Any) },
                     onCloseButtonTapped: { print("closeButton tapped") }
                 )
                 
                 SearchButtonsBar(
                     platforms: [.google, .amazon, .youtube],
-                    isSearchButtonDisabled: false,
                     onPlatformButtonTapped: { print($0?.displayName as Any) },
                     onCloseButtonTapped: { print("closeButton tapped") }
                 )
