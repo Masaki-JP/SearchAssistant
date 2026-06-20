@@ -1,20 +1,17 @@
-import AudioToolbox
+import AVFAudio
 import Foundation
 
 final class SelectionSoundPlayer {
-    var soundID: SystemSoundID = 0
+    private var audioPlayer: AVAudioPlayer?
     
     init() {
         guard let soundURL = Bundle.main.url(forResource: "selection", withExtension: "caf") else { return }
-        AudioServicesCreateSystemSoundID(soundURL as CFURL, &soundID)
-    }
-    
-    deinit {
-        AudioServicesDisposeSystemSoundID(soundID)
+        audioPlayer = try? AVAudioPlayer(contentsOf: soundURL)
+        audioPlayer?.prepareToPlay()
     }
     
     func play() {
-        guard soundID != 0 else { return }
-        AudioServicesPlaySystemSound(soundID)
+        audioPlayer?.currentTime = 0
+        audioPlayer?.play()
     }
 }
