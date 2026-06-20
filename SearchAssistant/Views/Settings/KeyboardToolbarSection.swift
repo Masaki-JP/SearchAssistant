@@ -41,7 +41,7 @@ struct KeyboardToolbarSection: View {
                     .foregroundStyle(isEnabled ? .primary : .secondary)
                 Spacer()
                 Image(systemName: "checkmark")
-                    .bold(isEnabled)
+                    .fontWeight(.semibold)
                     .foregroundStyle(isEnabled ? .green : .gray)
             }
             .contentShape(.rect)
