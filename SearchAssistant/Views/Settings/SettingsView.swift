@@ -11,6 +11,7 @@ struct SettingsView: View {
     @AppStorage(UserDefaultsKey.AppStorageKey.openInSafariView.rawValue) var openInSafariView = true
     
     @State var validKeyboardToolbarButtons = SearchPlatform.allCases
+    let selectionSoundPlayer = SelectionSoundPlayer()
     let validKeyboardToolbarButtonRepository = ValidKeyboardToolbarButtonRepository()
     
     var body: some View {
