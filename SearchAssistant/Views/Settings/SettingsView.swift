@@ -11,6 +11,7 @@ struct SettingsView: View {
     @AppStorage(UserDefaultsKey.AppStorageKey.openInSafariView.rawValue) var openInSafariView = true
     
     @State var validKeyboardToolbarButtons = SearchPlatform.allCases
+    @State var isPresentedKeyboardToolbarOrderView = false
     let selectionSoundPlayer = SelectionSoundPlayer()
     let validKeyboardToolbarButtonRepository = ValidKeyboardToolbarButtonRepository()
     
@@ -21,12 +22,16 @@ struct SettingsView: View {
                 searchButtonPositionSection
                 colorSchemeSection
                 browserSection
-                KeyboardToolbarSection(validKeyboardToolbarButtons: validKeyboardToolbarButtons, action: toggleToolbarButtonAvailability)
+                keyboardToolbarSection
                 historySection
                 appInfoSection
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
+            .navigationDestination(isPresented: $isPresentedKeyboardToolbarOrderView, destination: {
+                keyboardToolbarOrderView
+                    .navigationTitle("表示順序")
+            })
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("完了") { dismiss() }
@@ -91,6 +96,14 @@ struct SettingsView: View {
         }
     }
     
+    var keyboardToolbarSection: some View {
+        KeyboardToolbarSection(
+            validKeyboardToolbarButtons: validKeyboardToolbarButtons,
+            action: toggleToolbarButtonAvailability,
+            onKeyboardToolbarOrderButtonTapped: { isPresentedKeyboardToolbarOrderView = true }
+        )
+    }
+    
     var historySection: some View {
         Section {
             LabeledContent("保存件数", value: "最大\(SearchHistory.maximumCount.formatted())件(固定)")
@@ -116,6 +129,22 @@ struct SettingsView: View {
     
     var bundleVersion: String {
         Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "-"
+    }
+    
+    var keyboardToolbarOrderView: some View {
+        List {
+            Section {
+                ForEach(validKeyboardToolbarButtons) { platform in
+                    Text(platform.displayName)
+                }
+                .onMove(perform: onKeyboardToolbarButtonsMove)
+            } header: {
+                Text("ツールバーボタン")
+            } footer: {
+                Text("ツールバーに表示する検索ボタンの並び順を設定できます。")
+            }
+        }
+        .environment(\.editMode, .constant(.active))
     }
 }
 

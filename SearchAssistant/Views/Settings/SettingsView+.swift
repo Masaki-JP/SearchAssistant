@@ -1,4 +1,5 @@
 import SearchCore
+import SwiftUI
 
 extension SettingsView {
     func loadValidKeyboardToolbarButtons() {
@@ -20,6 +21,17 @@ extension SettingsView {
         do {
             try validKeyboardToolbarButtonRepository.save(validKeyboardToolbarButtons)
             selectionSoundPlayer.play()
+        } catch {
+            reportError(error)
+            validKeyboardToolbarButtons = previousState
+        }
+    }
+    
+    func onKeyboardToolbarButtonsMove(fromOffsets source: IndexSet, toOffset destination: Int) {
+        let previousState = validKeyboardToolbarButtons
+        validKeyboardToolbarButtons.move(fromOffsets: source, toOffset: destination)
+        do {
+            try validKeyboardToolbarButtonRepository.save(validKeyboardToolbarButtons)
         } catch {
             reportError(error)
             validKeyboardToolbarButtons = previousState
