@@ -99,7 +99,7 @@ struct SettingsView: View {
     var keyboardToolbarSection: some View {
         KeyboardToolbarSection(
             enabledKeyboardToolbarButtons: enabledKeyboardToolbarButtons,
-            action: toggleToolbarButtonAvailability,
+            onPlatformButtonTapped: toggleToolbarButtonAvailability,
             onKeyboardToolbarOrderButtonTapped: { isPresentedKeyboardToolbarOrderView = true }
         )
     }

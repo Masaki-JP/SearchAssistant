@@ -3,13 +3,13 @@ import SearchCore
 
 struct KeyboardToolbarSection: View {
     let enabledKeyboardToolbarButtons: [SearchPlatform]
-    let action: (SearchPlatform) -> Void
+    let onPlatformButtonTapped: (SearchPlatform) -> Void
     let onKeyboardToolbarOrderButtonTapped: () -> Void
     
     var body: some View {
         Section {
             ForEach(SearchPlatform.allCases) { platform in
-                rowButton(platform: platform, action: action)
+                rowButton(platform: platform, action: onPlatformButtonTapped)
             }
         } header: {
             HStack {
@@ -56,7 +56,7 @@ struct KeyboardToolbarSection: View {
     List {
         KeyboardToolbarSection(
             enabledKeyboardToolbarButtons: enabledKeyboardToolbarButtons,
-            action: { platform in
+            onPlatformButtonTapped: { platform in
                 if enabledKeyboardToolbarButtons.contains(platform) {
                     enabledKeyboardToolbarButtons.removeAll { $0 == platform }
                 } else {
