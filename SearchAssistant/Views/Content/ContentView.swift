@@ -27,10 +27,6 @@ struct ContentView: View {
     let searchURLCreator = SearchURLCreator()
     let validKeyboardToolbarButtonRepository = ValidKeyboardToolbarButtonRepository()
     
-    var orderedValidKeyboardToolbarButtons: [SearchPlatform] {
-        SearchPlatform.allCases.filter(validKeyboardToolbarButtons.contains)
-    }
-    
     /// ContentView に表示するコンテンツの状態を返す。
     ///
     /// - 入力なし
@@ -105,7 +101,7 @@ struct ContentView: View {
                 focusTextFieldButton
                     .padding(settingLeftSearchButton == false ? .trailing : .leading)
             } else {
-                if orderedValidKeyboardToolbarButtons.isEmpty == true {
+                if validKeyboardToolbarButtons.isEmpty == true {
                     keyboardCloseButton
                         .padding(settingLeftSearchButton == false ? .trailing : .leading)
                         .padding(.bottom, 4)
@@ -113,9 +109,9 @@ struct ContentView: View {
             }
         }
         .overlay(alignment: .bottom) {
-            if isFocused == true, orderedValidKeyboardToolbarButtons.isEmpty == false {
+            if isFocused == true, validKeyboardToolbarButtons.isEmpty == false {
                 SearchButtonsBar(
-                    platforms: orderedValidKeyboardToolbarButtons,
+                    platforms: validKeyboardToolbarButtons,
                     onPlatformButtonTapped: { searchAction(userInput, on: $0) },
                     onCloseButtonTapped: { isFocused = false }
                 )

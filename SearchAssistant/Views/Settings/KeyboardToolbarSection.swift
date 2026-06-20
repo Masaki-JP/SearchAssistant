@@ -4,6 +4,7 @@ import SearchCore
 struct KeyboardToolbarSection: View {
     let validKeyboardToolbarButtons: [SearchPlatform]
     let action: (SearchPlatform) -> Void
+    let onKeyboardToolbarOrderButtonTapped: () -> Void
     
     var body: some View {
         Section {
@@ -11,7 +12,16 @@ struct KeyboardToolbarSection: View {
                 rowButton(platform: platform, action: action)
             }
         } header: {
-            Text("ツールバーボタン")
+            HStack {
+                Text("ツールバーボタン")
+                Spacer()
+                Button(action: onKeyboardToolbarOrderButtonTapped) {
+                    HStack(spacing: 4) {
+                        Text("表示順序")
+                        Image(systemName: "chevron.forward.circle")
+                    }
+                }
+            }
         } footer: {
             Text("ツールバーに表示する検索ボタンを設定できます。")
         }
@@ -52,7 +62,8 @@ struct KeyboardToolbarSection: View {
                 } else {
                     validKeyboardToolbarButtons.append(platform)
                 }
-            }
+            },
+            onKeyboardToolbarOrderButtonTapped: {}
         )
     }
 }
