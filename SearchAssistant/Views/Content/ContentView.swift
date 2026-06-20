@@ -17,7 +17,7 @@ struct ContentView: View {
     @State var isPresentedSettingsView = false
     @State var isPresentedDeleteAllHistoriesAlert = false
     @State var presentedSafariViewURL: SafariViewURL? = nil
-    @State var validKeyboardToolbarButtons = SearchPlatform.allCases
+    @State var enabledKeyboardToolbarButtons = SearchPlatform.allCases
     
     @AppStorage(UserDefaultsKey.AppStorageKey.autoFocus.rawValue) var settingAutoFocus = true
     @AppStorage(UserDefaultsKey.AppStorageKey.searchButtonLeft.rawValue) var settingLeftSearchButton = false
@@ -25,7 +25,7 @@ struct ContentView: View {
     
     let suggestionFetcher = SuggestionFetcher.shared
     let searchURLCreator = SearchURLCreator()
-    let validKeyboardToolbarButtonRepository = ValidKeyboardToolbarButtonRepository()
+    let enabledKeyboardToolbarButtonRepository = EnabledKeyboardToolbarButtonRepository()
     
     /// ContentView に表示するコンテンツの状態を返す。
     ///
@@ -101,7 +101,7 @@ struct ContentView: View {
                 focusTextFieldButton
                     .padding(settingLeftSearchButton == false ? .trailing : .leading)
             } else {
-                if validKeyboardToolbarButtons.isEmpty == true {
+                if enabledKeyboardToolbarButtons.isEmpty == true {
                     keyboardCloseButton
                         .padding(settingLeftSearchButton == false ? .trailing : .leading)
                         .padding(.bottom, 4)
@@ -109,9 +109,9 @@ struct ContentView: View {
             }
         }
         .overlay(alignment: .bottom) {
-            if isFocused == true, validKeyboardToolbarButtons.isEmpty == false {
+            if isFocused == true, enabledKeyboardToolbarButtons.isEmpty == false {
                 SearchButtonsBar(
-                    platforms: validKeyboardToolbarButtons,
+                    platforms: enabledKeyboardToolbarButtons,
                     onPlatformButtonTapped: { searchAction(userInput, on: $0) },
                     onCloseButtonTapped: { isFocused = false }
                 )

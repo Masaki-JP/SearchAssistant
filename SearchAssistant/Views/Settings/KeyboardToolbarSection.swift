@@ -2,7 +2,7 @@ import SwiftUI
 import SearchCore
 
 struct KeyboardToolbarSection: View {
-    let validKeyboardToolbarButtons: [SearchPlatform]
+    let enabledKeyboardToolbarButtons: [SearchPlatform]
     let action: (SearchPlatform) -> Void
     let onKeyboardToolbarOrderButtonTapped: () -> Void
     
@@ -31,18 +31,18 @@ struct KeyboardToolbarSection: View {
         platform: SearchPlatform,
         action: @escaping (SearchPlatform) -> Void
     ) -> some View {
-        let isValid = validKeyboardToolbarButtons.contains(platform)
+        let isEnabled = enabledKeyboardToolbarButtons.contains(platform)
         
         return Button {
             action(platform)
         } label: {
             HStack {
                 Text(platform.displayName)
-                    .foregroundStyle(isValid ? .primary : .secondary)
+                    .foregroundStyle(isEnabled ? .primary : .secondary)
                 Spacer()
                 Image(systemName: "checkmark")
-                    .bold(isValid)
-                    .foregroundStyle(isValid ? .green : .gray)
+                    .bold(isEnabled)
+                    .foregroundStyle(isEnabled ? .green : .gray)
             }
             .contentShape(.rect)
         }
@@ -51,16 +51,16 @@ struct KeyboardToolbarSection: View {
 }
 
 #Preview {
-    @Previewable @State var validKeyboardToolbarButtons = SearchPlatform.allCases
+    @Previewable @State var enabledKeyboardToolbarButtons = SearchPlatform.allCases
     
     List {
         KeyboardToolbarSection(
-            validKeyboardToolbarButtons: validKeyboardToolbarButtons,
+            enabledKeyboardToolbarButtons: enabledKeyboardToolbarButtons,
             action: { platform in
-                if validKeyboardToolbarButtons.contains(platform) {
-                    validKeyboardToolbarButtons.removeAll { $0 == platform }
+                if enabledKeyboardToolbarButtons.contains(platform) {
+                    enabledKeyboardToolbarButtons.removeAll { $0 == platform }
                 } else {
-                    validKeyboardToolbarButtons.append(platform)
+                    enabledKeyboardToolbarButtons.append(platform)
                 }
             },
             onKeyboardToolbarOrderButtonTapped: {}
