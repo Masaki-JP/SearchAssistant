@@ -2,14 +2,14 @@ import SwiftUI
 import SearchCore
 
 struct KeyboardToolbarSection: View {
-    let validKeyboardToolbarButtons: [SearchPlatform]
-    let action: (SearchPlatform) -> Void
+    let enabledKeyboardToolbarButtons: [SearchPlatform]
+    let onPlatformButtonTapped: (SearchPlatform) -> Void
     let onKeyboardToolbarOrderButtonTapped: () -> Void
     
     var body: some View {
         Section {
             ForEach(SearchPlatform.allCases) { platform in
-                rowButton(platform: platform, action: action)
+                rowButton(platform: platform, action: onPlatformButtonTapped)
             }
         } header: {
             HStack {
@@ -31,18 +31,18 @@ struct KeyboardToolbarSection: View {
         platform: SearchPlatform,
         action: @escaping (SearchPlatform) -> Void
     ) -> some View {
-        let isValid = validKeyboardToolbarButtons.contains(platform)
+        let isEnabled = enabledKeyboardToolbarButtons.contains(platform)
         
         return Button {
             action(platform)
         } label: {
             HStack {
                 Text(platform.displayName)
-                    .foregroundStyle(isValid ? .primary : .secondary)
+                    .foregroundStyle(isEnabled ? .primary : .secondary)
                 Spacer()
                 Image(systemName: "checkmark")
-                    .bold(isValid)
-                    .foregroundStyle(isValid ? .green : .gray)
+                    .bold(isEnabled)
+                    .foregroundStyle(isEnabled ? .green : .gray)
             }
             .contentShape(.rect)
         }
@@ -51,16 +51,16 @@ struct KeyboardToolbarSection: View {
 }
 
 #Preview {
-    @Previewable @State var validKeyboardToolbarButtons = SearchPlatform.allCases
+    @Previewable @State var enabledKeyboardToolbarButtons = SearchPlatform.allCases
     
     List {
         KeyboardToolbarSection(
-            validKeyboardToolbarButtons: validKeyboardToolbarButtons,
-            action: { platform in
-                if validKeyboardToolbarButtons.contains(platform) {
-                    validKeyboardToolbarButtons.removeAll { $0 == platform }
+            enabledKeyboardToolbarButtons: enabledKeyboardToolbarButtons,
+            onPlatformButtonTapped: { platform in
+                if enabledKeyboardToolbarButtons.contains(platform) {
+                    enabledKeyboardToolbarButtons.removeAll { $0 == platform }
                 } else {
-                    validKeyboardToolbarButtons.append(platform)
+                    enabledKeyboardToolbarButtons.append(platform)
                 }
             },
             onKeyboardToolbarOrderButtonTapped: {}

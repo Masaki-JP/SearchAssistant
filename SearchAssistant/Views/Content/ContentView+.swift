@@ -39,7 +39,7 @@ extension ContentView {
     }
     
     func onAppear() {
-        loadValidKeyboardToolbarButtons()
+        loadEnabledKeyboardToolbarButtons()
         
         DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
             guard settingAutoFocus == true,
@@ -97,7 +97,7 @@ extension ContentView {
     }
     
     func onSettingsViewDismiss() {
-        loadValidKeyboardToolbarButtons()
+        loadEnabledKeyboardToolbarButtons()
         guard settingAutoFocus == true else { return }
         isFocused = true
     }
@@ -153,12 +153,12 @@ extension ContentView {
         }
     }
     
-    func loadValidKeyboardToolbarButtons() {
+    func loadEnabledKeyboardToolbarButtons() {
         do {
-            validKeyboardToolbarButtons = try validKeyboardToolbarButtonRepository.load()
+            enabledKeyboardToolbarButtons = try enabledKeyboardToolbarButtonRepository.load()
         } catch {
             if error != .dataNotSet { reportError(error) }
-            validKeyboardToolbarButtons = SearchPlatform.allCases
+            enabledKeyboardToolbarButtons = SearchPlatform.allCases
         }
     }
 }

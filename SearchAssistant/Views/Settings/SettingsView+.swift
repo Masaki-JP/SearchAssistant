@@ -2,39 +2,39 @@ import SearchCore
 import SwiftUI
 
 extension SettingsView {
-    func loadValidKeyboardToolbarButtons() {
+    func loadEnabledKeyboardToolbarButtons() {
         do {
-            validKeyboardToolbarButtons = try validKeyboardToolbarButtonRepository.load()
+            enabledKeyboardToolbarButtons = try enabledKeyboardToolbarButtonRepository.load()
         } catch {
             if error != .dataNotSet { reportError(error) }
-            validKeyboardToolbarButtons = SearchPlatform.allCases
+            enabledKeyboardToolbarButtons = SearchPlatform.allCases
         }
     }
     
     func toggleToolbarButtonAvailability(_ platform: SearchPlatform) {
-        let previousState = validKeyboardToolbarButtons
-        if validKeyboardToolbarButtons.contains(platform) {
-            validKeyboardToolbarButtons.removeAll { $0 == platform }
+        let previousState = enabledKeyboardToolbarButtons
+        if enabledKeyboardToolbarButtons.contains(platform) {
+            enabledKeyboardToolbarButtons.removeAll { $0 == platform }
         } else {
-            validKeyboardToolbarButtons.append(platform)
+            enabledKeyboardToolbarButtons.append(platform)
         }
         do {
-            try validKeyboardToolbarButtonRepository.save(validKeyboardToolbarButtons)
+            try enabledKeyboardToolbarButtonRepository.save(enabledKeyboardToolbarButtons)
             selectionSoundPlayer.play()
         } catch {
             reportError(error)
-            validKeyboardToolbarButtons = previousState
+            enabledKeyboardToolbarButtons = previousState
         }
     }
     
     func onKeyboardToolbarButtonsMove(fromOffsets source: IndexSet, toOffset destination: Int) {
-        let previousState = validKeyboardToolbarButtons
-        validKeyboardToolbarButtons.move(fromOffsets: source, toOffset: destination)
+        let previousState = enabledKeyboardToolbarButtons
+        enabledKeyboardToolbarButtons.move(fromOffsets: source, toOffset: destination)
         do {
-            try validKeyboardToolbarButtonRepository.save(validKeyboardToolbarButtons)
+            try enabledKeyboardToolbarButtonRepository.save(enabledKeyboardToolbarButtons)
         } catch {
             reportError(error)
-            validKeyboardToolbarButtons = previousState
+            enabledKeyboardToolbarButtons = previousState
         }
     }
 }

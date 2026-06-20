@@ -10,10 +10,10 @@ struct SettingsView: View {
     @AppStorage(UserDefaultsKey.AppStorageKey.colorScheme.rawValue) var colorSchemeSetting = ColorSchemeSetting.defaultValue
     @AppStorage(UserDefaultsKey.AppStorageKey.openInSafariView.rawValue) var openInSafariView = true
     
-    @State var validKeyboardToolbarButtons = SearchPlatform.allCases
+    @State var enabledKeyboardToolbarButtons = SearchPlatform.allCases
     @State var isPresentedKeyboardToolbarOrderView = false
     let selectionSoundPlayer = SelectionSoundPlayer()
-    let validKeyboardToolbarButtonRepository = ValidKeyboardToolbarButtonRepository()
+    let enabledKeyboardToolbarButtonRepository = EnabledKeyboardToolbarButtonRepository()
     
     var body: some View {
         NavigationStack {
@@ -42,8 +42,8 @@ struct SettingsView: View {
             guard newScene != .active else { return }
             dismiss()
         }
-        .onAppear(perform: loadValidKeyboardToolbarButtons)
-        .sensoryFeedback(.selection, trigger: validKeyboardToolbarButtons)
+        .onAppear(perform: loadEnabledKeyboardToolbarButtons)
+        .sensoryFeedback(.selection, trigger: enabledKeyboardToolbarButtons)
     }
     
     var focusControlSection: some View {
@@ -98,8 +98,8 @@ struct SettingsView: View {
     
     var keyboardToolbarSection: some View {
         KeyboardToolbarSection(
-            validKeyboardToolbarButtons: validKeyboardToolbarButtons,
-            action: toggleToolbarButtonAvailability,
+            enabledKeyboardToolbarButtons: enabledKeyboardToolbarButtons,
+            onPlatformButtonTapped: toggleToolbarButtonAvailability,
             onKeyboardToolbarOrderButtonTapped: { isPresentedKeyboardToolbarOrderView = true }
         )
     }
@@ -134,7 +134,7 @@ struct SettingsView: View {
     var keyboardToolbarOrderView: some View {
         List {
             Section {
-                ForEach(validKeyboardToolbarButtons) { platform in
+                ForEach(enabledKeyboardToolbarButtons) { platform in
                     Text(platform.displayName)
                 }
                 .onMove(perform: onKeyboardToolbarButtonsMove)
