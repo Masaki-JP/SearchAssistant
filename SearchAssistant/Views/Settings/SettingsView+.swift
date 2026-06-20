@@ -19,6 +19,7 @@ extension SettingsView {
         }
         do {
             try validKeyboardToolbarButtonRepository.save(validKeyboardToolbarButtons)
+            selectionSoundPlayer.play()
         } catch {
             reportError(error)
             validKeyboardToolbarButtons = previousState
