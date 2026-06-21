@@ -2,22 +2,43 @@ import SwiftUI
 import SwiftData
 
 struct SplashScreenView: View {
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @Environment(\.modelContext) var modelContext
     @State var opacity = 1.0
+    let size: CGFloat = 280
     
     var body: some View {
-        ZStack {
-            Image(systemName: "magnifyingglass")
+        VStack(spacing: .zero) {
+            Image("SplashLogo")
                 .resizable()
-                .frame(width: 180, height: 180)
-                .opacity(0.2)
+                .scaledToFit()
+                .frame(width: size, height: size)
+                .accessibilityHidden(true)
             
             Text("Search Assistant")
+                .foregroundStyle(textColor)
                 .font(.largeTitle)
-                .fontWeight(.semibold)
+                .fontWeight(.black)
+                .padding(.leading, 16)
+                .padding(.top, -16)
         }
+        .padding(.bottom, 80)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(backgroundColor)
         .opacity(opacity)
         .task(afterAppear)
+    }
+    
+    var textColor: Color {
+        colorScheme == .light
+        ? Color(red: 62/255*0.9, green: 65/255*0.9, blue: 74/255*0.9)
+        : .primary
+    }
+    
+    var backgroundColor: AnyGradient {
+        colorScheme == .light
+        ? Color(red: 0.975, green: 0.975, blue: 0.975).gradient
+        : Color.black.gradient
     }
     
     func afterAppear() async {
