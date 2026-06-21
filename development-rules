@@ -7,7 +7,7 @@ UserDefaults Keys（AppStorageも含む）
 - autoFocus
 - searchButtonLeft
 - colorScheme
-- keyboardToolbarButtons
+- keyboardToolbarButtons（SearchButtonsBarの設定で使用）
 - openInSafariView
 - didMigrateSearchHistoriesToSwiftData
 

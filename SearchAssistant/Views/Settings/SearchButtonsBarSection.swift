@@ -1,10 +1,10 @@
 import SwiftUI
 import SearchCore
 
-struct KeyboardToolbarSection: View {
-    let enabledKeyboardToolbarButtons: [SearchPlatform]
+struct SearchButtonsBarSection: View {
+    let enabledSearchButtons: [SearchPlatform]
     let onPlatformButtonTapped: (SearchPlatform) -> Void
-    let onKeyboardToolbarOrderButtonTapped: () -> Void
+    let onSearchButtonsBarOrderButtonTapped: () -> Void
     
     var body: some View {
         Section {
@@ -13,9 +13,9 @@ struct KeyboardToolbarSection: View {
             }
         } header: {
             HStack {
-                Text("ツールバーボタン")
+                Text("サーチボタンズバー")
                 Spacer()
-                Button(action: onKeyboardToolbarOrderButtonTapped) {
+                Button(action: onSearchButtonsBarOrderButtonTapped) {
                     HStack(spacing: 4) {
                         Text("表示順序")
                         Image(systemName: "chevron.forward.circle")
@@ -23,7 +23,7 @@ struct KeyboardToolbarSection: View {
                 }
             }
         } footer: {
-            Text("ツールバーに表示する検索ボタンを設定できます。")
+            Text("サーチボタンズバーに表示する検索ボタンを設定できます。")
         }
     }
     
@@ -31,7 +31,7 @@ struct KeyboardToolbarSection: View {
         platform: SearchPlatform,
         action: @escaping (SearchPlatform) -> Void
     ) -> some View {
-        let isEnabled = enabledKeyboardToolbarButtons.contains(platform)
+        let isEnabled = enabledSearchButtons.contains(platform)
         
         return Button {
             action(platform)
@@ -51,19 +51,19 @@ struct KeyboardToolbarSection: View {
 }
 
 #Preview {
-    @Previewable @State var enabledKeyboardToolbarButtons = SearchPlatform.allCases
+    @Previewable @State var enabledSearchButtons = SearchPlatform.allCases
     
     List {
-        KeyboardToolbarSection(
-            enabledKeyboardToolbarButtons: enabledKeyboardToolbarButtons,
+        SearchButtonsBarSection(
+            enabledSearchButtons: enabledSearchButtons,
             onPlatformButtonTapped: { platform in
-                if enabledKeyboardToolbarButtons.contains(platform) {
-                    enabledKeyboardToolbarButtons.removeAll { $0 == platform }
+                if enabledSearchButtons.contains(platform) {
+                    enabledSearchButtons.removeAll { $0 == platform }
                 } else {
-                    enabledKeyboardToolbarButtons.append(platform)
+                    enabledSearchButtons.append(platform)
                 }
             },
-            onKeyboardToolbarOrderButtonTapped: {}
+            onSearchButtonsBarOrderButtonTapped: {}
         )
     }
 }

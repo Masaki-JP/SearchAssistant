@@ -17,7 +17,7 @@ struct ContentView: View {
     @State var isPresentedSettingsView = false
     @State var isPresentedDeleteAllHistoriesAlert = false
     @State var presentedSafariViewURL: SafariViewURL? = nil
-    @State var enabledKeyboardToolbarButtons = SearchPlatform.allCases
+    @State var enabledSearchButtons = SearchPlatform.allCases
     
     @AppStorage(UserDefaultsKey.AppStorageKey.autoFocus.rawValue) var settingAutoFocus = true
     @AppStorage(UserDefaultsKey.AppStorageKey.searchButtonLeft.rawValue) var settingLeftSearchButton = false
@@ -25,7 +25,7 @@ struct ContentView: View {
     
     let suggestionFetcher = SuggestionFetcher.shared
     let searchURLCreator = SearchURLCreator()
-    let enabledKeyboardToolbarButtonRepository = EnabledKeyboardToolbarButtonRepository()
+    let enabledSearchButtonsRepository = EnabledSearchButtonsRepository()
     
     /// ContentView に表示するコンテンツの状態を返す。
     ///
@@ -101,7 +101,7 @@ struct ContentView: View {
                 focusTextFieldButton
                     .padding(settingLeftSearchButton == false ? .trailing : .leading)
             } else {
-                if enabledKeyboardToolbarButtons.isEmpty == true {
+                if enabledSearchButtons.isEmpty == true {
                     keyboardCloseButton
                         .padding(settingLeftSearchButton == false ? .trailing : .leading)
                         .padding(.bottom, 4)
@@ -109,10 +109,10 @@ struct ContentView: View {
             }
         }
         .overlay(alignment: .bottom) {
-            if isFocused == true, enabledKeyboardToolbarButtons.isEmpty == false {
+            if isFocused == true, enabledSearchButtons.isEmpty == false {
                 SearchButtonsBar(
-                    platforms: enabledKeyboardToolbarButtons,
-                    onPlatformButtonTapped: { searchAction(userInput, on: $0) },
+                    platforms: enabledSearchButtons,
+                    onSearchButtonTapped: { searchAction(userInput, on: $0) },
                     onCloseButtonTapped: { isFocused = false }
                 )
             }
