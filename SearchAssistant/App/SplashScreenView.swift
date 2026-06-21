@@ -5,7 +5,7 @@ struct SplashScreenView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @Environment(\.modelContext) var modelContext
     @State var opacity = 1.0
-    let size: CGFloat = 280
+    let size: CGFloat = 196
     
     var body: some View {
         VStack(spacing: .zero) {
@@ -17,10 +17,10 @@ struct SplashScreenView: View {
             
             Text("Search Assistant")
                 .foregroundStyle(textColor)
-                .font(.largeTitle)
+                .font(.title2)
                 .fontWeight(.black)
-                .padding(.leading, 16)
-                .padding(.top, -16)
+                .padding(.leading, 12)
+                .padding(.top, -12)
         }
         .padding(.bottom, 80)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -43,15 +43,11 @@ struct SplashScreenView: View {
     
     func afterAppear() async {
         migrateSearchHistoriesToSwiftDataIfNeeded()
-        
         try? await Task.sleep(for: .seconds(0.5))
-        
         withAnimation(.easeOut(duration: 1.0)) {
             opacity = .zero
         }
-        
         try? await Task.sleep(for: .seconds(1.25))
-        
         ViewRouter.shared.changeView(to: .contentView)
     }
     
