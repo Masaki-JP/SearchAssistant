@@ -94,12 +94,23 @@ struct ContentView: View {
         }
         
         // MARK: - Style Modifier
-
+        
         .background(backgroundColor, ignoresSafeAreaEdges: .all)
         .overlay(alignment: settingLeftSearchButton == false ? .bottomTrailing : .bottomLeading) {
             if isFocused == false {
-                focusTextFieldButton
-                    .padding(settingLeftSearchButton == false ? .trailing : .leading)
+                GeometryReader { geometryProxy in
+                    focusTextFieldButton
+                        .frame(
+                            maxWidth: .infinity,
+                            maxHeight: .infinity,
+                            alignment: settingLeftSearchButton == false ? .bottomTrailing : .bottomLeading
+                        )
+                        .padding(
+                            settingLeftSearchButton == false ? .trailing : .leading,
+                            leadingOrTrailingPadding(geometryProxy)
+                        )
+                        .padding(.bottom, bottomPadding(geometryProxy))
+                }
             } else {
                 if enabledSearchButtons.isEmpty == true {
                     keyboardCloseButton
@@ -135,7 +146,7 @@ struct ContentView: View {
         }
         
         // MARK: - Behavior Modifier
-
+        
         .onAppear(perform: onAppear)
         .task(id: userInput, onUserInputChange)
         .onChange(of: scenePhase, onScenePhaseChange)
@@ -144,7 +155,7 @@ struct ContentView: View {
     }
     
     // MARK: - View Components
-        
+    
     var searchTextField: some View {
         SearchTextField(
             isFocused: $isFocused,
@@ -187,6 +198,14 @@ struct ContentView: View {
     
     var backgroundColor: AnyShapeStyle {
         colorScheme == .light ? AnyShapeStyle(Color(uiColor: .systemGroupedBackground)) : AnyShapeStyle(.background)
+    }
+    
+    func leadingOrTrailingPadding(_ geometryProxy: GeometryProxy) -> CGFloat {
+        geometryProxy.safeAreaInsets.bottom != .zero ? geometryProxy.safeAreaInsets.bottom - 10 : 10
+    }
+    
+    func bottomPadding(_ geometryProxy: GeometryProxy) -> CGFloat {
+        geometryProxy.safeAreaInsets.bottom != .zero ? -10 : 10
     }
 }
 
