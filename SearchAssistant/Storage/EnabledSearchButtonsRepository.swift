@@ -1,35 +1,35 @@
 import Foundation
 import SearchCore
 
-final class EnabledKeyboardToolbarButtonRepository {
-    private let key = UserDefaultsKey.enabledKeyboardToolbarButtons
+final class EnabledSearchButtonsRepository {
+    private let key = UserDefaultsKey.enabledSearchButtons
     
-    enum EnabledKeyboardToolbarButtonRepositoryError: Error {
+    enum EnabledSearchButtonsRepositoryError: Error {
         case dataNotSet
         case decodingError
         case encodingError
     }
     
-    func save(_ value: [SearchPlatform]) throws(EnabledKeyboardToolbarButtonRepositoryError) {
+    func save(_ value: [SearchPlatform]) throws(EnabledSearchButtonsRepositoryError) {
         do {
             let encodedData = try JSONEncoder().encode(value)
             UserDefaults.standard.set(encodedData, forKey: key.rawValue)
         } catch {
             reportError(error)
-            throw EnabledKeyboardToolbarButtonRepositoryError.encodingError
+            throw EnabledSearchButtonsRepositoryError.encodingError
         }
     }
     
-    func load() throws(EnabledKeyboardToolbarButtonRepositoryError) -> [SearchPlatform] {
+    func load() throws(EnabledSearchButtonsRepositoryError) -> [SearchPlatform] {
         guard let itemsData = UserDefaults.standard.data(forKey: key.rawValue)
-        else { throw EnabledKeyboardToolbarButtonRepositoryError.dataNotSet }
+        else { throw EnabledSearchButtonsRepositoryError.dataNotSet }
         
         do {
             let items = try JSONDecoder().decode([SearchPlatform].self, from: itemsData)
             return items
         } catch {
             reportError(error)
-            throw EnabledKeyboardToolbarButtonRepositoryError.decodingError
+            throw EnabledSearchButtonsRepositoryError.decodingError
         }
     }
 }

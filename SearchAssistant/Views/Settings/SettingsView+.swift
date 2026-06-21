@@ -2,39 +2,39 @@ import SearchCore
 import SwiftUI
 
 extension SettingsView {
-    func loadEnabledKeyboardToolbarButtons() {
+    func loadEnabledSearchButtons() {
         do {
-            enabledKeyboardToolbarButtons = try enabledKeyboardToolbarButtonRepository.load()
+            enabledSearchButtons = try enabledSearchButtonsRepository.load()
         } catch {
             if error != .dataNotSet { reportError(error) }
-            enabledKeyboardToolbarButtons = SearchPlatform.allCases
+            enabledSearchButtons = SearchPlatform.allCases
         }
     }
     
-    func toggleToolbarButtonAvailability(_ platform: SearchPlatform) {
-        let previousState = enabledKeyboardToolbarButtons
-        if enabledKeyboardToolbarButtons.contains(platform) {
-            enabledKeyboardToolbarButtons.removeAll { $0 == platform }
+    func toggleSearchButtonEnabled(_ platform: SearchPlatform) {
+        let previousState = enabledSearchButtons
+        if enabledSearchButtons.contains(platform) {
+            enabledSearchButtons.removeAll { $0 == platform }
         } else {
-            enabledKeyboardToolbarButtons.append(platform)
+            enabledSearchButtons.append(platform)
         }
         do {
-            try enabledKeyboardToolbarButtonRepository.save(enabledKeyboardToolbarButtons)
+            try enabledSearchButtonsRepository.save(enabledSearchButtons)
             selectionSoundPlayer.play()
         } catch {
             reportError(error)
-            enabledKeyboardToolbarButtons = previousState
+            enabledSearchButtons = previousState
         }
     }
     
-    func onKeyboardToolbarButtonsMove(fromOffsets source: IndexSet, toOffset destination: Int) {
-        let previousState = enabledKeyboardToolbarButtons
-        enabledKeyboardToolbarButtons.move(fromOffsets: source, toOffset: destination)
+    func onSearchButtonsMove(fromOffsets source: IndexSet, toOffset destination: Int) {
+        let previousState = enabledSearchButtons
+        enabledSearchButtons.move(fromOffsets: source, toOffset: destination)
         do {
-            try enabledKeyboardToolbarButtonRepository.save(enabledKeyboardToolbarButtons)
+            try enabledSearchButtonsRepository.save(enabledSearchButtons)
         } catch {
             reportError(error)
-            enabledKeyboardToolbarButtons = previousState
+            enabledSearchButtons = previousState
         }
     }
 }

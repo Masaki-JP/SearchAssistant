@@ -10,10 +10,10 @@ struct SettingsView: View {
     @AppStorage(UserDefaultsKey.AppStorageKey.colorScheme.rawValue) var colorSchemeSetting = ColorSchemeSetting.defaultValue
     @AppStorage(UserDefaultsKey.AppStorageKey.openInSafariView.rawValue) var openInSafariView = true
     
-    @State var enabledKeyboardToolbarButtons = SearchPlatform.allCases
-    @State var isPresentedKeyboardToolbarOrderView = false
+    @State var enabledSearchButtons = SearchPlatform.allCases
+    @State var isPresentedSearchButtonsBarOrderView = false
     let selectionSoundPlayer = SelectionSoundPlayer()
-    let enabledKeyboardToolbarButtonRepository = EnabledKeyboardToolbarButtonRepository()
+    let enabledSearchButtonsRepository = EnabledSearchButtonsRepository()
     
     var body: some View {
         NavigationStack {
@@ -22,14 +22,14 @@ struct SettingsView: View {
                 searchButtonPositionSection
                 colorSchemeSection
                 browserSection
-                keyboardToolbarSection
+                searchButtonsBarSection
                 historySection
                 appInfoSection
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
-            .navigationDestination(isPresented: $isPresentedKeyboardToolbarOrderView, destination: {
-                keyboardToolbarOrderView
+            .navigationDestination(isPresented: $isPresentedSearchButtonsBarOrderView, destination: {
+                searchButtonsBarOrderView
                     .navigationTitle("表示順序")
             })
             .toolbar {
@@ -42,8 +42,8 @@ struct SettingsView: View {
             guard newScene != .active else { return }
             dismiss()
         }
-        .onAppear(perform: loadEnabledKeyboardToolbarButtons)
-        .sensoryFeedback(.selection, trigger: enabledKeyboardToolbarButtons)
+        .onAppear(perform: loadEnabledSearchButtons)
+        .sensoryFeedback(.selection, trigger: enabledSearchButtons)
     }
     
     var focusControlSection: some View {
@@ -96,11 +96,11 @@ struct SettingsView: View {
         }
     }
     
-    var keyboardToolbarSection: some View {
-        KeyboardToolbarSection(
-            enabledKeyboardToolbarButtons: enabledKeyboardToolbarButtons,
-            onPlatformButtonTapped: toggleToolbarButtonAvailability,
-            onKeyboardToolbarOrderButtonTapped: { isPresentedKeyboardToolbarOrderView = true }
+    var searchButtonsBarSection: some View {
+        SearchButtonsBarSection(
+            enabledSearchButtons: enabledSearchButtons,
+            onPlatformButtonTapped: toggleSearchButtonEnabled,
+            onSearchButtonsBarOrderButtonTapped: { isPresentedSearchButtonsBarOrderView = true }
         )
     }
     
@@ -131,17 +131,17 @@ struct SettingsView: View {
         Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "-"
     }
     
-    var keyboardToolbarOrderView: some View {
+    var searchButtonsBarOrderView: some View {
         List {
             Section {
-                ForEach(enabledKeyboardToolbarButtons) { platform in
+                ForEach(enabledSearchButtons) { platform in
                     Text(platform.displayName)
                 }
-                .onMove(perform: onKeyboardToolbarButtonsMove)
+                .onMove(perform: onSearchButtonsMove)
             } header: {
-                Text("ツールバーボタン")
+                Text("サーチボタンズバー")
             } footer: {
-                Text("ツールバーに表示する検索ボタンの並び順を設定できます。")
+                Text("サーチボタンズバーに表示する検索ボタンの並び順を設定できます。")
             }
         }
         .environment(\.editMode, .constant(.active))
