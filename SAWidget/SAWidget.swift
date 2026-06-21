@@ -26,11 +26,16 @@ struct SAWidgetEntryView : View {
     var entry: Provider.Entry
     
     var body: some View {
-        Image(systemName: "magnifyingglass.circle")
-            .resizable()
-            .scaledToFit()
-            .privacySensitive(false)
-            .containerBackground(.clear, for: .widget)
+        ZStack {
+            AccessoryWidgetBackground()
+            
+            Image(.lockScreenWidgetLogo)
+                .resizable()
+                .scaledToFit()
+                .padding(2)
+                .privacySensitive(false)
+        }
+        .containerBackground(.clear, for: .widget)
     }
 }
 
