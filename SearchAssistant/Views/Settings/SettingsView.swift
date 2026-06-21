@@ -139,9 +139,9 @@ struct SettingsView: View {
                 }
                 .onMove(perform: onSearchButtonsMove)
             } header: {
-                Text("サーチボタンズバー")
+                Text("サーチボタンバー")
             } footer: {
-                Text("サーチボタンズバーに表示する検索ボタンの並び順を設定できます。")
+                Text("サーチボタンバーに表示する検索ボタンの並び順を設定できます。")
             }
         }
         .environment(\.editMode, .constant(.active))

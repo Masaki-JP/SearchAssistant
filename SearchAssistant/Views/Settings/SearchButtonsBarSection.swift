@@ -13,7 +13,7 @@ struct SearchButtonsBarSection: View {
             }
         } header: {
             HStack {
-                Text("サーチボタンズバー")
+                Text("サーチボタンバー")
                 Spacer()
                 Button(action: onSearchButtonsBarOrderButtonTapped) {
                     HStack(spacing: 4) {
@@ -23,7 +23,7 @@ struct SearchButtonsBarSection: View {
                 }
             }
         } footer: {
-            Text("サーチボタンズバーに表示する検索ボタンを設定できます。")
+            Text("サーチボタンバーに表示する検索ボタンを設定できます。")
         }
     }
     
