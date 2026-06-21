@@ -3,7 +3,7 @@ import SearchCore
 
 struct SearchButtonsBar: View {
     let platforms: [SearchPlatform]
-    let onPlatformButtonTapped: (SearchPlatform?) -> Void
+    let onSearchButtonTapped: (SearchPlatform?) -> Void
     let onCloseButtonTapped: () -> Void
     
     @Environment(\.scenePhase) var scenePhase: ScenePhase
@@ -25,7 +25,7 @@ struct SearchButtonsBar: View {
             HStack(spacing: .zero) {
                 ForEach(platforms) { searchPlatform in
                     Button {
-                        onPlatformButtonTapped(searchPlatform)
+                        onSearchButtonTapped(searchPlatform)
                     } label: {
                         Text(searchPlatform.displayName)
                             .fixedSize(horizontal: true, vertical: false)
@@ -48,7 +48,7 @@ struct SearchButtonsBar: View {
                     HStack(spacing: .zero) {
                         ForEach(platforms) { searchPlatform in
                             Button {
-                                onPlatformButtonTapped(searchPlatform)
+                                onSearchButtonTapped(searchPlatform)
                             } label: {
                                 Text(searchPlatform.displayName)
                                     .padding(.horizontal, 6)
@@ -89,13 +89,13 @@ struct SearchButtonsBar: View {
             VStack(spacing: 40) {
                 SearchButtonsBar(
                     platforms: SearchPlatform.allCases,
-                    onPlatformButtonTapped: { print($0?.displayName as Any) },
+                    onSearchButtonTapped: { print($0?.displayName as Any) },
                     onCloseButtonTapped: { print("closeButton tapped") }
                 )
                 
                 SearchButtonsBar(
                     platforms: [.google, .amazon, .youtube],
-                    onPlatformButtonTapped: { print($0?.displayName as Any) },
+                    onSearchButtonTapped: { print($0?.displayName as Any) },
                     onCloseButtonTapped: { print("closeButton tapped") }
                 )
             }
