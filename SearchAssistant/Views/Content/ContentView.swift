@@ -196,6 +196,8 @@ struct ContentView: View {
         .buttonStyle(.glass)
     }
     
+    // MARK: - Style Values
+
     var backgroundColor: AnyShapeStyle {
         colorScheme == .light ? AnyShapeStyle(Color(uiColor: .systemGroupedBackground)) : AnyShapeStyle(.background)
     }
