@@ -87,6 +87,7 @@ struct HistoryList: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
         }
+        .padding(.top, 8)
     }
     
     @ViewBuilder
