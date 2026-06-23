@@ -38,6 +38,13 @@ public enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
         }
     }
 
+    public var shortDisplayName: String {
+        switch self {
+        case .googleMaps: "G-maps"
+        default: displayName
+        }
+    }
+
     public var prefixURL: String {
         switch self {
         case .google: "https://www.google.co.jp/search?q="
