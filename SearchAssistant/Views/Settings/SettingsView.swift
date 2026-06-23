@@ -26,6 +26,7 @@ struct SettingsView: View {
                 historySection
                 appInfoSection
             }
+            .scrollIndicators(.hidden)
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(isPresented: $isPresentedSearchButtonsBarOrderView, destination: {
