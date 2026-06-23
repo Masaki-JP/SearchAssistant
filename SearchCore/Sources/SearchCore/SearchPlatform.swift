@@ -1,5 +1,4 @@
 /// rawValue はデコード、エンコードで使用しているため、開発開始時点の名称で固定する。
-///
 public enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
     case google = "Google"
     case x = "Twitter"
@@ -10,6 +9,7 @@ public enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
     case mercari = "メルカリ"
     case rakuma = "ラクマ"
     case yahooFleaMarket = "PayPayフリマ"
+    case googleMaps = "Google Maps"
 
     public var id: Self { self }
 
@@ -33,6 +33,8 @@ public enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
             "ラクマ"
         case .yahooFleaMarket:
             "Yahoo!フリマ"
+        case .googleMaps:
+            "Google Maps"
         }
     }
 
@@ -47,6 +49,7 @@ public enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
         case .mercari: "https://jp.mercari.com/search?keyword="
         case .rakuma: "https://fril.jp/s?query="
         case .yahooFleaMarket: "https://paypayfleamarket.yahoo.co.jp/search/"
+        case .googleMaps: "https://www.google.com/maps/search/?api=1&query="
         }
     }
 
@@ -61,6 +64,7 @@ public enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
         case .mercari: "M"
         case .rakuma: "R"
         case .yahooFleaMarket: "Y"
+        case .googleMaps: "M"
         }
     }
 
@@ -75,6 +79,7 @@ public enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
         case .mercari: "mercari"
         case .rakuma: "rakuma"
         case .yahooFleaMarket: "yahoo_flea_market"
+        case .googleMaps: "google_maps"
         }
     }
 }
