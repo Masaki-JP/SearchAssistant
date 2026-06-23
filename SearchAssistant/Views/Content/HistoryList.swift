@@ -102,7 +102,7 @@ struct HistoryList: View {
                     .font(.title3)
                     .fontWeight(.semibold)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(.secondary)
+                    .background(.secondary, in: .rect(cornerRadius: 6))
             }
         }
         .frame(width: 28, height: 28)
@@ -144,6 +144,8 @@ fileprivate extension Date {
     var histories = SearchHistory.samples
     let userInput = "夢なき者に理想なし、理想なき者に計画なし、計画なき者に成功なし。"
     histories.insert(.init(userInput: userInput, platform: .google), at: 3)
+    let userInput2 = "名古屋駅"
+    histories.insert(.init(userInput: userInput2, platform: .googleMaps), at: 1)
     
     return HistoryList(
         histories: histories,
