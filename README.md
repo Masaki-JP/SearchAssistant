@@ -3,9 +3,9 @@
 すぐに検索、手軽に発見。Search Assistant は、検索したいときにすばやく入力を始め、好みのサービスで検索できる iOS アプリです。
 
 <p align="center" style="box-sizing: border-box; display: flex; justify-content: space-between; max-width: 960px; margin: 0 auto; padding: 16px;">
-  <img src="images/readme/sources/iphone-17-pro/01-app-launch-rounded.png" alt="Search Assistantの起動画面" width="30%">
-  <img src="images/readme/sources/iphone-17-pro/02-instant-search-keyboard-rounded.png" alt="検索候補とキーボード" width="30%">
-  <img src="images/readme/sources/iphone-17-pro/04-search-history-rounded.png" alt="検索履歴" width="30%">
+  <img src="images/app-store/from-2026-06-22/sources/iphone-17-pro/01-app-launch.png" alt="Search Assistantの起動画面" width="30%">
+  <img src="images/app-store/from-2026-06-22/sources/iphone-17-pro/02-instant-search-keyboard.png" alt="検索候補とキーボード" width="30%">
+  <img src="images/app-store/from-2026-06-22/sources/iphone-17-pro/03-search-history.png" alt="検索履歴" width="30%">
 </p>
 
 ## 主な機能
