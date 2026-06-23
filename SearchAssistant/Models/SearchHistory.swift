@@ -15,7 +15,13 @@ enum SearchAssistantSchemaV1: VersionedSchema {
     
     @Model
     final class SearchHistory: Equatable {
-        static let maximumCount = 3_000
+        static let defaultMaximumCount = 3_000
+        static let maximumCountOptions = [500, 1_000, 1_500, 2_000, 2_500, 3_000]
+        
+        static var maximumCount: Int {
+            let maximumCount = UserDefaults.standard.integer(forKey: UserDefaultsKey.AppStorageKey.historyMaximumCount.rawValue)
+            return maximumCountOptions.contains(maximumCount) ? maximumCount : defaultMaximumCount
+        }
         
         private(set) var userInput: String
         private(set) var platformRawValue: String
