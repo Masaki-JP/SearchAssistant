@@ -1,5 +1,6 @@
 import SearchCore
 import SwiftUI
+import SwiftData
 
 extension SettingsView {
     func loadEnabledSearchButtons() {
@@ -35,6 +36,15 @@ extension SettingsView {
         } catch {
             reportError(error)
             enabledSearchButtons = previousState
+        }
+    }
+    
+    func trimHistoriesIfNeeded() {
+        do {
+            try SearchHistory.trimIfNeeded(using: modelContext)
+            try modelContext.save()
+        } catch {
+            modelContext.rollback()
         }
     }
 }

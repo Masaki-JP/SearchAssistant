@@ -8,6 +8,7 @@ extension UserDefaultsKey {
         case searchButtonLeft
         case colorScheme
         case openInSafariView
+        case historyMaximumCount
         case didMigrateSearchHistoriesToSwiftData
     }
 }

@@ -1,17 +1,21 @@
 import SwiftUI
+import SwiftData
 import SearchCore
 
 struct SettingsView: View {
     @Environment(\.scenePhase) var scenePhase
     @Environment(\.dismiss) var dismiss
+    @Environment(\.modelContext) var modelContext
     
     @AppStorage(UserDefaultsKey.AppStorageKey.autoFocus.rawValue) var settingAutoFocus = true
     @AppStorage(UserDefaultsKey.AppStorageKey.searchButtonLeft.rawValue) var settingLeftSearchButton = false
     @AppStorage(UserDefaultsKey.AppStorageKey.colorScheme.rawValue) var colorSchemeSetting = ColorSchemeSetting.defaultValue
     @AppStorage(UserDefaultsKey.AppStorageKey.openInSafariView.rawValue) var openInSafariView = true
+    @AppStorage(UserDefaultsKey.AppStorageKey.historyMaximumCount.rawValue) var historyMaximumCount = SearchHistory.defaultMaximumCount
     
     @State var enabledSearchButtons = SearchPlatform.allCases
     @State var isPresentedSearchButtonsBarOrderView = false
+    
     let selectionSoundPlayer = SelectionSoundPlayer()
     let enabledSearchButtonsRepository = EnabledSearchButtonsRepository()
     
@@ -39,11 +43,12 @@ struct SettingsView: View {
                 }
             }
         }
+        .onAppear(perform: loadEnabledSearchButtons)
+        .onChange(of: historyMaximumCount, trimHistoriesIfNeeded)
         .onChange(of: scenePhase) { _, newScene in
             guard newScene != .active else { return }
             dismiss()
         }
-        .onAppear(perform: loadEnabledSearchButtons)
         .sensoryFeedback(.selection, trigger: enabledSearchButtons)
     }
     
@@ -107,7 +112,12 @@ struct SettingsView: View {
     
     var historySection: some View {
         Section {
-            LabeledContent("保存件数", value: "最大\(SearchHistory.maximumCount.formatted())件(固定)")
+            Picker("保存件数", selection: $historyMaximumCount) {
+                ForEach(SearchHistory.maximumCountOptions, id: \.self) { maximumCount in
+                    Text("\(maximumCount.formatted())件")
+                        .tag(maximumCount)
+                }
+            }
         } header: {
             Text("履歴")
         } footer: {
