@@ -4,8 +4,8 @@ import OSLog
 private enum AppLog {
     private static let subsystem = Bundle.main.bundleIdentifier ?? "SearchAssistant"
     
+    static let action = Logger(subsystem: subsystem, category: "Action")
     static let error = Logger(subsystem: subsystem, category: "Error")
-    static let mock = Logger(subsystem: subsystem, category: "Mock")
 }
 
 func reportError(
@@ -25,15 +25,15 @@ func reportError(
 #endif
 }
 
-func reportMockAction(
+func reportAction(
     message: String = "",
     fileID: String = #fileID,
     function: String = #function,
     line: Int = #line
 ) {
 #if DEBUG
-    AppLog.mock.debug(
-        "mockAction message=\(message, privacy: .public) fileID=\(fileID, privacy: .public) function=\(function, privacy: .public) line=\(line)"
+    AppLog.action.debug(
+        "action message=\(message, privacy: .public) fileID=\(fileID, privacy: .public) function=\(function, privacy: .public) line=\(line)"
     )
 #endif
 }

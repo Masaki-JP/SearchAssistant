@@ -16,7 +16,7 @@ struct FakeEnabledSearchButtonsRepository: EnabledSearchButtonsRepositoryInterfa
     }
     
     func save(_ value: [SearchPlatform]) throws(EnabledSearchButtonsRepositoryError) {
-        reportMockAction()
+        reportAction()
     }
     
     func load() throws(EnabledSearchButtonsRepositoryError) -> [SearchPlatform] {
