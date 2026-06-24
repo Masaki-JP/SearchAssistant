@@ -197,7 +197,7 @@ struct ContentView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepos
     }
     
     // MARK: - Style Values
-
+    
     var backgroundColor: AnyShapeStyle {
         colorScheme == .light ? AnyShapeStyle(Color(uiColor: .systemGroupedBackground)) : AnyShapeStyle(.background)
     }
@@ -212,6 +212,11 @@ struct ContentView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepos
 }
 
 #Preview {
+    let returnValue: [SearchPlatform] = [.amazon, .instagram, .mercari, .googleMaps]
+    ContentView(enabledSearchButtonsRepository: .fake(returnValue: returnValue))
+}
+
+#Preview(traits: .searchHistorySampleData) {
     let returnValue: [SearchPlatform] = [.amazon, .instagram, .mercari, .googleMaps]
     ContentView(enabledSearchButtonsRepository: .fake(returnValue: returnValue))
 }
