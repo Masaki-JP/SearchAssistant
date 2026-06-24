@@ -3,7 +3,7 @@ import SwiftData
 import SearchCore
 import SearchSuggestion
 
-struct ContentView: View {
+struct ContentView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepositoryInterface>: View {
     @FocusState var isFocused: Bool
     @Environment(\.scenePhase) var scenePhase
     @Environment(\.colorScheme) var colorScheme: ColorScheme
@@ -25,7 +25,7 @@ struct ContentView: View {
     
     let suggestionFetcher = SuggestionFetcher.shared
     let searchURLCreator = SearchURLCreator()
-    let enabledSearchButtonsRepository = EnabledSearchButtonsRepository()
+    let enabledSearchButtonsRepository: EnabledSearchButtonsRepositoryType
     
     /// ContentView に表示するコンテンツの状態を返す。
     ///
@@ -133,7 +133,7 @@ struct ContentView: View {
                 .ignoresSafeArea()
         }
         .sheet(isPresented: $isPresentedSettingsView, onDismiss: onSettingsViewDismiss, content: {
-            SettingsView()
+            SettingsView(enabledSearchButtonsRepository: enabledSearchButtonsRepository)
                 .preferredColorScheme(colorScheme)
         })
         .alert("確認", isPresented: $isPresentedDeleteAllHistoriesAlert) {
@@ -212,5 +212,6 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    let returnValue: [SearchPlatform] = [.amazon, .instagram, .mercari, .googleMaps]
+    ContentView(enabledSearchButtonsRepository: .fake(returnValue: returnValue))
 }
