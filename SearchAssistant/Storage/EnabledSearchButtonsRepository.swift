@@ -1,7 +1,7 @@
 import Foundation
 import SearchCore
 
-struct EnabledSearchButtonsRepository {
+struct EnabledSearchButtonsRepository: EnabledSearchButtonsRepositoryInterface {
     private static let key = UserDefaultsKey.enabledSearchButtons
     
     enum EnabledSearchButtonsRepositoryError: Error {

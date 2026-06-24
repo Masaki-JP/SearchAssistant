@@ -23,3 +23,11 @@ struct FakeEnabledSearchButtonsRepository: EnabledSearchButtonsRepositoryInterfa
         value
     }
 }
+
+extension EnabledSearchButtonsRepositoryInterface where Self == EnabledSearchButtonsRepository {
+    static var standard: EnabledSearchButtonsRepository { .init() }
+    
+    static func fake(returnValue: [SearchPlatform]) -> FakeEnabledSearchButtonsRepository {
+        .init(returnValue: returnValue)
+    }
+}
