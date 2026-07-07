@@ -46,48 +46,24 @@ struct HistoryList: View {
         Button(action: {
             action()
         }, label: {
-            ViewThatFits(in: .horizontal) {
-                singleLineLabel(history: history)
-                multiLineLabel(history: history)
-            }
-            .contentShape(.rect)
-        })
-        .buttonStyle(.plain)
-    }
-    
-    func singleLineLabel(history: SearchHistory) -> some View {
-        HStack(spacing: nil) {
-            faviconImage(history.platform)
-            
-            Text(history.userInput)
-                .padding(.leading, 4)
-            
-            Spacer()
-            
-            Text(history.date.string())
-                .foregroundStyle(.secondary)
-                .font(.caption2)
-                .padding(.vertical, 4)
-                .clipShape(.rect(cornerRadius: 10))
-        }
-    }
-    
-    func multiLineLabel(history: SearchHistory) -> some View {
-        HStack(alignment: .top, spacing: nil) {
-            faviconImage(history.platform)
-            
-            VStack(spacing: 4) {
+            HStack(spacing: nil) {
+                faviconImage(history.platform)
+                
                 Text(history.userInput)
+                    .lineLimit(1)
                     .padding(.leading, 4)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Spacer()
                 
                 Text(history.date.string())
                     .foregroundStyle(.secondary)
                     .font(.caption2)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .padding(.vertical, 4)
+                    .clipShape(.rect(cornerRadius: 10))
             }
-        }
-        .padding(.top, 8)
+            .contentShape(.rect)
+        })
+        .buttonStyle(.plain)
     }
     
     @ViewBuilder
