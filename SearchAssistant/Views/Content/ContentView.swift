@@ -79,7 +79,7 @@ struct ContentView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepos
                 case .noSearchHistory:
                     NoContentView.searchHistory
                 case .searchSuggestionList:
-                    SuggestionList(suggestions: suggestions, onRowTapped: searchAction)
+                    SuggestionList(suggestions: suggestions, onSearch: searchAction)
                         .scrollIndicators(.hidden)
                 case .noSearchSuggestion:
                     NoContentView.searchSuggestion
