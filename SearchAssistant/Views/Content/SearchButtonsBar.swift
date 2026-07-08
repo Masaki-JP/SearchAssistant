@@ -53,6 +53,7 @@ struct SearchButtonsBar: View {
                                 Text(searchPlatform.shortDisplayName)
                                     .padding(.horizontal, 6)
                                     .padding(.vertical, 12)
+                                    .frame(minWidth: 36)
                             }
                         }
                     }
