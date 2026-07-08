@@ -36,6 +36,7 @@ struct SuggestionList: View {
                 action()
             } label: {
                 Text(suggestion)
+                    .lineLimit(1)
                     .padding(.leading, 4)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .contentShape(.rect)
