@@ -169,7 +169,7 @@ struct ContentView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepos
     var historyList: some View {
         HistoryList(
             histories: histories,
-            onRowTapped: searchAction,
+            onSearch: searchAction,
             onDelete: removeHistory,
             isPresentedDeleteAllHistoriesAlert: $isPresentedDeleteAllHistoriesAlert
         )

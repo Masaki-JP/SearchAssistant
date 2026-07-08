@@ -4,7 +4,7 @@ import SearchCore
 
 struct HistoryList: View {
     let histories: [SearchHistory]
-    let onRowTapped: (String, SearchPlatform?) -> Void
+    let onSearch: (String, SearchPlatform?) -> Void
     let onDelete: (IndexSet) -> Void
     @Binding var isPresentedDeleteAllHistoriesAlert: Bool
     
@@ -12,8 +12,8 @@ struct HistoryList: View {
         List {
             Section {
                 ForEach(histories) { history in
-                    historyRowButton(history: history) {
-                        onRowTapped(history.userInput, history.platform)
+                    historyRow(history: history) {
+                        onSearch(history.userInput, history.platform)
                     }
                     .padding(.top, histories.first?.id == history.id ? 4 : 0)
                     .padding(.bottom, histories.last?.id == history.id ? 4 : 0)
@@ -42,28 +42,54 @@ struct HistoryList: View {
         }
     }
     
-    func historyRowButton(history: SearchHistory, action: @escaping () -> Void) -> some View {
-        Button(action: {
-            action()
-        }, label: {
-            HStack(spacing: nil) {
-                faviconImage(history.platform)
+    func historyRow(history: SearchHistory, action: @escaping () -> Void) -> some View {
+        HStack(spacing: 8) {
+            Button(action: {
+                action()
+            }, label: {
+                HStack(spacing: nil) {
+                    faviconImage(history.platform)
+                    
+                    Text(history.userInput)
+                        .lineLimit(1)
+                        .padding(.leading, 4)
+                    
+                    Spacer()
+                }
+                .contentShape(.rect)
+            })
+            .buttonStyle(.plain)
+            
+            Menu("Menu", systemImage: "info.circle") {
+                Section {
+                    Text(history.userInput)
+                } header: {
+                    Text("検索")
+                }
+                Section {
+                    Text(history.platform?.displayName ?? "不明")
+                } header: {
+                    Text("プラットフォーム")
+                }
+                Section {
+                    Text(history.date.description)
+                } header: {
+                    Text("日時")
+                }
                 
-                Text(history.userInput)
-                    .lineLimit(1)
-                    .padding(.leading, 4)
-                
-                Spacer()
-                
-                Text(history.date.string())
-                    .foregroundStyle(.secondary)
-                    .font(.caption2)
-                    .padding(.vertical, 4)
-                    .clipShape(.rect(cornerRadius: 10))
+                Menu("再検索") {
+                    ForEach(SearchPlatform.allCases) { searchPlatform in
+                        Button(searchPlatform.displayName) {
+                            onSearch(history.userInput, searchPlatform)
+                        }
+                    }
+                }
             }
-            .contentShape(.rect)
-        })
-        .buttonStyle(.plain)
+            .menuOrder(.fixed)
+            .labelStyle(.iconOnly)
+            .font(.title2)
+            .foregroundStyle(.secondary)
+        }
     }
     
     @ViewBuilder
@@ -126,7 +152,7 @@ fileprivate extension Date {
     
     return HistoryList(
         histories: histories,
-        onRowTapped: { userInput, platform in
+        onSearch: { userInput, platform in
             print(userInput, platform as Any)
         },
         onDelete: { (_) -> Void in },
