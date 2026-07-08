@@ -39,9 +39,8 @@ struct SuggestionList: View {
                     .lineLimit(1)
                     .padding(.leading, 4)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .contentShape(.rect)
             }
-            .buttonStyle(.plain)
+            .foregroundStyle(.primary)
             
             Menu("Menu", systemImage: "ellipsis.circle") {
                 Section {
