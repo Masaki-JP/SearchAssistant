@@ -52,12 +52,10 @@ struct HistoryList: View {
                     Text(history.userInput)
                         .lineLimit(1)
                         .padding(.leading, 4)
-                    
-                    Spacer()
                 }
-                .contentShape(.rect)
+                .frame(maxWidth: .infinity, alignment: .leading)
             })
-            .buttonStyle(.plain)
+            .foregroundStyle(.primary)
             
             Menu("Menu", systemImage: "info.circle") {
                 Section {

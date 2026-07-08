@@ -44,9 +44,8 @@ struct SearchButtonsBarSection: View {
                     .fontWeight(.semibold)
                     .foregroundStyle(isEnabled ? .green : .gray)
             }
-            .contentShape(.rect)
         }
-        .buttonStyle(.plain)
+        .foregroundStyle(.primary)
     }
 }
 
