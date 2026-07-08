@@ -26,7 +26,6 @@ struct SuggestionList: View {
                 }
             } header: {
                 Text("Suggestions")
-                    .textCase(.none)
             }
         }
     }

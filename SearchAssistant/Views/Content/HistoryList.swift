@@ -30,7 +30,6 @@ struct HistoryList: View {
                 }
             } header: {
                 Text("Histories")
-                    .textCase(.none)
             } footer: {
                 Button("全履歴を削除", role: .destructive) {
                     isPresentedDeleteAllHistoriesAlert = true
