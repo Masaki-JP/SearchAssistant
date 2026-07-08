@@ -55,7 +55,7 @@ struct SuggestionList: View {
             }
             .menuOrder(.fixed)
             .labelStyle(.iconOnly)
-            .foregroundStyle(.secondary)
+            .foregroundStyle(.tertiary)
             .font(.title2)
             .fontWeight(.light)
         }

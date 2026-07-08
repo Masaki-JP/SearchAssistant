@@ -87,7 +87,7 @@ struct HistoryList: View {
             .menuOrder(.fixed)
             .labelStyle(.iconOnly)
             .font(.title2)
-            .foregroundStyle(.secondary)
+            .foregroundStyle(.tertiary)
         }
     }
     
