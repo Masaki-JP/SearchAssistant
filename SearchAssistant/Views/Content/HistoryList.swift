@@ -72,7 +72,7 @@ struct HistoryList: View {
                     Text("プラットフォーム")
                 }
                 Section {
-                    Text(history.date.description)
+                    Text(history.date.historyDisplayString)
                 } header: {
                     Text("日時")
                 }
@@ -127,19 +127,6 @@ fileprivate extension UIImage {
         }
         
         self.init(contentsOfFile: bundleImageURL.path)
-    }
-}
-
-fileprivate extension Date {
-    static let dateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy/MM/dd"
-        dateFormatter.calendar = Calendar.autoupdatingCurrent
-        return dateFormatter
-    }()
-    
-    func string() -> String {
-        Self.dateFormatter.string(from: self)
     }
 }
 
