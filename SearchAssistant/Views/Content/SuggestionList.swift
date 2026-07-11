@@ -25,7 +25,7 @@ struct SuggestionList: View {
                     .listRowInsets(.init(top: 8, leading: 12, bottom: 8, trailing: 12))
                 }
             } header: {
-                Text("Suggestions")
+                Text("検索の候補").fontWeight(.light)
             }
         }
     }
@@ -42,7 +42,7 @@ struct SuggestionList: View {
             }
             .foregroundStyle(.primary)
             
-            Menu("Menu", systemImage: "ellipsis.circle") {
+            Menu("オプション", systemImage: "ellipsis.circle") {
                 Section {
                     ForEach(SearchPlatform.allCases) { searchPlatform in
                         Button(searchPlatform.displayName) {

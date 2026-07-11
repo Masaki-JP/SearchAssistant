@@ -30,7 +30,7 @@ struct NoContentView: View {
 
 extension NoContentView {
     static let searchHistory = NoContentView(
-        title: "I am Search Assistant !",
+        title: "検索を始めましょう",
         description: "Google, Twitter(X), Instagram, Amazon, YouTubeなどの\n検索をこのアプリひとつで行うことができます。",
         imageSystemName: "doc.text.magnifyingglass"
     )
@@ -42,7 +42,7 @@ extension NoContentView {
     )
 
     static let searchSuggestionNetworkError = NoContentView(
-        title: "Sorry! Network Error!",
+        title: "通信エラーが発生しました",
         description: "入力内容に基づく検索候補の取得に失敗しました。モバイル通信、Wi-Fi、機内モードなどの設定をご確認ください。",
         imageSystemName: "network.slash"
     )

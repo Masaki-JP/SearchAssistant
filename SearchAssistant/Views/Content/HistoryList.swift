@@ -29,7 +29,7 @@ struct HistoryList: View {
                     onDelete(indexSet)
                 }
             } header: {
-                Text("Histories")
+                Text("最近の検索").fontWeight(.light)
             } footer: {
                 Button("全履歴を削除", role: .destructive) {
                     isPresentedDeleteAllHistoriesAlert = true
@@ -57,7 +57,7 @@ struct HistoryList: View {
             })
             .foregroundStyle(.primary)
             
-            Menu("Menu", systemImage: "info.circle") {
+            Menu("詳細", systemImage: "info.circle") {
                 Section {
                     Text(history.userInput)
                 } header: {
