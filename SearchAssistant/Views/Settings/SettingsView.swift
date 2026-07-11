@@ -10,7 +10,7 @@ struct SettingsView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepo
     @AppStorage(UserDefaultsKey.AppStorageKey.autoFocus.rawValue) var settingAutoFocus = true
     @AppStorage(UserDefaultsKey.AppStorageKey.searchButtonLeft.rawValue) var settingLeftSearchButton = false
     @AppStorage(UserDefaultsKey.AppStorageKey.colorScheme.rawValue) var colorSchemeSetting = ColorSchemeSetting.defaultValue
-    @AppStorage(UserDefaultsKey.AppStorageKey.openInSafariView.rawValue) var openInSafariView = true
+    @AppStorage(UserDefaultsKey.AppStorageKey.openInSafariView.rawValue) var openInSafariView = false
     @AppStorage(UserDefaultsKey.AppStorageKey.historyMaximumCount.rawValue) var historyMaximumCount = SearchHistory.defaultMaximumCount
     
     @State var enabledSearchButtons = SearchPlatform.allCases
