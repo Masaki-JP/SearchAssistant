@@ -20,7 +20,6 @@ struct ContentView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepos
     @State var enabledSearchButtons = SearchPlatform.allCases
     
     @AppStorage(UserDefaultsKey.AppStorageKey.autoFocus.rawValue) var settingAutoFocus = true
-    @AppStorage(UserDefaultsKey.AppStorageKey.searchButtonLeft.rawValue) var settingLeftSearchButton = false
     @AppStorage(UserDefaultsKey.AppStorageKey.openInSafariView.rawValue) var openInSafariView = false
     
     let suggestionFetcher = SuggestionFetcher.shared
@@ -96,25 +95,18 @@ struct ContentView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepos
         // MARK: - Style Modifier
         
         .background(backgroundColor, ignoresSafeAreaEdges: .all)
-        .overlay(alignment: settingLeftSearchButton == false ? .bottomTrailing : .bottomLeading) {
+        .overlay(alignment: .bottomTrailing) {
             if isFocused == false {
                 GeometryReader { geometryProxy in
                     focusTextFieldButton
-                        .frame(
-                            maxWidth: .infinity,
-                            maxHeight: .infinity,
-                            alignment: settingLeftSearchButton == false ? .bottomTrailing : .bottomLeading
-                        )
-                        .padding(
-                            settingLeftSearchButton == false ? .trailing : .leading,
-                            leadingOrTrailingPadding(geometryProxy)
-                        )
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+                        .padding(.trailing, focusTextFieldButtonTrailingPadding(geometryProxy))
                         .padding(.bottom, bottomPadding(geometryProxy))
                 }
             } else {
                 if enabledSearchButtons.isEmpty == true {
                     keyboardCloseButton
-                        .padding(settingLeftSearchButton == false ? .trailing : .leading)
+                        .padding(.trailing)
                         .padding(.bottom, 4)
                 }
             }
@@ -202,7 +194,7 @@ struct ContentView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepos
         colorScheme == .light ? AnyShapeStyle(Color(uiColor: .systemGroupedBackground)) : AnyShapeStyle(.background)
     }
     
-    func leadingOrTrailingPadding(_ geometryProxy: GeometryProxy) -> CGFloat {
+    func focusTextFieldButtonTrailingPadding(_ geometryProxy: GeometryProxy) -> CGFloat {
         geometryProxy.safeAreaInsets.bottom != .zero ? geometryProxy.safeAreaInsets.bottom - 10 : 10
     }
     
