@@ -8,7 +8,6 @@ struct SettingsView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepo
     @Environment(\.modelContext) var modelContext
     
     @AppStorage(UserDefaultsKey.AppStorageKey.autoFocus.rawValue) var settingAutoFocus = true
-    @AppStorage(UserDefaultsKey.AppStorageKey.searchButtonLeft.rawValue) var settingLeftSearchButton = false
     @AppStorage(UserDefaultsKey.AppStorageKey.colorScheme.rawValue) var colorSchemeSetting = ColorSchemeSetting.defaultValue
     @AppStorage(UserDefaultsKey.AppStorageKey.openInSafariView.rawValue) var openInSafariView = false
     @AppStorage(UserDefaultsKey.AppStorageKey.historyMaximumCount.rawValue) var historyMaximumCount = SearchHistory.defaultMaximumCount
@@ -23,7 +22,6 @@ struct SettingsView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepo
         NavigationStack {
             Form {
                 focusControlSection
-                searchButtonPositionSection
                 colorSchemeSection
                 browserSection
                 searchButtonsBarSection
@@ -61,18 +59,6 @@ struct SettingsView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepo
             Text("キーボード")
         } footer: {
             Text("検索画面が表示された時に、検索フォームに自動でフォーカスします。")
-        }
-    }
-    
-    var searchButtonPositionSection: some View {
-        Section {
-            Toggle(isOn: $settingLeftSearchButton) {
-                Text("左利き用の配置")
-            }
-        } header: {
-            Text("検索ボタン")
-        } footer: {
-            Text("検索ボタンを画面左下に配置します。")
         }
     }
     
