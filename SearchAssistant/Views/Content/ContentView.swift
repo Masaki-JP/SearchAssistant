@@ -181,7 +181,7 @@ struct ContentView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepos
     }
     
     var keyboardCloseButton: some View {
-        Button("Close", role: .close) {
+        Button("閉じる", role: .close) {
             isFocused = false
         }
         .font(.title2)

@@ -47,7 +47,7 @@ struct SAWidget: Widget {
             SAWidgetEntryView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
         }
-        .configurationDisplayName("Quick Access")
+        .configurationDisplayName("クイックアクセス")
         .description("ロック画面からアプリを開くことができます。")
         .supportedFamilies([.accessoryCircular])
     }

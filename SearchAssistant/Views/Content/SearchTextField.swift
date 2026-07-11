@@ -13,8 +13,9 @@ struct SearchTextField: View {
                 .resizable()
                 .scaledToFit()
                 .frame(height: 20)
+                .padding(.bottom, 2)
             
-            TextField("What do you search for?", text: $userInput)
+            TextField("検索 / Webサイト名入力", text: $userInput)
                 .font(.title2)
                 .submitLabel(.search)
                 .focused(isFocused)

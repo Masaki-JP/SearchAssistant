@@ -29,7 +29,7 @@ struct SettingsView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepo
                 appInfoSection
             }
             .scrollIndicators(.hidden)
-            .navigationTitle("Settings")
+            .navigationTitle("各種設定")
             .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(isPresented: $isPresentedSearchButtonsBarOrderView, destination: {
                 searchButtonsBarOrderView
