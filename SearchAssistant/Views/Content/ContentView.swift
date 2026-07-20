@@ -26,17 +26,6 @@ struct ContentView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepos
     let searchURLCreator = SearchURLCreator()
     let enabledSearchButtonsRepository: EnabledSearchButtonsRepositoryType
     
-    /// ContentView に表示するコンテンツの状態を返す。
-    ///
-    /// - 入力なし
-    ///   - 履歴あり：検索履歴一覧を表示する。
-    ///   - 履歴なし：検索履歴がないことを表示する。
-    /// - 入力あり
-    ///   - 候補の取得に失敗：ネットワークエラーを表示する。
-    ///   - 候補あり：検索候補一覧を表示する。
-    ///   - 候補なし：検索候補がないことを表示する。
-    ///   - その他：検索候補の取得中として表示する。
-    ///
     var contentViewState: ContentViewState {
         if userInput.isEmpty == true {
             if histories.isEmpty == false {
