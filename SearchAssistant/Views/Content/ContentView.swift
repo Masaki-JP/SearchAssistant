@@ -109,6 +109,7 @@ struct ContentView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepos
                     }
                 }
             }
+            .scrollEdgeEffectHidden()
         }
         .fullScreenCover(item: $presentedSafariViewURL) { item in
             SafariView(url: item.url)
