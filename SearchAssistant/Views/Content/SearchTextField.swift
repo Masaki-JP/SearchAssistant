@@ -6,25 +6,27 @@ struct SearchTextField: View {
     let onSettingsButtonTapped: () -> Void
     let onInputClearButtonTapped: () -> Void
     let onSubmit: () -> Void
+        
+    @ScaledMetric(relativeTo: .title2) var dynamicTypeScale: CGFloat = 1
     
-    @ScaledMetric(relativeTo: .title2) var iconHight: CGFloat = 20
-    @ScaledMetric(relativeTo: .title2) var magnifyingglassIconFrameHight: CGFloat = 22
-    @ScaledMetric(relativeTo: .title2) var textFieldHight: CGFloat = 26
+    func scaledLength(_ baseLength: CGFloat) -> CGFloat {
+        dynamicTypeScale * baseLength
+    }
     
     var body: some View {
         HStack {
             Image(systemName: "magnifyingglass")
                 .resizable()
                 .scaledToFit()
-                .frame(height: iconHight)
-                .frame(height: magnifyingglassIconFrameHight, alignment: .top)
+                .frame(height: scaledLength(20))
+                .frame(height: scaledLength(22), alignment: .top)
             
             TextField("検索 / Webサイト名入力", text: $userInput)
                 .font(.title2)
                 .submitLabel(.search)
                 .focused(isFocused)
                 .onSubmit(onSubmit)
-                .frame(height: textFieldHight)
+                .frame(height: scaledLength(26))
             
             if userInput.isEmpty == true {
                 settingsButton
@@ -41,7 +43,7 @@ struct SearchTextField: View {
             Image(systemName: "gearshape")
                 .resizable()
                 .scaledToFit()
-                .frame(height: iconHight)
+                .frame(height: scaledLength(20))
                 .tint(.primary)
         }
     }
@@ -53,7 +55,7 @@ struct SearchTextField: View {
             Image(systemName: "x.circle")
                 .resizable()
                 .scaledToFit()
-                .frame(height: iconHight)
+                .frame(height: scaledLength(20))
                 .tint(.primary)
         }
     }
