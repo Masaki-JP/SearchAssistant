@@ -60,74 +60,75 @@ struct ContentView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepos
     }
     
     var body: some View {
-        
-        // MARK: - Main Content
-        
-        VStack(spacing: 0) {
-            searchTextField
-                .padding(.horizontal)
-            
-            Divider()
-                .padding(.top, 8)
-            
-            Group {
-                switch contentViewState {
-                case .searchHistoryList:
-                    historyList
-                        .scrollIndicators(histories.count >= 200 ? .automatic : .hidden)
-                case .noSearchHistory:
-                    NoContentView.searchHistory
-                case .searchSuggestionList:
-                    SuggestionList(suggestions: suggestions, onSearch: searchAction)
-                        .scrollIndicators(.hidden)
-                case .noSearchSuggestion:
-                    NoContentView.searchSuggestion
-                case .searchSuggestionLoading:
-                    ProgressView()
-                        .controlSize(.large)
-                case .searchSuggestionNetworkError:
-                    NoContentView.searchSuggestionNetworkError
+        NavigationStack {
+            VStack(spacing: .zero) {
+                searchTextField
+                    .padding(.horizontal)
+                
+                Divider()
+                    .padding(.top, 8)
+                
+                Group {
+                    switch contentViewState {
+                    case .searchHistoryList:
+                        historyList
+                            .scrollIndicators(histories.count >= 200 ? .automatic : .hidden)
+                    case .noSearchHistory:
+                        NoContentView.searchHistory
+                    case .searchSuggestionList:
+                        SuggestionList(suggestions: suggestions, onSearch: searchAction)
+                            .scrollIndicators(.hidden)
+                    case .noSearchSuggestion:
+                        NoContentView.searchSuggestion
+                    case .searchSuggestionLoading:
+                        ProgressView()
+                            .controlSize(.large)
+                    case .searchSuggestionNetworkError:
+                        NoContentView.searchSuggestionNetworkError
+                    }
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .animation(.default, value: histories)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-        }
-        
-        // MARK: - Style Modifier
-        
-        .background(backgroundColor, ignoresSafeAreaEdges: .all)
-        .overlay(alignment: .bottomTrailing) {
-            if isFocused == false {
-                GeometryReader { geometryProxy in
-                    focusTextFieldButton
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
-                        .padding(.trailing, focusTextFieldButtonTrailingPadding(geometryProxy))
-                        .padding(.bottom, bottomPadding(geometryProxy))
-                }
-            } else {
-                if enabledSearchButtons.isEmpty == true {
+            .background(backgroundColor, ignoresSafeAreaEdges: .all)
+            .overlay(alignment: .bottomTrailing) {
+                if isFocused == true, enabledSearchButtons.isEmpty == true {
                     keyboardCloseButton
                         .padding(.trailing)
                         .padding(.bottom, 4)
                 }
             }
-        }
-        .overlay(alignment: .bottom) {
-            if isFocused == true, enabledSearchButtons.isEmpty == false {
-                SearchButtonsBar(
-                    platforms: enabledSearchButtons,
-                    onSearchButtonTapped: { searchAction(userInput, on: $0) },
-                    onCloseButtonTapped: { isFocused = false }
-                )
+            .overlay(alignment: .bottom) {
+                if isFocused == true, enabledSearchButtons.isEmpty == false {
+                    SearchButtonsBar(
+                        platforms: enabledSearchButtons,
+                        onSearchButtonTapped: { searchAction(userInput, on: $0) },
+                        onCloseButtonTapped: { isFocused = false }
+                    )
+                }
+            }
+            .toolbar {
+                if isFocused == false {
+                    ToolbarSpacer(placement: .bottomBar)
+                    
+                    ToolbarItem(placement: .bottomBar) {
+                        Button("検索", systemImage: "magnifyingglass") {
+                            isFocused = true
+                        }
+                        .buttonStyle(.glassProminent)
+                        .labelStyle(.iconOnly)
+                    }
+                }
             }
         }
         .fullScreenCover(item: $presentedSafariViewURL) { item in
             SafariView(url: item.url)
                 .ignoresSafeArea()
         }
-        .sheet(isPresented: $isPresentedSettingsView, onDismiss: onSettingsViewDismiss, content: {
+        .sheet(isPresented: $isPresentedSettingsView, onDismiss: onSettingsViewDismiss) {
             SettingsView(enabledSearchButtonsRepository: enabledSearchButtonsRepository)
                 .preferredColorScheme(colorScheme)
-        })
+        }
         .alert("確認", isPresented: $isPresentedDeleteAllHistoriesAlert) {
             Button("実行", role: .destructive) {
                 removeAllHistories()
@@ -136,17 +137,11 @@ struct ContentView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepos
         } message: {
             Text("全履歴を削除しますか？")
         }
-        
-        // MARK: - Behavior Modifier
-        
         .onAppear(perform: onAppear)
         .task(id: userInput, onUserInputChange)
         .onChange(of: scenePhase, onScenePhaseChange)
         .onChange(of: isPresentedSettingsView, onIsPresentedSettingsViewChange)
-        .animation(.default, value: histories)
     }
-    
-    // MARK: - View Components
     
     var searchTextField: some View {
         SearchTextField(
@@ -167,19 +162,6 @@ struct ContentView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepos
         )
     }
     
-    var focusTextFieldButton: some View {
-        Button {
-            isFocused = true
-        } label: {
-            Image(systemName: "magnifyingglass")
-                .resizable()
-                .padding(10)
-                .frame(width: 45, height: 45)
-        }
-        .buttonStyle(.glassProminent)
-        .buttonBorderShape(.circle)
-    }
-    
     var keyboardCloseButton: some View {
         Button("閉じる", role: .close) {
             isFocused = false
@@ -188,18 +170,8 @@ struct ContentView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepos
         .buttonStyle(.glass)
     }
     
-    // MARK: - Style Values
-    
     var backgroundColor: AnyShapeStyle {
         colorScheme == .light ? AnyShapeStyle(Color(uiColor: .systemGroupedBackground)) : AnyShapeStyle(.background)
-    }
-    
-    func focusTextFieldButtonTrailingPadding(_ geometryProxy: GeometryProxy) -> CGFloat {
-        geometryProxy.safeAreaInsets.bottom != .zero ? geometryProxy.safeAreaInsets.bottom - 10 : 10
-    }
-    
-    func bottomPadding(_ geometryProxy: GeometryProxy) -> CGFloat {
-        geometryProxy.safeAreaInsets.bottom != .zero ? -10 : 10
     }
 }
 
