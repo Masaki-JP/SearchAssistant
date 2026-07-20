@@ -155,7 +155,7 @@ extension ContentView {
     
     func loadEnabledSearchButtons() {
         do {
-            enabledSearchButtons = try enabledSearchButtonsRepository.load()
+            enabledSearchButtons = try enabledSearchButtonRepository.load()
         } catch {
             if error != .dataNotSet { reportError(error) }
             enabledSearchButtons = SearchPlatform.allCases
