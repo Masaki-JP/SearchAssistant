@@ -87,7 +87,7 @@ struct ContentView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepos
                         .padding(.bottom, 4)
                 }
             }
-            .overlay(alignment: .bottom) {
+            .safeAreaInset(edge: .bottom) {
                 if isFocused == true, enabledSearchButtons.isEmpty == false {
                     SearchButtonsBar(
                         platforms: enabledSearchButtons,
