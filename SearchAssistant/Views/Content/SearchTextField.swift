@@ -7,19 +7,24 @@ struct SearchTextField: View {
     let onInputClearButtonTapped: () -> Void
     let onSubmit: () -> Void
     
+    @ScaledMetric(relativeTo: .title2) var iconHight: CGFloat = 20
+    @ScaledMetric(relativeTo: .title2) var magnifyingglassIconFrameHight: CGFloat = 22
+    @ScaledMetric(relativeTo: .title2) var textFieldHight: CGFloat = 26
+    
     var body: some View {
         HStack {
             Image(systemName: "magnifyingglass")
                 .resizable()
                 .scaledToFit()
-                .frame(height: 20)
-                .padding(.bottom, 2)
+                .frame(height: iconHight)
+                .frame(height: magnifyingglassIconFrameHight, alignment: .top)
             
             TextField("検索 / Webサイト名入力", text: $userInput)
                 .font(.title2)
                 .submitLabel(.search)
                 .focused(isFocused)
                 .onSubmit(onSubmit)
+                .frame(height: textFieldHight)
             
             if userInput.isEmpty == true {
                 settingsButton
@@ -36,7 +41,7 @@ struct SearchTextField: View {
             Image(systemName: "gearshape")
                 .resizable()
                 .scaledToFit()
-                .frame(height: 20)
+                .frame(height: iconHight)
                 .tint(.primary)
         }
     }
@@ -48,7 +53,7 @@ struct SearchTextField: View {
             Image(systemName: "x.circle")
                 .resizable()
                 .scaledToFit()
-                .frame(height: 20)
+                .frame(height: iconHight)
                 .tint(.primary)
         }
     }
@@ -57,7 +62,7 @@ struct SearchTextField: View {
 #Preview(traits: .sizeThatFitsLayout) {
     SearchTextField(
         isFocused: FocusState().projectedValue,
-        userInput: .constant("apple"),
+        userInput: .constant("日本代表 試合 日程"),
         onSettingsButtonTapped: {},
         onInputClearButtonTapped: {},
         onSubmit: {}
