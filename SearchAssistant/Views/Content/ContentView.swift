@@ -89,24 +89,12 @@ struct ContentView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepos
             }
             .safeAreaInset(edge: .bottom) {
                 if isFocused == true, enabledSearchButtons.isEmpty == false {
-                    SearchButtonsBar(
-                        platforms: enabledSearchButtons,
-                        onSearchButtonTapped: { searchAction(userInput, on: $0) },
-                        onCloseButtonTapped: { isFocused = false }
-                    )
+                    searchButtonsBar
                 }
             }
             .toolbar {
                 if isFocused == false {
-                    ToolbarSpacer(placement: .bottomBar)
-                    
-                    ToolbarItem(placement: .bottomBar) {
-                        Button("検索", systemImage: "magnifyingglass") {
-                            isFocused = true
-                        }
-                        .buttonStyle(.glassProminent)
-                        .labelStyle(.iconOnly)
-                    }
+                    bottomToolbarContent
                 }
             }
             .scrollEdgeEffectHidden()
@@ -120,9 +108,7 @@ struct ContentView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepos
                 .preferredColorScheme(colorScheme)
         }
         .alert("確認", isPresented: $isPresentedDeleteAllHistoriesAlert) {
-            Button("実行", role: .destructive) {
-                removeAllHistories()
-            }
+            Button("実行", role: .destructive) { removeAllHistories() }
             Button("キャンセル", role: .cancel) {}
         } message: {
             Text("全履歴を削除しますか？")
@@ -152,12 +138,33 @@ struct ContentView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepos
         )
     }
     
+    var searchButtonsBar: some View {
+        SearchButtonsBar(
+            platforms: enabledSearchButtons,
+            onSearchButtonTapped: { searchAction(userInput, on: $0) },
+            onCloseButtonTapped: { isFocused = false }
+        )
+    }
+    
     var keyboardCloseButton: some View {
         Button("閉じる", role: .close) {
             isFocused = false
         }
         .font(.title2)
         .buttonStyle(.glass)
+    }
+    
+    @ToolbarContentBuilder
+    var bottomToolbarContent: some ToolbarContent {
+        ToolbarSpacer(placement: .bottomBar)
+        
+        ToolbarItem(placement: .bottomBar) {
+            Button("検索", systemImage: "magnifyingglass") {
+                isFocused = true
+            }
+            .buttonStyle(.glassProminent)
+            .labelStyle(.iconOnly)
+        }
     }
 }
 
