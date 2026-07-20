@@ -2,7 +2,7 @@ import SwiftUI
 import SwiftData
 import SearchCore
 
-struct SettingsView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepositoryInterface>: View {
+struct SettingsView<EnabledSearchButtonRepositoryType: EnabledSearchButtonRepositoryInterface>: View {
     @Environment(\.scenePhase) var scenePhase
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var modelContext
@@ -16,7 +16,7 @@ struct SettingsView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepo
     @State var isPresentedSearchButtonsBarOrderView = false
     
     let selectionSoundPlayer = SelectionSoundPlayer()
-    let enabledSearchButtonsRepository: EnabledSearchButtonsRepositoryType
+    let enabledSearchButtonRepository: EnabledSearchButtonRepositoryType
     
     var body: some View {
         NavigationStack {
@@ -147,5 +147,5 @@ struct SettingsView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepo
 
 #Preview {
     let returnValue: [SearchPlatform] = [.youtube, .amazon, .mercari, .googleMaps]
-    SettingsView(enabledSearchButtonsRepository: .fake(returnValue: returnValue))
+    SettingsView(enabledSearchButtonRepository: .fake(returnValue: returnValue))
 }

@@ -1,35 +1,35 @@
 import Foundation
 import SearchCore
 
-struct EnabledSearchButtonsRepository: EnabledSearchButtonsRepositoryInterface {
+struct EnabledSearchButtonRepository: EnabledSearchButtonRepositoryInterface {
     private static let key = UserDefaultsKey.enabledSearchButtons
     
-    enum EnabledSearchButtonsRepositoryError: Error {
+    enum EnabledSearchButtonRepositoryError: Error {
         case dataNotSet
         case decodingError
         case encodingError
     }
     
-    func save(_ value: [SearchPlatform]) throws(EnabledSearchButtonsRepositoryError) {
+    func save(_ value: [SearchPlatform]) throws(EnabledSearchButtonRepositoryError) {
         do {
             let encodedData = try JSONEncoder().encode(value)
             UserDefaults.standard.set(encodedData, forKey: Self.key.rawValue)
         } catch {
             reportError(error)
-            throw EnabledSearchButtonsRepositoryError.encodingError
+            throw EnabledSearchButtonRepositoryError.encodingError
         }
     }
     
-    func load() throws(EnabledSearchButtonsRepositoryError) -> [SearchPlatform] {
+    func load() throws(EnabledSearchButtonRepositoryError) -> [SearchPlatform] {
         guard let itemsData = UserDefaults.standard.data(forKey: Self.key.rawValue)
-        else { throw EnabledSearchButtonsRepositoryError.dataNotSet }
+        else { throw EnabledSearchButtonRepositoryError.dataNotSet }
         
         do {
             let items = try JSONDecoder().decode([SearchPlatform].self, from: itemsData)
             return items
         } catch {
             reportError(error)
-            throw EnabledSearchButtonsRepositoryError.decodingError
+            throw EnabledSearchButtonRepositoryError.decodingError
         }
     }
 }

@@ -5,7 +5,7 @@ import SwiftData
 extension SettingsView {
     func loadEnabledSearchButtons() {
         do {
-            enabledSearchButtons = try enabledSearchButtonsRepository.load()
+            enabledSearchButtons = try enabledSearchButtonRepository.load()
         } catch {
             if error != .dataNotSet { reportError(error) }
             enabledSearchButtons = SearchPlatform.allCases
@@ -20,7 +20,7 @@ extension SettingsView {
             enabledSearchButtons.append(platform)
         }
         do {
-            try enabledSearchButtonsRepository.save(enabledSearchButtons)
+            try enabledSearchButtonRepository.save(enabledSearchButtons)
             selectionSoundPlayer.play()
         } catch {
             reportError(error)
@@ -32,7 +32,7 @@ extension SettingsView {
         let previousState = enabledSearchButtons
         enabledSearchButtons.move(fromOffsets: source, toOffset: destination)
         do {
-            try enabledSearchButtonsRepository.save(enabledSearchButtons)
+            try enabledSearchButtonRepository.save(enabledSearchButtons)
         } catch {
             reportError(error)
             enabledSearchButtons = previousState

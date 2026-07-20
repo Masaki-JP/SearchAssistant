@@ -3,7 +3,7 @@ import SwiftData
 import SearchCore
 import SearchSuggestion
 
-struct ContentView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepositoryInterface>: View {
+struct ContentView<EnabledSearchButtonRepositoryType: EnabledSearchButtonRepositoryInterface>: View {
     @FocusState var isFocused: Bool
     @Environment(\.scenePhase) var scenePhase
     @Environment(\.colorScheme) var colorScheme: ColorScheme
@@ -24,7 +24,7 @@ struct ContentView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepos
     
     let suggestionFetcher = SuggestionFetcher.shared
     let searchURLCreator = SearchURLCreator()
-    let enabledSearchButtonsRepository: EnabledSearchButtonsRepositoryType
+    let enabledSearchButtonRepository: EnabledSearchButtonRepositoryType
     
     var contentViewState: ContentViewState {
         if userInput.isEmpty == true {
@@ -104,7 +104,7 @@ struct ContentView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepos
                 .ignoresSafeArea()
         }
         .sheet(isPresented: $isPresentedSettingsView, onDismiss: onSettingsViewDismiss) {
-            SettingsView(enabledSearchButtonsRepository: enabledSearchButtonsRepository)
+            SettingsView(enabledSearchButtonRepository: enabledSearchButtonRepository)
                 .preferredColorScheme(colorScheme)
         }
         .alert("確認", isPresented: $isPresentedDeleteAllHistoriesAlert) {
@@ -170,24 +170,24 @@ struct ContentView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepos
 
 #Preview("Light 1") {
     let returnValue: [SearchPlatform] = [.amazon, .instagram, .mercari, .googleMaps]
-    ContentView(enabledSearchButtonsRepository: .fake(returnValue: returnValue))
+    ContentView(enabledSearchButtonRepository: .fake(returnValue: returnValue))
         .preferredColorScheme(.light)
 }
 
 #Preview("Light 2", traits: .searchHistorySampleData) {
     let returnValue: [SearchPlatform] = [.amazon, .instagram, .mercari, .googleMaps]
-    ContentView(enabledSearchButtonsRepository: .fake(returnValue: returnValue))
+    ContentView(enabledSearchButtonRepository: .fake(returnValue: returnValue))
         .preferredColorScheme(.light)
 }
 
 #Preview("Dark 1") {
     let returnValue: [SearchPlatform] = [.amazon, .instagram, .mercari, .googleMaps]
-    ContentView(enabledSearchButtonsRepository: .fake(returnValue: returnValue))
+    ContentView(enabledSearchButtonRepository: .fake(returnValue: returnValue))
         .preferredColorScheme(.dark)
 }
 
 #Preview("Dark 2", traits: .searchHistorySampleData) {
     let returnValue: [SearchPlatform] = [.amazon, .instagram, .mercari, .googleMaps]
-    ContentView(enabledSearchButtonsRepository: .fake(returnValue: returnValue))
+    ContentView(enabledSearchButtonRepository: .fake(returnValue: returnValue))
         .preferredColorScheme(.dark)
 }
