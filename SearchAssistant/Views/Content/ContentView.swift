@@ -165,12 +165,26 @@ struct ContentView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepos
     }
 }
 
-#Preview {
+#Preview("Light 1") {
     let returnValue: [SearchPlatform] = [.amazon, .instagram, .mercari, .googleMaps]
     ContentView(enabledSearchButtonsRepository: .fake(returnValue: returnValue))
+        .preferredColorScheme(.light)
 }
 
-#Preview(traits: .searchHistorySampleData) {
+#Preview("Light 2", traits: .searchHistorySampleData) {
     let returnValue: [SearchPlatform] = [.amazon, .instagram, .mercari, .googleMaps]
     ContentView(enabledSearchButtonsRepository: .fake(returnValue: returnValue))
+        .preferredColorScheme(.light)
+}
+
+#Preview("Dark 1") {
+    let returnValue: [SearchPlatform] = [.amazon, .instagram, .mercari, .googleMaps]
+    ContentView(enabledSearchButtonsRepository: .fake(returnValue: returnValue))
+        .preferredColorScheme(.dark)
+}
+
+#Preview("Dark 2", traits: .searchHistorySampleData) {
+    let returnValue: [SearchPlatform] = [.amazon, .instagram, .mercari, .googleMaps]
+    ContentView(enabledSearchButtonsRepository: .fake(returnValue: returnValue))
+        .preferredColorScheme(.dark)
 }
