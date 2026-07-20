@@ -7,48 +7,41 @@ struct SearchTextField: View {
     let onInputClearButtonTapped: () -> Void
     let onSubmit: () -> Void
     
+    @ScaledMetric(relativeTo: .title2) var dynamicTypeScale: CGFloat = 1
+    
+    func scaledLength(_ baseLength: CGFloat) -> CGFloat {
+        dynamicTypeScale * baseLength
+    }
+    
     var body: some View {
         HStack {
             Image(systemName: "magnifyingglass")
                 .resizable()
                 .scaledToFit()
-                .frame(height: 20)
-                .padding(.bottom, 2)
+                .frame(height: scaledLength(20))
+                .frame(height: scaledLength(22), alignment: .top)
             
             TextField("検索 / Webサイト名入力", text: $userInput)
                 .font(.title2)
                 .submitLabel(.search)
                 .focused(isFocused)
                 .onSubmit(onSubmit)
+                .frame(height: scaledLength(26))
             
             if userInput.isEmpty == true {
-                settingsButton
+                iconButton(systemName: "gearshape", action: onSettingsButtonTapped)
             } else {
-                clearButton
+                iconButton(systemName: "x.circle", action: onInputClearButtonTapped)
             }
         }
     }
     
-    var settingsButton: some View {
-        Button {
-            onSettingsButtonTapped()
-        } label: {
-            Image(systemName: "gearshape")
+    func iconButton(systemName: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Image(systemName: systemName)
                 .resizable()
                 .scaledToFit()
-                .frame(height: 20)
-                .tint(.primary)
-        }
-    }
-    
-    var clearButton: some View {
-        Button {
-            onInputClearButtonTapped()
-        } label: {
-            Image(systemName: "x.circle")
-                .resizable()
-                .scaledToFit()
-                .frame(height: 20)
+                .frame(height: scaledLength(20))
                 .tint(.primary)
         }
     }
@@ -57,7 +50,7 @@ struct SearchTextField: View {
 #Preview(traits: .sizeThatFitsLayout) {
     SearchTextField(
         isFocused: FocusState().projectedValue,
-        userInput: .constant("apple"),
+        userInput: .constant("日本代表 試合 日程"),
         onSettingsButtonTapped: {},
         onInputClearButtonTapped: {},
         onSubmit: {}
