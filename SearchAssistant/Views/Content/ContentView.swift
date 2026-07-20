@@ -79,7 +79,7 @@ struct ContentView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepos
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .animation(.default, value: histories)
             }
-            .background(backgroundColor, ignoresSafeAreaEdges: .all)
+            .background(Color(uiColor: .systemGroupedBackground))
             .overlay(alignment: .bottomTrailing) {
                 if isFocused == true, enabledSearchButtons.isEmpty == true {
                     keyboardCloseButton
@@ -158,10 +158,6 @@ struct ContentView<EnabledSearchButtonsRepositoryType: EnabledSearchButtonsRepos
         }
         .font(.title2)
         .buttonStyle(.glass)
-    }
-    
-    var backgroundColor: AnyShapeStyle {
-        colorScheme == .light ? AnyShapeStyle(Color(uiColor: .systemGroupedBackground)) : AnyShapeStyle(.background)
     }
 }
 
