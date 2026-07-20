@@ -6,7 +6,7 @@ struct SearchTextField: View {
     let onSettingsButtonTapped: () -> Void
     let onInputClearButtonTapped: () -> Void
     let onSubmit: () -> Void
-        
+    
     @ScaledMetric(relativeTo: .title2) var dynamicTypeScale: CGFloat = 1
     
     func scaledLength(_ baseLength: CGFloat) -> CGFloat {
@@ -29,30 +29,16 @@ struct SearchTextField: View {
                 .frame(height: scaledLength(26))
             
             if userInput.isEmpty == true {
-                settingsButton
+                iconButton(systemName: "gearshape", action: onSettingsButtonTapped)
             } else {
-                clearButton
+                iconButton(systemName: "x.circle", action: onInputClearButtonTapped)
             }
         }
     }
     
-    var settingsButton: some View {
-        Button {
-            onSettingsButtonTapped()
-        } label: {
-            Image(systemName: "gearshape")
-                .resizable()
-                .scaledToFit()
-                .frame(height: scaledLength(20))
-                .tint(.primary)
-        }
-    }
-    
-    var clearButton: some View {
-        Button {
-            onInputClearButtonTapped()
-        } label: {
-            Image(systemName: "x.circle")
+    func iconButton(systemName: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Image(systemName: systemName)
                 .resizable()
                 .scaledToFit()
                 .frame(height: scaledLength(20))
