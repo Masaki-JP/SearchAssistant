@@ -19,7 +19,7 @@ struct SearchTextField: View {
                 .resizable()
                 .scaledToFit()
                 .frame(height: scaledLength(20))
-                .frame(height: scaledLength(22), alignment: .top)
+                .padding(.bottom, scaledLength(2))
             
             TextField("検索 / Webサイト名入力", text: $userInput)
                 .font(.title2)
