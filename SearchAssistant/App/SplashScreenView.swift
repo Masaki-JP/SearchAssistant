@@ -42,21 +42,12 @@ struct SplashScreenView: View {
     }
     
     func afterAppear() async {
-        migrateSearchHistoriesToSwiftDataIfNeeded()
         try? await Task.sleep(for: .seconds(0.5))
         withAnimation(.easeOut(duration: 1.0)) {
             opacity = .zero
         }
         try? await Task.sleep(for: .seconds(1.25))
         ViewRouter.shared.changeView(to: .contentView)
-    }
-    
-    func migrateSearchHistoriesToSwiftDataIfNeeded() {
-        do {
-            try SearchHistoryMigration.migrateIfNeeded(using: modelContext)
-        } catch {
-            reportError(error)
-        }
     }
 }
 
