@@ -42,6 +42,7 @@
 		4C23345C2FE5676E00CCC43A /* SearchCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SearchCore; sourceTree = "<group>"; };
 		4C2335472FE5E8CE00CCC43A /* SearchSuggestion */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SearchSuggestion; sourceTree = "<group>"; };
 		4C242B0B2FD602CB00FB2DF9 /* SearchAssistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchAssistant.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CA0D682301F3FA6003E41CF /* development-rules */ = {isa = PBXFileReference; lastKnownFileType = text; path = "development-rules"; sourceTree = "<group>"; };
 		4CDD8E002FD6BB3A00F5237B /* AGENTS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = AGENTS.md; sourceTree = "<group>"; };
 		4CDD8E012FD6BB3A00F5237B /* CLAUDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CLAUDE.md; sourceTree = "<group>"; };
 		4CDD8E022FD6BB3A00F5237B /* development-notes */ = {isa = PBXFileReference; lastKnownFileType = text; path = "development-notes"; sourceTree = "<group>"; };
@@ -118,6 +119,7 @@
 				4CDD8E002FD6BB3A00F5237B /* AGENTS.md */,
 				4CDD8E012FD6BB3A00F5237B /* CLAUDE.md */,
 				4CDD8E022FD6BB3A00F5237B /* development-notes */,
+				4CA0D682301F3FA6003E41CF /* development-rules */,
 			);
 			sourceTree = "<group>";
 		};
