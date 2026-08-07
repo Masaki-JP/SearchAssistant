@@ -1,0 +1,72 @@
+import SwiftUI
+import SearchCore
+
+struct SuggestionSection: View {
+    let suggestions: [String]
+    let onSearch: (String, SearchPlatform) -> Void
+    let defaultPlatform: SearchPlatform = .google
+    
+    var body: some View {
+        Section {
+            /// 通常はsuggestionsに重複はなく、 現状では並び替えや削除もないため、idにselfを使用する。
+            ForEach(suggestions, id: \.self) { suggestion in
+                suggestionRow(suggestion: suggestion) {
+                    onSearch(suggestion, defaultPlatform)
+                }
+                .padding(.top, suggestions.first == suggestion ? 4 : 0)
+                .padding(.bottom, suggestions.last == suggestion ? 4 : 0)
+                .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
+                    return -5
+                })
+                .alignmentGuide(.listRowSeparatorTrailing, computeValue: { viewDementions in
+                    return viewDementions.width + 5
+                })
+                .listRowInsets(.init(top: 8, leading: 12, bottom: 8, trailing: 12))
+            }
+        } header: {
+            Text("検索の候補").fontWeight(.light)
+        }
+    }
+    
+    func suggestionRow(suggestion: String, action: @escaping () -> Void) -> some View {
+        HStack(spacing: 8) {
+            Button {
+                action()
+            } label: {
+                Text(suggestion)
+                    .lineLimit(1)
+                    .padding(.leading, 4)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .foregroundStyle(.primary)
+            
+            Menu("オプション", systemImage: "ellipsis.circle") {
+                Section {
+                    ForEach(SearchPlatform.allCases) { searchPlatform in
+                        Button(searchPlatform.displayName) {
+                            onSearch(suggestion, searchPlatform)
+                        }
+                    }
+                } header: {
+                    Text("検索")
+                }
+            }
+            .menuOrder(.fixed)
+            .labelStyle(.iconOnly)
+            .foregroundStyle(.tertiary)
+            .font(.title2)
+            .fontWeight(.light)
+        }
+    }
+}
+
+#Preview {
+    List {
+        SuggestionSection(
+            suggestions: [
+                "macbook", "macbook air", "macbook air m2", "macbook スクショ", "macbook air m1", "macbook 初期化", "macbook pro m3", "macbook air m3", "macbook 中古", "macbook 学割"
+            ],
+            onSearch: { (str, platform) in print(str, platform) }
+        )        
+    }
+}

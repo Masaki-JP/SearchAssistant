@@ -4,15 +4,6 @@ import SearchCore
 import SearchSuggestion
 
 extension ContentView {
-    enum ContentViewState {
-        case searchHistoryList
-        case noSearchHistory
-        case searchSuggestionList
-        case noSearchSuggestion
-        case searchSuggestionLoading
-        case searchSuggestionNetworkError
-    }
-    
     struct SafariViewURL: Identifiable {
         let url: URL
         let id = UUID()

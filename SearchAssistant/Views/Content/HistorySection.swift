@@ -2,14 +2,13 @@ import SwiftUI
 import SwiftData
 import SearchCore
 
-struct HistoryList: View {
+struct HistorySection: View {
     let histories: [SearchHistory]
     let onSearch: (String, SearchPlatform?) -> Void
     let onDelete: (IndexSet) -> Void
     @Binding var isPresentedDeleteAllHistoriesAlert: Bool
     
     var body: some View {
-        List {
             Section {
                 ForEach(histories) { history in
                     historyRow(history: history) {
@@ -37,8 +36,7 @@ struct HistoryList: View {
                 .font(.headline)
                 .frame(maxWidth: .infinity)
                 .padding(.top, 4)
-            }
-        }
+            }        
     }
     
     func historyRow(history: SearchHistory, action: @escaping () -> Void) -> some View {
@@ -134,12 +132,12 @@ fileprivate extension UIImage {
     let userInput2 = "名古屋駅"
     histories.insert(.init(userInput: userInput2, platform: .googleMaps), at: 1)
     
-    return HistoryList(
-        histories: histories,
-        onSearch: { userInput, platform in
-            print(userInput, platform as Any)
-        },
-        onDelete: { (_) -> Void in },
-        isPresentedDeleteAllHistoriesAlert: Binding.constant(false)
-    )
+    return List {
+        HistorySection(
+            histories: histories,
+            onSearch: { print($0, $1 as Any) },
+            onDelete: { (_) -> Void in },
+            isPresentedDeleteAllHistoriesAlert: Binding.constant(false)
+        )
+    }
 }
