@@ -50,41 +50,51 @@ struct ContentView<EnabledSearchButtonRepositoryType: EnabledSearchButtonReposit
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: .zero) {
-                searchTextField
-                    .padding(.horizontal)
-                
-                Divider()
-                    .padding(.top, 8)
-                
-                Group {
-                    switch contentViewState {
-                    case .searchHistoryList:
-                        historyList
-                            .scrollIndicators(histories.count >= 200 ? .automatic : .hidden)
-                    case .noSearchHistory:
+            List {
+                if userInput.isEmpty == true {
+                    if histories.isEmpty == false {
+                        historySection
+                            .scrollIndicators(histories.count >= 200 ? .visible : .hidden)
+                    }
+                } else {
+                    if isSuggestionFetchFailed == false, suggestions.isEmpty == false {
+                        suggestionSection
+                    }
+                }
+            }
+            .scrollIndicators(.hidden)
+            .overlay {
+                if userInput.isEmpty == true {
+                    if histories.isEmpty == true {
                         NoContentView.searchHistory
-                    case .searchSuggestionList:
-                        SuggestionList(suggestions: suggestions, onSearch: searchAction)
-                            .scrollIndicators(.hidden)
-                    case .noSearchSuggestion:
-                        NoContentView.searchSuggestion
-                    case .searchSuggestionLoading:
-                        ProgressView()
-                            .controlSize(.large)
-                    case .searchSuggestionNetworkError:
+                    }
+                } else {
+                    if isSuggestionFetchFailed == false {
+                        if suggestions.isEmpty == true {
+                            if inputUsedToFetchCurrentSuggestions == userInput {
+                                NoContentView.searchSuggestion
+                            } else {
+                                ProgressView().controlSize(.large)
+                            }
+                        }
+                    } else {
                         NoContentView.searchSuggestionNetworkError
                     }
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .animation(.default, value: histories)
             }
-            .background(Color(uiColor: .systemGroupedBackground))
             .overlay(alignment: .bottomTrailing) {
                 if isFocused == true, enabledSearchButtons.isEmpty == true {
                     keyboardCloseButton
                         .padding(.trailing)
                         .padding(.bottom, 4)
+                }
+            }
+            .safeAreaInset(edge: .top) {
+                VStack(spacing: 8) {
+                    searchTextField
+                        .padding(.horizontal)
+                    
+                    Divider()
                 }
             }
             .safeAreaInset(edge: .bottom) {
@@ -129,12 +139,19 @@ struct ContentView<EnabledSearchButtonRepositoryType: EnabledSearchButtonReposit
         )
     }
     
-    var historyList: some View {
-        HistoryList(
+    var historySection: some View {
+        HistorySection(
             histories: histories,
             onSearch: searchAction,
             onDelete: removeHistory,
             isPresentedDeleteAllHistoriesAlert: $isPresentedDeleteAllHistoriesAlert
+        )
+    }
+    
+    var suggestionSection: some View {
+        SuggestionSection(
+            suggestions: suggestions,
+            onSearch: searchAction
         )
     }
     
