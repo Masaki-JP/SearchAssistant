@@ -26,28 +26,6 @@ struct ContentView<EnabledSearchButtonRepositoryType: EnabledSearchButtonReposit
     let searchURLCreator = SearchURLCreator()
     let enabledSearchButtonRepository: EnabledSearchButtonRepositoryType
     
-    var contentViewState: ContentViewState {
-        if userInput.isEmpty == true {
-            if histories.isEmpty == false {
-                .searchHistoryList
-            } else {
-                .noSearchHistory
-            }
-        } else {
-            if isSuggestionFetchFailed == false {
-                if suggestions.isEmpty == false {
-                    .searchSuggestionList
-                } else if inputUsedToFetchCurrentSuggestions == userInput {
-                    .noSearchSuggestion
-                } else {
-                    .searchSuggestionLoading
-                }
-            } else {
-                .searchSuggestionNetworkError
-            }
-        }
-    }
-    
     var body: some View {
         NavigationStack {
             List {
