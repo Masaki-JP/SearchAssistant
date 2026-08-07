@@ -67,7 +67,7 @@ struct ContentView<EnabledSearchButtonRepositoryType: EnabledSearchButtonReposit
                         .padding(.bottom, 4)
                 }
             }
-            .safeAreaInset(edge: .top) {
+            .safeAreaInset(edge: .top) { // ※1
                 VStack(spacing: 8) {
                     searchTextField
                         .padding(.horizontal)
@@ -162,6 +162,10 @@ struct ContentView<EnabledSearchButtonRepositoryType: EnabledSearchButtonReposit
         }
     }
 }
+
+/*
+ ※1: safeAreaBarを使用すると、キーボードは表示されるがFocusStateの値が変更されないため、safeAreaInsetを使用する。
+ */
 
 #Preview("Light 1") {
     let returnValue: [SearchPlatform] = [.amazon, .instagram, .mercari, .googleMaps]
