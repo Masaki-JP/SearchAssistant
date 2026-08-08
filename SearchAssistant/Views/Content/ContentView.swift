@@ -74,6 +74,7 @@ struct ContentView<EnabledSearchButtonRepositoryType: EnabledSearchButtonReposit
                     
                     Divider()
                 }
+                .background(Color(uiColor: .systemGroupedBackground).opacity(0.8))
             }
             .safeAreaInset(edge: .bottom) {
                 if isFocused == true, enabledSearchButtons.isEmpty == false {
