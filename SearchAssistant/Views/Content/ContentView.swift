@@ -26,13 +26,34 @@ struct ContentView<EnabledSearchButtonRepositoryType: EnabledSearchButtonReposit
     let searchURLCreator = SearchURLCreator()
     let enabledSearchButtonRepository: EnabledSearchButtonRepositoryType
     
+    var historiesGroupedByDate: [[SearchHistory]] {
+        let calendar = Calendar.current
+        let historiesByDate = Dictionary(grouping: histories) {
+            calendar.startOfDay(for: $0.date)
+        }
+        
+        return historiesByDate.keys
+            .sorted(by: >)
+            .compactMap { day in
+                historiesByDate[day]?.sorted { $0.date > $1.date }
+            }
+    }
+    
     var body: some View {
         NavigationStack {
             List {
+                let groupedHistories = historiesGroupedByDate
+
                 if userInput.isEmpty == true {
                     if histories.isEmpty == false {
-                        historySection
-                            .scrollIndicators(histories.count >= 200 ? .visible : .hidden)
+                        let onDeleteAllHistories = { isPresentedDeleteAllHistoriesAlert = true }
+                        ForEach(groupedHistories.indices, id: \.self) { index in
+                            historySection(
+                                histories: groupedHistories[index],
+                                onDeleteAllHistories: index == groupedHistories.indices.last ? onDeleteAllHistories : nil
+                            )
+                        }
+                        .scrollIndicators(histories.count >= 200 ? .visible : .hidden)
                     }
                 } else {
                     if isSuggestionFetchFailed == false, suggestions.isEmpty == false {
@@ -118,12 +139,15 @@ struct ContentView<EnabledSearchButtonRepositoryType: EnabledSearchButtonReposit
         )
     }
     
-    var historySection: some View {
+    func historySection(
+        histories: [SearchHistory],
+        onDeleteAllHistories: (() -> Void)?
+    ) -> some View {
         HistorySection(
             histories: histories,
             onSearch: searchAction,
-            onDelete: removeHistory,
-            isPresentedDeleteAllHistoriesAlert: $isPresentedDeleteAllHistoriesAlert
+            onDelete: removeHistories,
+            onDeleteAllHistories: onDeleteAllHistories
         )
     }
     

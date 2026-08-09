@@ -5,38 +5,41 @@ import SearchCore
 struct HistorySection: View {
     let histories: [SearchHistory]
     let onSearch: (String, SearchPlatform?) -> Void
-    let onDelete: (IndexSet) -> Void
-    @Binding var isPresentedDeleteAllHistoriesAlert: Bool
+    let onDelete: ([SearchHistory]) -> Void
+    let onDeleteAllHistories: (() -> Void)?
     
     var body: some View {
-            Section {
-                ForEach(histories) { history in
-                    historyRow(history: history) {
-                        onSearch(history.userInput, history.platform)
-                    }
-                    .padding(.top, histories.first?.id == history.id ? 4 : 0)
-                    .padding(.bottom, histories.last?.id == history.id ? 4 : 0)
-                    .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
-                        return -5
-                    })
-                    .alignmentGuide(.listRowSeparatorTrailing, computeValue: { viewDementions in
-                        return viewDementions.width + 5
-                    })
-                    .listRowInsets(.init(top: 6, leading: 12, bottom: 6, trailing: 12))
+        Section {
+            ForEach(histories) { history in
+                historyRow(history: history) {
+                    onSearch(history.userInput, history.platform)
                 }
-                .onDelete { indexSet in
-                    onDelete(indexSet)
-                }
-            } header: {
-                Text("最近の検索").fontWeight(.light)
-            } footer: {
-                Button("全履歴を削除", role: .destructive) {
-                    isPresentedDeleteAllHistoriesAlert = true
-                }
-                .font(.headline)
-                .frame(maxWidth: .infinity)
-                .padding(.top, 4)
-            }        
+                .padding(.top, histories.first?.id == history.id ? 4 : 0)
+                .padding(.bottom, histories.last?.id == history.id ? 4 : 0)
+                .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
+                    return -5
+                })
+                .alignmentGuide(.listRowSeparatorTrailing, computeValue: { viewDementions in
+                    return viewDementions.width + 5
+                })
+                .listRowInsets(.init(top: 6, leading: 12, bottom: 6, trailing: 12))
+            }
+            .onDelete { indexSet in
+                onDelete(indexSet.map { histories[$0] })
+            }
+        } header: {
+            if let firstHistory = histories.first {
+                Text(firstHistory.date.historySectionDisplayString)
+                    .fontWeight(.light)
+            }
+        } footer: {
+            if let onDeleteAllHistories {
+                Button("全履歴を削除", role: .destructive, action: onDeleteAllHistories)
+                    .font(.headline)
+                    .frame(maxWidth: .infinity)
+                    .padding(.top, 4)
+            }
+        }
     }
     
     func historyRow(history: SearchHistory, action: @escaping () -> Void) -> some View {
@@ -126,8 +129,8 @@ fileprivate extension UIImage {
 }
 
 #Preview {
-    var histories = SearchHistory.samples
-    let userInput = "夢なき者に理想なし、理想なき者に計画なし、計画なき者に成功なし。"
+    var histories = Array(SearchHistory.samples[0..<5])
+    let userInput = "夢なき者に理想なし、理想なき者に計画なし、理想なき者に成功なし。"
     histories.insert(.init(userInput: userInput, platform: .google), at: 3)
     let userInput2 = "名古屋駅"
     histories.insert(.init(userInput: userInput2, platform: .googleMaps), at: 1)
@@ -136,8 +139,8 @@ fileprivate extension UIImage {
         HistorySection(
             histories: histories,
             onSearch: { print($0, $1 as Any) },
-            onDelete: { (_) -> Void in },
-            isPresentedDeleteAllHistoriesAlert: Binding.constant(false)
+            onDelete: { _ in },
+            onDeleteAllHistories: {}
         )
     }
 }
