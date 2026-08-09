@@ -54,6 +54,8 @@ struct ContentView<EnabledSearchButtonRepositoryType: EnabledSearchButtonReposit
                 }
             }
             .scrollIndicators(.hidden)
+            .scrollContentBackground(.hidden)
+            .background(Color(uiColor: .systemGroupedBackground))
             .overlay {
                 if userInput.isEmpty == true {
                     if histories.isEmpty == true {
