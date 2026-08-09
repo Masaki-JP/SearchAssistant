@@ -9,7 +9,7 @@ struct ContentView<EnabledSearchButtonRepositoryType: EnabledSearchButtonReposit
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @Environment(\.modelContext) var modelContext
     
-    @Query(sort: \SearchHistory.date, order: .reverse) var histories: [SearchHistory]
+    @Query var histories: [SearchHistory]
     @State var suggestions: [String] = []
     @State var isSuggestionFetchFailed = false
     @State var inputUsedToFetchCurrentSuggestions: String? = nil
@@ -42,18 +42,10 @@ struct ContentView<EnabledSearchButtonRepositoryType: EnabledSearchButtonReposit
     var body: some View {
         NavigationStack {
             List {
-                let groupedHistories = historiesGroupedByDate
-
                 if userInput.isEmpty == true {
                     if histories.isEmpty == false {
-                        let onDeleteAllHistories = { isPresentedDeleteAllHistoriesAlert = true }
-                        ForEach(groupedHistories.indices, id: \.self) { index in
-                            historySection(
-                                histories: groupedHistories[index],
-                                onDeleteAllHistories: index == groupedHistories.indices.last ? onDeleteAllHistories : nil
-                            )
-                        }
-                        .scrollIndicators(histories.count >= 200 ? .visible : .hidden)
+                        historySections
+                            .scrollIndicators(histories.count >= 200 ? .visible : .hidden)
                     }
                 } else {
                     if isSuggestionFetchFailed == false, suggestions.isEmpty == false {
@@ -139,16 +131,18 @@ struct ContentView<EnabledSearchButtonRepositoryType: EnabledSearchButtonReposit
         )
     }
     
-    func historySection(
-        histories: [SearchHistory],
-        onDeleteAllHistories: (() -> Void)?
-    ) -> some View {
-        HistorySection(
-            histories: histories,
-            onSearch: searchAction,
-            onDelete: removeHistories,
-            onDeleteAllHistories: onDeleteAllHistories
-        )
+    var historySections: some View {
+        let groupedHistories = historiesGroupedByDate
+        let onDeleteAllHistories = { isPresentedDeleteAllHistoriesAlert = true }
+        
+        return ForEach(groupedHistories.indices, id: \.self) { index in
+            HistorySection(
+                histories: groupedHistories[index],
+                onSearch: searchAction,
+                onDelete: removeHistories,
+                onDeleteAllHistories: index == groupedHistories.indices.last ? onDeleteAllHistories : nil
+            )
+        }
     }
     
     var suggestionSection: some View {
