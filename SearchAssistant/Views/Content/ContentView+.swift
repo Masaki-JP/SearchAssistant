@@ -104,10 +104,9 @@ extension ContentView {
         }
     }
     
-    func removeHistory(atOffsets indexSet: IndexSet) {
+    func removeHistories(_ histories: [SearchHistory]) {
         do {
-            let historiesToDelete = indexSet.map { histories[$0] }
-            historiesToDelete.forEach(modelContext.delete)
+            histories.forEach(modelContext.delete)
             try modelContext.save()
         } catch {
             reportError(error)
