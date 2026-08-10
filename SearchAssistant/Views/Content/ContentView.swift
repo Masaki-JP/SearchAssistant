@@ -15,6 +15,7 @@ struct ContentView<EnabledSearchButtonRepositoryType: EnabledSearchButtonReposit
     @State var inputUsedToFetchCurrentSuggestions: String? = nil
     @State var userInput = ""
     @State var isPresentedSettingsView = false
+    @State var isPresentedAddBookmarkView = false
     @State var isPresentedDeleteAllHistoriesAlert = false
     @State var presentedSafariViewURL: SafariViewURL? = nil
     @State var enabledSearchButtons = SearchPlatform.allCases
@@ -111,6 +112,12 @@ struct ContentView<EnabledSearchButtonRepositoryType: EnabledSearchButtonReposit
             SettingsView(enabledSearchButtonRepository: enabledSearchButtonRepository)
                 .preferredColorScheme(colorScheme)
         }
+        .sheet(isPresented: $isPresentedAddBookmarkView) {
+            NavigationStack {
+                BookmarkFormView(showsDismissButton: true) {}
+            }
+            .preferredColorScheme(colorScheme)
+        }
         .alert("確認", isPresented: $isPresentedDeleteAllHistoriesAlert) {
             Button("実行", role: .destructive) { removeAllHistories() }
             Button("キャンセル", role: .cancel) {}
@@ -172,14 +179,40 @@ struct ContentView<EnabledSearchButtonRepositoryType: EnabledSearchButtonReposit
     
     @ToolbarContentBuilder
     var bottomToolbarContent: some ToolbarContent {
-        ToolbarSpacer(placement: .bottomBar)
+        ToolbarItem(placement: .bottomBar) {
+            Menu("ブックマーク一覧", systemImage: "bookmark") {
+                let histories = Array(SearchHistory.samples[0..<5])
+                
+                Section {
+                    ForEach(histories) { history in
+                        Button {
+                            searchAction(history.userInput, on: history.platform)
+                        } label: {
+                            Text(history.userInput)
+                            if let platformName = history.platform?.shortDisplayName {
+                                Text("（\(platformName)）")
+                            }
+                        }
+                    }
+                } header: {
+                    Text("ブックマーク")
+                }
+                
+                Divider()
+                
+                Button("ブックマークを追加") {
+                    isPresentedAddBookmarkView = true
+                }
+            }
+            .menuOrder(.fixed)
+        }
+        
+        ToolbarSpacer(.flexible, placement: .bottomBar)
         
         ToolbarItem(placement: .bottomBar) {
             Button("検索", systemImage: "magnifyingglass") {
                 isFocused = true
             }
-            .buttonStyle(.glassProminent)
-            .labelStyle(.iconOnly)
         }
     }
 }

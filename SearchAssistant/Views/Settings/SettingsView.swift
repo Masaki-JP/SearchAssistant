@@ -26,6 +26,7 @@ struct SettingsView<EnabledSearchButtonRepositoryType: EnabledSearchButtonReposi
                 browserSection
                 searchButtonsBarSection
                 historySection
+                bookmarkSection
                 appInfoSection
             }
             .scrollIndicators(.hidden)
@@ -108,6 +109,16 @@ struct SettingsView<EnabledSearchButtonRepositoryType: EnabledSearchButtonReposi
             Text("履歴")
         } footer: {
             Text("上限を超えた場合は、古い履歴から自動で削除されます。")
+        }
+    }
+    
+    var bookmarkSection: some View {
+        Section {
+            NavigationLink("ブックマークを編集") {
+                BookmarkListView()
+            }
+        } header: {
+            Text("ブックマーク")
         }
     }
     
