@@ -84,9 +84,8 @@ struct BookmarkFormView: View {
                 .disabled(isConfirmButtonDisabled)
             }
         }
-        .task {
+        .onAppear {
             if defaultValue == nil {
-                try? await Task.sleep(for: .seconds(0.1))
                 isFocused = true
             }
         }
