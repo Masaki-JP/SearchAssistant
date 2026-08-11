@@ -24,6 +24,8 @@ struct BookmarkFormView: View {
         self.onSave = onSave
     }
     
+    @ScaledMetric(relativeTo: .body) var dynamicTextFieldHeight = 22.5
+    
     var normalizedUserInput: String {
         userInput.split(whereSeparator: \.isWhitespace).joined(separator: " ")
     }
@@ -43,6 +45,7 @@ struct BookmarkFormView: View {
             Section {
                 TextField("検索 / Webサイト名入力", text: $userInput)
                     .focused($isFocused)
+                    .frame(height: dynamicTextFieldHeight) // ※1
                 
                 Picker("検索先", selection: $platform) {
                     ForEach(SearchPlatform.allCases) { platform in
@@ -89,6 +92,10 @@ struct BookmarkFormView: View {
         }
     }
 }
+
+/**
+ ※1: TextFieldの初回フォーカス時のサイズ変更に対応する。
+ */
 
 #if DEBUG
 let defaultValue = Bookmark(userInput: "apple", platform: .google)
