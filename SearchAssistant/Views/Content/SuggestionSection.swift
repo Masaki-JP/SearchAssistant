@@ -40,7 +40,7 @@ struct SuggestionSection: View {
             }
             .foregroundStyle(.primary)
             
-            Menu("オプション", systemImage: "ellipsis.circle") {
+            Menu {
                 Section {
                     ForEach(SearchPlatform.allCases) { searchPlatform in
                         Button(searchPlatform.displayName) {
@@ -50,9 +50,11 @@ struct SuggestionSection: View {
                 } header: {
                     Text("検索")
                 }
+            } label: {
+                Image(systemName: "ellipsis.circle")
+                    .padding(3)
             }
             .menuOrder(.fixed)
-            .labelStyle(.iconOnly)
             .foregroundStyle(.tertiary)
             .font(.title2)
             .fontWeight(.light)
@@ -67,6 +69,6 @@ struct SuggestionSection: View {
                 "macbook", "macbook air", "macbook air m2", "macbook スクショ", "macbook air m1", "macbook 初期化", "macbook pro m3", "macbook air m3", "macbook 中古", "macbook 学割"
             ],
             onSearch: { (str, platform) in print(str, platform) }
-        )        
+        )
     }
 }

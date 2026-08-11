@@ -56,7 +56,7 @@ struct HistorySection: View {
             }
             .foregroundStyle(.primary)
             
-            Menu("詳細", systemImage: "info.circle") {
+            Menu {
                 Section {
                     Text(history.userInput)
                 } header: {
@@ -80,11 +80,13 @@ struct HistorySection: View {
                         }
                     }
                 }
+            } label: {
+                Image(systemName: "info.circle")
+                    .padding(3)
             }
             .menuOrder(.fixed)
-            .labelStyle(.iconOnly)
-            .font(.title2)
             .foregroundStyle(.tertiary)
+            .font(.title2)
         }
     }
 }
