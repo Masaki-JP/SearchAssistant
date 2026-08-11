@@ -35,7 +35,7 @@ struct HistorySection: View {
         } footer: {
             if let onDeleteAllHistories {
                 Button("全履歴を削除", role: .destructive, action: onDeleteAllHistories)
-                    .font(.headline)
+                    .font(.headline.weight(.medium))
                     .frame(maxWidth: .infinity)
                     .padding(.top, 4)
             }
