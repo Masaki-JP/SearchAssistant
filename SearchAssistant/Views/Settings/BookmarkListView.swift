@@ -6,47 +6,29 @@ struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryInterface>: Vi
     @State var isPresentedBookmarkOrderView = false
     let bookmarkRepository: BookmarkRepositoryType
     
+    func remove(bookmark: Bookmark) {
+        do {
+            try bookmarkRepository.remove(bookmark)
+            bookmarks.removeAll { $0.id == bookmark.id }
+        } catch {
+            reportError(error)
+        }
+    }
+    
     var body: some View {
         List {
             Section {
                 ForEach(bookmarks) { bookmark in
-                    NavigationLink {
-                        BookmarkFormView(defaultValue: bookmark) { userInput, platform in
-                            let newOne = Bookmark(id: bookmark.id, userInput: userInput, platform: platform)
-                            try bookmarkRepository.update(newOne)
-                        }
-                    } label: {
-                        HStack(spacing: nil) {
-                            FaviconImage(platform:bookmark.platform)
-                            
-                            Text(bookmark.userInput)
-                                .lineLimit(1)
-                                .padding(.leading, 4)
-                        }
-                    }
-                    .swipeActions {
-                        Button("削除", systemImage: "trash", role: .destructive) {
-                            do {
-                                try bookmarkRepository.remove(bookmark)
-                                bookmarks.removeAll { $0.id == bookmark.id }
-                            } catch {
-                                reportError(error)
+                    bookmarkRowLink(bookmark)
+                        .swipeActions {
+                            Button("削除", systemImage: "trash", role: .destructive) {
+                                remove(bookmark: bookmark)
                             }
                         }
-                    }
                 }
             } header: {
-                HStack {
-                    Text("保存済み")
-                    Spacer()
-                    Button {
-                        isPresentedBookmarkOrderView = true
-                    } label: {
-                        HStack(spacing: 4) {
-                            Text("表示順序")
-                            Image(systemName: "chevron.forward.circle")
-                        }
-                    }
+                if bookmarks.isEmpty == false {
+                    bookmarkSectionHeader
                 }
             }
         }
@@ -74,6 +56,39 @@ struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryInterface>: Vi
             }
         }
         .onAppear(perform: loadBookmarks)
+    }
+    
+    func bookmarkRowLink(_ bookmark: Bookmark) -> some View {
+        NavigationLink {
+            BookmarkFormView(defaultValue: bookmark) { userInput, platform in
+                let updatedBookmark = Bookmark(id: bookmark.id, userInput: userInput, platform: platform)
+                try bookmarkRepository.update(updatedBookmark)
+            }
+        } label: {
+            HStack(spacing: nil) {
+                FaviconImage(platform:bookmark.platform)
+                
+                Text(bookmark.userInput)
+                    .lineLimit(1)
+                    .padding(.leading, 4)
+            }
+        }
+    }
+    
+    var bookmarkSectionHeader: some View {
+        HStack {
+            Text("保存済み")
+            Spacer()
+            Button {
+                isPresentedBookmarkOrderView = true
+            } label: {
+                HStack(spacing: 4) {
+                    Text("表示順序")
+                    Image(systemName: "chevron.forward.circle")
+                }
+            }
+            .disabled(bookmarks.count < 2)
+        }
     }
     
     var bookmarkOrderView: some View {
