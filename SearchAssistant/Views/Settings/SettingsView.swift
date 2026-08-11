@@ -2,7 +2,7 @@ import SwiftUI
 import SwiftData
 import SearchCore
 
-struct SettingsView<EnabledSearchButtonRepositoryType: EnabledSearchButtonRepositoryInterface>: View {
+struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryInterface, EnabledSearchButtonRepositoryType: EnabledSearchButtonRepositoryInterface>: View {
     @Environment(\.scenePhase) var scenePhase
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var modelContext
@@ -16,6 +16,7 @@ struct SettingsView<EnabledSearchButtonRepositoryType: EnabledSearchButtonReposi
     @State var isPresentedSearchButtonsBarOrderView = false
     
     let selectionSoundPlayer = SelectionSoundPlayer()
+    let bookmarkRepository: BookmarkRepositoryType
     let enabledSearchButtonRepository: EnabledSearchButtonRepositoryType
     
     var body: some View {
@@ -26,6 +27,7 @@ struct SettingsView<EnabledSearchButtonRepositoryType: EnabledSearchButtonReposi
                 browserSection
                 searchButtonsBarSection
                 historySection
+                bookmarkSection
                 appInfoSection
             }
             .scrollIndicators(.hidden)
@@ -111,6 +113,16 @@ struct SettingsView<EnabledSearchButtonRepositoryType: EnabledSearchButtonReposi
         }
     }
     
+    var bookmarkSection: some View {
+        Section {
+            NavigationLink("ブックマークを編集") {
+                BookmarkListView(bookmarkRepository: bookmarkRepository)
+            }
+        } header: {
+            Text("ブックマーク")
+        }
+    }
+    
     var appInfoSection: some View {
         Section {
             LabeledContent("バージョン", value: bundleShortVersionString)
@@ -147,5 +159,9 @@ struct SettingsView<EnabledSearchButtonRepositoryType: EnabledSearchButtonReposi
 
 #Preview {
     let returnValue: [SearchPlatform] = [.youtube, .amazon, .mercari, .googleMaps]
-    SettingsView(enabledSearchButtonRepository: .fake(returnValue: returnValue))
+    
+    SettingsView(
+        bookmarkRepository: .fake(returnValue: Bookmark.samples),
+        enabledSearchButtonRepository: .fake(returnValue: returnValue)
+    )
 }
