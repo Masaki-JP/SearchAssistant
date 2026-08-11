@@ -28,17 +28,6 @@ extension SettingsView {
         }
     }
     
-    func onSearchButtonsMove(fromOffsets source: IndexSet, toOffset destination: Int) {
-        let previousState = enabledSearchButtons
-        enabledSearchButtons.move(fromOffsets: source, toOffset: destination)
-        do {
-            try enabledSearchButtonRepository.save(enabledSearchButtons)
-        } catch {
-            reportError(error)
-            enabledSearchButtons = previousState
-        }
-    }
-    
     func trimHistoriesIfNeeded() {
         do {
             try SearchHistory.trimIfNeeded(using: modelContext)

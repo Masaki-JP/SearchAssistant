@@ -33,10 +33,19 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryInterface, Enabled
             .scrollIndicators(.hidden)
             .navigationTitle("各種設定")
             .navigationBarTitleDisplayMode(.inline)
-            .navigationDestination(isPresented: $isPresentedSearchButtonsBarOrderView, destination: {
-                searchButtonsBarOrderView
-                    .navigationTitle("表示順序")
-            })
+            .navigationDestination(isPresented: $isPresentedSearchButtonsBarOrderView) {
+                ReorderableListView(defaultValue: enabledSearchButtons) { platform in
+                    Text(platform.displayName)
+                } sectionHeader: {
+                    Text("サーチボタンバー")
+                } sectionFooter: {
+                    Text("サーチボタンバーに表示する検索ボタンの並び順を設定できます。")
+                } onSave: { reorderedButtons in
+                    try enabledSearchButtonRepository.save(reorderedButtons)
+                    enabledSearchButtons = reorderedButtons
+                }
+                .navigationTitle("表示順序")
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("完了") { dismiss() }
@@ -138,22 +147,6 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryInterface, Enabled
     
     var bundleVersion: String {
         Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "-"
-    }
-    
-    var searchButtonsBarOrderView: some View {
-        List {
-            Section {
-                ForEach(enabledSearchButtons) { platform in
-                    Text(platform.displayName)
-                }
-                .onMove(perform: onSearchButtonsMove)
-            } header: {
-                Text("サーチボタンバー")
-            } footer: {
-                Text("サーチボタンバーに表示する検索ボタンの並び順を設定できます。")
-            }
-        }
-        .environment(\.editMode, .constant(.active))
     }
 }
 
