@@ -50,6 +50,11 @@ struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryInterface>: Vi
                 }
             }
         }
+        .overlay {
+            if bookmarks.isEmpty == true {
+                NoContentView(title: "保存済みブックマークはありません。", description: "右上の＋ボタンからブックマークを追加できます。", imageSystemName: "bookmark")
+            }
+        }
         .contentMargins(.vertical, .zero, for: .automatic)
         .navigationTitle("ブックマーク")
         .navigationBarTitleDisplayMode(.inline)
@@ -124,6 +129,19 @@ extension BookmarkListView {
         }
         .navigationDestination(isPresented: $isPresented) {
             BookmarkListView(bookmarkRepository: .fake(returnValue: Bookmark.samples))
+        }
+    }
+}
+
+#Preview {
+    @Previewable @State var isPresented = true
+    
+    NavigationStack {
+        Button("Show") {
+            isPresented = true
+        }
+        .navigationDestination(isPresented: $isPresented) {
+            BookmarkListView(bookmarkRepository: .fake(returnValue: .init()))
         }
     }
 }
