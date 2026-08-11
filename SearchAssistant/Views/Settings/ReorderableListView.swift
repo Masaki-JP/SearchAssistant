@@ -65,7 +65,6 @@ struct ReorderableListView<Item: Identifiable & Equatable, RowContent: View, Hea
     }
 }
 
-#if DEBUG
 #Preview("SearchPlatform") {
     @Previewable @State var isPresented = false
     
@@ -125,4 +124,3 @@ struct ReorderableListView<Item: Identifiable & Equatable, RowContent: View, Hea
         isPresented = true
     }
 }
-#endif
