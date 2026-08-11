@@ -5,6 +5,7 @@ struct BookmarkFormView: View {
     @State var userInput: String
     @State var platform: SearchPlatform
     @State var isSaveErrorAlertPresented = false
+    @FocusState var isFocused
     @Environment(\.dismiss) var dismiss
     
     let defaultValue: Bookmark?
@@ -41,6 +42,7 @@ struct BookmarkFormView: View {
         Form {
             Section {
                 TextField("検索 / Webサイト名入力", text: $userInput)
+                    .focused($isFocused)
                 
                 Picker("検索先", selection: $platform) {
                     ForEach(SearchPlatform.allCases) { platform in
@@ -77,6 +79,12 @@ struct BookmarkFormView: View {
                     }
                 }
                 .disabled(isConfirmButtonDisabled)
+            }
+        }
+        .task {
+            if defaultValue == nil {
+                try? await Task.sleep(for: .seconds(0.1))
+                isFocused = true
             }
         }
     }
