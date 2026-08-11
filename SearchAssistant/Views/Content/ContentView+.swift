@@ -31,6 +31,7 @@ extension ContentView {
     
     func onAppear() {
         loadEnabledSearchButtons()
+        loadBookmarks()
         
         DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
             guard settingAutoFocus == true,
@@ -89,6 +90,7 @@ extension ContentView {
     
     func onSettingsViewDismiss() {
         loadEnabledSearchButtons()
+        loadBookmarks()
         guard settingAutoFocus == true else { return }
         isFocused = true
     }
@@ -149,6 +151,15 @@ extension ContentView {
         } catch {
             if error != .dataNotSet { reportError(error) }
             enabledSearchButtons = SearchPlatform.allCases
+        }
+    }
+    
+    func loadBookmarks() {
+        do {
+            bookmarks = try bookmarkRepository.load()
+        } catch {
+            if error != .dataNotSet { reportError(error) }
+            bookmarks = []
         }
     }
 }

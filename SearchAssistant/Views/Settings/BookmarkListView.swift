@@ -1,16 +1,19 @@
 import SearchCore
 import SwiftUI
 
-struct BookmarkListView: View {
-    let bookmarks = Bookmark.samples
-    @Environment(\.dismiss) var dismiss
+struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryInterface>: View {
+    @State var bookmarks: [Bookmark] = []
+    let bookmarkRepository: BookmarkRepositoryType
     
     var body: some View {
         List {
             Section {
                 ForEach(bookmarks) { bookmark in
                     NavigationLink {
-                        BookmarkFormView(defaultValue: bookmark) {}
+                        BookmarkFormView(defaultValue: bookmark) { userInput, platform in
+                            let newOne = Bookmark(id: bookmark.id, userInput: userInput, platform: platform)
+                            try bookmarkRepository.update(newOne)
+                        }
                     } label: {
                         HStack(spacing: nil) {
                             FaviconImage(platform:bookmark.platform)
@@ -21,7 +24,14 @@ struct BookmarkListView: View {
                         }
                     }
                     .swipeActions {
-                        Button("削除", systemImage: "trash", role: .destructive, action: {})
+                        Button("削除", systemImage: "trash", role: .destructive) {
+                            do {
+                                try bookmarkRepository.remove(bookmark)
+                                bookmarks.removeAll { $0.id == bookmark.id }
+                            } catch {
+                                reportError(error)
+                            }
+                        }
                     }
                 }
             }
@@ -32,17 +42,32 @@ struct BookmarkListView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 NavigationLink {
-                    BookmarkFormView {}
+                    BookmarkFormView { userInput, platform in
+                        try bookmarkRepository.add(.init(userInput: userInput, platform: platform))
+                    }
                 } label: {
                     Label("ブックマークを追加", systemImage: "plus")
                 }
             }
         }
+        .onAppear(perform: loadBookmarks)
     }
+}
+
+extension BookmarkListView {
+    func loadBookmarks() {
+        do {
+            bookmarks = try bookmarkRepository.load()
+        } catch {
+            if error != .dataNotSet { reportError(error) }
+            bookmarks = []
+        }
+    }
+    
 }
 
 #Preview {
     NavigationStack {
-        BookmarkListView()
+        BookmarkListView(bookmarkRepository: .fake(returnValue: Bookmark.samples))
     }
 }

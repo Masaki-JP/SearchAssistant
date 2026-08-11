@@ -13,7 +13,10 @@ struct SearchAssistantApp: App {
                 case .splashScreenView:
                     SplashScreenView()
                 case .contentView:
-                    ContentView(enabledSearchButtonRepository: .standard)
+                    ContentView(
+                        bookmarkRepository: .standard,
+                        enabledSearchButtonRepository: .standard
+                    )
                 }
             }
             .preferredColorScheme(colorSchemeSetting.colorScheme)
