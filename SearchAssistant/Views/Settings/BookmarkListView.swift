@@ -6,15 +6,6 @@ struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryInterface>: Vi
     @State var isPresentedBookmarkOrderView = false
     let bookmarkRepository: BookmarkRepositoryType
     
-    func remove(bookmark: Bookmark) {
-        do {
-            try bookmarkRepository.remove(bookmark)
-            bookmarks.removeAll { $0.id == bookmark.id }
-        } catch {
-            reportError(error)
-        }
-    }
-    
     var body: some View {
         List {
             Section {
@@ -41,8 +32,21 @@ struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryInterface>: Vi
         .navigationTitle("ブックマーク")
         .navigationBarTitleDisplayMode(.inline)
         .navigationDestination(isPresented: $isPresentedBookmarkOrderView) {
-            bookmarkOrderView
-                .navigationTitle("表示順序")
+            ReorderableListView(defaultValue: bookmarks) { bookmark in
+                HStack(spacing: nil) {
+                    FaviconImage(platform: bookmark.platform)
+                    
+                    Text(bookmark.userInput)
+                        .lineLimit(1)
+                        .padding(.leading, 4)
+                }
+            } sectionHeader: {
+                Text("保存済みブックマーク")
+            } onSave: { reorderedBookmarks in
+                try bookmarkRepository.save(reorderedBookmarks)
+                bookmarks = reorderedBookmarks
+            }
+            .navigationTitle("表示順序")
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -91,28 +95,18 @@ struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryInterface>: Vi
         }
     }
     
-    var bookmarkOrderView: some View {
-        List {
-            Section {
-                ForEach(bookmarks) { bookmark in
-                    HStack(spacing: nil) {
-                        FaviconImage(platform: bookmark.platform)
-                        
-                        Text(bookmark.userInput)
-                            .lineLimit(1)
-                            .padding(.leading, 4)
-                    }
-                }
-                .onMove(perform: onBookmarksMove)
-            } header: {
-                Text("保存済みブックマーク")
-            }
-        }
-        .environment(\.editMode, .constant(.active))
-    }
 }
 
 extension BookmarkListView {
+    func remove(bookmark: Bookmark) {
+        do {
+            try bookmarkRepository.remove(bookmark)
+            bookmarks.removeAll { $0.id == bookmark.id }
+        } catch {
+            reportError(error)
+        }
+    }
+    
     func loadBookmarks() {
         do {
             bookmarks = try bookmarkRepository.load()
@@ -121,18 +115,6 @@ extension BookmarkListView {
             bookmarks = []
         }
     }
-    
-    func onBookmarksMove(fromOffsets source: IndexSet, toOffset destination: Int) {
-        let previousState = bookmarks
-        bookmarks.move(fromOffsets: source, toOffset: destination)
-        do {
-            try bookmarkRepository.save(bookmarks)
-        } catch {
-            reportError(error)
-            bookmarks = previousState
-        }
-    }
-    
 }
 
 #Preview {
