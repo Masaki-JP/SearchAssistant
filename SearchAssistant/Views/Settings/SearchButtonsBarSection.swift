@@ -21,6 +21,7 @@ struct SearchButtonsBarSection: View {
                         Image(systemName: "chevron.forward.circle")
                     }
                 }
+                .disabled(enabledSearchButtons.count < 2)
             }
         } footer: {
             Text("サーチボタンバーに表示する検索ボタンを設定できます。")
