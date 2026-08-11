@@ -38,7 +38,7 @@ struct BookmarkRepository: BookmarkRepositoryInterface {
         try save(bookmarks)
     }
     
-    private func save(_ bookmarks: [Bookmark]) throws(BookmarkRepositoryError) {
+    func save(_ bookmarks: [Bookmark]) throws(BookmarkRepositoryError) {
         do {
             let encodedData = try JSONEncoder().encode(bookmarks)
             UserDefaults.standard.set(encodedData, forKey: Self.key.rawValue)

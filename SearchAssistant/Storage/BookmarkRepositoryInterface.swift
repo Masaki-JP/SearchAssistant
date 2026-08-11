@@ -6,6 +6,7 @@ protocol BookmarkRepositoryInterface {
     func add(_ bookmark: Bookmark) throws(BookmarkRepositoryError)
     func load() throws(BookmarkRepositoryError) -> [Bookmark]
     func remove(_ bookmark: Bookmark) throws(BookmarkRepositoryError)
+    func save(_ bookmarks: [Bookmark]) throws(BookmarkRepositoryError)
     func update(_ bookmark: Bookmark) throws(BookmarkRepositoryError)
 }
 
@@ -40,6 +41,10 @@ final class FakeBookmarkRepository: BookmarkRepositoryInterface {
     
     func load() throws(BookmarkRepositoryError) -> [Bookmark] {
         value
+    }
+    
+    func save(_ bookmarks: [Bookmark]) throws(BookmarkRepositoryError) {
+        value = bookmarks
     }
 }
 

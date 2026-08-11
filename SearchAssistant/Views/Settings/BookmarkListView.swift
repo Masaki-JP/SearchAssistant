@@ -3,6 +3,7 @@ import SwiftUI
 
 struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryInterface>: View {
     @State var bookmarks: [Bookmark] = []
+    @State var isPresentedBookmarkOrderView = false
     let bookmarkRepository: BookmarkRepositoryType
     
     var body: some View {
@@ -34,11 +35,28 @@ struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryInterface>: Vi
                         }
                     }
                 }
+            } header: {
+                HStack {
+                    Text("保存済み")
+                    Spacer()
+                    Button {
+                        isPresentedBookmarkOrderView = true
+                    } label: {
+                        HStack(spacing: 4) {
+                            Text("表示順序")
+                            Image(systemName: "chevron.forward.circle")
+                        }
+                    }
+                }
             }
         }
         .contentMargins(.vertical, .zero, for: .automatic)
         .navigationTitle("ブックマーク")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationDestination(isPresented: $isPresentedBookmarkOrderView) {
+            bookmarkOrderView
+                .navigationTitle("表示順序")
+        }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 NavigationLink {
@@ -52,6 +70,26 @@ struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryInterface>: Vi
         }
         .onAppear(perform: loadBookmarks)
     }
+    
+    var bookmarkOrderView: some View {
+        List {
+            Section {
+                ForEach(bookmarks) { bookmark in
+                    HStack(spacing: nil) {
+                        FaviconImage(platform: bookmark.platform)
+                        
+                        Text(bookmark.userInput)
+                            .lineLimit(1)
+                            .padding(.leading, 4)
+                    }
+                }
+                .onMove(perform: onBookmarksMove)
+            } header: {
+                Text("保存済みブックマーク")
+            }
+        }
+        .environment(\.editMode, .constant(.active))
+    }
 }
 
 extension BookmarkListView {
@@ -64,10 +102,28 @@ extension BookmarkListView {
         }
     }
     
+    func onBookmarksMove(fromOffsets source: IndexSet, toOffset destination: Int) {
+        let previousState = bookmarks
+        bookmarks.move(fromOffsets: source, toOffset: destination)
+        do {
+            try bookmarkRepository.save(bookmarks)
+        } catch {
+            reportError(error)
+            bookmarks = previousState
+        }
+    }
+    
 }
 
 #Preview {
+    @Previewable @State var isPresented = true
+    
     NavigationStack {
-        BookmarkListView(bookmarkRepository: .fake(returnValue: Bookmark.samples))
+        Button("Show") {
+            isPresented = true
+        }
+        .navigationDestination(isPresented: $isPresented) {
+            BookmarkListView(bookmarkRepository: .fake(returnValue: Bookmark.samples))
+        }
     }
 }
