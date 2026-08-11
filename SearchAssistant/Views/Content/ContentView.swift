@@ -188,17 +188,13 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryInterface, EnabledS
     var bottomToolbarContent: some ToolbarContent {
         ToolbarItem(placement: .bottomBar) {
             Menu("ブックマーク一覧", systemImage: "bookmark") {
-                let histories = Array(SearchHistory.samples[0..<5])
-                
                 Section {
-                    ForEach(histories) { history in
+                    ForEach(bookmarks) { bookmark in
                         Button {
-                            searchAction(history.userInput, on: history.platform)
+                            searchAction(bookmark.userInput, on: bookmark.platform)
                         } label: {
-                            Text(history.userInput)
-                            if let platformName = history.platform?.shortDisplayName {
-                                Text("（\(platformName)）")
-                            }
+                            Text(bookmark.userInput)
+                            Text("（\(bookmark.platform.shortDisplayName)）")
                         }
                     }
                 } header: {
