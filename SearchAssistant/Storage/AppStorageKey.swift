@@ -11,7 +11,7 @@ extension UserDefaultsKey {
     }
     
     enum AppStorageDefaultValue {
-        static let autoFocus = true
+        static let autoFocus = false
         static let openInSafariView = false
     }
 }
