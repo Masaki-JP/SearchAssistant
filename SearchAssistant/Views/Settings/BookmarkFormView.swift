@@ -4,9 +4,16 @@ import SwiftUI
 struct BookmarkFormView: View {
     @State var userInput: String
     @State var platform: SearchPlatform
-    @State var isSaveErrorAlertPresented = false
     @FocusState var isFocused
     @Environment(\.dismiss) var dismiss
+    
+    @State var error: (any Error)? = nil
+    var isSaveErrorAlertPresented: Binding<Bool> {
+        .init(
+            get: { error != nil },
+            set: { if $0 == false { error = nil } }
+        )
+    }
     
     let defaultValue: Bookmark?
     let showsDismissButton: Bool
@@ -40,6 +47,37 @@ struct BookmarkFormView: View {
         }
     }
     
+    var alertTitle: String {
+        switch error as? BookmarkRepositoryError {
+        case .bookmarkAlreadyExists: "ブックマークは登録済みです"
+        case .bookmarkNotFound, .dataNotSet: "ブックマークが見つかりません"
+        case .decodingError: "ブックマークを読み込めません"
+        case .encodingError, .none: "保存失敗"
+        }
+    }
+    
+    var alertMessage: String {
+        switch error as? BookmarkRepositoryError {
+        case .bookmarkAlreadyExists:
+            "同じ検索語句・検索先のブックマークがすでに登録されています。"
+        case .bookmarkNotFound:
+            "編集対象のブックマークが見つかりません。すでに削除された可能性があります。"
+        case .dataNotSet:
+            "保存済みのブックマークが見つかりません。"
+        case .decodingError:
+            "保存済みのブックマークを読み込めません。時間をおいてから再度お試しください。"
+        case .encodingError, .none:
+            "ブックマークの保存に失敗しました。時間をおいてから再度お試しください。"
+        }
+    }
+    
+    var shouldDismissAfterClosingAlert: Bool {
+        switch error as? BookmarkRepositoryError {
+        case .bookmarkAlreadyExists, .encodingError: false
+        case .bookmarkNotFound, .dataNotSet, .decodingError, .none: true
+        }
+    }
+    
     var body: some View {
         Form {
             Section {
@@ -59,10 +97,12 @@ struct BookmarkFormView: View {
         }
         .navigationTitle(defaultValue == nil ? "ブックマークを追加" : "ブックマークを編集")
         .navigationBarTitleDisplayMode(.inline)
-        .alert("保存失敗", isPresented: $isSaveErrorAlertPresented) {
-            Button(role: .close, action: dismiss.callAsFunction)
+        .alert(alertTitle, isPresented: isSaveErrorAlertPresented) {
+            Button(role: .close) {
+                if shouldDismissAfterClosingAlert == true { dismiss() }
+            }
         } message: {
-            Text("ブックマークの保存に失敗しました。時間をおいてから再度お試しください。")
+            Text(alertMessage)
         }
         .toolbar {
             if showsDismissButton == true {
@@ -78,16 +118,14 @@ struct BookmarkFormView: View {
                         dismiss()
                     } catch {
                         reportError(error)
-                        isSaveErrorAlertPresented = true
+                        self.error = error
                     }
                 }
                 .disabled(isConfirmButtonDisabled)
             }
         }
         .onAppear {
-            if defaultValue == nil {
-                isFocused = true
-            }
+            if defaultValue == nil { isFocused = true }
         }
     }
 }
