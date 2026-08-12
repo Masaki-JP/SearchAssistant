@@ -80,7 +80,9 @@ struct HistorySection: View {
                         }
                     }
                 }
-
+                
+                Divider()
+                
                 Button("削除", role: .destructive) {
                     onDelete([history])
                 }
