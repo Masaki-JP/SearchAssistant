@@ -21,7 +21,7 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryInterface, EnabledS
     @State var bookmarks: [Bookmark] = []
     @State var enabledSearchButtons = SearchPlatform.allCases
     
-    @AppStorage(UserDefaultsKey.AppStorageKey.autoFocus.rawValue) var settingAutoFocus = true
+    @AppStorage(UserDefaultsKey.AppStorageKey.autoFocus.rawValue) var isSearchFieldAutoFocusEnabled = true
     @AppStorage(UserDefaultsKey.AppStorageKey.openInSafariView.rawValue) var openInSafariView = false
     
     let suggestionFetcher = SuggestionFetcher.shared
@@ -133,7 +133,7 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryInterface, EnabledS
         }
         .onAppear(perform: onAppear)
         .task(id: userInput, onUserInputChange)
-        .onChange(of: scenePhase, onScenePhaseChange)
+        .onChange(of: scenePhase, initial: true, onScenePhaseChange)
         .onChange(of: isPresentedSettingsView, onIsPresentedSettingsViewChange)
     }
     
