@@ -32,28 +32,24 @@ extension ContentView {
     func onAppear() {
         loadEnabledSearchButtons()
         loadBookmarks()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
-            guard settingAutoFocus == true,
-                  isPresentedSettingsView == false,
-                  isPresentedDeleteAllHistoriesAlert == false,
-                  presentedSafariViewURL == nil
-            else { return }
-            
-            isFocused = true
-        }
     }
     
     func onScenePhaseChange(oldScene: ScenePhase, newScene: ScenePhase) {
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
-            guard newScene == .active,
-                  settingAutoFocus == true,
-                  isPresentedSettingsView == false,
-                  isPresentedDeleteAllHistoriesAlert == false,
-                  presentedSafariViewURL == nil
-            else { return }
-            
-            isFocused = true
+        Task { // ※1
+            do {
+                try await Task.sleep(for: .seconds(0.1))
+                
+                if newScene == .active,
+                   settingAutoFocus == true,
+                   isPresentedSettingsView == false,
+                   isPresentedAddBookmarkView == false,
+                   isPresentedDeleteAllHistoriesAlert == false,
+                   presentedSafariViewURL == nil {
+                    isFocused = true
+                }
+            } catch {
+                reportError(error)
+            }
         }
     }
     
@@ -91,8 +87,6 @@ extension ContentView {
     func onSettingsViewDismiss() {
         loadEnabledSearchButtons()
         loadBookmarks()
-        guard settingAutoFocus == true else { return }
-        isFocused = true
     }
     
     func appendHistory(userInput: String, platform: SearchPlatform) {
@@ -163,3 +157,5 @@ extension ContentView {
         }
     }
 }
+
+/// ※1: キャンセルは実装しない。

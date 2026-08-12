@@ -133,7 +133,7 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryInterface, EnabledS
         }
         .onAppear(perform: onAppear)
         .task(id: userInput, onUserInputChange)
-        .onChange(of: scenePhase, onScenePhaseChange)
+        .onChange(of: scenePhase, initial: true, onScenePhaseChange)
         .onChange(of: isPresentedSettingsView, onIsPresentedSettingsViewChange)
     }
     
