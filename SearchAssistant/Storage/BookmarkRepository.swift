@@ -13,7 +13,7 @@ struct BookmarkRepository: BookmarkRepositoryInterface {
     
     func add(_ bookmark: Bookmark) throws(BookmarkRepositoryError) {
         var bookmarks = try loadOrEmpty()
-        guard bookmarks.contains(where: { $0.id == bookmark.id }) == false
+        guard bookmarks.contains(where: { $0.userInput == bookmark.userInput && $0.platform == bookmark.platform }) == false
         else { throw BookmarkRepositoryError.bookmarkAlreadyExists }
         
         bookmarks.append(bookmark)
@@ -24,6 +24,12 @@ struct BookmarkRepository: BookmarkRepositoryInterface {
         var bookmarks = try load()
         guard let index = bookmarks.firstIndex(where: { $0.id == bookmark.id })
         else { throw BookmarkRepositoryError.bookmarkNotFound }
+        guard bookmarks.contains(where: {
+            $0.id != bookmark.id &&
+            $0.userInput == bookmark.userInput &&
+            $0.platform == bookmark.platform
+        }) == false
+        else { throw BookmarkRepositoryError.bookmarkAlreadyExists }
         
         bookmarks[index] = bookmark
         try save(bookmarks)
