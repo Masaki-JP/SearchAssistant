@@ -21,8 +21,10 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryInterface, EnabledS
     @State var bookmarks: [Bookmark] = []
     @State var enabledSearchButtons = SearchPlatform.allCases
     
-    @AppStorage(UserDefaultsKey.AppStorageKey.autoFocus.rawValue) var isSearchFieldAutoFocusEnabled = true
-    @AppStorage(UserDefaultsKey.AppStorageKey.openInSafariView.rawValue) var openInSafariView = false
+    @AppStorage(UserDefaultsKey.AppStorageKey.autoFocus.rawValue)
+    var isSearchFieldAutoFocusEnabled = UserDefaultsKey.AppStorageDefaultValue.autoFocus
+    @AppStorage(UserDefaultsKey.AppStorageKey.openInSafariView.rawValue)
+    var openInSafariView = UserDefaultsKey.AppStorageDefaultValue.openInSafariView
     
     let suggestionFetcher = SuggestionFetcher.shared
     let searchURLCreator = SearchURLCreator()
