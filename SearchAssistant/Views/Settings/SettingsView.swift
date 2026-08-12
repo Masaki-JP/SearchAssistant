@@ -7,10 +7,14 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryInterface, Enabled
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var modelContext
     
-    @AppStorage(UserDefaultsKey.AppStorageKey.autoFocus.rawValue) var settingAutoFocus = true
-    @AppStorage(UserDefaultsKey.AppStorageKey.colorScheme.rawValue) var colorSchemeSetting = ColorSchemeSetting.defaultValue
-    @AppStorage(UserDefaultsKey.AppStorageKey.openInSafariView.rawValue) var openInSafariView = false
-    @AppStorage(UserDefaultsKey.AppStorageKey.historyMaximumCount.rawValue) var historyMaximumCount = SearchHistory.defaultMaximumCount
+    @AppStorage(UserDefaultsKey.AppStorageKey.autoFocus.rawValue)
+    var settingAutoFocus = UserDefaultsKey.AppStorageDefaultValue.autoFocus
+    @AppStorage(UserDefaultsKey.AppStorageKey.colorScheme.rawValue)
+    var colorSchemeSetting = ColorSchemeSetting.defaultValue
+    @AppStorage(UserDefaultsKey.AppStorageKey.openInSafariView.rawValue)
+    var openInSafariView = UserDefaultsKey.AppStorageDefaultValue.openInSafariView
+    @AppStorage(UserDefaultsKey.AppStorageKey.historyMaximumCount.rawValue)
+    var historyMaximumCount = SearchHistory.defaultMaximumCount
     
     @State var enabledSearchButtons = SearchPlatform.allCases
     @State var isPresentedSearchButtonsBarOrderView = false

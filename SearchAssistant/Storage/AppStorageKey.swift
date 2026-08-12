@@ -9,4 +9,9 @@ extension UserDefaultsKey {
         case openInSafariView
         case historyMaximumCount
     }
+    
+    enum AppStorageDefaultValue {
+        static let autoFocus = true
+        static let openInSafariView = false
+    }
 }
