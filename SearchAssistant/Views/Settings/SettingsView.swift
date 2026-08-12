@@ -69,7 +69,7 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryInterface, Enabled
         } header: {
             Text("キーボード")
         } footer: {
-            Text("検索画面が表示された時に、検索フォームに自動でフォーカスします。")
+            Text("アプリが表示された時に、検索フォームに自動でフォーカスします。（設定が開かれている場合などは除く）")
         }
     }
     
