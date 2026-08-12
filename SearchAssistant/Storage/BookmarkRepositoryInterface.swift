@@ -19,7 +19,7 @@ final class FakeBookmarkRepository: BookmarkRepositoryInterface {
     }
     
     func add(_ bookmark: Bookmark) throws(BookmarkRepositoryError) {
-        guard value.contains(where: { $0.id == bookmark.id }) == false
+        guard value.contains(where: { $0.userInput == bookmark.userInput && $0.platform == bookmark.platform }) == false
         else { throw BookmarkRepositoryError.bookmarkAlreadyExists }
         
         value.append(bookmark)
@@ -35,6 +35,12 @@ final class FakeBookmarkRepository: BookmarkRepositoryInterface {
     func update(_ bookmark: Bookmark) throws(BookmarkRepositoryError) {
         guard let index = value.firstIndex(where: { $0.id == bookmark.id })
         else { throw BookmarkRepositoryError.bookmarkNotFound }
+        guard value.contains(where: {
+            $0.id != bookmark.id &&
+            $0.userInput == bookmark.userInput &&
+            $0.platform == bookmark.platform
+        }) == false
+        else { throw BookmarkRepositoryError.bookmarkAlreadyExists }
         
         value[index] = bookmark
     }
