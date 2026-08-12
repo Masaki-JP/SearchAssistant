@@ -60,7 +60,7 @@ struct HistorySection: View {
                 Section {
                     Text(history.userInput)
                 } header: {
-                    Text("検索")
+                    Text("検索語句")
                 }
                 Section {
                     Text(history.platform?.displayName ?? "不明")
