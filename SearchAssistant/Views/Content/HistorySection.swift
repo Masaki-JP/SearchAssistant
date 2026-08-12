@@ -80,6 +80,10 @@ struct HistorySection: View {
                         }
                     }
                 }
+
+                Button("削除", role: .destructive) {
+                    onDelete([history])
+                }
             } label: {
                 Image(systemName: "info.circle")
                     .padding(3)
@@ -92,18 +96,23 @@ struct HistorySection: View {
 }
 
 #Preview {
-    var histories = Array(SearchHistory.samples[0..<5])
-    let userInput = "夢なき者に理想なし、理想なき者に計画なし、理想なき者に成功なし。"
-    histories.insert(.init(userInput: userInput, platform: .google), at: 3)
-    let userInput2 = "名古屋駅"
-    histories.insert(.init(userInput: userInput2, platform: .googleMaps), at: 1)
+    @Previewable @State var histories = {
+        var histories = Array(SearchHistory.samples[0..<5])
+        histories.insert(.init(userInput: "夢なき者に理想なし、理想なき者に計画なし、理想なき者に成功なし。", platform: .google), at: 3)
+        histories.insert(.init(userInput: "名古屋駅", platform: .googleMaps), at: 1)
+        return histories
+    }()
     
-    return List {
+    List {
         HistorySection(
             histories: histories,
             onSearch: { print($0, $1 as Any) },
-            onDelete: { _ in },
-            onDeleteAllHistories: {}
+            onDelete: { deletedHistories in
+                histories.removeAll { deletedHistories.contains($0) }
+            },
+            onDeleteAllHistories: {
+                histories.removeAll()
+            }
         )
     }
 }
