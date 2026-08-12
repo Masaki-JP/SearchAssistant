@@ -40,7 +40,7 @@ extension ContentView {
                 try await Task.sleep(for: .seconds(0.1))
                 
                 if newScene == .active,
-                   settingAutoFocus == true,
+                   isSearchFieldAutoFocusEnabled == true,
                    isPresentedSettingsView == false,
                    isPresentedAddBookmarkView == false,
                    isPresentedDeleteAllHistoriesAlert == false,
