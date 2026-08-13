@@ -28,6 +28,11 @@ extension SettingsView {
         }
     }
     
+    func onSearchButtonsBarOrderSaved(_ reorderedButtons: [SearchPlatform]) throws {
+        try enabledSearchButtonRepository.save(reorderedButtons)
+        enabledSearchButtons = reorderedButtons
+    }
+    
     func trimHistoriesIfNeeded() {
         do {
             try SearchHistory.trimIfNeeded(using: modelContext)

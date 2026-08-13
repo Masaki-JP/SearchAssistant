@@ -3,6 +3,8 @@ import SwiftData
 import SearchCore
 
 struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryInterface, EnabledSearchButtonRepositoryType: EnabledSearchButtonRepositoryInterface>: View {
+    @State var enabledSearchButtons = SearchPlatform.allCases
+    
     @Environment(\.scenePhase) var scenePhase
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var modelContext
@@ -16,9 +18,6 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryInterface, Enabled
     @AppStorage(UserDefaultsKey.AppStorageKey.historyMaximumCount.rawValue)
     var historyMaximumCount = SearchHistory.defaultMaximumCount
     
-    @State var enabledSearchButtons = SearchPlatform.allCases
-    @State var isPresentedSearchButtonsBarOrderView = false
-    
     let selectionSoundPlayer = SelectionSoundPlayer()
     let bookmarkRepository: BookmarkRepositoryType
     let enabledSearchButtonRepository: EnabledSearchButtonRepositoryType
@@ -30,29 +29,16 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryInterface, Enabled
                 colorSchemeSection
                 browserSection
                 searchButtonsBarSection
-                historySection
                 bookmarkSection
+                historySection
                 appInfoSection
             }
             .scrollIndicators(.hidden)
             .navigationTitle("各種設定")
             .navigationBarTitleDisplayMode(.inline)
-            .navigationDestination(isPresented: $isPresentedSearchButtonsBarOrderView) {
-                ReorderableListView(defaultValue: enabledSearchButtons) { platform in
-                    Text(platform.displayName)
-                } sectionHeader: {
-                    Text("サーチボタンバー")
-                } sectionFooter: {
-                    Text("サーチボタンバーに表示する検索ボタンの並び順を設定できます。")
-                } onSave: { reorderedButtons in
-                    try enabledSearchButtonRepository.save(reorderedButtons)
-                    enabledSearchButtons = reorderedButtons
-                }
-                .navigationTitle("表示順序")
-            }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("完了") { dismiss() }
+                    Button("完了", action: dismiss.callAsFunction)
                 }
             }
         }
@@ -107,8 +93,18 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryInterface, Enabled
         SearchButtonsBarSection(
             enabledSearchButtons: enabledSearchButtons,
             onPlatformButtonTapped: toggleSearchButtonEnabled,
-            onSearchButtonsBarOrderButtonTapped: { isPresentedSearchButtonsBarOrderView = true }
+            onSearchButtonsBarOrderSaved: onSearchButtonsBarOrderSaved
         )
+    }
+    
+    var bookmarkSection: some View {
+        Section {
+            NavigationLink("ブックマークを編集") {
+                BookmarkListView(bookmarkRepository: bookmarkRepository)
+            }
+        } header: {
+            Text("ブックマーク")
+        }
     }
     
     var historySection: some View {
@@ -123,16 +119,6 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryInterface, Enabled
             Text("履歴")
         } footer: {
             Text("上限を超えた場合は、古い履歴から自動で削除されます。")
-        }
-    }
-    
-    var bookmarkSection: some View {
-        Section {
-            NavigationLink("ブックマークを編集") {
-                BookmarkListView(bookmarkRepository: bookmarkRepository)
-            }
-        } header: {
-            Text("ブックマーク")
         }
     }
     
@@ -155,10 +141,16 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryInterface, Enabled
 }
 
 #Preview {
+    @Previewable @State var isPresented = true
     let returnValue: [SearchPlatform] = [.youtube, .amazon, .mercari, .googleMaps]
     
-    SettingsView(
-        bookmarkRepository: .fake(returnValue: Bookmark.samples),
-        enabledSearchButtonRepository: .fake(returnValue: returnValue)
-    )
+    Button("Show SettingsView") {
+        isPresented = true
+    }
+    .sheet(isPresented: $isPresented) {
+        SettingsView(
+            bookmarkRepository: .fake(returnValue: Bookmark.samples),
+            enabledSearchButtonRepository: .fake(returnValue: returnValue)
+        )
+    }
 }
