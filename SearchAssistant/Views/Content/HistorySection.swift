@@ -4,7 +4,9 @@ import SearchCore
 
 struct HistorySection: View {
     let histories: [SearchHistory]
+    let isBookmarked: (SearchHistory) -> Bool
     let onSearch: (String, SearchPlatform?) -> Void
+    let onBookmarkToggled: (SearchHistory) -> Void
     let onDelete: ([SearchHistory]) -> Void
     let onDeleteAllHistories: (() -> Void)?
     
@@ -83,6 +85,14 @@ struct HistorySection: View {
                 
                 Divider()
                 
+                if history.platform != nil {
+                    Button(isBookmarked(history) ? "ブックマークを解除" : "ブックマークに登録") {
+                        onBookmarkToggled(history)
+                    }
+                    
+                    Divider()
+                }
+                
                 Button("削除", role: .destructive) {
                     onDelete([history])
                 }
@@ -108,7 +118,9 @@ struct HistorySection: View {
     List {
         HistorySection(
             histories: histories,
+            isBookmarked: { _ in false },
             onSearch: { print($0, $1 as Any) },
+            onBookmarkToggled: { _ in },
             onDelete: { deletedHistories in
                 histories.removeAll { deletedHistories.contains($0) }
             },

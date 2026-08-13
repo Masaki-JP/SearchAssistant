@@ -156,6 +156,32 @@ extension ContentView {
             bookmarks = []
         }
     }
+
+    func isBookmarked(_ history: SearchHistory) -> Bool {
+        bookmarks.contains { bookmark in
+            bookmark.userInput == history.userInput && bookmark.platform == history.platform
+        }
+    }
+
+    func toggleBookmark(_ history: SearchHistory) {
+        guard let platform = history.platform else { return }
+
+        do {
+            if let bookmark = bookmarks.first(where: {
+                $0.userInput == history.userInput && $0.platform == platform
+            }) {
+                try bookmarkRepository.remove(bookmark)
+                bookmarks.removeAll { $0.id == bookmark.id }
+            } else {
+                let bookmark = Bookmark(userInput: history.userInput, platform: platform)
+                try bookmarkRepository.add(bookmark)
+                bookmarks.append(bookmark)
+            }
+        } catch {
+            reportError(error)
+            loadBookmarks()
+        }
+    }
 }
 
 /// ※1: キャンセルは実装しない。

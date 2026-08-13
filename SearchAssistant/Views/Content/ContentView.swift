@@ -156,7 +156,9 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryInterface, EnabledS
         return ForEach(groupedHistories.indices, id: \.self) { index in
             HistorySection(
                 histories: groupedHistories[index],
+                isBookmarked: isBookmarked,
                 onSearch: searchAction,
+                onBookmarkToggled: toggleBookmark,
                 onDelete: removeHistories,
                 onDeleteAllHistories: index == groupedHistories.indices.last ? onDeleteAllHistories : nil
             )
