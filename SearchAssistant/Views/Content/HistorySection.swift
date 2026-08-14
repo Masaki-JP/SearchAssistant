@@ -75,7 +75,7 @@ struct HistorySection: View {
                     Text("日時")
                 }
                 
-                Menu("再検索") {
+                Menu("再検索", systemImage: "magnifyingglass") {
                     ForEach(SearchPlatform.allCases) { searchPlatform in
                         Button(searchPlatform.displayName) {
                             onSearch(history.userInput, searchPlatform)
@@ -86,14 +86,17 @@ struct HistorySection: View {
                 Divider()
                 
                 if history.platform != nil {
-                    Button(isBookmarked(history) ? "ブックマークを解除" : "ブックマークに登録") {
+                    Button(
+                        isBookmarked(history) ? "ブックマークを解除" : "ブックマークに登録",
+                        systemImage: isBookmarked(history) ? "bookmark.slash" : "bookmark"
+                    ) {
                         onBookmarkToggled(history)
                     }
                     
                     Divider()
                 }
                 
-                Button("削除", role: .destructive) {
+                Button("履歴を削除（即時)", systemImage: "trash", role: .destructive) {
                     onDelete([history])
                 }
             } label: {
