@@ -52,7 +52,7 @@ struct BookmarkFormView: View {
         case .bookmarkAlreadyExists: "ブックマークは登録済みです"
         case .bookmarkNotFound, .dataNotSet: "ブックマークが見つかりません"
         case .decodingError: "ブックマークを読み込めません"
-        case .encodingError, .none: "保存失敗"
+        case .encodingError, .none: "登録失敗"
         }
     }
     
@@ -61,13 +61,13 @@ struct BookmarkFormView: View {
         case .bookmarkAlreadyExists:
             "同じ検索語句・検索先のブックマークがすでに登録されています。"
         case .bookmarkNotFound:
-            "編集対象のブックマークが見つかりません。すでに削除された可能性があります。"
+            "編集対象のブックマークが見つかりません。すでに解除された可能性があります。"
         case .dataNotSet:
-            "保存済みのブックマークが見つかりません。"
+            "登録済みのブックマークが見つかりません。"
         case .decodingError:
-            "保存済みのブックマークを読み込めません。時間をおいてから再度お試しください。"
+            "登録済みのブックマークを読み込めません。時間をおいてから再度お試しください。"
         case .encodingError, .none:
-            "ブックマークの保存に失敗しました。時間をおいてから再度お試しください。"
+            "ブックマークの登録に失敗しました。時間をおいてから再度お試しください。"
         }
     }
     
@@ -95,7 +95,7 @@ struct BookmarkFormView: View {
                 Text("ブックマーク")
             }
         }
-        .navigationTitle(defaultValue == nil ? "ブックマークを追加" : "ブックマークを編集")
+        .navigationTitle(defaultValue == nil ? "ブックマークを登録" : "ブックマークを編集")
         .navigationBarTitleDisplayMode(.inline)
         .alert(alertTitle, isPresented: isSaveErrorAlertPresented) {
             Button(role: .close) {
