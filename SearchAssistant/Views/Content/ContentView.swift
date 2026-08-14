@@ -207,7 +207,7 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryInterface, EnabledS
                 
                 Divider()
                 
-                Button("ブックマークを追加") {
+                Button("ブックマークを登録") {
                     isPresentedAddBookmarkView = true
                 }
             }

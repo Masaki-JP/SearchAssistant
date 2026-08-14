@@ -111,7 +111,7 @@ struct ReorderableListView<Item: Identifiable & Equatable, RowContent: View, Hea
                             .padding(.leading, 4)
                     }
                 } sectionHeader: {
-                    Text("保存済みブックマーク")
+                    Text("登録済みブックマーク")
                 } onSave: { _ in
                     print("called save action")
                 }

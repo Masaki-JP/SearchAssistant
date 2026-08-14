@@ -12,9 +12,10 @@ struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryInterface>: Vi
                 ForEach(bookmarks) { bookmark in
                     bookmarkRowLink(bookmark)
                         .swipeActions {
-                            Button("削除", systemImage: "trash", role: .destructive) {
+                            Button("ブックマークを解除", systemImage: "bookmark.slash", role: .destructive) {
                                 remove(bookmark: bookmark)
                             }
+                            .tint(.secondary)
                         }
                 }
             } header: {
@@ -25,7 +26,7 @@ struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryInterface>: Vi
         }
         .overlay {
             if bookmarks.isEmpty == true {
-                NoContentView(title: "保存済みブックマークはありません。", description: "右上の＋ボタンからブックマークを追加できます。", imageSystemName: "bookmark")
+                NoContentView(title: "登録済みブックマークはありません", description: "右上の＋ボタンからブックマークを登録できます。", imageSystemName: "bookmark")
             }
         }
         .contentMargins(.vertical, .zero, for: .automatic)
@@ -41,7 +42,7 @@ struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryInterface>: Vi
                         .padding(.leading, 4)
                 }
             } sectionHeader: {
-                Text("保存済みブックマーク")
+                Text("登録済みブックマーク")
             } onSave: { reorderedBookmarks in
                 try bookmarkRepository.save(reorderedBookmarks)
                 bookmarks = reorderedBookmarks
@@ -55,7 +56,7 @@ struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryInterface>: Vi
                         try bookmarkRepository.add(.init(userInput: userInput, platform: platform))
                     }
                 } label: {
-                    Label("ブックマークを追加", systemImage: "plus")
+                    Label("ブックマークを登録", systemImage: "plus")
                 }
             }
         }
@@ -81,7 +82,7 @@ struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryInterface>: Vi
     
     var bookmarkSectionHeader: some View {
         HStack {
-            Text("保存済み")
+            Text("登録済み")
             Spacer()
             Button {
                 isPresentedBookmarkOrderView = true
