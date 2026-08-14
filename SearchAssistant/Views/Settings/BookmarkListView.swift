@@ -126,7 +126,7 @@ extension BookmarkListView {
     }
 }
 
-#Preview {
+#Preview("Light 1") {
     @Previewable @State var isPresented = true
     
     NavigationStack {
@@ -137,9 +137,10 @@ extension BookmarkListView {
             BookmarkListView(bookmarkRepository: .fake(returnValue: Bookmark.samples))
         }
     }
+    .preferredColorScheme(.light)
 }
 
-#Preview {
+#Preview("Light 2") {
     @Previewable @State var isPresented = true
     
     NavigationStack {
@@ -150,4 +151,33 @@ extension BookmarkListView {
             BookmarkListView(bookmarkRepository: .fake(returnValue: .init()))
         }
     }
+    .preferredColorScheme(.light)
+}
+
+#Preview("Dark 1") {
+    @Previewable @State var isPresented = true
+    
+    NavigationStack {
+        Button("Show") {
+            isPresented = true
+        }
+        .navigationDestination(isPresented: $isPresented) {
+            BookmarkListView(bookmarkRepository: .fake(returnValue: Bookmark.samples))
+        }
+    }
+    .preferredColorScheme(.dark)
+}
+
+#Preview("Dark 2") {
+    @Previewable @State var isPresented = true
+    
+    NavigationStack {
+        Button("Show") {
+            isPresented = true
+        }
+        .navigationDestination(isPresented: $isPresented) {
+            BookmarkListView(bookmarkRepository: .fake(returnValue: .init()))
+        }
+    }
+    .preferredColorScheme(.dark)
 }
