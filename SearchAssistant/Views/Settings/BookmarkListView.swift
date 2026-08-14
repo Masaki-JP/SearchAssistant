@@ -22,6 +22,8 @@ struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryInterface>: Vi
                 if bookmarks.isEmpty == false {
                     bookmarkSectionHeader
                 }
+            } footer: {
+                Text("登録済みブックマークは、検索画面の左下の \(Image(systemName: "bookmark")) ボタンからすぐに検索できます。")
             }
         }
         .overlay {
