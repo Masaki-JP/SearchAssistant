@@ -9,7 +9,7 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryInterface, EnabledS
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @Environment(\.modelContext) var modelContext
     
-    @Query var histories: [SearchHistory]
+    @Query(animation: .default) var histories: [SearchHistory]
     @State var suggestions: [String] = []
     @State var isSuggestionFetchFailed = false
     @State var inputUsedToFetchCurrentSuggestions: String? = nil
