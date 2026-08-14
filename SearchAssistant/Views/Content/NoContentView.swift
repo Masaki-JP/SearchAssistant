@@ -2,8 +2,22 @@ import SwiftUI
 
 struct NoContentView: View {
     let title: String
-    let description: String?
     let imageSystemName: String
+    let descriptionStr: String?
+    let descriptionText: Text?
+    
+    init(title: String, imageSystemName: String, description: String?) {
+        self.title = title
+        self.imageSystemName = imageSystemName
+        self.descriptionStr = description
+        self.descriptionText = nil
+    }
+    init(title: String, imageSystemName: String, description: Text?) {
+        self.title = title
+        self.imageSystemName = imageSystemName
+        self.descriptionStr = nil
+        self.descriptionText = description
+    }
     
     var body: some View {
         VStack(spacing: 10) {
@@ -17,12 +31,17 @@ struct NoContentView: View {
                 .fontWeight(.bold)
                 .font(.title2)
             
-            if let description {
-                Text(description)
-                    .multilineTextAlignment(.leading)
-                    .foregroundStyle(.secondary)
-                    .font(.footnote)
+            Group {
+                if let descriptionText {
+                    descriptionText
+                } else if let descriptionStr {
+                    Text(descriptionStr)
+                }
             }
+            .multilineTextAlignment(.leading)
+            .foregroundStyle(.secondary)
+            .font(.footnote)
+
         }
         .frame(width: 350)
     }
@@ -31,20 +50,20 @@ struct NoContentView: View {
 extension NoContentView {
     static let searchHistory = NoContentView(
         title: "検索を始めましょう",
+        imageSystemName: "doc.text.magnifyingglass",
         description: "Google, Twitter(X), Instagram, Amazon, YouTubeなどの\n検索をこのアプリひとつで行うことができます。",
-        imageSystemName: "doc.text.magnifyingglass"
     )
 
     static let searchSuggestion = NoContentView(
         title: "候補が見つかりません",
+        imageSystemName: "magnifyingglass",
         description: "入力したキーワードでそのまま検索できます。",
-        imageSystemName: "magnifyingglass"
     )
 
     static let searchSuggestionNetworkError = NoContentView(
         title: "通信エラーが発生しました",
+        imageSystemName: "network.slash",
         description: "入力内容に基づく検索候補の取得に失敗しました。モバイル通信、Wi-Fi、機内モードなどの設定をご確認ください。",
-        imageSystemName: "network.slash"
     )
 }
 

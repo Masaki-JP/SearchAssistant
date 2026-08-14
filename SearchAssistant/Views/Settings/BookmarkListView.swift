@@ -28,7 +28,11 @@ struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryInterface>: Vi
         }
         .overlay {
             if bookmarks.isEmpty == true {
-                NoContentView(title: "登録済みブックマークはありません", description: "右上の＋ボタンからブックマークを登録できます。", imageSystemName: "bookmark")
+                NoContentView(
+                    title: "登録済みブックマークはありません",
+                    imageSystemName: "bookmark",
+                    description: Text("右上の\u{202F}\(Image(systemName: "plus"))\u{202F}ボタンからブックマークを登録できます。")
+                )
             }
         }
         .contentMargins(.vertical, .zero, for: .automatic)
