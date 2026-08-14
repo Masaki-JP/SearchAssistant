@@ -115,12 +115,32 @@ struct HistorySection: View {
         return histories
     }()
     
+    @Previewable @State var bookmarks: [Bookmark] = [
+        .init(userInput: "名古屋駅", platform: .googleMaps),
+    ]
+    
     List {
         HistorySection(
             histories: histories,
-            isBookmarked: { _ in false },
-            onSearch: { print($0, $1 as Any) },
-            onBookmarkToggled: { _ in },
+            isBookmarked: { history in
+                bookmarks.contains {
+                    $0.userInput == history.userInput && $0.platform == history.platform
+                }
+            },
+            onSearch: {
+                print($0, $1 as Any)
+            },
+            onBookmarkToggled: { history in
+                guard let platform = history.platform else { return }
+                
+                if let index = bookmarks.firstIndex(where: {
+                    $0.userInput == history.userInput && $0.platform == platform
+                }) {
+                    bookmarks.remove(at: index)
+                } else {
+                    bookmarks.append(.init(userInput: history.userInput, platform: platform))
+                }
+            },
             onDelete: { deletedHistories in
                 histories.removeAll { deletedHistories.contains($0) }
             },
