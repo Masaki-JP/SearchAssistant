@@ -22,7 +22,7 @@ struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryInterface>: Vi
                 } header: {
                     bookmarkSectionHeader
                 } footer: {
-                    Text("登録済みブックマークは、検索画面の左下の \(Image(systemName: "bookmark")) ボタンからすぐに検索できます。")
+                    Text("登録済みブックマークは、検索画面の左下の\u{202F}\(Image(systemName: "bookmark"))\u{202F}ボタンからすぐに検索できます。")
                 }
             }
         }
