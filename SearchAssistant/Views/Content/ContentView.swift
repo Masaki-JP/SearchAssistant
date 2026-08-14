@@ -228,7 +228,7 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryInterface, EnabledS
  ※1: safeAreaBarを使用すると、キーボードは表示されるがFocusStateの値が変更されないため、safeAreaInsetを使用する。
  */
 
-#Preview("Light 1") {
+#Preview("Light 1", traits: .searchHistorySampleData) {
     let returnValue: [SearchPlatform] = [.amazon, .instagram, .mercari, .googleMaps]
     
     ContentView(
@@ -238,7 +238,7 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryInterface, EnabledS
     .preferredColorScheme(.light)
 }
 
-#Preview("Light 2", traits: .searchHistorySampleData) {
+#Preview("Light 2") {
     let returnValue: [SearchPlatform] = [.amazon, .instagram, .mercari, .googleMaps]
     
     ContentView(
@@ -259,7 +259,7 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryInterface, EnabledS
     .preferredColorScheme(.light)
 }
 
-#Preview("Dark 1") {
+#Preview("Dark 1", traits: .searchHistorySampleData) {
     let returnValue: [SearchPlatform] = [.amazon, .instagram, .mercari, .googleMaps]
     
     ContentView(
@@ -269,7 +269,7 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryInterface, EnabledS
     .preferredColorScheme(.dark)
 }
 
-#Preview("Dark 2", traits: .searchHistorySampleData) {
+#Preview("Dark 2") {
     let returnValue: [SearchPlatform] = [.amazon, .instagram, .mercari, .googleMaps]
     
     ContentView(
