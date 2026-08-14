@@ -8,22 +8,22 @@ struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryInterface>: Vi
     
     var body: some View {
         List {
-            Section {
-                ForEach(bookmarks) { bookmark in
-                    bookmarkRowLink(bookmark)
-                        .swipeActions {
-                            Button("ブックマークを解除", systemImage: "bookmark.slash", role: .destructive) {
-                                remove(bookmark: bookmark)
+            if bookmarks.isEmpty == false {
+                Section {
+                    ForEach(bookmarks) { bookmark in
+                        bookmarkRowLink(bookmark)
+                            .swipeActions {
+                                Button("ブックマークを解除", systemImage: "bookmark.slash", role: .destructive) {
+                                    remove(bookmark: bookmark)
+                                }
+                                .tint(.secondary)
                             }
-                            .tint(.secondary)
-                        }
-                }
-            } header: {
-                if bookmarks.isEmpty == false {
+                    }
+                } header: {
                     bookmarkSectionHeader
+                } footer: {
+                    Text("登録済みブックマークは、検索画面の左下の \(Image(systemName: "bookmark")) ボタンからすぐに検索できます。")
                 }
-            } footer: {
-                Text("登録済みブックマークは、検索画面の左下の \(Image(systemName: "bookmark")) ボタンからすぐに検索できます。")
             }
         }
         .overlay {
@@ -32,6 +32,8 @@ struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryInterface>: Vi
             }
         }
         .contentMargins(.vertical, .zero, for: .automatic)
+        .scrollContentBackground(.hidden)
+        .background(Color(uiColor: .systemGroupedBackground))
         .navigationTitle("ブックマーク")
         .navigationBarTitleDisplayMode(.inline)
         .navigationDestination(isPresented: $isPresentedBookmarkOrderView) {
