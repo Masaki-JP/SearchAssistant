@@ -19,7 +19,7 @@ struct FaviconImage: View {
     
     var body: some View {
         Group {
-            if let platform, let uiImage = UIImage(resourceName: platform.faviconResourceName) {
+            if let platform, let uiImage = UIImage(named: platform.faviconResourceName) {
                 Image(uiImage: uiImage)
                     .resizable()
                     .scaledToFit()
@@ -33,24 +33,6 @@ struct FaviconImage: View {
             }
         }
         .frame(width: scaledLength(size), height: scaledLength(size))
-    }
-}
-
-fileprivate extension UIImage {
-    convenience init?(resourceName: String) {
-        if UIImage(named: resourceName) != nil {
-            self.init(named: resourceName)
-            return
-        }
-        
-        guard let bundleImageURL = Bundle.main.url(
-            forResource: resourceName,
-            withExtension: "png"
-        ) else {
-            return nil
-        }
-        
-        self.init(contentsOfFile: bundleImageURL.path)
     }
 }
 
