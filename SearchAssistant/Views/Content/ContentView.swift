@@ -9,7 +9,8 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryInterface, EnabledS
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @Environment(\.modelContext) var modelContext
     
-    @Query(animation: .default) var histories: [SearchHistory]
+    @Query(sort: \SearchHistory.date, order: .reverse, animation: .default)
+    var histories: [SearchHistory]
     @State var suggestions: [String] = []
     @State var isSuggestionFetchFailed = false
     @State var inputUsedToFetchCurrentSuggestions: String? = nil
@@ -31,17 +32,19 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryInterface, EnabledS
     let bookmarkRepository: BookmarkRepositoryType
     let enabledSearchButtonRepository: EnabledSearchButtonRepositoryType
     
-    var historiesGroupedByDate: [[SearchHistory]] {
+    /// historiesが日付の降順で並んでいることを前提に、履歴を日付でグループ化する。
+    var historiesGroupedByDay: [(date: Date, histories: [SearchHistory])] {
         let calendar = Calendar.current
-        let historiesByDate = Dictionary(grouping: histories) {
-            calendar.startOfDay(for: $0.date)
-        }
         
-        return historiesByDate.keys
-            .sorted(by: >)
-            .compactMap { day in
-                historiesByDate[day]?.sorted { $0.date > $1.date }
+        return histories.reduce(into: []) { groups, history in
+            let date = calendar.startOfDay(for: history.date)
+            
+            if let lastIndex = groups.indices.last, groups[lastIndex].date == date {
+                groups[lastIndex].histories.append(history)
+            } else {
+                groups.append((date: date, histories: [history]))
             }
+        }
     }
     
     var body: some View {
@@ -150,17 +153,17 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryInterface, EnabledS
     }
     
     var historySections: some View {
-        let groupedHistories = historiesGroupedByDate
+        let historyGroups = historiesGroupedByDay
         let onDeleteAllHistories = { isPresentedDeleteAllHistoriesAlert = true }
         
-        return ForEach(groupedHistories.indices, id: \.self) { index in
+        return ForEach(historyGroups, id: \.date) { group in
             HistorySection(
-                histories: groupedHistories[index],
+                histories: group.histories,
                 isBookmarked: isBookmarked,
                 onSearch: searchAction,
                 onBookmarkToggled: toggleBookmark,
                 onDelete: removeHistories,
-                onDeleteAllHistories: index == groupedHistories.indices.last ? onDeleteAllHistories : nil
+                onDeleteAllHistories: group.date == historyGroups.last?.date ? onDeleteAllHistories : nil
             )
         }
     }
