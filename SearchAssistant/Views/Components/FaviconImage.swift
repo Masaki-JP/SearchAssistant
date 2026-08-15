@@ -6,6 +6,12 @@ struct FaviconImage: View {
     let platform: SearchPlatform?
     let size: CGFloat?
     
+    @ScaledMetric(relativeTo: .body) var dynamicTypeScale: CGFloat = 1
+    
+    func scaledLength(_ baseLength: CGFloat?) -> CGFloat? {
+        baseLength.map { $0 * dynamicTypeScale }
+    }
+    
     init(platform: SearchPlatform?, size: CGFloat? = 28) {
         self.platform = platform
         self.size = size
@@ -26,7 +32,7 @@ struct FaviconImage: View {
                     .background(.secondary, in: .rect(cornerRadius: 6))
             }
         }
-        .frame(width: size, height: size)
+        .frame(width: scaledLength(size), height: scaledLength(size))
     }
 }
 
@@ -49,7 +55,7 @@ fileprivate extension UIImage {
 }
 
 #if DEBUG
-func previewContent(_ colorScheme: ColorScheme) -> some View {
+fileprivate func previewContent(_ colorScheme: ColorScheme) -> some View {
     ScrollView {
         let columns: [GridItem] = [.init(.adaptive(minimum: 150, maximum: 200), spacing: 18, alignment: .center)]
         

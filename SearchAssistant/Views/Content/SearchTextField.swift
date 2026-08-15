@@ -47,13 +47,24 @@ struct SearchTextField: View {
     }
 }
 
-#Preview(traits: .sizeThatFitsLayout) {
+#if DEBUG
+fileprivate func previewContent(userInput: String) -> some View {
     SearchTextField(
         isFocused: FocusState().projectedValue,
-        userInput: .constant("日本代表 試合 日程"),
+        userInput: .constant(userInput),
         onSettingsButtonTapped: {},
         onInputClearButtonTapped: {},
         onSubmit: {}
     )
-    .padding(.horizontal)
 }
+
+#Preview(traits: .sizeThatFitsLayout) {
+    previewContent(userInput: "日本代表 試合 日程")
+        .padding(.horizontal)
+}
+
+#Preview(traits: .sizeThatFitsLayout) {
+    previewContent(userInput: "")
+        .padding(.horizontal)
+}
+#endif
