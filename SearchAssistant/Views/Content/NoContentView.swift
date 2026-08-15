@@ -51,7 +51,7 @@ extension NoContentView {
     static let searchHistory = NoContentView(
         title: "検索を始めましょう",
         imageSystemName: "doc.text.magnifyingglass",
-        description: "Google, Twitter(X), Instagram, Amazon, YouTubeなどの\n検索をこのアプリひとつで行うことができます。",
+        description: "Google, Twitter(X), Instagram, Amazon, YouTube等の\n検索をこのアプリひとつで行うことができます。",
     )
 
     static let searchSuggestion = NoContentView(
@@ -63,7 +63,7 @@ extension NoContentView {
     static let searchSuggestionNetworkError = NoContentView(
         title: "通信エラーが発生しました",
         imageSystemName: "network.slash",
-        description: "入力内容に基づく検索候補の取得に失敗しました。モバイル通信、Wi-Fi、機内モードなどの設定をご確認ください。",
+        description: "入力内容に基づく検索候補の取得に失敗しました。モバイル通信、Wi-Fi、機内モード等の設定をご確認ください。",
     )
 }
 
