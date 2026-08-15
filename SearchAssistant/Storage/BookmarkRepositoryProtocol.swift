@@ -2,7 +2,7 @@ import Foundation
 
 typealias BookmarkRepositoryError = BookmarkRepository.BookmarkRepositoryError
 
-protocol BookmarkRepositoryInterface {
+protocol BookmarkRepositoryProtocol {
     func add(_ bookmark: Bookmark) throws(BookmarkRepositoryError)
     func load() throws(BookmarkRepositoryError) -> [Bookmark]
     func remove(_ bookmark: Bookmark) throws(BookmarkRepositoryError)
@@ -11,7 +11,7 @@ protocol BookmarkRepositoryInterface {
 }
 
 /// 保存操作後の値を保持するため、クラスとして定義している。
-final class FakeBookmarkRepository: BookmarkRepositoryInterface {
+final class FakeBookmarkRepository: BookmarkRepositoryProtocol {
     private var value: [Bookmark]
     
     init(returnValue value: [Bookmark]) {
@@ -54,7 +54,7 @@ final class FakeBookmarkRepository: BookmarkRepositoryInterface {
     }
 }
 
-extension BookmarkRepositoryInterface where Self == BookmarkRepository {
+extension BookmarkRepositoryProtocol where Self == BookmarkRepository {
     static var standard: BookmarkRepository { .init() }
     
     static func fake(returnValue: [Bookmark]) -> FakeBookmarkRepository {

@@ -1,7 +1,7 @@
 import SearchCore
 import SwiftUI
 
-struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryInterface>: View {
+struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryProtocol>: View {
     @State var bookmarks: [Bookmark] = []
     @State var isPresentedBookmarkOrderView = false
     let bookmarkRepository: BookmarkRepositoryType
