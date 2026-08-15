@@ -5,9 +5,16 @@ final class SelectionSoundPlayer {
     private var audioPlayer: AVAudioPlayer?
     
     init() {
-        guard let soundURL = Bundle.main.url(forResource: "selection", withExtension: "caf") else { return }
-        audioPlayer = try? AVAudioPlayer(contentsOf: soundURL)
-        audioPlayer?.prepareToPlay()
+        guard
+            let _ = try? AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default),
+            let soundURL = Bundle.main.url(forResource: "selection", withExtension: "caf"),
+            let audioPlayer = try? AVAudioPlayer(contentsOf: soundURL)
+        else {
+            return
+        }
+        
+        self.audioPlayer = audioPlayer
+        self.audioPlayer?.prepareToPlay()
     }
     
     func play() {
