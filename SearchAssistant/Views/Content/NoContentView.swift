@@ -65,6 +65,12 @@ extension NoContentView {
         imageSystemName: "network.slash",
         description: "入力内容に基づく検索候補の取得に失敗しました。モバイル通信、Wi-Fi、機内モード等の設定をご確認ください。",
     )
+
+    static let bookmark = NoContentView(
+        title: "登録済みブックマークはありません",
+        imageSystemName: "bookmark",
+        description: Text("右上の\u{202F}\(Image(systemName: "plus"))\u{202F}ボタンからブックマークを登録できます。")
+    )
 }
 
 #Preview {
