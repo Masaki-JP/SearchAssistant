@@ -2,7 +2,7 @@ import SwiftUI
 import SwiftData
 import SearchCore
 
-struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryInterface, EnabledSearchButtonRepositoryType: EnabledSearchButtonRepositoryInterface>: View {
+struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledSearchButtonRepositoryType: EnabledSearchButtonRepositoryProtocol>: View {
     @State var enabledSearchButtons = SearchPlatform.allCases
     
     @Environment(\.scenePhase) var scenePhase

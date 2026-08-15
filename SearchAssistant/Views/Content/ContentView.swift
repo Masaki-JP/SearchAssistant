@@ -3,7 +3,7 @@ import SwiftData
 import SearchCore
 import SearchSuggestion
 
-struct ContentView<BookmarkRepositoryType: BookmarkRepositoryInterface, EnabledSearchButtonRepositoryType: EnabledSearchButtonRepositoryInterface>: View {
+struct ContentView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledSearchButtonRepositoryType: EnabledSearchButtonRepositoryProtocol>: View {
     @FocusState var isFocused: Bool
     @Environment(\.scenePhase) var scenePhase
     @Environment(\.colorScheme) var colorScheme: ColorScheme

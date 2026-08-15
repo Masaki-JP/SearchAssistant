@@ -1,6 +1,6 @@
 import Foundation
 
-struct BookmarkRepository: BookmarkRepositoryInterface {
+struct BookmarkRepository: BookmarkRepositoryProtocol {
     private static let key = UserDefaultsKey.bookmarks
     
     enum BookmarkRepositoryError: Error {
