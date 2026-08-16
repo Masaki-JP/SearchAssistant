@@ -45,6 +45,7 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledS
                 appInfoSection
             }
             .scrollIndicators(.hidden)
+            .inlineNavigationTitle("各種設定")
             .navigationDestination(for: SettingsRoute.self) { route in
                 switch route {
                 case .searchButtonsBar:
