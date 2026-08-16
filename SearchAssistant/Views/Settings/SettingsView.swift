@@ -3,7 +3,7 @@ import SwiftData
 import SearchCore
 
 struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledSearchButtonRepositoryType: EnabledSearchButtonRepositoryProtocol>: View {
-    @State var path: [SettingsRoute] = []
+    @State var path: [SettingsRoute]
     @State var enabledSearchButtons = SearchPlatform.allCases
     
     @Environment(\.scenePhase) var scenePhase
@@ -19,6 +19,16 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledS
     @AppStorage(UserDefaultsKey.AppStorageKey.historyMaximumCount.rawValue)
     var historyMaximumCount = SearchHistory.defaultMaximumCount
     
+    init(
+        path: [SettingsRoute] = .init(),
+        bookmarkRepository: BookmarkRepositoryType,
+        enabledSearchButtonRepository: EnabledSearchButtonRepositoryType
+    ) {
+        self.path = path
+        self.bookmarkRepository = bookmarkRepository
+        self.enabledSearchButtonRepository = enabledSearchButtonRepository
+    }
+
     let selectionSoundPlayer = SelectionSoundPlayer()
     let bookmarkRepository: BookmarkRepositoryType
     let enabledSearchButtonRepository: EnabledSearchButtonRepositoryType
