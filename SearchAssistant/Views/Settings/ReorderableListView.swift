@@ -7,17 +7,17 @@ struct ReorderableListView<Item: Identifiable & Equatable, RowContent: View, Hea
     @Environment(\.dismiss) var dismiss
     
     let defaultValue: [Item]
+    let saveAction: ([Item]) throws -> Void
     let rowContent: (Item) -> RowContent
     let sectionHeader: () -> Header
     let sectionFooter: () -> Footer
-    let saveAction: ([Item]) throws -> Void
     
     init(
         defaultValue: [Item],
+        onSave: @escaping ([Item]) throws -> Void,
         @ViewBuilder rowContent: @escaping (Item) -> RowContent,
         @ViewBuilder sectionHeader: @escaping () -> Header = EmptyView.init,
         @ViewBuilder sectionFooter: @escaping () -> Footer = EmptyView.init,
-        onSave: @escaping ([Item]) throws -> Void,
     ) {
         self._items = .init(wrappedValue: defaultValue)
         self.defaultValue = defaultValue
@@ -74,14 +74,14 @@ struct ReorderableListView<Item: Identifiable & Equatable, RowContent: View, Hea
         }
         .navigationDestination(isPresented: $isPresented) {
             NavigationStack {
-                ReorderableListView(defaultValue: SearchPlatform.allCases) { platform in
+                ReorderableListView(defaultValue: SearchPlatform.allCases) { _ in
+                    print("called save action")
+                } rowContent: { platform in
                     Text(platform.displayName)
                 } sectionHeader: {
                     Text("サーチボタンバー")
                 } sectionFooter: {
                     Text("サーチボタンバーに表示する検索ボタンの並び順を設定できます。")
-                } onSave: { _ in
-                    print("called save action")
                 }
                 .inlineNavigationTitle("表示順序")
             }
@@ -102,7 +102,9 @@ struct ReorderableListView<Item: Identifiable & Equatable, RowContent: View, Hea
         }
         .navigationDestination(isPresented: $isPresented) {
             NavigationStack {
-                ReorderableListView(defaultValue: Bookmark.samples) { bookmark in
+                ReorderableListView(defaultValue: Bookmark.samples) { _ in
+                    print("called save action")
+                } rowContent: { bookmark in
                     HStack(spacing: nil) {
                         FaviconImage(platform: bookmark.platform)
                         
@@ -112,8 +114,6 @@ struct ReorderableListView<Item: Identifiable & Equatable, RowContent: View, Hea
                     }
                 } sectionHeader: {
                     Text("登録済みブックマーク")
-                } onSave: { _ in
-                    print("called save action")
                 }
                 .inlineNavigationTitle("表示順序")
             }
