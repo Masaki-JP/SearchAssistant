@@ -16,18 +16,15 @@ struct BookmarkFormView: View {
     }
     
     let defaultValue: Bookmark?
-    let showsDismissButton: Bool
     let onSave: (String, SearchPlatform) throws -> Void
     
     init(
         defaultValue: Bookmark? = nil,
-        showsDismissButton: Bool = false,
         onSave: @escaping (_ userInput: String, _ platform: SearchPlatform) throws -> Void
     ) {
         self._userInput = .init(wrappedValue: defaultValue?.userInput ?? "")
         self._platform = .init(wrappedValue: defaultValue?.platform ?? .google)
         self.defaultValue = defaultValue
-        self.showsDismissButton = showsDismissButton
         self.onSave = onSave
     }
     
@@ -103,12 +100,6 @@ struct BookmarkFormView: View {
             Text(alertMessage)
         }
         .toolbar {
-            if showsDismissButton == true {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button(role: .cancel, action: dismiss.callAsFunction)
-                }
-            }
-            
             ToolbarItem(placement: .confirmationAction) {
                 Button(role: .confirm) {
                     do {
@@ -143,7 +134,7 @@ let defaultValue: Bookmark? = .init(userInput: "apple", platform: .google)
     }
     .sheet(isPresented: $isPresented) {
         NavigationStack {
-            BookmarkFormView(defaultValue: defaultValue, showsDismissButton: true) { userInput,platform in
+            BookmarkFormView(defaultValue: defaultValue) { userInput,platform in
                 throw NSError()
             }
             .inlineNavigationTitle(defaultValue == nil ? "ブックマークを登録" : "ブックマークを編集")
