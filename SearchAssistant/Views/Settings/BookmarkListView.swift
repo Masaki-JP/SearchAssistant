@@ -3,7 +3,6 @@ import SwiftUI
 
 struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryProtocol>: View {
     @State var bookmarks: [Bookmark] = []
-    @State var isPresentedBookmarkOrderView = false
     let bookmarkRepository: BookmarkRepositoryType
     
     var body: some View {
@@ -34,32 +33,9 @@ struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryProtocol>: Vie
         .contentMargins(.vertical, .zero, for: .automatic)
         .scrollContentBackground(.hidden)
         .background(Color(uiColor: .systemGroupedBackground))
-        .navigationTitle("ブックマーク")
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationDestination(isPresented: $isPresentedBookmarkOrderView) {
-            ReorderableListView(defaultValue: bookmarks) { bookmark in
-                HStack(spacing: nil) {
-                    FaviconImage(platform: bookmark.platform)
-                    
-                    Text(bookmark.userInput)
-                        .lineLimit(1)
-                        .padding(.leading, 4)
-                }
-            } sectionHeader: {
-                Text("登録済みブックマーク")
-            } onSave: { reorderedBookmarks in
-                try bookmarkRepository.save(reorderedBookmarks)
-                bookmarks = reorderedBookmarks
-            }
-            .navigationTitle("表示順序")
-        }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                NavigationLink {
-                    BookmarkFormView { userInput, platform in
-                        try bookmarkRepository.add(.init(userInput: userInput, platform: platform))
-                    }
-                } label: {
+                NavigationLink(value: SettingsRoute.bookmarkForm(nil)) {
                     Label("ブックマークを登録", systemImage: "plus")
                 }
             }
@@ -68,12 +44,7 @@ struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryProtocol>: Vie
     }
     
     func bookmarkRowLink(_ bookmark: Bookmark) -> some View {
-        NavigationLink {
-            BookmarkFormView(defaultValue: bookmark) { userInput, platform in
-                let updatedBookmark = Bookmark(id: bookmark.id, userInput: userInput, platform: platform)
-                try bookmarkRepository.update(updatedBookmark)
-            }
-        } label: {
+        NavigationLink(value: SettingsRoute.bookmarkForm(bookmark)) {
             HStack(spacing: nil) {
                 FaviconImage(platform:bookmark.platform)
                 
@@ -88,9 +59,7 @@ struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryProtocol>: Vie
         HStack {
             Text("登録済み")
             Spacer()
-            Button {
-                isPresentedBookmarkOrderView = true
-            } label: {
+            NavigationLink(value: SettingsRoute.bookmarkOrder(bookmarks)) {
                 HStack(spacing: 4) {
                     Text("表示順序")
                     Image(systemName: "chevron.forward.circle")
@@ -131,6 +100,7 @@ extension BookmarkListView {
         }
         .navigationDestination(isPresented: $isPresented) {
             BookmarkListView(bookmarkRepository: .fake(returnValue: Bookmark.samples))
+            .inlineNavigationTitle("ブックマーク")
         }
     }
     .preferredColorScheme(.light)
@@ -145,6 +115,7 @@ extension BookmarkListView {
         }
         .navigationDestination(isPresented: $isPresented) {
             BookmarkListView(bookmarkRepository: .fake(returnValue: .init()))
+            .inlineNavigationTitle("ブックマーク")
         }
     }
     .preferredColorScheme(.light)
@@ -159,6 +130,7 @@ extension BookmarkListView {
         }
         .navigationDestination(isPresented: $isPresented) {
             BookmarkListView(bookmarkRepository: .fake(returnValue: Bookmark.samples))
+            .inlineNavigationTitle("ブックマーク")
         }
     }
     .preferredColorScheme(.dark)
@@ -173,6 +145,7 @@ extension BookmarkListView {
         }
         .navigationDestination(isPresented: $isPresented) {
             BookmarkListView(bookmarkRepository: .fake(returnValue: .init()))
+            .inlineNavigationTitle("ブックマーク")
         }
     }
     .preferredColorScheme(.dark)

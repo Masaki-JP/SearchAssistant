@@ -4,6 +4,13 @@ import SearchCore
 import SearchSuggestion
 
 extension ContentView {
+    enum SettingsPresentation: Identifiable {
+        case root
+        case newBookmark
+        
+        var id: Self { self }
+    }
+    
     struct SafariViewURL: Identifiable {
         let url: URL
         let id = UUID()
@@ -41,8 +48,7 @@ extension ContentView {
                 
                 if newScene == .active,
                    isSearchFieldAutoFocusEnabled == true,
-                   isPresentedSettingsView == false,
-                   isPresentedAddBookmarkView == false,
+                   presentedSettings == nil,
                    isPresentedDeleteAllHistoriesAlert == false,
                    presentedSafariViewURL == nil {
                     isFocused = true
@@ -53,8 +59,8 @@ extension ContentView {
         }
     }
     
-    func onIsPresentedSettingsViewChange() {
-        if isPresentedSettingsView == true { isFocused = false }
+    func onPresentedSettingsChange() {
+        if presentedSettings != nil { isFocused = false }
     }
     
     func onUserInputChange() async {
@@ -156,16 +162,16 @@ extension ContentView {
             bookmarks = []
         }
     }
-
+    
     func isBookmarked(_ history: SearchHistory) -> Bool {
         bookmarks.contains { bookmark in
             bookmark.userInput == history.userInput && bookmark.platform == history.platform
         }
     }
-
+    
     func toggleBookmark(_ history: SearchHistory) {
         guard let platform = history.platform else { return }
-
+        
         do {
             if let bookmark = bookmarks.first(where: {
                 $0.userInput == history.userInput && $0.platform == platform

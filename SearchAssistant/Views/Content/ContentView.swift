@@ -15,8 +15,7 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledSe
     @State var isSuggestionFetchFailed = false
     @State var inputUsedToFetchCurrentSuggestions: String? = nil
     @State var userInput = ""
-    @State var isPresentedSettingsView = false
-    @State var isPresentedAddBookmarkView = false
+    @State var presentedSettings: SettingsPresentation? = nil
     @State var isPresentedDeleteAllHistoriesAlert = false
     @State var presentedSafariViewURL: SafariViewURL? = nil
     @State var bookmarks: [Bookmark] = []
@@ -115,19 +114,18 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledSe
             SafariView(url: item.url)
                 .ignoresSafeArea()
         }
-        .sheet(isPresented: $isPresentedSettingsView, onDismiss: onSettingsViewDismiss) {
+        .sheet(item: $presentedSettings, onDismiss: onSettingsViewDismiss) { presentation in
+            let path: [SettingsRoute] = switch presentation {
+            case .root: .init()
+            case .newBookmark: [.bookmarkList, .bookmarkForm(nil)]
+            }
+            
             SettingsView(
+                path: path,
                 bookmarkRepository: bookmarkRepository,
                 enabledSearchButtonRepository: enabledSearchButtonRepository
             )
-            .preferredColorScheme(colorScheme)
-        }
-        .sheet(isPresented: $isPresentedAddBookmarkView, onDismiss: loadBookmarks) {
-            NavigationStack {
-                BookmarkFormView(showsDismissButton: true) { userInput, platform in
-                    try bookmarkRepository.add(.init(userInput: userInput, platform: platform))
-                }
-            }
+            .inlineNavigationTitle("各種設定")
             .preferredColorScheme(colorScheme)
         }
         .alert("確認", isPresented: $isPresentedDeleteAllHistoriesAlert) {
@@ -139,14 +137,14 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledSe
         .onAppear(perform: onAppear)
         .task(id: userInput, onUserInputChange)
         .onChange(of: scenePhase, initial: true, onScenePhaseChange)
-        .onChange(of: isPresentedSettingsView, onIsPresentedSettingsViewChange)
+        .onChange(of: presentedSettings, onPresentedSettingsChange)
     }
     
     var searchTextField: some View {
         SearchTextField(
             isFocused: $isFocused,
             userInput: $userInput,
-            onSettingsButtonTapped: { isPresentedSettingsView = true },
+            onSettingsButtonTapped: { presentedSettings = .root },
             onInputClearButtonTapped: { userInput.removeAll() },
             onSubmit: { searchAction(userInput, on: .google) }
         )
@@ -210,9 +208,7 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledSe
                 
                 Divider()
                 
-                Button("ブックマークを登録") {
-                    isPresentedAddBookmarkView = true
-                }
+                Button("ブックマークを登録") { presentedSettings = .newBookmark }
             }
             .menuOrder(.fixed)
         }

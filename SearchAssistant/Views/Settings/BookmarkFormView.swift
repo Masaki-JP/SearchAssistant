@@ -95,8 +95,6 @@ struct BookmarkFormView: View {
                 Text("ブックマーク")
             }
         }
-        .navigationTitle(defaultValue == nil ? "ブックマークを登録" : "ブックマークを編集")
-        .navigationBarTitleDisplayMode(.inline)
         .alert(alertTitle, isPresented: isSaveErrorAlertPresented) {
             Button(role: .close) {
                 if shouldDismissAfterClosingAlert == true { dismiss() }
@@ -135,7 +133,7 @@ struct BookmarkFormView: View {
  */
 
 #if DEBUG
-let defaultValue = Bookmark(userInput: "apple", platform: .google)
+let defaultValue: Bookmark? = .init(userInput: "apple", platform: .google)
 
 #Preview("Sheet") {
     @Previewable @State var isPresented = true
@@ -148,6 +146,7 @@ let defaultValue = Bookmark(userInput: "apple", platform: .google)
             BookmarkFormView(defaultValue: defaultValue, showsDismissButton: true) { userInput,platform in
                 throw NSError()
             }
+            .inlineNavigationTitle(defaultValue == nil ? "ブックマークを登録" : "ブックマークを編集")
         }
     }
 }
@@ -164,6 +163,7 @@ let defaultValue = Bookmark(userInput: "apple", platform: .google)
                 BookmarkFormView(defaultValue: defaultValue) { userInput,platform in
                     throw NSError()
                 }
+                .inlineNavigationTitle(defaultValue == nil ? "ブックマークを登録" : "ブックマークを編集")
             }
         }
     }
