@@ -91,62 +91,39 @@ extension BookmarkListView {
     }
 }
 
-#Preview("Light 1") {
-    @Previewable @State var isPresented = true
-    
+#if DEBUG
+private func previewContent(
+    _ bookmarks: [Bookmark], _ isPresented: Binding<Bool>, _ colorScheme: ColorScheme
+) -> some View {
     NavigationStack {
         Button("Show") {
-            isPresented = true
+            isPresented.wrappedValue = true
         }
-        .navigationDestination(isPresented: $isPresented) {
-            BookmarkListView(bookmarkRepository: .fake(returnValue: Bookmark.samples))
-            .inlineNavigationTitle("ブックマーク")
+        .navigationDestination(isPresented: isPresented) {
+            BookmarkListView(bookmarkRepository: .fake(returnValue: bookmarks))
+                .inlineNavigationTitle("ブックマーク")
         }
     }
-    .preferredColorScheme(.light)
+    .preferredColorScheme(colorScheme)
+}
+
+#Preview("Light 1") {
+    @Previewable @State var isPresented = true
+    previewContent(Bookmark.samples, $isPresented, .light)
 }
 
 #Preview("Light 2") {
     @Previewable @State var isPresented = true
-    
-    NavigationStack {
-        Button("Show") {
-            isPresented = true
-        }
-        .navigationDestination(isPresented: $isPresented) {
-            BookmarkListView(bookmarkRepository: .fake(returnValue: .init()))
-            .inlineNavigationTitle("ブックマーク")
-        }
-    }
-    .preferredColorScheme(.light)
+    previewContent(.init(), $isPresented, .light)
 }
 
 #Preview("Dark 1") {
     @Previewable @State var isPresented = true
-    
-    NavigationStack {
-        Button("Show") {
-            isPresented = true
-        }
-        .navigationDestination(isPresented: $isPresented) {
-            BookmarkListView(bookmarkRepository: .fake(returnValue: Bookmark.samples))
-            .inlineNavigationTitle("ブックマーク")
-        }
-    }
-    .preferredColorScheme(.dark)
+    previewContent(Bookmark.samples, $isPresented, .dark)
 }
 
 #Preview("Dark 2") {
     @Previewable @State var isPresented = true
-    
-    NavigationStack {
-        Button("Show") {
-            isPresented = true
-        }
-        .navigationDestination(isPresented: $isPresented) {
-            BookmarkListView(bookmarkRepository: .fake(returnValue: .init()))
-            .inlineNavigationTitle("ブックマーク")
-        }
-    }
-    .preferredColorScheme(.dark)
+    previewContent(.init(), $isPresented, .dark)
 }
+#endif
