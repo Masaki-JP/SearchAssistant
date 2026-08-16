@@ -28,7 +28,7 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledS
         self.bookmarkRepository = bookmarkRepository
         self.enabledSearchButtonRepository = enabledSearchButtonRepository
     }
-
+    
     let selectionSoundPlayer = SelectionSoundPlayer()
     let bookmarkRepository: BookmarkRepositoryType
     let enabledSearchButtonRepository: EnabledSearchButtonRepositoryType
@@ -55,14 +55,15 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledS
                     .inlineNavigationTitle("サーチボタンバー")
                     
                 case .searchButtonsBarOrder:
-                    ReorderableListView(defaultValue: enabledSearchButtons) { platform in
+                    ReorderableListView(
+                        defaultValue: enabledSearchButtons,
+                        onSave: onSearchButtonsBarOrderSaved
+                    ) { platform in
                         Text(platform.displayName)
                     } sectionHeader: {
                         Text("サーチボタンバー")
                     } sectionFooter: {
                         Text("サーチボタンバーに表示する検索ボタンの並び順を設定できます。")
-                    } onSave: { reorderedButtons in
-                        try onSearchButtonsBarOrderSaved(reorderedButtons)
                     }
                     .inlineNavigationTitle("表示順序")
                     
@@ -84,7 +85,7 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledS
                     .inlineNavigationTitle(defaultValue == nil ? "ブックマークを登録" : "ブックマークを編集")
                     
                 case .bookmarkOrder(let bookmarks):
-                    ReorderableListView(defaultValue: bookmarks) { bookmark in
+                    ReorderableListView(defaultValue: bookmarks, onSave: bookmarkRepository.save) { bookmark in
                         HStack(spacing: nil) {
                             FaviconImage(platform: bookmark.platform)
                             
@@ -94,8 +95,6 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledS
                         }
                     } sectionHeader: {
                         Text("登録済みブックマーク")
-                    } onSave: { reorderedBookmarks in
-                        try bookmarkRepository.save(reorderedBookmarks)
                     }
                     .inlineNavigationTitle("表示順序")
                 }
