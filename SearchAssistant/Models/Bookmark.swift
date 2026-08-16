@@ -1,7 +1,7 @@
 import Foundation
 import SearchCore
 
-struct Bookmark: Codable, Equatable, Identifiable {
+struct Bookmark: Codable, Hashable, Identifiable {
     let id: UUID
     let userInput: String
     let platform: SearchPlatform

@@ -3,6 +3,7 @@ import SwiftData
 import SearchCore
 
 struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledSearchButtonRepositoryType: EnabledSearchButtonRepositoryProtocol>: View {
+    @State var path: [SettingsRoute] = []
     @State var enabledSearchButtons = SearchPlatform.allCases
     
     @Environment(\.scenePhase) var scenePhase
@@ -23,7 +24,7 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledS
     let enabledSearchButtonRepository: EnabledSearchButtonRepositoryType
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             Form {
                 focusControlSection
                 colorSchemeSection
@@ -36,6 +37,61 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledS
             .scrollIndicators(.hidden)
             .navigationTitle("各種設定")
             .navigationBarTitleDisplayMode(.inline)
+            .navigationDestination(for: SettingsRoute.self) { route in
+                switch route {
+                case .searchButtonsBar:
+                    SearchButtonsBarView(
+                        enabledSearchButtons: enabledSearchButtons,
+                        onPlatformButtonTapped: toggleSearchButtonEnabled
+                    )
+                    .navigationTitle("サーチボタンバー")
+                    
+                case .searchButtonsBarOrder:
+                    ReorderableListView(defaultValue: enabledSearchButtons) { platform in
+                        Text(platform.displayName)
+                    } sectionHeader: {
+                        Text("サーチボタンバー")
+                    } sectionFooter: {
+                        Text("サーチボタンバーに表示する検索ボタンの並び順を設定できます。")
+                    } onSave: { reorderedButtons in
+                        try onSearchButtonsBarOrderSaved(reorderedButtons)
+                    }
+                    .navigationTitle("表示順序")
+                    
+                case .bookmarkList:
+                    BookmarkListView(
+                        bookmarkRepository: bookmarkRepository
+                    )
+                    .navigationTitle("ブックマーク")
+                    
+                case .bookmarkForm(let defaultValue):
+                    BookmarkFormView(defaultValue: defaultValue) { userInput, platform in
+                        if let defaultValue {
+                            let updatedBookmark = Bookmark(id: defaultValue.id, userInput: userInput, platform: platform)
+                            try bookmarkRepository.update(updatedBookmark)
+                        } else {
+                            try bookmarkRepository.add(.init(userInput: userInput, platform: platform))
+                        }
+                    }
+                    .navigationTitle(defaultValue == nil ? "ブックマークを登録" : "ブックマークを編集")
+                    
+                case .bookmarkOrder(let bookmarks):
+                    ReorderableListView(defaultValue: bookmarks) { bookmark in
+                        HStack(spacing: nil) {
+                            FaviconImage(platform: bookmark.platform)
+                            
+                            Text(bookmark.userInput)
+                                .lineLimit(1)
+                                .padding(.leading, 4)
+                        }
+                    } sectionHeader: {
+                        Text("登録済みブックマーク")
+                    } onSave: { reorderedBookmarks in
+                        try bookmarkRepository.save(reorderedBookmarks)
+                    }
+                    .navigationTitle("表示順序")
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("完了", action: dismiss.callAsFunction)
@@ -90,18 +146,16 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledS
     }
     
     var searchButtonsBarSection: some View {
-        SearchButtonsBarSection(
-            enabledSearchButtons: enabledSearchButtons,
-            onPlatformButtonTapped: toggleSearchButtonEnabled,
-            onSearchButtonsBarOrderSaved: onSearchButtonsBarOrderSaved
-        )
+        Section {
+            NavigationLink("サーチボタンバーを編集", value: SettingsRoute.searchButtonsBar)
+        } header: {
+            Text("サーチボタンバー")
+        }
     }
     
     var bookmarkSection: some View {
         Section {
-            NavigationLink("ブックマークを編集") {
-                BookmarkListView(bookmarkRepository: bookmarkRepository)
-            }
+            NavigationLink("ブックマークを編集", value: SettingsRoute.bookmarkList)
         } header: {
             Text("ブックマーク")
         }

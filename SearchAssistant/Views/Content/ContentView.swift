@@ -127,8 +127,8 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledSe
                 BookmarkFormView(showsDismissButton: true) { userInput, platform in
                     try bookmarkRepository.add(.init(userInput: userInput, platform: platform))
                 }
+                .navigationTitle("ブックマークを登録")
             }
-            .preferredColorScheme(colorScheme)
         }
         .alert("確認", isPresented: $isPresentedDeleteAllHistoriesAlert) {
             Button("実行", role: .destructive) { removeAllHistories() }
