@@ -124,35 +124,24 @@ struct BookmarkFormView: View {
  */
 
 #if DEBUG
-let defaultValue: Bookmark? = .init(userInput: "apple", platform: .google)
+private let defaultValue: Bookmark? = .init(userInput: "apple", platform: .google)
 
-#Preview("Sheet") {
-    @Previewable @State var isPresented = true
+#Preview {
+    @Previewable @State var isSheetPresented = true
+    @Previewable @State var isBookmarkFormViewPresented = true
     
-    Button("Show") {
-        isPresented = true
+    Button("Show Sheet") {
+        isSheetPresented = true
     }
-    .sheet(isPresented: $isPresented) {
+    .sheet(isPresented: $isSheetPresented) {
         NavigationStack {
-            BookmarkFormView(defaultValue: defaultValue) { userInput,platform in
-                throw NSError()
+            Button("Show BookmarkFormView") {
+                isBookmarkFormViewPresented = true
             }
-            .inlineNavigationTitle(defaultValue == nil ? "ブックマークを登録" : "ブックマークを編集")
-        }
-    }
-}
-
-#Preview("Navigation") {
-    @Previewable @State var isPresented = true
-    
-    NavigationStack {
-        Button("Show Sheet") {
-            isPresented = true
-        }
-        .navigationDestination(isPresented: $isPresented) {
-            NavigationStack {
+            .inlineNavigationTitle("各種設定")
+            .navigationDestination(isPresented: $isBookmarkFormViewPresented) {
                 BookmarkFormView(defaultValue: defaultValue) { userInput,platform in
-                    throw NSError()
+                    throw NSError(domain: "BookmarkFormViewPreview", code: 1)
                 }
                 .inlineNavigationTitle(defaultValue == nil ? "ブックマークを登録" : "ブックマークを編集")
             }
