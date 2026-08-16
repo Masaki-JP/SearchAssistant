@@ -146,7 +146,7 @@ let defaultValue: Bookmark? = .init(userInput: "apple", platform: .google)
             BookmarkFormView(defaultValue: defaultValue, showsDismissButton: true) { userInput,platform in
                 throw NSError()
             }
-            .navigationTitle(defaultValue == nil ? "ブックマークを登録" : "ブックマークを編集")
+            .inlineNavigationTitle(defaultValue == nil ? "ブックマークを登録" : "ブックマークを編集")
         }
     }
 }
@@ -163,7 +163,7 @@ let defaultValue: Bookmark? = .init(userInput: "apple", platform: .google)
                 BookmarkFormView(defaultValue: defaultValue) { userInput,platform in
                     throw NSError()
                 }
-                .navigationTitle(defaultValue == nil ? "ブックマークを登録" : "ブックマークを編集")
+                .inlineNavigationTitle(defaultValue == nil ? "ブックマークを登録" : "ブックマークを編集")
             }
         }
     }

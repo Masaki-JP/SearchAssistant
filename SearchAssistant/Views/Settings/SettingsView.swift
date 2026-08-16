@@ -45,8 +45,6 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledS
                 appInfoSection
             }
             .scrollIndicators(.hidden)
-            .navigationTitle("各種設定")
-            .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(for: SettingsRoute.self) { route in
                 switch route {
                 case .searchButtonsBar:
@@ -54,7 +52,7 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledS
                         enabledSearchButtons: enabledSearchButtons,
                         onPlatformButtonTapped: toggleSearchButtonEnabled
                     )
-                    .navigationTitle("サーチボタンバー")
+                    .inlineNavigationTitle("サーチボタンバー")
                     
                 case .searchButtonsBarOrder:
                     ReorderableListView(defaultValue: enabledSearchButtons) { platform in
@@ -66,13 +64,13 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledS
                     } onSave: { reorderedButtons in
                         try onSearchButtonsBarOrderSaved(reorderedButtons)
                     }
-                    .navigationTitle("表示順序")
+                    .inlineNavigationTitle("表示順序")
                     
                 case .bookmarkList:
                     BookmarkListView(
                         bookmarkRepository: bookmarkRepository
                     )
-                    .navigationTitle("ブックマーク")
+                    .inlineNavigationTitle("ブックマーク")
                     
                 case .bookmarkForm(let defaultValue):
                     BookmarkFormView(defaultValue: defaultValue) { userInput, platform in
@@ -83,7 +81,7 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledS
                             try bookmarkRepository.add(.init(userInput: userInput, platform: platform))
                         }
                     }
-                    .navigationTitle(defaultValue == nil ? "ブックマークを登録" : "ブックマークを編集")
+                    .inlineNavigationTitle(defaultValue == nil ? "ブックマークを登録" : "ブックマークを編集")
                     
                 case .bookmarkOrder(let bookmarks):
                     ReorderableListView(defaultValue: bookmarks) { bookmark in
@@ -99,7 +97,7 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledS
                     } onSave: { reorderedBookmarks in
                         try bookmarkRepository.save(reorderedBookmarks)
                     }
-                    .navigationTitle("表示順序")
+                    .inlineNavigationTitle("表示順序")
                 }
             }
             .toolbar {

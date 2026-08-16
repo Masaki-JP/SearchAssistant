@@ -83,7 +83,7 @@ struct ReorderableListView<Item: Identifiable & Equatable, RowContent: View, Hea
                 } onSave: { _ in
                     print("called save action")
                 }
-                .navigationTitle("表示順序")
+                .inlineNavigationTitle("表示順序")
             }
         }
     }
@@ -115,7 +115,7 @@ struct ReorderableListView<Item: Identifiable & Equatable, RowContent: View, Hea
                 } onSave: { _ in
                     print("called save action")
                 }
-                .navigationTitle("表示順序")
+                .inlineNavigationTitle("表示順序")
             }
         }
     }

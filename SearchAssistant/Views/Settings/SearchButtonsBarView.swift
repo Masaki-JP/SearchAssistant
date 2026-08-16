@@ -75,7 +75,7 @@ struct SearchButtonsBarView: View {
                         }
                     }
                 )
-                .navigationTitle("サーチボタンバー")
+                .inlineNavigationTitle("サーチボタンバー")
             }
     }
 }

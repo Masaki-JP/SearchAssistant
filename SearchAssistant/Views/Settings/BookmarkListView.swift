@@ -100,7 +100,7 @@ extension BookmarkListView {
         }
         .navigationDestination(isPresented: $isPresented) {
             BookmarkListView(bookmarkRepository: .fake(returnValue: Bookmark.samples))
-            .navigationTitle("ブックマーク")
+            .inlineNavigationTitle("ブックマーク")
         }
     }
     .preferredColorScheme(.light)
@@ -115,7 +115,7 @@ extension BookmarkListView {
         }
         .navigationDestination(isPresented: $isPresented) {
             BookmarkListView(bookmarkRepository: .fake(returnValue: .init()))
-            .navigationTitle("ブックマーク")
+            .inlineNavigationTitle("ブックマーク")
         }
     }
     .preferredColorScheme(.light)
@@ -130,7 +130,7 @@ extension BookmarkListView {
         }
         .navigationDestination(isPresented: $isPresented) {
             BookmarkListView(bookmarkRepository: .fake(returnValue: Bookmark.samples))
-            .navigationTitle("ブックマーク")
+            .inlineNavigationTitle("ブックマーク")
         }
     }
     .preferredColorScheme(.dark)
@@ -145,7 +145,7 @@ extension BookmarkListView {
         }
         .navigationDestination(isPresented: $isPresented) {
             BookmarkListView(bookmarkRepository: .fake(returnValue: .init()))
-            .navigationTitle("ブックマーク")
+            .inlineNavigationTitle("ブックマーク")
         }
     }
     .preferredColorScheme(.dark)
