@@ -125,7 +125,6 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledSe
                 bookmarkRepository: bookmarkRepository,
                 enabledSearchButtonRepository: enabledSearchButtonRepository
             )
-            .inlineNavigationTitle("各種設定")
             .preferredColorScheme(colorScheme)
         }
         .alert("確認", isPresented: $isPresentedDeleteAllHistoriesAlert) {
