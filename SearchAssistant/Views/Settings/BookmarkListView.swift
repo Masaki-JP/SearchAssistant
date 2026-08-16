@@ -2,8 +2,13 @@ import SearchCore
 import SwiftUI
 
 struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryProtocol>: View {
-    @State var bookmarks: [Bookmark] = []
+    @State var bookmarks: [Bookmark]
     let bookmarkRepository: BookmarkRepositoryType
+    
+    init(bookmarkRepository: BookmarkRepositoryType) {
+        self._bookmarks = .init(wrappedValue: (try? bookmarkRepository.load()) ?? .init())
+        self.bookmarkRepository = bookmarkRepository
+    }
     
     var body: some View {
         List {
@@ -40,7 +45,7 @@ struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryProtocol>: Vie
                 }
             }
         }
-        .onAppear(perform: loadBookmarks)
+        .task(loadBookmarks)
     }
     
     func bookmarkRowLink(_ bookmark: Bookmark) -> some View {
@@ -81,9 +86,14 @@ extension BookmarkListView {
         }
     }
     
-    func loadBookmarks() {
+    func loadBookmarks() async {
         do {
-            bookmarks = try bookmarkRepository.load()
+            let loadedBookmarks = try bookmarkRepository.load()
+            
+            guard loadedBookmarks != bookmarks else { return }
+            try? await Task.sleep(for: .seconds(0.3))
+            
+            withAnimation { bookmarks = loadedBookmarks }
         } catch {
             if error != .dataNotSet { reportError(error) }
             bookmarks = []
