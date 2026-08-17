@@ -32,6 +32,7 @@ struct SearchButtonsBarView: View {
                 Text("サーチボタンバーに表示する検索ボタンを設定できます。")
             }
         }
+        .animation(.easeInOut(duration: 0.15), value: enabledSearchButtons)
     }
     
     func rowButton(
