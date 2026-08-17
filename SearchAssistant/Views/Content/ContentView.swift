@@ -117,6 +117,7 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledSe
         .sheet(item: $presentedSettings, onDismiss: onSettingsViewDismiss) { presentation in
             let path: [SettingsRoute] = switch presentation {
             case .root: .init()
+            case .editBookmarks: [.bookmarkList]
             case .newBookmark: [.bookmarkList, .bookmarkForm(nil)]
             }
             
@@ -208,7 +209,10 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledSe
                 
                 Divider()
                 
-                Button("ブックマークを登録") { presentedSettings = .newBookmark }
+                ControlGroup {
+                    Button("編集", systemImage: "list.bullet") { presentedSettings = .editBookmarks }
+                    Button("登録", systemImage: "plus.rectangle") { presentedSettings = .newBookmark }
+                }
             }
             .menuOrder(.fixed)
         }

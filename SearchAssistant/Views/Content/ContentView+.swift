@@ -6,6 +6,7 @@ import SearchSuggestion
 extension ContentView {
     enum SettingsPresentation: Identifiable {
         case root
+        case editBookmarks
         case newBookmark
         
         var id: Self { self }
