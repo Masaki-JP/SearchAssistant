@@ -133,7 +133,7 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledS
         } header: {
             Text("外観モード")
         } footer: {
-            Text("iPhoneの外観モードに合わせるにはシステムを選択してください。")
+            Text("端末の外観モードに合わせるには、システムを選択してください。")
         }
         
     }
