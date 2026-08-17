@@ -115,14 +115,8 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledSe
                 .ignoresSafeArea()
         }
         .sheet(item: $presentedSettings, onDismiss: onSettingsViewDismiss) { presentation in
-            let path: [SettingsRoute] = switch presentation {
-            case .root: .init()
-            case .editBookmarks: [.bookmarkList]
-            case .newBookmark: [.bookmarkList, .bookmarkForm(nil)]
-            }
-            
             SettingsView(
-                path: path,
+                path: presentation.path,
                 bookmarkRepository: bookmarkRepository,
                 enabledSearchButtonRepository: enabledSearchButtonRepository
             )
