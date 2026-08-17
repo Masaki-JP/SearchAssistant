@@ -59,11 +59,7 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledS
                         defaultValue: enabledSearchButtons,
                         onSave: onSearchButtonsBarOrderSaved
                     ) { platform in
-                        HStack {
-                            FaviconImage(platform: platform)
-                            Text(platform.displayName)
-                        }
-                        .alignmentGuide(.listRowSeparatorLeading) { _ in -5 }
+                        FaviconListRow(platform: platform, title: platform.displayName)
                     } sectionHeader: {
                         Text("サーチボタンバー")
                     } sectionFooter: {
@@ -90,13 +86,7 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledS
                     
                 case .bookmarkOrder(let bookmarks):
                     ReorderableListView(defaultValue: bookmarks, onSave: bookmarkRepository.save) { bookmark in
-                        HStack(spacing: nil) {
-                            FaviconImage(platform: bookmark.platform)
-                            
-                            Text(bookmark.userInput)
-                                .lineLimit(1)
-                                .padding(.leading, 4)
-                        }
+                        FaviconListRow(platform: bookmark.platform, title: bookmark.userInput)
                         .alignmentGuide(.listRowSeparatorLeading) { _ in -5 }
                     } sectionHeader: {
                         Text("登録済みブックマーク")

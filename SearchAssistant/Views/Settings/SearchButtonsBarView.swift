@@ -10,7 +10,6 @@ struct SearchButtonsBarView: View {
             Section {
                 ForEach(SearchPlatform.allCases) { platform in
                     rowButton(platform: platform, action: onPlatformButtonTapped)
-                        .alignmentGuide(.listRowSeparatorLeading) { _ in -5 }
                         .alignmentGuide(.listRowSeparatorTrailing) { $0.width + 5 }
                 }
             } header: {
@@ -35,6 +34,8 @@ struct SearchButtonsBarView: View {
         .animation(.easeInOut(duration: 0.15), value: enabledSearchButtons)
     }
     
+    /// ``SearchButtonsBarView``の Form の行はファビコンが使用されているが、他の行とは異なる点が多いため、``FaviconListRow``を使用しない。
+    ///
     func rowButton(
         platform: SearchPlatform,
         action: @escaping (SearchPlatform) -> Void,
@@ -61,6 +62,7 @@ struct SearchButtonsBarView: View {
             }
         }
         .foregroundStyle(.primary)
+        .alignmentGuide(.listRowSeparatorLeading) { _ in -5 }
     }
 }
 

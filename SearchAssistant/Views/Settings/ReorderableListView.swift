@@ -105,13 +105,7 @@ struct ReorderableListView<Item: Identifiable & Equatable, RowContent: View, Hea
                 ReorderableListView(defaultValue: Bookmark.samples) { _ in
                     print("called save action")
                 } rowContent: { bookmark in
-                    HStack(spacing: nil) {
-                        FaviconImage(platform: bookmark.platform)
-                        
-                        Text(bookmark.userInput)
-                            .lineLimit(1)
-                            .padding(.leading, 4)
-                    }
+                    FaviconListRow(platform: bookmark.platform, title: bookmark.userInput)
                 } sectionHeader: {
                     Text("登録済みブックマーク")
                 }
