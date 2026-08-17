@@ -10,6 +10,14 @@ extension ContentView {
         case newBookmark
         
         var id: Self { self }
+
+        var path: [SettingsRoute] {
+            switch self {
+            case .root: .init()
+            case .editBookmarks: [.bookmarkList]
+            case .newBookmark: [.bookmarkList, .bookmarkForm(nil)]
+            }
+        }
     }
     
     struct SafariViewURL: Identifiable {
