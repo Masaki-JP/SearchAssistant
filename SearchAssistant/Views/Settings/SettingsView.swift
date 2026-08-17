@@ -102,7 +102,7 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledS
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("完了", action: dismiss.callAsFunction)
+                    Button(role: .close, action: dismiss.callAsFunction)
                 }
             }
         }
@@ -214,5 +214,6 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledS
             bookmarkRepository: .fake(returnValue: Bookmark.samples),
             enabledSearchButtonRepository: .fake(returnValue: returnValue)
         )
+        .presentationDragIndicator(.visible)
     }
 }
