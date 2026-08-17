@@ -6,7 +6,6 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledS
     @State var path: [SettingsRoute]
     @State var enabledSearchButtons = SearchPlatform.allCases
     
-    @Environment(\.scenePhase) var scenePhase
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var modelContext
     
@@ -108,10 +107,6 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledS
         }
         .onAppear(perform: loadEnabledSearchButtons)
         .onChange(of: historyMaximumCount, trimHistoriesIfNeeded)
-        .onChange(of: scenePhase) { _, newScene in
-            guard newScene != .active else { return }
-            dismiss()
-        }
         .sensoryFeedback(.selection, trigger: enabledSearchButtons)
     }
     
