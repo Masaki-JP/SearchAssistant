@@ -97,6 +97,7 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledS
                                 .lineLimit(1)
                                 .padding(.leading, 4)
                         }
+                        .alignmentGuide(.listRowSeparatorLeading) { _ in -5 }
                     } sectionHeader: {
                         Text("登録済みブックマーク")
                     }
