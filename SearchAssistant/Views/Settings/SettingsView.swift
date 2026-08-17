@@ -59,7 +59,11 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledS
                         defaultValue: enabledSearchButtons,
                         onSave: onSearchButtonsBarOrderSaved
                     ) { platform in
-                        Text(platform.displayName)
+                        HStack {
+                            FaviconImage(platform: platform)
+                            Text(platform.displayName)
+                        }
+                        .alignmentGuide(.listRowSeparatorLeading) { _ in -5 }
                     } sectionHeader: {
                         Text("サーチボタンバー")
                     } sectionFooter: {
