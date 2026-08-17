@@ -32,7 +32,7 @@ struct SearchButtonsBarView: View {
     
     func rowButton(
         platform: SearchPlatform,
-        action: @escaping (SearchPlatform) -> Void
+        action: @escaping (SearchPlatform) -> Void,
     ) -> some View {
         let isEnabled = enabledSearchButtons.contains(platform)
         

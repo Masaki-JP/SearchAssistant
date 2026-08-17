@@ -20,7 +20,7 @@ struct BookmarkFormView: View {
     
     init(
         defaultValue: Bookmark? = nil,
-        onSave: @escaping (_ userInput: String, _ platform: SearchPlatform) throws -> Void
+        onSave: @escaping (_ userInput: String, _ platform: SearchPlatform) throws -> Void,
     ) {
         self._userInput = .init(wrappedValue: defaultValue?.userInput ?? "")
         self._platform = .init(wrappedValue: defaultValue?.platform ?? .google)
