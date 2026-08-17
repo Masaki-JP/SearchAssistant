@@ -57,6 +57,7 @@ struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryProtocol>: Vie
                     .lineLimit(1)
                     .padding(.leading, 4)
             }
+            .alignmentGuide(.listRowSeparatorLeading) { _ in -5 }
         }
     }
     
