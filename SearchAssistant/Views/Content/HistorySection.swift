@@ -18,12 +18,8 @@ struct HistorySection: View {
                 }
                 .padding(.top, histories.first?.id == history.id ? 4 : 0)
                 .padding(.bottom, histories.last?.id == history.id ? 4 : 0)
-                .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
-                    return -5
-                })
-                .alignmentGuide(.listRowSeparatorTrailing, computeValue: { viewDementions in
-                    return viewDementions.width + 5
-                })
+                .alignmentGuide(.listRowSeparatorLeading) { _ in -5 }
+                .alignmentGuide(.listRowSeparatorTrailing) { $0.width + 5 }
                 .listRowInsets(.init(top: 6, leading: 12, bottom: 6, trailing: 12))
             }
             .onDelete { indexSet in
