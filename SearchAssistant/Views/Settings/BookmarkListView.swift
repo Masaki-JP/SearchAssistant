@@ -50,14 +50,7 @@ struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryProtocol>: Vie
     
     func bookmarkRowLink(_ bookmark: Bookmark) -> some View {
         NavigationLink(value: SettingsRoute.bookmarkForm(bookmark)) {
-            HStack(spacing: nil) {
-                FaviconImage(platform:bookmark.platform)
-                
-                Text(bookmark.userInput)
-                    .lineLimit(1)
-                    .padding(.leading, 4)
-            }
-            .alignmentGuide(.listRowSeparatorLeading) { _ in -5 }
+            FaviconListRow(platform: bookmark.platform, title: bookmark.userInput)
         }
     }
     

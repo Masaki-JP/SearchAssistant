@@ -18,8 +18,7 @@ struct HistorySection: View {
                 }
                 .padding(.top, histories.first?.id == history.id ? 4 : 0)
                 .padding(.bottom, histories.last?.id == history.id ? 4 : 0)
-                .alignmentGuide(.listRowSeparatorLeading) { _ in -5 }
-                .alignmentGuide(.listRowSeparatorTrailing) { $0.width + 5 }
+                .alignmentGuide(.listRowSeparatorTrailing) { $0.width + 5 } // ※1
                 .listRowInsets(.init(top: 6, leading: 12, bottom: 6, trailing: 12))
             }
             .onDelete { indexSet in
@@ -43,13 +42,7 @@ struct HistorySection: View {
     func historyRow(history: SearchHistory, action: @escaping () -> Void) -> some View {
         HStack(spacing: 8) {
             Button(action: action) {
-                HStack(spacing: nil) {
-                    FaviconImage(platform: history.platform)
-                    
-                    Text(history.userInput)
-                        .lineLimit(1)
-                        .padding(.leading, 4)
-                }
+                FaviconListRow(platform: history.platform, title: history.userInput)
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
             .foregroundStyle(.primary)
@@ -149,3 +142,6 @@ struct HistorySection: View {
         )
     }
 }
+
+/// ※1
+/// historyRow内で使用されているFaviconListRowは、listRowSeparatorLeadingが-5ptに設定されているため、左右の対称性を保つために5ptを設定している。
