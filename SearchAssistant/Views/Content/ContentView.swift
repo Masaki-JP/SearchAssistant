@@ -125,6 +125,7 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledSe
                 bookmarkRepository: bookmarkRepository,
                 enabledSearchButtonRepository: enabledSearchButtonRepository
             )
+            .presentationDragIndicator(.visible)
             .preferredColorScheme(colorScheme)
         }
         .alert("確認", isPresented: $isPresentedDeleteAllHistoriesAlert) {
