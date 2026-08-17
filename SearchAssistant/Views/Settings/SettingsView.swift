@@ -113,6 +113,7 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledS
         .onAppear(perform: loadEnabledSearchButtons)
         .onChange(of: historyMaximumCount, trimHistoriesIfNeeded)
         .sensoryFeedback(.selection, trigger: enabledSearchButtons)
+        .scrollEdgeEffectStyle(.hard, for: .all)
     }
     
     var focusControlSection: some View {
