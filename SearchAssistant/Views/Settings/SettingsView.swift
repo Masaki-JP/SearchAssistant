@@ -21,7 +21,7 @@ struct SettingsView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledS
     init(
         path: [SettingsRoute] = .init(),
         bookmarkRepository: BookmarkRepositoryType,
-        enabledSearchButtonRepository: EnabledSearchButtonRepositoryType
+        enabledSearchButtonRepository: EnabledSearchButtonRepositoryType,
     ) {
         self.path = path
         self.bookmarkRepository = bookmarkRepository

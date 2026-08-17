@@ -13,7 +13,7 @@ func reportError(
     message: String = "",
     fileID: String = #fileID,
     function: String = #function,
-    line: Int = #line
+    line: Int = #line,
 ) {
 #if DEBUG
     let errorDescription = String(describing: error)
@@ -29,7 +29,7 @@ func reportAction(
     message: String = "",
     fileID: String = #fileID,
     function: String = #function,
-    line: Int = #line
+    line: Int = #line,
 ) {
 #if DEBUG
     AppLog.action.debug(

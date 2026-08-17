@@ -70,7 +70,7 @@ nonisolated final class SuggestionXMLParser: NSObject, XMLParserDelegate {
         didStartElement elementName: String,
         namespaceURI: String?,
         qualifiedName qName: String?,
-        attributes attributeDict: [String : String] = [:]
+        attributes attributeDict: [String : String] = [:],
     ) {
         if elementName == "toplevel" {
             didFindToplevelElement = true
