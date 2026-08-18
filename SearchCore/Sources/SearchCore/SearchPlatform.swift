@@ -1,5 +1,7 @@
-/// rawValue はデコード、エンコードで使用しているため、開発開始時点の名称で固定する。
 public enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
+    
+    /// rawValue はデコード、エンコードで使用しているため、開発開始時点の名称で固定する。
+    ///
     case google = "Google"
     case x = "Twitter"
     case instagram = "Instagram"
@@ -15,26 +17,16 @@ public enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
 
     public var displayName: String {
         switch self {
-        case .google:
-            "Google"
-        case .x:
-            "X"
-        case .instagram:
-            "Instagram"
-        case .amazon:
-            "Amazon"
-        case .youtube:
-            "YouTube"
-        case .facebook:
-            "Facebook"
-        case .mercari:
-            "メルカリ"
-        case .rakuma:
-            "ラクマ"
-        case .yahooFleaMarket:
-            "Yahoo!フリマ"
-        case .googleMaps:
-            "Google Maps"
+        case .google: "Google"
+        case .x: "X"
+        case .instagram: "Instagram"
+        case .amazon: "Amazon"
+        case .youtube: "YouTube"
+        case .facebook: "Facebook"
+        case .mercari: "メルカリ"
+        case .rakuma: "ラクマ"
+        case .yahooFleaMarket: "Yahoo!フリマ"
+        case .googleMaps: "Googleマップ"
         }
     }
 
