@@ -27,7 +27,7 @@ struct SearchButtonsBar: View {
                     Button {
                         onSearchButtonTapped(searchPlatform)
                     } label: {
-                        Text(searchPlatform.shortDisplayName)
+                        Text(searchPlatform.displayName)
                             .fixedSize(horizontal: true, vertical: false)
                             .padding(.horizontal, 6)
                             .padding(.vertical, 12)
@@ -50,7 +50,7 @@ struct SearchButtonsBar: View {
                             Button {
                                 onSearchButtonTapped(searchPlatform)
                             } label: {
-                                Text(searchPlatform.shortDisplayName)
+                                Text(searchPlatform.displayName)
                                     .padding(.horizontal, 6)
                                     .padding(.vertical, 12)
                                     .frame(minWidth: 36)
