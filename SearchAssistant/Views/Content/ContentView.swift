@@ -194,7 +194,7 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledSe
                             searchAction(bookmark.userInput, on: bookmark.platform)
                         } label: {
                             Text(bookmark.userInput)
-                            Text("（\(bookmark.platform.shortDisplayName)）")
+                            Text("（\(bookmark.platform.displayName)）")
                         }
                     }
                 } header: {
