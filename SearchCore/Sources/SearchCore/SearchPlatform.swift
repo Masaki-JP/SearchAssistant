@@ -12,9 +12,13 @@ public enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
     case rakuma = "ラクマ"
     case yahooFleaMarket = "PayPayフリマ"
     case googleMaps = "Google Maps"
-
+    case rakutenIchiba = "楽天市場"
+    case yahooShopping = "Yahoo!ショッピング"
+    case tabelog = "食べログ"
+    case cookpad = "クックパッド"
+    
     public var id: Self { self }
-
+    
     public var displayName: String {
         switch self {
         case .google: "Google"
@@ -27,9 +31,13 @@ public enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
         case .rakuma: "ラクマ"
         case .yahooFleaMarket: "Yahoo!フリマ"
         case .googleMaps: "Googleマップ"
+        case .rakutenIchiba: "楽天市場"
+        case .yahooShopping: "Yahoo!ショッピング"
+        case .tabelog: "食べログ"
+        case .cookpad: "クックパッド"
         }
     }
-
+    
     public var prefixURL: String {
         switch self {
         case .google: "https://www.google.co.jp/search?q="
@@ -42,9 +50,13 @@ public enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
         case .rakuma: "https://fril.jp/s?query="
         case .yahooFleaMarket: "https://paypayfleamarket.yahoo.co.jp/search/"
         case .googleMaps: "https://www.google.com/maps/search/?api=1&query="
+        case .rakutenIchiba: "https://search.rakuten.co.jp/search/mall/"
+        case .yahooShopping: "https://shopping.yahoo.co.jp/search?p="
+        case .tabelog: "https://tabelog.com/rstLst/?sk="
+        case .cookpad: "https://cookpad.com/jp/search/"
         }
     }
-
+    
     public var iconCharacter: String {
         switch self {
         case .google: "G"
@@ -57,9 +69,13 @@ public enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
         case .rakuma: "R"
         case .yahooFleaMarket: "Y"
         case .googleMaps: "M"
+        case .rakutenIchiba: "R"
+        case .yahooShopping: "Y"
+        case .tabelog: "T"
+        case .cookpad: "C"
         }
     }
-
+    
     public var faviconResourceName: String {
         switch self {
         case .google: "google"
@@ -72,6 +88,10 @@ public enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
         case .rakuma: "rakuma"
         case .yahooFleaMarket: "yahoo_flea_market"
         case .googleMaps: "google_maps"
+        case .rakutenIchiba: "rakuten_ichiba"
+        case .yahooShopping: "yahoo_shopping"
+        case .tabelog: "tabelog"
+        case .cookpad: "cookpad"
         }
     }
 }
