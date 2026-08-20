@@ -16,6 +16,9 @@ public enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
     case yahooShopping = "Yahoo!ショッピング"
     case tabelog = "食べログ"
     case cookpad = "クックパッド"
+    case chatGPT = "ChatGPT"
+    case claude = "Claude"
+    case grok = "Grok"
     
     public var id: Self { self }
     
@@ -35,6 +38,9 @@ public enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
         case .yahooShopping: "Yahoo!ショッピング"
         case .tabelog: "食べログ"
         case .cookpad: "クックパッド"
+        case .chatGPT: "ChatGPT\u{202F}(Beta)"
+        case .claude: "Claude\u{202F}(Beta)"
+        case .grok: "Grok\u{202F}(Beta)"
         }
     }
     
@@ -54,6 +60,9 @@ public enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
         case .yahooShopping: "https://shopping.yahoo.co.jp/search?p="
         case .tabelog: "https://tabelog.com/rstLst/?sk="
         case .cookpad: "https://cookpad.com/jp/search/"
+        case .chatGPT: "https://chatgpt.com/?prompt="
+        case .claude: "https://claude.ai/new?q="
+        case .grok: "https://grok.com/?q="
         }
     }
     
@@ -73,6 +82,9 @@ public enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
         case .yahooShopping: "Y"
         case .tabelog: "T"
         case .cookpad: "C"
+        case .chatGPT: "C"
+        case .claude: "C"
+        case .grok: "G"
         }
     }
     
@@ -92,6 +104,9 @@ public enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
         case .yahooShopping: "yahoo_shopping"
         case .tabelog: "tabelog"
         case .cookpad: "cookpad"
+        case .chatGPT: "chatgpt"
+        case .claude: "claude"
+        case .grok: "grok"
         }
     }
 }
