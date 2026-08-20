@@ -19,6 +19,7 @@ public enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
     case chatGPT = "ChatGPT"
     case claude = "Claude"
     case grok = "Grok"
+    case perplexity = "Perplexity"
     
     public var id: Self { self }
     
@@ -41,6 +42,7 @@ public enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
         case .chatGPT: "ChatGPT\u{202F}(Beta)"
         case .claude: "Claude\u{202F}(Beta)"
         case .grok: "Grok\u{202F}(Beta)"
+        case .perplexity: "Perplexity\u{202F}(Beta)"
         }
     }
     
@@ -63,6 +65,7 @@ public enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
         case .chatGPT: "https://chatgpt.com/?prompt="
         case .claude: "https://claude.ai/new?q="
         case .grok: "https://grok.com/?q="
+        case .perplexity: "https://perplexity.ai/search/?q="
         }
     }
     
@@ -85,6 +88,7 @@ public enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
         case .chatGPT: "C"
         case .claude: "C"
         case .grok: "G"
+        case .perplexity: "P"
         }
     }
     
@@ -107,6 +111,7 @@ public enum SearchPlatform: String, Codable, CaseIterable, Identifiable {
         case .chatGPT: "chatgpt"
         case .claude: "claude"
         case .grok: "grok"
+        case .perplexity: "perplexity"
         }
     }
 }

@@ -24,7 +24,7 @@ public struct SearchURLCreator {
             input.removeAll { $0 == " " || $0 == "　" }
         }
 
-        if [.chatGPT, .claude, .grok].contains(searchPlatform) {
+        if [.chatGPT, .claude, .grok, .perplexity].contains(searchPlatform) {
             input = "「\(input)」について教えてください。"
         }
 
