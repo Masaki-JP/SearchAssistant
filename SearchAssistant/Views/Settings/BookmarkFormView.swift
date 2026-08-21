@@ -34,6 +34,13 @@ struct BookmarkFormView: View {
         userInput.split(whereSeparator: \.isWhitespace).joined(separator: " ")
     }
     
+    func onUserInputChange() {
+        let maxUserInputLength = 1000
+        if userInput.count > maxUserInputLength {
+            userInput = String(userInput.prefix(maxUserInputLength))
+        }
+    }
+
     var isConfirmButtonDisabled: Bool {
         guard normalizedUserInput.isEmpty == false else { return true }
         
@@ -115,6 +122,9 @@ struct BookmarkFormView: View {
         }
         .onAppear {
             if defaultValue == nil { isFocused = true }
+        }
+        .onChange(of: userInput) { _, _ in
+            onUserInputChange()
         }
     }
 }
