@@ -22,3 +22,11 @@ UserDefaults Keys（AppStorageも含む）
 バージョン管理にはSemantic Versioningを採用する。
 
 ————————————————————
+
+ListやFormの行でファビコン画像を使用する場合は、区切り線の左右が対称になるように`listRowSeparatorLeading`に`-5`、`listRowSeparatorTrailing`に行の幅`+ 5`を設定する。ただし、行がリンクになっていて末尾に`>`マークが表示される場合は適用しない。
+
+————————————————————
+
+ユーザー入力を有効として扱う際は、`split(whereSeparator: \.isWhitespace)`で空白文字を区切りとして分割し、単一の半角スペースで連結した文字列を用いる。正規化後の文字列が空の場合は無効とする。ユーザー入力は`String.count`で1000文字以内に制限する。
+
+————————————————————
