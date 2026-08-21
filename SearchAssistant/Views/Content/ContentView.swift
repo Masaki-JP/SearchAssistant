@@ -225,64 +225,39 @@ struct ContentView<BookmarkRepositoryType: BookmarkRepositoryProtocol, EnabledSe
  ※1: safeAreaBarを使用すると、キーボードは表示されるがFocusStateの値が変更されないため、safeAreaInsetを使用する。
  */
 
-#Preview("Light 1", traits: .searchHistorySampleData) {
-    let returnValue: [SearchPlatform] = [.amazon, .instagram, .mercari, .googleMaps]
-    
+#if DEBUG
+private let enabledSearchButtons: [SearchPlatform] = [.amazon, .instagram, .mercari, .googleMaps]
+
+private func previewContent(userInput: String = "", colorScheme: ColorScheme) -> some View {
     ContentView(
+        userInput: userInput,
         bookmarkRepository: .fake(returnValue: Bookmark.samples),
-        enabledSearchButtonRepository: .fake(returnValue: returnValue)
+        enabledSearchButtonRepository: .fake(returnValue: enabledSearchButtons),
     )
-    .preferredColorScheme(.light)
+    .preferredColorScheme(colorScheme)
+}
+
+#Preview("Light 1", traits: .searchHistorySampleData) {
+    previewContent(colorScheme: .light)
 }
 
 #Preview("Light 2") {
-    let returnValue: [SearchPlatform] = [.amazon, .instagram, .mercari, .googleMaps]
-    
-    ContentView(
-        bookmarkRepository: .fake(returnValue: Bookmark.samples),
-        enabledSearchButtonRepository: .fake(returnValue: returnValue)
-    )
-    .preferredColorScheme(.light)
+    previewContent(colorScheme: .light)
 }
 
 #Preview("Light 3", traits: .searchHistorySampleData) {
-    let returnValue: [SearchPlatform] = [.amazon, .instagram, .mercari, .googleMaps]
-    
-    ContentView(
-        userInput: "apple",
-        bookmarkRepository: .fake(returnValue: Bookmark.samples),
-        enabledSearchButtonRepository: .fake(returnValue: returnValue)
-    )
-    .preferredColorScheme(.light)
+    previewContent(userInput: "apple", colorScheme: .light)
 }
 
 #Preview("Dark 1", traits: .searchHistorySampleData) {
-    let returnValue: [SearchPlatform] = [.amazon, .instagram, .mercari, .googleMaps]
-    
-    ContentView(
-        bookmarkRepository: .fake(returnValue: Bookmark.samples),
-        enabledSearchButtonRepository: .fake(returnValue: returnValue)
-    )
-    .preferredColorScheme(.dark)
+    previewContent(colorScheme: .dark)
 }
 
 #Preview("Dark 2") {
-    let returnValue: [SearchPlatform] = [.amazon, .instagram, .mercari, .googleMaps]
-    
-    ContentView(
-        bookmarkRepository: .fake(returnValue: Bookmark.samples),
-        enabledSearchButtonRepository: .fake(returnValue: returnValue)
-    )
-    .preferredColorScheme(.dark)
+    previewContent(colorScheme: .dark)
 }
 
 #Preview("Dark 3", traits: .searchHistorySampleData) {
-    let returnValue: [SearchPlatform] = [.amazon, .instagram, .mercari, .googleMaps]
-    
-    ContentView(
-        userInput: "apple",
-        bookmarkRepository: .fake(returnValue: Bookmark.samples),
-        enabledSearchButtonRepository: .fake(returnValue: returnValue)
-    )
-    .preferredColorScheme(.dark)
+    previewContent(userInput: "apple", colorScheme: .dark)
 }
+#endif
