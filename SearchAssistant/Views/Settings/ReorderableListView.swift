@@ -42,6 +42,7 @@ struct ReorderableListView<Item: Identifiable & Equatable, RowContent: View, Hea
                 sectionFooter()
             }
         }
+        .scrollIndicators(.hidden)
         .environment(\.editMode, .constant(.active))
         .alert("保存失敗", isPresented: $isSaveErrorAlertPresented) {
             Button(role: .close, action: dismiss.callAsFunction)
