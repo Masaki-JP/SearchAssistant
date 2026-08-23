@@ -31,6 +31,7 @@ struct SearchButtonsBarView: View {
                 Text("サーチボタンバーに表示する検索ボタンを設定できます。")
             }
         }
+        .scrollIndicators(.hidden)
         .animation(.easeInOut(duration: 0.15), value: enabledSearchButtons)
     }
     

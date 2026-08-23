@@ -30,6 +30,7 @@ struct BookmarkListView<BookmarkRepositoryType: BookmarkRepositoryProtocol>: Vie
                 }
             }
         }
+        .scrollIndicators(.hidden)
         .overlay {
             if bookmarks.isEmpty == true {
                 NoContentView.bookmark
