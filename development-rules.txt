@@ -4,12 +4,14 @@ UserDefaults Keys（AppStorageも含む）
 
 現在使用中
 - autoFocus
-- searchButtonLeft
 - colorScheme
 - keyboardToolbarButtons（SearchButtonsBarの設定で使用）
 - openInSafariView
+- historyMaximumCount
+- bookmarks
 
 過去に使用
+- searchButtonLeft
 - historys
 - didMigrateSearchHistoriesToSwiftData
 - searchHistorysData
